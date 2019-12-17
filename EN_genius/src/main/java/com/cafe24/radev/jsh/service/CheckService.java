@@ -141,14 +141,14 @@ public class CheckService {
 		return oxList;
 	}
 	
-	public List<String> getBasicCheckList(String bigCate) {
+	public List<String> getBigCateCheckList(String bigCate) {
 		
-		System.out.println("getBasicCheckList CheckService 호출");
-		System.out.println(bigCate + " <-bigCate getBasicCheckList CheckService.java");
+		System.out.println("getBigCateCheckList CheckService 호출");
+		System.out.println(bigCate + " <-bigCate getBigCateCheckList CheckService.java");
 		
-		List<BasicCheck> list = checkMapper.getBasicCheckList(bigCate);
-		System.out.println(list + " <-list getBasicCheckList CheckService.java");
-		System.out.println(list.size() + " <-list.size() getBasicCheckList");
+		List<BasicCheck> list = checkMapper.getBigCateCheckList(bigCate);
+		System.out.println(list + " <-list getBigCateCheckList CheckService.java");
+		System.out.println(list.size() + " <-list.size() getBigCateCheckList");
 		
 		List<String> midCateList = new ArrayList<String>();;
 		
@@ -160,6 +160,11 @@ public class CheckService {
 		return midCateList;
 	
 	}
+	
+	public List<String> getMidCateCheckList(String midCate){
+		
+		return null;
+	}	
 	
 //	public List<Map<String, Object>> getCheckList(String bigcate){
 //		System.out.println("getCheckList CheckService 호출");
