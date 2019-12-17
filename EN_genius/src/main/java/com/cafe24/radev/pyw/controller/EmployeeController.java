@@ -39,8 +39,9 @@ public class EmployeeController {
 	 * @return
 	 */
 	@GetMapping("/employeeSelect")
-	public String employeeList(Model model) {
-		model.addAttribute("employeeList", employeeService.employeeList());
+	public String employeeList(Model model, String bsCode) {
+		System.out.println("사업장코드==>"+ bsCode);
+		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
 		return "/employee/employeeList";
 	}
 	/**

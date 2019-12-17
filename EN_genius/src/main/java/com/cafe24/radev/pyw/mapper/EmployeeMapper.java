@@ -15,7 +15,7 @@ public interface EmployeeMapper {
 
 	int addEmployee();
 	
-	List<Employee> employeeList();
+	List<Employee> employeeList(String bsCode);
 	
 	Employee employeeLogin(Employee employee);
 }

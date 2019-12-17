@@ -158,12 +158,26 @@
 				    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
 				    </div>
 				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="text" id="bs_addr" name="bsAddr" placeholder="사업장주소" class="form-control">
-				    <div class="input-group-addon"><i class="fa fa-home"></i></div>
-				    </div>
-				    </div>
+					<div class="row">
+						<div class="col-lg-6">
+							<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="사업장주소" readonly="readonly"><br>
+						</div>
+						<div class="col-lg-6">
+							<input class="form-control btn-danger" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<input class="form-control" type="text"	name="addr1" id="address" placeholder="주소" readonly="readonly"><br>
+						</div>
+						<div class="col-lg-6">
+							<input class="form-control" type="text" name="addr2" id="detailAddress" placeholder="상세주소"><br>
+						</div>
+					</div>
+					<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+					<div id="layer">
+						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" onclick="closeDaumPostcode()" alt="닫기 버튼">
+					</div>				 			    
 				    <div class="form-group">
 				    <div class="input-group">
 				    	<input type="text" id="bs_telephone" name="bsTelephone" placeholder="사업장전화번호" class="form-control">
@@ -187,5 +201,7 @@
 		    </div>
 	    </div>
     </div>
+    <script src="assets/js/addr.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>    
 	</th:block>
 </html>
