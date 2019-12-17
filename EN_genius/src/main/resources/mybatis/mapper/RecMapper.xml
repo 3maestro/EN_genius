@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.radev.jcs.mapper.RecMapper">
+	<resultMap type="com.cafe24.radev.jcs.vo.VoRecRegister" id="RecRegisterMap">
+		
+		<result property="receptionCode" column="reception_code"/>
+		<result property="bsCode" column="bs_code"/>
+		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="repairClassCode" column="repair_class_code"/>
+		<result property="displaceMent" column="reception_writer"/>
+		<result property="receptionDate" column="reception_date"/>
+
+	</resultMap>
+
+	<select id="getRecList" resultMap="RecRegisterMap">
+	SELECT 
+	
+		reception_code, 
+		bs_code, 
+		customer_car_info_code, 
+		repair_class_code, 
+		reception_writer, 
+		reception_date
+		
+	FROM reception_tb
+	</select>
+
+	<insert id="getRecInsert" parameterType="com.cafe24.radev.jcs.vo.VoRecRegister">
+		INSERT INTO 
+		reception_tb 
+		
+		(reception_code,
+		 bs_code,
+		 customer_car_info_code, 
+		 repair_class_code, 
+		 reception_writer, 
+		 reception_date)
+	VALUES (${receptionCode},
+			${bsCode}, 
+			${customerCarInfoCode}, 
+			${repairClassCode}, 
+			${displaceMent}, 
+			NOW())
+	
+	</insert>
+</mapper>
