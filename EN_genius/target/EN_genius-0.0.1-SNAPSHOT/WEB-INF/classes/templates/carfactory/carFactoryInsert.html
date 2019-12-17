@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius</title>
+	</th:block>
+	<th:block layout:fragment="customScript">
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+		
+			$('#formCheck').click(function(){
+			var bossIdCheck = $('input[name="bossId"]');
+			var bossPwCheck = $('input[name="bossPw"]');
+			var bossPwCheck2 = $('input[name="passwordCheck"]');
+			var bossNameCheck = $('input[name="bossName"]');
+			var bossPhoneNumCheck = $('input[name="bossPhonenum"]');
+			var bossEmailCheck = $('input[name="bossEmail"]');
+			var bsNameCheck = $('input[name="bsName"]');
+			var bsNumCheck = $('input[name="bsNumber"]');
+			var bsAddrCheck = $('input[name="bsAddr"]');
+			var bsTelephoneCheck = $('input[name="bsTelephone"]');
+			var bsRegistrationCheck = $('input[name="bsRegistration"]');
+			var bsDocuCheck = $('input[name="bs_docu"]');
+			
+				if(bossIdCheck.val() == ''){
+					alert('아이디를 입력하세요');
+					bossIdCheck.focus();
+					return false;
+				}else if(bossPwCheck.val() == ''){
+					alert('비밀번호를 입력하세요');
+					bossPwCheck.focus();
+					return false;
+				}else if(bossPwCheck.val() != bossPwCheck2.val()){
+					alert('비밀번호가 일치하지 않습니다');
+					bossPwCheck2.focus();
+					return false;
+				}else if(bossNameCheck.val() == ''){
+					alert('이름을 입력하세요');
+					bossNameCheck.focus();
+					return false;
+				}else if(bossPhoneNumCheck.val() == ''){
+					alert('휴대폰 번호를 입력하세요');
+					bossPhoneNumCheck.focus();
+					return false;
+				}else if(bossEmailCheck.val() == ''){
+					alert('이메일을 입력하세요');
+					bossEmailCheck.focus();
+					return false;
+				}else if(bsNameCheck.val() == ''){
+					alert('사업장명을 입력하세요');
+					bsNameCheck.focus();
+					return false;
+				}else if(bsNumCheck.val() == ''){
+					alert('사업자번호를 입력하세요');
+					bsNumCheck.focus();
+					return false;
+				}else if(bsAddrCheck.val() == ''){
+					alert('사업장 주소를 입력하세요');
+					bsAddrCheck.focus();
+					return false;
+				}else if(bsTelephoneCheck.val() == ''){
+					alert('사업장 연락처를 입력하세요');
+					bsTelephoneCheck.focus();
+					return false;
+				}else if(bsRegistrationCheck.val() == ''){
+					alert('사업장 등록일을 입력하세요');
+					bsRegistrationCheck.focus();
+					return false;
+				}else if(bsDocuCheck.val() == ''){
+					alert('사업장 서류를 첨부하세요');
+					bsDocuCheck.focus();
+					return false;
+				}
+			}); 
+				
+/* 			 var checkAjaxSetTimeout;
+			    $('#boss_id').keyup(function(){
+			        clearTimeout(checkAjaxSetTimeout);
+			        checkAjaxSetTimeout = setTimeout(function(){
+			        if( $('#boss_id').val().length > 10) {
+			            var bossId = $(this).val();
+			            
+			            var request = $.ajax({
+			                url : "/idCheckCall",
+			                method : "POST",
+			                data: { id : id },
+			                success : function(result) {
+			                    //console.log(result);
+			                    if (result == "ok") {
+			                        $("#result_id_msg").html("사용 가능한 아이디 입니다.");
+			                    } else {
+			                        $("#result_id_msg").html("사용 불가능한 아이디 입니다.");
+			                    }
+			                }
+			            });
+			            1000});
+			        }
+			    }); */
+		});	
+	</script>
+	</th:block>
+	<th:block layout:fragment="customContents">
+	<div class="col-lg-6">
+	    <div class="card">
+		    <div class="card-header">회원가입</div>
+		    <div class="card-body card-block">
+			    <form method="post" th:action="@{/carFactoryInsert}" class="" enctype="multipart/form-data">
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" id="boss_id" name="bossId" placeholder="아이디" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="password" id="boss_pw" name="bossPw" placeholder="비밀번호" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="password" id="passwordCheck" name="passwordCheck" placeholder="비밀번호 재확인" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" id="boss_name" name="bossName" placeholder="이름" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="tel" id="boss_phonenum" name="bossPhonenum" placeholder="핸드폰" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-tablet"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" id="boss_email" name="bossEmail" placeholder="이메일" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" id="bs_name" name="bsName" placeholder="사업장명" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-wrench"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" id="bs_num" name="bsNumber" placeholder="사업장번호" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" id="bs_addr" name="bsAddr" placeholder="사업장주소" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-home"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" id="bs_telephone" name="bsTelephone" placeholder="사업장전화번호" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="date" id="bs_registration" name="bsRegistration" placeholder="사업장등록일" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="file" id="bs_docu" name="bs_docu" placeholder="사업장서류" class="form-control">
+				    <div class="input-group-addon"><i class="fa fa-folder-o"></i></div>
+				    </div>
+				    </div>
+				    <div class="form-actions form-group"><button type="submit" id="formCheck" class="btn btn-secondary btn-sm">가입하기</button></div>
+			    </form>
+		    </div>
+	    </div>
+    </div>
+	</th:block>
+</html>
