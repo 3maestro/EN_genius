@@ -32,10 +32,9 @@ public class PartController {
 
 	/**
 	 * 부품목록(리스트)호출
-	 * 그룹코드 호출
 	 * 
 	 * @param model
-	 * @return
+	 * @return 
 	 */
 	@GetMapping("/partList")
 	public String getPartList(Model model) {
@@ -43,7 +42,7 @@ public class PartController {
 
 		model.addAttribute("partList", partService.getPartList());
 		
-		model.addAttribute("groupCode", partService.getGroup());
+		//model.addAttribute("groupCode", partService.getGroup());
 		return "/part/partList";
 	};
 
@@ -85,10 +84,10 @@ public class PartController {
 	 */
 	@GetMapping("/partInsertPro")
 	public String partInsertPro(Part parts, HttpSession session) {
-		// 등록자입력을 위한 세션값
-		// String id = (String)session.getAttribute("userId");
+		
+		
 		System.out.println(parts.getPartName() + "<<<부품등록값");
-		partService.partInsertPro(parts);
+		partService.partInsertPro(parts, session);
 
 		return "redirect:/partInsert";
 	};
@@ -132,7 +131,7 @@ public class PartController {
 	 */
 	@PostMapping("/partGroupToOrder")
 	public String getPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
-		System.out.println("뭉탱이데이터호출");
+		System.out.println("partGroup");
 		System.out.println(partCheck+"<체크값들");
 		System.out.println(groupCode+"<코드값");
 		
@@ -184,9 +183,9 @@ public class PartController {
 	 * @return
 	 */
 	@GetMapping("/partUpdate")
-	public String partUpdate(Part part) {
+	public String partUpdate(Part part,HttpSession session) {
 		System.out.println("업데이트");
-		partService.partUpdateforMany(part);
+		partService.partUpdateforMany(part,session);
 		return "redirect:/partList";
 	}
 }

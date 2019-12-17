@@ -3,9 +3,9 @@ package com.cafe24.radev.pet.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,7 @@ public class PartService {
 	SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 	Calendar time = Calendar.getInstance();
 	String nowDate = format.format(time.getTime());
+	
 	
 	/**
 	 * 부품전체목록조회
@@ -54,7 +55,7 @@ public class PartService {
 		return categoryMapper.getFirstCateList();
 	}
 	/**
-	 * 부품등록시 중분류선택을 위한 데이터조회(Ajax)
+	 * 부품등록시 중분류선택을 위한 데이터조회(Ajax 호출)
 	 * @return
 	 */
 	public List<String> selectSecondDate(String fVal){
@@ -73,28 +74,30 @@ public class PartService {
 	 * 신규부품등록
 	 * @param parts
 	 */
-	public void partInsertPro(Part parts) {
+	public void partInsertPro(Part parts, HttpSession session) {
 		//수정자아이디
-		String partWrite = "id002";
+		String partWrite = (String)session.getAttribute("SID");
 		//수정공업사코드
-		String factory = "cp002";
+		String bsCode = (String)session.getAttribute("SCODE");
+		System.out.println(bsCode + " : 세션값 사업장코드");
+		
 		System.out.println("partInsertPro/Service");
 		System.out.println(nowDate+"<<현재시간/service");
 		
 		parts.setPartWrite(partWrite);
 		parts.setPartUpdateDate(nowDate);
-		parts.setFactory(factory);
+		parts.setFactory(bsCode);
 		
 		partMapper.partInsertPro(parts);
 	}
 	/**
 	 * 부품수량업데이트
 	 */
-	public void partUpdateforMany(Part part) {
+	public void partUpdateforMany(Part part, HttpSession session) {
 		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 		Calendar time = Calendar.getInstance();
 		//수정자아이디
-		String partWrite = "id002";
+		String partWrite = (String)session.getAttribute("SID");
 		String partUpdateDate = format.format(time.getTime());
 		
 		System.out.println(partUpdateDate+"<<현재시간/service");
@@ -113,30 +116,24 @@ public class PartService {
 	 * @param partCheck
 	 * @param groupCode
 	 */
-//	public Map<String,Object> getPartGroup(String partCheck,String groupCode) {
 	public List<Part> getPartGroup(String partCheck,String groupCode) {
 		System.out.println(partCheck +"getPartGroup/service");
 		System.out.println(groupCode +"getPartGroup/service");
 		List<Part> checkList = new ArrayList<Part>();
-		Map<String,Object> checksMap = new HashMap<String,Object>();
+		
 		String checkValue = null;
 		
 		String[] partChecks =  partCheck.split(",");
 		for(int i=0 ;i<partChecks.length; i++) {
 			System.out.println(i+":"+partChecks[i]);
 			checkValue = partChecks[i];
-			//checksMap.put(checkValue,partMapper.partSelectForOrder(checkValue));
-			//System.out.println(i+":"+partMapper.partSelectForOrder(checkValue).toString());
 			checkList.add(partMapper.partSelectForOrder(checkValue));
 		}
-		//System.out.println(checksMap.toString()+"<담긴값");
-			System.out.println(checkList.toString()+"<담긴값");
-		//return checksMap;
 		return checkList;
 	}
 	
 	/**
-	 * 코드 검색후 자동생성
+	 * 그룹코드 검색후 그룹코드자동생성
 	 * @return 생성시킬 코드값
 	 */
 	public String getGroup() {
