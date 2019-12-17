@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius [[${title}]]</title>
+	</th:block>
+	<th:block layout:fragment="customScript">
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="assets/js/customer-validation.js"></script>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<h1>
+			[[${title}]]
+		</h1>
+		<div class="login-form">
+			<form id="form" method="post">
+				<div class="row">
+					<div class="form-group col-lg-6">
+						<label>
+							고객 명
+						</label>
+						<input type="text" th:if="${title} == '고객등록'" id="customerName" name="customerName" class="form-control" placeholder="고객 명">
+						<input type="text" th:unless="${title} == '고객등록'" value="aa" id="customerName" name="customerName" class="form-control" placeholder="고객 명">
+					</div>
+					<div class="form-group col-lg-6">
+						<label>
+							고객 생일
+						</label>
+						<input type="date" id="customerBirth" name="customerBirth" class="form-control" placeholder="Email">
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-6">
+						<label>
+							고객 성별
+						</label>
+						<div class="form-control">
+							<div class="row">
+								<div style="width: 50%">
+									<label>
+										<input type="radio" name="customerGender" value="남" style="margin-left : 15px;">남
+									</label>
+								</div>
+								<div style="width: 50%">
+									<label>
+										<input type="radio" name="customerGender" value="여">여
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-lg-6 customerPhone">
+						<label>
+							고객연락처
+						</label>
+						<input type="text" id="customerPhoneInput" name="customerPhone" class="form-control" placeholder="전화번호">
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-12">
+						<label>
+							고객주소
+						</label>
+						<div class="row">
+							<div class="col-lg-6">
+								<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="우편번호" readonly="readonly"><br>
+							</div>
+							<div class="col-lg-6">
+								<input class="form-control btn-danger" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<input class="form-control" type="text"	name="addr1" id="address" placeholder="주소" readonly="readonly"><br>
+							</div>
+							<div class="col-lg-6">
+								<input class="form-control" type="text" name="addr2" id="detailAddress" placeholder="상세주소"><br>
+							</div>
+						</div>
+						<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+						<div id="layer">
+							<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" onclick="closeDaumPostcode()" alt="닫기 버튼">
+						</div>
+						<div th:unless="${title} == '고객등록'" class="row">
+							<div class="col-lg-12">
+								<input class="form-control" type="text" placeholder="메모" >
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<label>
+									<input type="checkbox">
+									SMS 수신 동의
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button type="submit" id="Registration-submit" class="btn btn-primary btn-flat m-b-30 m-t-30">고객 등록</button>
+			</form>
+		</div>
+		<script src="assets/js/addr.js"></script>
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	</th:block>
+</html>
+
