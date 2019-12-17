@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis맵퍼  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace속성은 인터페이스의 위치를 적는다. -->
+<mapper namespace="com.cafe24.radev.pet.mapper.CategoryForCarMapper">
+	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
+	<resultMap type="com.cafe24.radev.pet.vo.FirstCategoryForCar" id="FCateRM">
+		<result property="firstCateCode" column="ck_big_code"/>
+		<result property="firstCateName" column="ck_big_name"/>
+		<result property="firstCateWrite" column="cb_writer"/>
+		<result property="firstCateUpDate" column="cb_date"/>
+	</resultMap>
+	<resultMap type="com.cafe24.radev.pet.vo.SecondCategoryForCar" id="SCateRM">
+		<result property="secondCateCode" column="ck_mid_code"/>
+		<result property="fristCateCode" column="ck_big_code"/>
+		<result property="firstCateName" column="ck_big_name"/>
+		<result property="secondCateName" column="ck_mid_name"/>
+		<result property="secondCateWriter" column="ck_mid_writer"/>
+		<result property="secondCateDate" column="ck_mid_date"/>
+	</resultMap>
+	<select id="getFirstCateList" resultMap="FCateRM">
+		SELECT 
+			ck_big_name
+		FROM
+			check_bigcate_tb
+	</select>
+<!-- 	
+	<select id="getSecondCateList" resultType="com.cafe24.radev.vo.pet.SecondCategoryForCar">
+		SELECT 
+			ck_big_name as firstCateName,
+			ck_mid_name AS secondCateName
+		FROM
+			check_midcate_tb
+	</select>
+ -->
+ 	<select id="getSecondCateList" resultMap="SCateRM" parameterType="com.cafe24.radev.pet.vo.FirstCategoryForCar">
+		SELECT 		 
+			ck_mid_name 
+		FROM
+			check_midcate_tb
+		where
+			ck_big_name=#{firstCateName}
+	</select>
+	
+</mapper>

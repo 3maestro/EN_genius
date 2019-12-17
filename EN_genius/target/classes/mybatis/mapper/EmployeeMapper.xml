@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.cafe24.radev.pyw.mapper.EmployeeMapper">
+		<resultMap type="com.cafe24.radev.pyw.vo.Employee" id="employeeResultMap">
+			<result property="employeeCode" 	column="ei_code"/>
+			<result property="bsCode" 			column="bs_code"/>
+			<result property="edCode" 			column="ed_code"/>
+			<result property="ddCode"   		column="dd_code"/>
+			<result property="employeePass"  	column="emp_pass"/>
+			<result property="employeeName" 	column="emp_name"/>
+			<result property="employeeBirth" 	column="emp_birth"/>
+			<result property="employeeGender"	column="emp_gender"/>
+			<result property="employeeAddr"		column="emp_addr"/>
+			<result property="employeePhone"	column="emp_phone"/>
+			<result property="joinDate"			column="join_date"/>
+			<result property="resignationDate"  column="resignation_date"/>
+		</resultMap>
+		<select id="employeeList" resultMap="employeeResultMap">
+			SELECT 
+				* 
+			from 
+				employee_information_tb;
+		</select>
+		<select id="employeeLogin" resultMap="employeeResultMap">
+			SELECT 
+				* 
+			FROM 
+				 employee_information_tb
+			WHERE ei_code= #{employeeCode};
+		</select>
+	</mapper>
