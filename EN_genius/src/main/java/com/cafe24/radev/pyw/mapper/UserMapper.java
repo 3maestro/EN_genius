@@ -25,5 +25,5 @@ public interface UserMapper {
 	
 	String selectImage(String bsCode);
 	
-	int approvalCheck(String[] bsCode);
+	int approvalCheck(List<String> bsCodeList);
 }

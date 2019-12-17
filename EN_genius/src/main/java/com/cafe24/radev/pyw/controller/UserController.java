@@ -86,13 +86,12 @@ public class UserController {
 	/**
 	 * 사업장 리스트 내 팝업으로 서류 이미지 띄우기
 	 * @param bsCode
-	 * @param model
 	 * @return
 	 */
-	@PostMapping("/selectImage")
-	public @ResponseBody String selectImage(@RequestParam(value = "bsCode") String bsCode, Model model) {
+	@PostMapping("/*/selectImage")
+	public @ResponseBody String selectImage(@RequestParam(value = "bsCode") String bsCode) {
 		System.out.println("코드값" + bsCode);
-		//System.out.println(userService.selectImage(bsCode));		
+		System.out.println("====>" + userService.selectImage(bsCode));		
 		return userService.selectImage(bsCode);
 	}
 	/**
@@ -101,9 +100,16 @@ public class UserController {
 	 * @return
 	 */
 	
-	  @GetMapping("/approvalCheck") public String aaa(@RequestParam(value =
-	  "bsCode") String[] bsCode) { userService.approvalCheck(bsCode); return
-	  "/carfactory/carFactoryList"; }
+	
+	
+	  @PostMapping("/approvalCheck") 
+	  public String approvalCheck(@RequestParam(value="bsCode") String[] bsCode) { 
+		  System.out.println("승인체크배열->"+ bsCode);
+		  userService.approvalCheck(bsCode); 
+		  return "redirect:/CarFactorySearch";
+	  }
+	 
+	 
 	 
 /********************************************************************************************************로그인*/	
 	/**
