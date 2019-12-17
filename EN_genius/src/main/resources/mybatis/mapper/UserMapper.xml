@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.cafe24.radev.pyw.mapper.UserMapper">
+		<resultMap type="com.cafe24.radev.pyw.vo.CarFactory" id="carFactoryResultMap">
+			<result property="bsCode" 			column="bs_code"/>
+			<result property="bsLevel" 			column="bs_level"/>
+			<result property="bossId" 			column="boss_id"/>
+			<result property="bossPw"   		column="boss_pw"/>
+			<result property="bossName"  		column="boss_name"/>
+			<result property="bossPhonenum" 	column="boss_phonenum"/>
+			<result property="bossEmail" 		column="boss_email"/>
+			<result property="bsName"			column="bs_name"/>
+			<result property="bsNumber"			column="bs_num"/>
+			<result property="bsAddr"			column="bs_addr"/>
+			<result property="bsTelephone"		column="bs_telephone"/>
+			<result property="bsRegistration"	column="bs_registration"/>
+			<result property="bsWriter"			column="bs_writer"/>
+			<result property="bsCheck"			column="bs_check"/>
+		</resultMap>
+		<resultMap type="com.cafe24.radev.pyw.vo.ImageFile" id="imageFileResultMap">
+			<result property="imageCode" 		column="image_file_code"/>
+			<result property="bsCode" 			column="bs_code"/>
+			<result property="realFileName" 			column="image_file_name"/>
+			<result property="fileSize"   		column="image_file_size"/>
+			<result property="imaWriter"  		column="image_file_writer"/>
+			<result property="imaDate" 	column="image_file_date"/>
+		</resultMap>
+		<select id="adminLogin" resultMap="carFactoryResultMap">
+			SELECT 
+				* 
+			FROM 
+				 business_tb
+			WHERE boss_id= #{bossId};
+		</select>
+		<insert id="addCarFactory" parameterType="com.cafe24.radev.pyw.vo.CarFactory">
+		INSERT INTO business_tb (bs_code,boss_id,boss_pw,boss_name,boss_phonenum,boss_email,bs_name,bs_num,bs_addr,bs_telephone,bs_registration,bs_date) 
+						  VALUES(#{bsCode},
+						   	     #{bossId},
+							     #{bossPw},
+							     #{bossName},
+							     #{bossPhonenum},
+							     #{bossEmail},
+							     #{bsName},
+							     #{bsNumber},
+							     #{bsAddr},
+							     #{bsTelephone},
+							     #{bsRegistration},
+							      now())
+		</insert>
+		<insert id="addDocumentFile" parameterType="com.cafe24.radev.pyw.vo.CarFactory">
+		INSERT INTO image_file_tb (image_file_code,bs_code,image_file_name,image_file_size,image_file_date) 
+						  VALUES(#{imageCode},
+						   	     #{bsCode},
+							     #{realFileName},
+							     #{fileSize},
+							      now())
+		</insert>
+		<select id="bsCodeMax" resultType="int">
+			select max(CAST(SUBSTRING(bs_code,5) AS DECIMAL)) as maxcol from business_tb;
+		</select>
+		<select id="imageCodeMax" resultType="int">
+			select max(CAST(SUBSTRING(image_file_code,8) AS DECIMAL)) as maxcol from image_file_tb;
+		</select>
+		<select id="carFactoryList" resultMap="carFactoryResultMap">
+			SELECT 
+				* 
+			from 
+				business_tb 
+			WHERE 
+				bs_writer NOT IN('관리자');
+		</select>
+		<select id="selectImage" resultType="String">
+			SELECT 
+				image_file_name 
+			from 
+				image_file_tb 
+			WHERE bs_code= #{bsCode};
+		</select>
+		<select id="imageList" resultMap="imageFileResultMap">
+			SELECT 
+				* 
+			FROM 
+				 image_file_tb
+		</select>
+		
+	</mapper>
