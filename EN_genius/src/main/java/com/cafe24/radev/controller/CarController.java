@@ -1,4 +1,4 @@
-package com.cafe24.radev.jcs.controller;
+package com.cafe24.radev.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cafe24.radev.jcs.service.CarService;
-import com.cafe24.radev.jcs.vo.VoCarDetail;
-import com.cafe24.radev.jcs.vo.VoCarRegister;
+import com.cafe24.radev.service.CarService;
+import com.cafe24.radev.vo.VoCarDetail;
+import com.cafe24.radev.vo.VoCarRegister;
 
 @Controller
 public class CarController {

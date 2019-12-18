@@ -9,10 +9,10 @@
   
 	<!-- 파라미터 타입은 내가 받을 타입을 설정한다 -->
 	<!-- 리절트타입은 내가 돌려줄타입을 (리턴타입)설정한다 -->
-<mapper namespace="com.cafe24.radev.jcs.mapper.CarMapper">
+<mapper namespace="com.cafe24.radev.mapper.CarMapper">
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
 	
-	<resultMap type="com.cafe24.radev.jcs.vo.VoCarFuel" id="CarFuel">
+	<resultMap type="com.cafe24.radev.vo.VoCarFuel" id="CarFuel">
 
 		<result property="fuelCode" column="fuel_code"/>
 		<result property="fuelType" column="fuel_type"/>

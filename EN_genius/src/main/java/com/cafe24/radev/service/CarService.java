@@ -1,16 +1,16 @@
-package com.cafe24.radev.jcs.service;
+package com.cafe24.radev.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.radev.jcs.mapper.CarMapper;
-import com.cafe24.radev.jcs.vo.VoCarColor;
-import com.cafe24.radev.jcs.vo.VoCarDetail;
-import com.cafe24.radev.jcs.vo.VoCarFuel;
-import com.cafe24.radev.jcs.vo.VoCarOption;
-import com.cafe24.radev.jcs.vo.VoCarRegister;
+import com.cafe24.radev.mapper.CarMapper;
+import com.cafe24.radev.vo.VoCarColor;
+import com.cafe24.radev.vo.VoCarDetail;
+import com.cafe24.radev.vo.VoCarFuel;
+import com.cafe24.radev.vo.VoCarOption;
+import com.cafe24.radev.vo.VoCarRegister;
 
 @Service
 public class CarService {

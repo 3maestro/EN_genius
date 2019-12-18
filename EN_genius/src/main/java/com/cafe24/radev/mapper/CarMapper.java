@@ -1,14 +1,14 @@
-package com.cafe24.radev.jcs.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.jcs.vo.VoCarColor;
-import com.cafe24.radev.jcs.vo.VoCarDetail;
-import com.cafe24.radev.jcs.vo.VoCarFuel;
-import com.cafe24.radev.jcs.vo.VoCarOption;
-import com.cafe24.radev.jcs.vo.VoCarRegister;
+import com.cafe24.radev.vo.VoCarColor;
+import com.cafe24.radev.vo.VoCarDetail;
+import com.cafe24.radev.vo.VoCarFuel;
+import com.cafe24.radev.vo.VoCarOption;
+import com.cafe24.radev.vo.VoCarRegister;
 
 @Mapper
 public interface CarMapper {

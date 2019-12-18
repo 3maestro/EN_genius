@@ -1,6 +1,5 @@
-package com.cafe24.radev.jcs.controller;
+package com.cafe24.radev.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cafe24.radev.jcs.service.RecService;
-import com.cafe24.radev.jcs.vo.VoRecRegister;
+import com.cafe24.radev.service.RecService;
+import com.cafe24.radev.vo.VoRecRegister;
 
 
 @Controller

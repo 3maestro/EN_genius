@@ -1,11 +1,11 @@
-package com.cafe24.radev.jcs.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.jcs.vo.VoCarRegister;
-import com.cafe24.radev.jcs.vo.VoRecRegister;
+import com.cafe24.radev.vo.VoCarRegister;
+import com.cafe24.radev.vo.VoRecRegister;
 
 @Mapper
 public interface RecMapper {

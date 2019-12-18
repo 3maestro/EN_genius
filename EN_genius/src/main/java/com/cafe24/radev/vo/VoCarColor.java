@@ -1,4 +1,4 @@
-package com.cafe24.radev.jcs.vo;
+package com.cafe24.radev.vo;
 
 public class VoCarColor {
 
