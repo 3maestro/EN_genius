@@ -102,7 +102,7 @@ public interface CarMapper {
 	 * 차량 리스트 (....)
 	 * @return
 	 */
-	public List<VoCarRegister> getCarList();
+	public List<VoCarDetail> getCarList();
 	
 	
 	

@@ -146,7 +146,7 @@ public class CarService {
 	 * 차량 리스트 메서드
 	 * @return
 	 */
-	public List<VoCarRegister> getCarList() {
+	public List<VoCarDetail> getCarList() {
 		System.out.println("CarService 클래스 getCarList 메서드 실행");
 	return carMapper.getCarList();
 	}

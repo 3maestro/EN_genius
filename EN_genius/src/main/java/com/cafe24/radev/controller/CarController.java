@@ -85,7 +85,7 @@ public class CarController {
 	  @GetMapping("/carList")
 	  public String carList(VoCarRegister vcreg, Model model) {
 	  System.out.println("CarController 클래스 carList 메서드 실행");
-	  List<VoCarRegister> CarList = carService.getCarList(); 
+	  List<VoCarDetail> CarList = carService.getCarList(); 
 	  System.out.println("값확인"+ CarList); model.addAttribute("vcreg", CarList); //어트리뷰트 : 어딘가에 등록이 되어있다 
 	  return "carregister/carList";
 	  

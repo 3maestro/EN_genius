@@ -31,20 +31,12 @@
 					var butBtn = $('#buyPartBtn');
 					var sellBtn = $('#sellPartBtn');
 
-					var val = $(this).val();
-					var values = [
-						val
-					];
-						for(var i=0;i<partCheck.length;i++){
-						}
-					
-					console.log(values);
-					
+
 					if(partCheck.length > 1){
 						butBtn.text('다중부품구매');
 						sellBtn.text('다중부품판매');
 						console.log($(this).val());
-						
+						$('#cart').attr('style','display:block');
 						
 						// 다중버튼활성화후 포스트방식으로 호출
 						butBtn.click(function(){
@@ -112,7 +104,7 @@
 								<button class="btn-info" type="button" id="sellPartBtn">부품판매</button>
 								<button class="btn-info" type="button" id="buyPartBtn">부품구매</button>
 							</form>
-							<div th:replace="part/partCart :: partCartFragment" style="background: black;"></div>
+							<th:block th:include=""></th:block>
 						</div>
 					</div>
 				</div>
