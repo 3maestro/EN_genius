@@ -29,7 +29,7 @@
 					console.log(bigCate + " <-bigCate")
 
 					var request = $.ajax({
-						  url: "/basicCheckList",	//호출될 url
+						  url: "/bigCheckList",	//호출될 url
 						  method: "POST",
 						  data: {"bigCate" : bigCate},//파라미터
 						  dataType: "json"		//응답 타입
@@ -74,10 +74,54 @@
 					});
 				
 				})
-				$('.midCate').on('click',(function(){
+				$(document).on('click','.midCate',(function(){
 					var midCate = $(this).val();
-					console.log(midCate + " <-midCate")
+					console.log(midCate + " <-midCate")	
+
+					var request = $.ajax({
+						  url: "/mid/midCheckList",	//호출될 url
+						  method: "POST",
+						  data: {"bigCate" : bigCate},//파라미터
+						  dataType: "json"		//응답 타입
+					});
+				
+					request.done(function( data ) {
+							console.log(data)
+						if(data != null || data != "" || data != "undefined"){
+							var midCateCheck = $('#midCate')
+							console.log(midCateCheck)
+							for(var i=0; i<data.length; i++){
+								var midCate = data[i];
+ 								console.log(midCate + " <-midCate")
+									var html =''
+								$.each(data,function(i, item){	
+									html += '"<option class = "midCate" value=';
+									html += data[i];
+									html += '>';
+									html += data[i];
+									html += '</option>"';
+									midCateCheck.html(html)
+								})
+								//'<option"+ " class = "midCate" value='+ data[i] +'>'data[i]'</option>
+									//"<option"+ " class=midCate" + " value="+ data[i] +">" + data[i] +"</option>"
+								//<option class = "midCate" value=data[i]>"
+// 								var midCate = data[i];
+// 								console.log(midCate + " <-midCate")
+								
+							}
+							
+// 								midCateCheck.each(function(i){
+// 									$(this).html("<option"+ "class=midCate" + "value="+ data[i] +">" + data[i] +"</option>")
+// 								})
+// 								document.getElementById("midCate").value = midCate
+// 								document.getElementById("midCate").text = midCate
+								
+						}			
+					})
 					
+					request.fail(function( jqXHR, textStatus ) {
+					  //alert( "Request failed: " + textStatus );
+					});
 				}))
 				
 	 		});	

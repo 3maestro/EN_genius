@@ -50,16 +50,25 @@ public class CheckController {
 		return "/check/basicCheckList";
 	}
 	
-	@PostMapping("/basicCheckList")
-	public @ResponseBody List<String> basicCheckList(
+	@PostMapping("/big/bigCheckList")
+	public @ResponseBody List<String> bigCheckList(
 			@RequestParam(value="bigCate", required = false) String bigCate) {
-		System.out.println("basicCheckList CheckController 호출");
-		System.out.println(bigCate + " <-bigCate basicCheckList CheckController.java");
+		System.out.println("bigCheckList CheckController 호출");
+		System.out.println(bigCate + " <-bigCate bigCheckList CheckController.java");
 		
 		List<String> midCateList = checkService.getBasicCheckList(bigCate);
-		System.out.println(midCateList + " <-midCateList basicCheckList CheckController.java");
+		System.out.println(midCateList + " <-bigCheckList bigCheckList CheckController.java");
 		
 		return midCateList;
+	}
+	
+	@PostMapping("/mid/midCheckList")
+	public @ResponseBody List<String> midCheckList(
+			@RequestParam(value="midCate", required = false) String midCate){
+		System.out.println("midCheckList CheckController 호출");
+		System.out.println(midCate + " <-midCate midCheckList CheckController.java");
+		
+		return null;
 	}
 	
 
