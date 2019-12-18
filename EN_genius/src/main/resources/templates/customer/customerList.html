@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/tdymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius 고객 목록</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<script>
+			function doImgPop(img) {
+				img1 = new Image();
+				img1.src = ("images/"+img);
+				imgControll(img);
+			}
+		</script>
+		<div class="card">
+			<div class="card-header">
+				<strong class="card-title">
+					고객목록
+				</strong>
+			</div>
+			<div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">
+								고객코드
+							</th>
+							<th scope="col">
+								고객명
+							</th>
+							<th scope="col">
+								고객생일
+							</th>
+							<th scope="col">
+								고객성별
+							</th>
+							<th scope="col">
+								고객주소
+							</th>
+							<th scope="col">
+								고객연락처
+							</th>
+							<th scope="col">
+								고객등록일
+							</th>
+							<th scope="col">
+								고객메모
+							</th>
+							<th scope="col">
+								고객수정
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="l : ${customerList}">
+							<td th:text="${l.customerCode}"></td>
+							<td th:text="${l.customerName}"></td>
+							<td th:text="${l.customerBirth}"></td>
+							<td th:text="${l.customerGender}"></td>
+							<td th:text="${l.customerAddr}"></td>
+							<td th:text="${l.customerPhone}"></td>
+							<td th:text="${l.customerSign}"></td>
+							<td th:text="${l.customerMemo}"></td>
+							<td>
+								<a th:href="@{/customerUpdate(customerCode=${l.customerCode})}">
+									정보수정
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</th:block>
+</html>
+
