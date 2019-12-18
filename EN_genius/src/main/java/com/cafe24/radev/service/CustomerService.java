@@ -37,6 +37,7 @@ public class CustomerService {
 	 */
 	public Customer getCustomerSelectGet(String customerCode) {
 		System.out.println(customerCode+"서비스");
+		customerMapper.getCustomerSelectGet(customerCode);
 		return null;
 	}
 	
