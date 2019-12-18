@@ -1,10 +1,10 @@
-package com.cafe24.radev.cyj.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.cyj.vo.Customer;
+import com.cafe24.radev.vo.Customer;
 
 @Mapper
 public interface CustomerMapper {

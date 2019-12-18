@@ -1,4 +1,4 @@
-package com.cafe24.radev.cyj.controller;
+package com.cafe24.radev.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cafe24.radev.cyj.service.CustomerService;
-import com.cafe24.radev.cyj.vo.Customer;
+import com.cafe24.radev.service.CustomerService;
+import com.cafe24.radev.vo.Customer;
 
 @Controller
 public class CustomerController {
@@ -47,10 +47,11 @@ public class CustomerController {
 		return "redirect:/customerList";
 	}
 	
-	@GetMapping("/customerVisit")
+	@GetMapping("/customerX")
 	public String getCustomerVisit(Model model) {
+		model.addAttribute("title", "미구현");
 		System.out.println("Visit");
-		return "/customer/customerVisit";
+		return "/customer/customerX";
 	}
 	
 	@PostMapping(value="/customerInsertAjax", produces = "application/json")

@@ -1,4 +1,4 @@
-package com.cafe24.radev.cyj.service;
+package com.cafe24.radev.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cafe24.radev.cyj.mapper.CustomerMapper;
-import com.cafe24.radev.cyj.vo.Customer;
+import com.cafe24.radev.mapper.CustomerMapper;
+import com.cafe24.radev.vo.Customer;
 
 @Service
 @Transactional

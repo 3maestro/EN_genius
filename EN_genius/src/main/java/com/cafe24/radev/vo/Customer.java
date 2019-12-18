@@ -1,4 +1,4 @@
-package com.cafe24.radev.cyj.vo;
+package com.cafe24.radev.vo;
 
 public class Customer {
 	private String customerCode;
