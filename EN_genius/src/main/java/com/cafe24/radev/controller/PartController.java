@@ -141,7 +141,13 @@ public class PartController {
 		
 		return "/part/partOrder";
 	}
-
+	/**
+	 * 
+	 * @param model
+	 * @param partCheck
+	 * @param groupCode
+	 * @return
+	 */
 	@PostMapping("/partGroupToEstimate")
 	public String getSellPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
 		System.out.println("뭉탱이데이터호출");
