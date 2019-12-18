@@ -20,26 +20,22 @@ public class VoCarDetail {
 	private String ycDate; // 연도별 차량 모델 작성일자
 	private String customerCarNumber; // 차량 넘버
 	private String rcCode;	// 등록증상자동차정보코드(FK), 차량명
-	private String carProductionYear; //자동차 등록일
+	private String bsCode;	// 공업사사업장코드(FK)
+	private String customerCode;	// 고객정보등록코드(FK), 고객명
+	private String carProductionYear;	// 생산연식
+	private String carRegistrationDate;	// 자동차등록일
+	private String lastDistanceDriven;	// 마지막방문시주행거리
+	private String lastVisitDate;	// 마지막방문날짜
+	private String customerCarInfoWriter;	// 작성자
+	private String customerCarInfoDate;	// 작성일자
+	private String customerCarInfoCode; //고객차량등록정보코드(PK)
 	
 	
-	public String getCarProductionYear() {
-		return carProductionYear;
+	public String getCustomerCarInfoCode() {
+		return customerCarInfoCode;
 	}
-	public void setCarProductionYear(String carProductionYear) {
-		this.carProductionYear = carProductionYear;
-	}
-	public String getRcCode() {
-		return rcCode;
-	}
-	public void setRcCode(String rcCode) {
-		this.rcCode = rcCode;
-	}
-	public String getCustomerCarNumber() {
-		return customerCarNumber;
-	}
-	public void setCustomerCarNumber(String customerCarNumber) {
-		this.customerCarNumber = customerCarNumber;
+	public void setCustomerCarInfoCode(String customerCarInfoCode) {
+		this.customerCarInfoCode = customerCarInfoCode;
 	}
 	public String getOriginCode() {
 		return originCode;
@@ -83,6 +79,12 @@ public class VoCarDetail {
 	public void setCarModelCode(String carModelCode) {
 		this.carModelCode = carModelCode;
 	}
+	public String getCarModelName() {
+		return carModelName;
+	}
+	public void setCarModelName(String carModelName) {
+		this.carModelName = carModelName;
+	}
 	public String getCmWriter() {
 		return cmWriter;
 	}
@@ -94,12 +96,6 @@ public class VoCarDetail {
 	}
 	public void setCmDate(String cmDate) {
 		this.cmDate = cmDate;
-	}
-	public String getCarModelName() {
-		return carModelName;
-	}
-	public void setCarModelName(String carModelName) {
-		this.carModelName = carModelName;
 	}
 	public String getYearCarCode() {
 		return yearCarCode;
@@ -137,6 +133,68 @@ public class VoCarDetail {
 	public void setYcDate(String ycDate) {
 		this.ycDate = ycDate;
 	}
+	public String getCustomerCarNumber() {
+		return customerCarNumber;
+	}
+	public void setCustomerCarNumber(String customerCarNumber) {
+		this.customerCarNumber = customerCarNumber;
+	}
+	public String getRcCode() {
+		return rcCode;
+	}
+	public void setRcCode(String rcCode) {
+		this.rcCode = rcCode;
+	}
+	public String getBsCode() {
+		return bsCode;
+	}
+	public void setBsCode(String bsCode) {
+		this.bsCode = bsCode;
+	}
+	public String getCustomerCode() {
+		return customerCode;
+	}
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
+	}
+	public String getCarProductionYear() {
+		return carProductionYear;
+	}
+	public void setCarProductionYear(String carProductionYear) {
+		this.carProductionYear = carProductionYear;
+	}
+	public String getCarRegistrationDate() {
+		return carRegistrationDate;
+	}
+	public void setCarRegistrationDate(String carRegistrationDate) {
+		this.carRegistrationDate = carRegistrationDate;
+	}
+	public String getLastDistanceDriven() {
+		return lastDistanceDriven;
+	}
+	public void setLastDistanceDriven(String lastDistanceDriven) {
+		this.lastDistanceDriven = lastDistanceDriven;
+	}
+	public String getLastVisitDate() {
+		return lastVisitDate;
+	}
+	public void setLastVisitDate(String lastVisitDate) {
+		this.lastVisitDate = lastVisitDate;
+	}
+	public String getCustomerCarInfoWriter() {
+		return customerCarInfoWriter;
+	}
+	public void setCustomerCarInfoWriter(String customerCarInfoWriter) {
+		this.customerCarInfoWriter = customerCarInfoWriter;
+	}
+	public String getCustomerCarInfoDate() {
+		return customerCarInfoDate;
+	}
+	public void setCustomerCarInfoDate(String customerCarInfoDate) {
+		this.customerCarInfoDate = customerCarInfoDate;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "VoCarDetail [originCode=" + originCode + ", originMain=" + originMain + ", vendorCode=" + vendorCode
@@ -144,9 +202,12 @@ public class VoCarDetail {
 				+ ", carModelCode=" + carModelCode + ", carModelName=" + carModelName + ", cmWriter=" + cmWriter
 				+ ", cmDate=" + cmDate + ", yearCarCode=" + yearCarCode + ", carModelDetail=" + carModelDetail
 				+ ", sellStartYear=" + sellStartYear + ", sellEndYear=" + sellEndYear + ", ycWriter=" + ycWriter
-				+ ", ycDate=" + ycDate + ", customerCarNumber=" + customerCarNumber + ", rcCode=" + rcCode
-				+ ", carProductionYear=" + carProductionYear + "]";
+				+ ", ycDate=" + ycDate + ", customerCarNumber=" + customerCarNumber + ", rcCode=" + rcCode + ", bsCode="
+				+ bsCode + ", customerCode=" + customerCode + ", carProductionYear=" + carProductionYear
+				+ ", carRegistrationDate=" + carRegistrationDate + ", lastDistanceDriven=" + lastDistanceDriven
+				+ ", lastVisitDate=" + lastVisitDate + ", customerCarInfoWriter=" + customerCarInfoWriter
+				+ ", customerCarInfoDate=" + customerCarInfoDate + ", customerCarInfoCode=" + customerCarInfoCode + "]";
 	}
 	
 	
-}
+	}

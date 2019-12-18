@@ -17,39 +17,57 @@
                                     <thead>
                                         <tr>
                                             <th>차대번호</th>
+                                            <th>공업사</th>
                                             <th>고객 이름</th>
                                             <th>차량 번호</th>
+                                            <th>벤더사</th>
                                             <th>차량 명</th>
+                                            <th>생산연식</th>
+                                            <th>자동차 등록일</th>
                                  		    <th>마지막 방문시 주행거리</th>
                                             <th>마지막 방문일자</th>
-                                            <th>수정 및 상세보기</th>
-                                            <!-- <th>삭제</th> -->
+                                            <th>작성자</th>
+                                            <th>작성일자</th>
+                                            <th>수정</th>
+                                            <th>삭제</th>
                                         </tr>
                                     </thead>
                                         
 									<tfoot>                                        
                                          <tr>
-                                          <th>차대번호</th>
+                                            <th>차대번호</th>
+                                            <th>공업사</th>
                                             <th>고객 이름</th>
                                             <th>차량 번호</th>
+                                            <th>벤더사</th>
                                             <th>차량 명</th>
+                                            <th>생산연식</th>
+                                            <th>자동차 등록일</th>
                                  		    <th>마지막 방문시 주행거리</th>
                                             <th>마지막 방문일자</th>
-                                            <th>수정 및 상세보기</th>
-                                            <!-- <th>삭제</th> -->
+                                            <th>작성자</th>
+                                            <th>작성일자</th>
+                                            <th>수정</th>
+                                            <th>삭제</th>
                                         </tr>
                                      </tfoot>
                                     <tbody>
                                         
-                                       <tr th:each="CL : ${voDetail}">
+                                       <tr th:each="CL : ${CUL}">
                                             <td th:text="${CL.customerCarInfoCode}"></td>
+                                            <td th:text="${CL.bsCode}"></td>
                                             <td th:text="${CL.customerCode}"></td>
                                             <td th:text="${CL.customerCarNumber}"></td>
+                                            <td th:text="${CL.vendorCode}"></td>
                                             <td th:text="${CL.rcCode}"></td>
+                                            <td th:text="${CL.carProductionYear}"></td>
+                                            <td th:text="${CL.carRegistrationDate}"></td>
                                             <td th:text="${CL.lastDistanceDriven}"></td>
                                             <td th:text="${CL.lastVisitDate}"></td>
-                                            <!-- <td><a th:href="@{/carUpdateList(cul=${CL.customerCarInfoCode})}">수정</a></td> -->           
-                                            <!-- <td><a th:href="@{dustmq}">삭제</a></td> -->                                        
+                                            <td th:text="${CL.customerCarInfoWriter}"></td>
+                                            <td th:text="${CL.customerCarInfoDate}"></td> 
+                                            <td><a th:href="@{/carUpdateList(cus=${CL.customerCarInfoCode})}">수정</a></td>
+                                            <td><a th:href="@{dustmq}">삭제</a></td>                                        
                                         </tr>
                                        
                                      
