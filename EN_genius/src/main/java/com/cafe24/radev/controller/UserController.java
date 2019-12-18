@@ -66,6 +66,14 @@ public class UserController {
 		return "redirect:/index";
 	}
 	/**
+	 * 로그인폼 화면 이동
+	 * @return
+	 */
+	@GetMapping("/loginForm")		
+	public String loingForm() {
+		return "/login/login";
+	}
+	/**
 	 * 사업장 리스트
 	 * @return
 	 */
@@ -78,12 +86,13 @@ public class UserController {
 	/**
 	 * 사업장 리스트 내 팝업으로 서류 이미지 띄우기
 	 * @param bsCode
+	 * @param model
 	 * @return
 	 */
 	@PostMapping("/selectImage")
-	public @ResponseBody String selectImage(@RequestParam(value = "bsCode") String bsCode) {
+	public @ResponseBody String selectImage(@RequestParam(value = "bsCode") String bsCode, Model model) {
 		System.out.println("코드값" + bsCode);
-		System.out.println("====>" + userService.selectImage(bsCode));		
+		//System.out.println(userService.selectImage(bsCode));		
 		return userService.selectImage(bsCode);
 	}
 	/**
@@ -91,27 +100,13 @@ public class UserController {
 	 * @param bsCode
 	 * @return
 	 */
-
-	  @PostMapping("/approvalCheck") 
-	  public String approvalCheck(@RequestParam(value="bsCode") String[] bsCode) { 
-		  System.out.println("승인체크배열->"+ bsCode);
-		  userService.approvalCheck(bsCode); 
-		  return "redirect:/CarFactorySearch";
-	  }
-	 
-	 
+	
+	  @GetMapping("/approvalCheck") public String aaa(@RequestParam(value =
+	  "bsCode") String[] bsCode) { userService.approvalCheck(bsCode); return
+	  "/carfactory/carFactoryList"; }
 	 
 /********************************************************************************************************로그인*/	
-	  /**
-	   * 로그인폼 화면 이동
-	   * @return
-	   */
-	  @GetMapping("/loginForm")		
-	  public String loingForm() {
-		  return "/login/login";
-	  }
-
-	 /**
+	/**
 	 * 관리자 로그인처리
 	 * @param carFactory
 	 * @param session
