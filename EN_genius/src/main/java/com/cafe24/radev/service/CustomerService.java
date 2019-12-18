@@ -35,6 +35,7 @@ public class CustomerService {
 	 * 고객정보를 수정하기 위해서 정보를 조회하는 메소드
 	 * @return 없음
 	 */
+<<<<<<< HEAD
 	public Customer getCustomerSelectForOne(String customerCode) {
 		Customer customer = new Customer();
 		String bsCode = "bs001";
@@ -47,6 +48,12 @@ public class CustomerService {
 		System.out.println(customer);
 		customerMapper.getCustomerInsert(customer);
 		return customer;
+=======
+	public Customer getCustomerSelectGet(String customerCode) {
+		System.out.println(customerCode+"서비스");
+		customerMapper.getCustomerSelectGet(customerCode);
+		return null;
+>>>>>>> branch 'cyj' of https://github.com/3maestro/EN_genius.git
 	}
 	
 	/********
