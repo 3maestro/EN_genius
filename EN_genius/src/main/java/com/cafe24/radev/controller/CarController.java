@@ -35,12 +35,12 @@ public class CarController {
 	 * @return
 	 */
 	
-	@GetMapping("carUpdateList")
-	public String carUpdateList(String cul ) {
-		System.out.println("CarController 클래스 carUpdateList 메서드 실행");
-		
-		return "redirect:carUpdateList";
-	}
+	/*
+	 * @GetMapping("carUpdateList") public String carUpdateList(@re ) {
+	 * System.out.println("CarController 클래스 carUpdateList 메서드 실행");
+	 * 
+	 * return "redirect:carUpdateList"; }
+	 */
 	
 	@PostMapping("carRegister")
 	public String carRegister(VoCarDetail voDetailInsert) {
