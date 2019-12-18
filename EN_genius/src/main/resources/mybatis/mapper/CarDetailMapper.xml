@@ -32,8 +32,26 @@
 		<result property="customerCarNumber" column="customer_car_number"/>
 		<result property="rcCode" column="rc_code"/>
 		<result property="carProductionYear" column="car_production_year"/>
+		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="bsCode" column="bs_code"/>
+		<result property="customerCode" column="customer_code"/>
+		<result property="carRegistrationDate" column="car_registration_date"/>
+		<result property="lastDistanceDriven" column="last_distance_driven"/>
+		<result property="lastVisitDate" column="last_visit_date"/>
+		<result property="customerCarInfoWriter" column="customer_car_info_writer"/>
+		<result property="customerCarInfoDate" column="customer_car_info_date"/>
 		
 	</resultMap>
+	
+	<select id="getCarList" resultMap="CarDetailMap">
+		SELECT
+			customer_car_info_code,bs_code,customer_code,customer_car_number
+			,vendor_code,rc_code,car_production_year,car_registration_date
+			,last_distance_driven,last_visit_date,customer_car_info_writer
+			,customer_car_info_date
+		FROM
+			customer_car_info_table
+	</select>
 	
 		<!-- Datail insert -->
 	<insert id="getDetailInsert" parameterType="com.cafe24.radev.vo.VoCarDetail">
@@ -85,7 +103,7 @@
 	</select>
 	
 	<!-- 차량 수정 조회 쿼리 -->
-	<select id="getCarUpdate" parameterType="String" resultType="com.cafe24.radev.vo.VoCarRegister">
+	<select id="getCarUpdateList" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
 			SELECT 
 			customer_car_info_code AS customerCarInfoCode,
 			bs_code AS bsCode,
@@ -102,7 +120,7 @@
 			
 		FROM
 			customer_car_info_table
-		WHERE customer_car_info_code = #{cuscar};
+		WHERE customer_car_info_code = #{cul};
 	
 	</select>
 		
