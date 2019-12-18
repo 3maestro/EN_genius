@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis맵퍼  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace속성은 인터페이스의 위치를 적는다. -->
+<mapper namespace="com.cafe24.radev.pet.mapper.PartMapper">
+	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
+	<!-- 부품vo -->
+	<resultMap type="com.cafe24.radev.pet.vo.Part" id="partRM">
+		<result property="partNumber" column="part_number"/>
+		<result property="factory" column="bs_code"/>
+		<result property="bigCate" column="ck_big_code"/>
+		<result property="midCate" column="ck_mid_code"/>
+		<result property="partName" column="part_use_name"/>
+		<result property="partMany" column="part_use_many"/>
+		<result property="partPrice" column="part_use_price"/>
+		<result property="partWrite" column="pu_writer"/>
+		<result property="partUpdateDate" column="pu_date"/>
+	</resultMap>
+	<!-- 그룹vo -->
+	<resultMap type="com.cafe24.radev.pet.vo.Group" id="groupRM">
+		<result property="groupCode" column="group_code"/>
+		<result property="groupName" column="group_name"/>
+		<result property="groupWrite" column="gr_writer"/>
+		<result property="groupDate" column="gr_date"/>
+		<result property="bsCode" column="bs_code"/>
+	</resultMap>
+	<!-- 부품리스트 -->
+	<select id="getPartList" resultMap="partRM">
+		SELECT 
+			part_number,
+			ck_big_code,
+			ck_mid_code,
+			part_use_name,
+			part_use_many,
+			part_use_price,
+			pu_writer,
+			pu_date
+		FROM
+			part_use_tb
+	</select>
+	<!-- 부품한로우조회 -->
+	<select id="partSelectForOrder" resultMap="partRM">
+		SELECT 
+			part_number,
+			ck_big_code,
+			ck_mid_code,
+			part_use_name,
+			part_use_many,
+			part_use_price,
+			pu_writer,
+			pu_date
+		FROM
+			part_use_tb
+		WHERE
+			part_number=#{partNumber}
+	</select>
+	<!-- 부품등록 -->
+	<insert id="partInsertPro" parameterType="com.cafe24.radev.pet.vo.Part">
+		insert into part_use_tb
+			(part_number,bs_code,ck_big_code,ck_mid_code,part_use_name,part_use_many,part_use_price,pu_writer,pu_date)
+		values
+			(#{partNumber},#{factory},#{bigCate},#{midCate},#{partName},#{partMany},#{partPrice},#{partWrite},#{partUpdateDate})
+	</insert>
+	<!-- 부품수량업데이트 -->
+	<update id="partUpdateforMany" parameterType="com.cafe24.radev.pet.vo.Part">
+		UPDATE 
+			part_use_tb
+		SET
+			part_use_many = part_use_many+#{partMany},pu_date=#{partUpdateDate}
+		WHERE
+			part_number=#{partNumber};
+	</update>
+	
+	<select id="getCheckGroup" resultType="String">
+		SELECT
+			MAX(gc.group_code) as group_code,group_name
+		FROM
+				(SELECT
+				g.group_code,g.group_name
+			FROM
+				group_tb AS g
+			WHERE 
+			g.group_code LIKE '%part%')AS gc
+	</select>
+	<!-- 그룹코드조회 -->
+	<select id="getGroup" resultType="String" parameterType="String">
+		SELECT
+			MAX(gc.group_code) as group_code,group_name
+		FROM
+				(SELECT
+				g.group_code,g.group_name
+			FROM
+				group_tb AS g
+			WHERE 
+			g.group_code LIKE #{select})AS gc
+	</select>
+	<!-- 그룹코드생성 -->
+	<insert id="makeGroupCode" parameterType="com.cafe24.radev.pet.vo.Group">
+		INSERT INTO 
+			group_tb (`group_code`, `group_name`, `gr_writer`, `gr_date`, `bs_code`) 
+		VALUES 
+			(#{groupCode}, #{groupName}, #{groupWrite}, #{groupDate}, #{bsCode});
+	</insert>
+	
+	
+</mapper>

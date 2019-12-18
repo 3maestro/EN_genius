@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +38,6 @@ public class UserService {
 	
 	public int addCarFactory(CarFactory carFactory){
 		System.out.println("이때는 코드값이 없쥬?" + carFactory);
-		carFactory.setBossEmail(carFactory.getBossEmail() +carFactory.getEmailAddr());
-		carFactory.setBsAddr(carFactory.getBsAddr() + carFactory.getAddrDetail());
-		System.out.println(carFactory.getBossEmail());
 		int max = userMapper.bsCodeMax();
 		max = max + 1;
 		String code = "bs00";
@@ -57,7 +52,7 @@ public class UserService {
 		
 		int max = userMapper.imageCodeMax();
 		max = max + 1;
-		String code = "image00";
+		String code = "image0";
 		String imgeCode = code + max;
 		imageFile.setImageCode(imgeCode);
 		
@@ -100,14 +95,10 @@ public class UserService {
 	}
 	
 	public int approvalCheck(String[] bsCode) {
-		/*
-		 * for(int i=0;i<bsCode.length;i++) {
-		 * System.out.println("코드값--------->"+bsCode[i]); }
-		 */
-		//배열은 리스트로 변경
-		List<String> codeList = Arrays.asList(bsCode);
-		//리스트를 dao에 넘김
-		return userMapper.approvalCheck(codeList);
+		for(int i=0;i<bsCode.length;i++) {
+			System.out.println("코드값--------->"+bsCode[i]);
+		}
+		return userMapper.approvalCheck(bsCode);
 	}
 /********************************************************************************************************로그인*/
 
@@ -117,20 +108,14 @@ public class UserService {
 		Map<String,Object> map = new HashMap<String,Object>();
 
 		if(c != null && !"".equals(c.getBossId())) {
-			if("Y".equals(c.getBsCheck())) {				
-				if(carFactory.getBossPw().equals(c.getBossPw())){
-					re="login";
-					map.put("login", c);
-				}else {
-					re = "비밀번호 불일치";
-				}
-			}else if("N".equals(c.getBsCheck())){
-				re = "승인이 거부되었습니다. 정확한 정보로 다시 한번 등록해주세요.";
+			if(carFactory.getBossPw().equals(c.getBossPw())){
+				re="login";
+				map.put("login", c);
 			}else {
-				re = "승인 요청 중입니다.";
+				re = "비밀번호 불일치";
 			}
 		}else {
-			re = "아이디가 존재하지 않습니다.";			
+			re = "아이디가 존재하지 않습니다";			
 		}		
 		map.put("re",re);
 		return map;
@@ -140,7 +125,7 @@ public class UserService {
 		Employee e = employeeMapper.employeeLogin(employee);
 		String re = null;
 		Map<String,Object> map = new HashMap<String,Object>();
-	
+		
 		if(e != null && !"".equals(e.getEmployeeCode())) {
 			if(employee.getEmployeePass().equals(e.getEmployeePass())){
 				re="login";

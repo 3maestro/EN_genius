@@ -14,8 +14,8 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeMapper employeeMapper;
 	
-	public List<Employee> employeeList(String bsCode){
-		System.out.println(employeeMapper.employeeList(bsCode));
-		return employeeMapper.employeeList(bsCode);
+	public List<Employee> employeeList(){
+		System.out.println(employeeMapper.employeeList());
+		return employeeMapper.employeeList();
 	}
 }

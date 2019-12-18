@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius</title>
+	</th:block>
+	<th:block layout:fragment="customScript">	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+
+			var result = /*[[ ${lo} ]]*/;
+    
+			alert(result);
+			
+	  		$(document).ready(function(){
+		
+ 			$('#formCheck').click(function(){
+				var bossIdCheck = $('input[name="bossId"]');
+				var bossPwCheck = $('input[name="bossPw"]');
+				var bossPwCheck = $('input[name="employeeCode"]');
+				var bossPwCheck = $('input[name="employeePass"]');
+				
+				if(bossIdCheck.val() == ''){
+					bossIdCheck.text('아이디를입력하세요')
+					return false;
+				}
+			}); 
+ 			
+ 			$(document).on('click','#formCheck',function(){
+				console.log('click');
+				var bossId = $('[name=bossId]').val();
+				console.log(bossId);
+				
+				var request = $.ajax({
+					url: "/Adminlogin",
+					method: "POST",
+					data: { bossId : bossId },
+					dataType: "json"
+				});
+				
+				request.done(function( data ) {
+					console.log(data);
+						
+				});
+				request.fail(function( jqXHR, textStatus ) {
+					//alert( "Request failed: " + textStatus );
+					$('[name=bossId]').val('다시시도하세요');
+				});
+	 
+			});
+		});
+/*]]*/	 
+	</script>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+		<div class="login-content">
+		    <div class="login-logo">
+		        <a href="index.html">
+		            <img class="align-content" src="images/logo.png" alt="">
+		        </a>
+		    </div>
+		<div class="card-header" style="display: flex;">
+		<div class="login-form" style="flex: 1;" >
+			<form method="post" action="/Adminlogin">
+				<p style=text-align:center>관리자</p><br><br>
+		       	<div class="form-group">
+		            <label>아이디</label>
+		            <input type="text" class="form-control" name="bossId" placeholder="아이디를 입력해주세요">
+		            <!-- <span id=idCheck>ID체크</span> -->
+		        </div>
+		        <div class="form-group">
+		            <label>비밀번호</label>
+		            <input type="password" class="form-control" name="bossPw" placeholder="비밀번호를 입력해주세요">
+		        </div><br>
+		        <button type="submit" id="formCheck" class="btn btn-success btn-flat m-b-30 m-t-30">로그인</button>
+		        <br><br><br><br>
+		    </form>
+		</div>
+		<div class="login-form" style="flex: 1;">
+			<form method="post" action="/Bosslogin">
+			<p style=text-align:center>사장님</p><br><br>
+		        <div class="form-group">
+		            <label>아이디</label>
+		            <input type="text" class="form-control" name="bossId" placeholder="아이디를 입력해주세요">
+		        </div>
+		        <div class="form-group">
+		            <label>비밀번호</label>
+		            <input type="password" class="form-control" name="bossPw" placeholder="비밀번호를 입력해주세요">
+		        </div>
+		        <div class="checkbox">
+		            <label>
+		                <input type="checkbox"> 아이디 저장
+		            </label>
+		            <label class="pull-right">
+		                <a href="#">비밀번호 찾기</a>
+		            </label>
+		
+		        </div>
+		        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">로그인</button>
+		        <div class="register-link m-t-15 text-center"><br>
+		            <p><a href="/CarFactoryInsert">회원가입</a></p>
+		        </div>
+		    </form>
+		</div>		
+		<div class="login-form" style="flex: 1;">
+		<form method="post" action="/Employeelogin">
+			<p style=text-align:center>직원</p><br><br>
+                <div class="form-group">
+                    <label>직원코드</label>
+                    <input type="text" class="form-control" name="employeeCode" placeholder="직원 코드를 입력해주세요">
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" class="form-control" name="employeePass" placeholder="비밀번호를 입력해주세요">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">로그인</button>
+                <br><br><br><br>
+        </form>
+		            </div>
+					</div>
+		        </div>	
+	</th:block>
+
+</html>
