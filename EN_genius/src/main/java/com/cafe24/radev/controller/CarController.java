@@ -37,9 +37,9 @@ public class CarController {
 	
 	
 	  @GetMapping("carUpdateList") 
-	  public String carUpdateList(@RequestParam(value="carUpList", required=false) String carUpList, Model model) {
+	  public String carUpdateList(@RequestParam(value="carUpList", required=false) String carUpList) {
 	  System.out.println("CarController 클래스 carUpdateList 메서드 실행");
-	  model.addAttribute("carUpList", carUpList);
+	  //model.addAttribute("carUpList", carUpList);
 	  return "carUpdateList"; 
 	  
 	}
