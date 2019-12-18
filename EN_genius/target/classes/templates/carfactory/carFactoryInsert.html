@@ -12,8 +12,7 @@
 	<script type="text/javascript">
 
 		$(document).ready(function(){
-		
-			var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;			 
+			 
 			
 			$('#formCheck').click(function(){
 			var bossIdCheck = $('input[name="bossId"]');
@@ -55,8 +54,6 @@
 				}else if(bossEmailCheck.val() == ''){
 					alert('이메일을 입력하세요');
 					bossEmailCheck.focus();
-					return false;
-				}else if(!emailRule.test($('input[name="bossEmail"]').val())){
 					return false;
 				}else if(emailAddrCheck.val() == ''){
 					alert('메일 주소를 선택하세요');
