@@ -137,17 +137,16 @@ public class CarService {
 	}
 	
 	//차량 수정 조회 메서드
-	/*
-	 * public VoCarRegister getCarUpdate(String cuscar) {
-	 * System.out.println("CarService 클래스 getCarUpdate 메서드 실행"); return
-	 * carMapper.getCarUpdate(cuscar); }
-	 */
+	public VoCarRegister getCarUpdate(String cuscar) {
+		System.out.println("CarService 클래스 getCarUpdate 메서드 실행");
+		return carMapper.getCarUpdate(cuscar);
+	}
 	
 	/**
 	 * 차량 리스트 메서드
 	 * @return
 	 */
-	public List<VoCarDetail> getCarList() {
+	public List<VoCarRegister> getCarList() {
 		System.out.println("CarService 클래스 getCarList 메서드 실행");
 	return carMapper.getCarList();
 	}

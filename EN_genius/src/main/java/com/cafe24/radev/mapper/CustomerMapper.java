@@ -10,7 +10,7 @@ import com.cafe24.radev.vo.Customer;
 public interface CustomerMapper {
 	public List<Customer> getCustomerList();
 	public void getCustomerInsert(Customer customer);
-	public void getCustomerSelect(Customer customer);
+	public void getCustomerSelectGet(String customerCode);
 	public void getCustomerUpdate(Customer customer);
 	public String getCustomerInsertAjax(String name, String birth, String phone);
 }

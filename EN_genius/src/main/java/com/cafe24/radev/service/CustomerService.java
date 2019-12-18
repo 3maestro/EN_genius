@@ -35,18 +35,9 @@ public class CustomerService {
 	 * 고객정보를 수정하기 위해서 정보를 조회하는 메소드
 	 * @return 없음
 	 */
-	public Customer getCustomerSelectForOne(String customerCode) {
-		Customer customer = new Customer();
-		String bsCode = "bs001";
-		String eiCode = "emp002";
-		System.out.println(customerCode);
-		customer.setCustomerCode(customerCode);
-		customer.setBsCode(bsCode);
-		customer.setEiCode(eiCode);
-		customer.setCustomerMemo("-");
-		System.out.println(customer);
-		customerMapper.getCustomerInsert(customer);
-		return customer;
+	public Customer getCustomerSelectGet(String customerCode) {
+		System.out.println(customerCode+"서비스");
+		return null;
 	}
 	
 	/********
