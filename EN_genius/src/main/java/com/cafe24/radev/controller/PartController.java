@@ -131,7 +131,7 @@ public class PartController {
 	 * @return
 	 */
 	@PostMapping("/partGroupToOrder")
-	public String getPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
+	public String getBuyPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
 		System.out.println("뭉탱이데이터호출");
 		System.out.println(partCheck+"<체크값들");
 		System.out.println(groupCode+"<코드값");
@@ -140,6 +140,18 @@ public class PartController {
 		model.addAttribute("groupCode", partService.getGroup());
 		
 		return "/part/partOrder";
+	}
+
+	@PostMapping("/partGroupToEstimate")
+	public String getSellPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
+		System.out.println("뭉탱이데이터호출");
+		System.out.println(partCheck+"<체크값들");
+		System.out.println(groupCode+"<코드값");
+		
+		model.addAttribute("checkPartList",partService.getPartGroup(partCheck,groupCode));
+		model.addAttribute("groupCode", partService.getGroup());
+		
+		return "/part/partEstimate";
 	}
 
 	/**
