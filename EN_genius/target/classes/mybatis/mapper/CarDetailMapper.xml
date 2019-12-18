@@ -43,6 +43,14 @@
 		
 	</resultMap>
 	
+		<!-- Datail insert -->
+	<insert id="getCarRegister" parameterType="com.cafe24.radev.vo.VoCarRegister">
+		INSERT INTO customer_car_info_table
+	(customer_car_info_code, bs_code, customer_code, customer_car_number, vendor_code, rc_code, car_production_year, car_registration_date, last_distance_driven, last_visit_date, customer_car_info_writer, customer_car_info_date)
+	VALUES ('123', '123', '123', '123', '123', '123', NOW(), NOW(), '', NOW(), '', NOW())
+	</insert>
+	
+	
 	<select id="getCarList" resultMap="CarDetailMap">
 		SELECT
 			customer_car_info_code,bs_code,customer_code,customer_car_number
@@ -53,14 +61,6 @@
 			customer_car_info_table
 	</select>
 	
-		<!-- Datail insert -->
-	<insert id="getDetailInsert" parameterType="com.cafe24.radev.vo.VoCarDetail">
-	INSERT INTO customer_car_info_table
-		(customer_car_info_code, bs_code, customer_code, customer_car_number, vendor_code, rc_code, car_production_year, car_registration_date, last_distance_driven, last_visit_date, customer_car_info_writer, customer_car_info_date)
-	VALUES 
-		('#{yearCarCode}', 
-		'', '여누공업사', '최영진', '${carProductionYear}', '${}', NOW(), NOW(), '${}', NOW(), '${}', NOW())
-	</insert>
 	
 	
 	<!-- 연도별 차량 모델 -->
@@ -102,30 +102,29 @@
 	FROM origin_tb
 	</select>
 	
-	<!-- 차량 수정 조회 쿼리 -->
+	<!-- 차량 상세 조회 쿼리 -->
 	<select id="getCarUpdateList" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
-			SELECT 
-			customer_car_info_code AS customerCarInfoCode,
-			bs_code AS bsCode,
-			customer_code AS customerCode,
-			customer_car_number AS customerCarNumber,
-			vendor_code AS vendorCode,
-			rc_code AS rcCode,
-			car_production_year AS carProductionYear,
-			car_registration_date AS carRegistrationDate,
-			last_distance_driven AS lastDistanceDriven,
-			last_visit_date AS lastVisitDate,
-			customer_car_info_writer AS customerCarInfoWriter,
-			customer_car_info_date AS customerCarInfoDate
-			
+		SELECT 
+			customer_car_info_code,
+			bs_code,
+			customer_code,
+			customer_car_number,
+			vendor_code,
+			rc_code,
+			car_production_year,
+			car_registration_date,
+			last_distance_driven,
+			last_visit_date,
+			customer_car_info_writer,
+			customer_car_info_date	
 		FROM
 			customer_car_info_table
-		WHERE customer_car_info_code = #{cul};
+		WHERE customer_car_info_code = #{carUpList};
 	
 	</select>
+	
 		
-	
-	
+
 	<!-- 값을 [리턴받아] 사용할때 리절트 타입을 사용한다 -->
 	<!-- 차량 리스트 조회 쿼리 -->
 	

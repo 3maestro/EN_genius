@@ -23,7 +23,7 @@
                                  		    <th>마지막 방문시 주행거리</th>
                                             <th>마지막 방문일자</th>
                                             <th>수정 및 상세보기</th>
-                                            <!-- <th>삭제</th> -->
+                                            <th>삭제</th>
                                         </tr>
                                     </thead>
                                         
@@ -36,7 +36,7 @@
                                  		    <th>마지막 방문시 주행거리</th>
                                             <th>마지막 방문일자</th>
                                             <th>수정 및 상세보기</th>
-                                            <!-- <th>삭제</th> -->
+                                            <th>삭제</th>
                                         </tr>
                                      </tfoot>
                                     <tbody>
@@ -48,7 +48,7 @@
                                             <td th:text="${CL.rcCode}"></td>
                                             <td th:text="${CL.lastDistanceDriven}"></td>
                                             <td th:text="${CL.lastVisitDate}"></td>
-                                            <!-- <td><a th:href="@{/carUpdateList(cul=${CL.customerCarInfoCode})}">수정</a></td> -->           
+                                            <td><a th:href="@{/carUpdateList(carUpList=${CL.customerCarInfoCode})}">상세보기</a></td>           
                                             <!-- <td><a th:href="@{dustmq}">삭제</a></td> -->                                        
                                         </tr>
                                        

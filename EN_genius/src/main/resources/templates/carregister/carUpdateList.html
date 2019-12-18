@@ -1,13 +1,95 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/default}">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/default}">
 
 <th:block layout:fragment="customTitle">
-	<title>EN_genius</title>
+<title>EN_genius</title>
 </th:block>
 <th:block layout:fragment="customContents">
-	 <div class="col-md-12">
+ <div class="col-md-12">
+ <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">차량 상세보기</div>
+                        <div class="card-body card-block">
+                            <form action="#" method="post" class="">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">차대번호　　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">고객이름　　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">차량번호　　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">벤더사　　　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">차량명　　　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">생산연식　　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">자동차등록일</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">최종주행거리</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">최종방문일　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">작성자　　　</div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+                                    
+                                     <div class="input-group">
+                                        <div class="input-group-addon">작성일자　　 </div>
+                                        <input type="text" id="username3" name="username3" class="form-control">
+                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    </div>
+
+                                
+                                <div class="form-actions form-group">
+                                    <button type="submit" class="btn btn-primary btn-sm">확인</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+ 
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">차량 리스트</strong>
@@ -17,14 +99,13 @@
                                     <thead>
                                         <tr>
                                             <th>차대번호</th>
-                                            <th>공업사</th>
                                             <th>고객 이름</th>
                                             <th>차량 번호</th>
                                             <th>벤더사</th>
                                             <th>차량 명</th>
                                             <th>생산연식</th>
                                             <th>자동차 등록일</th>
-                                 		    <th>마지막 방문시 주행거리</th>
+                                    		<th>마지막 방문시 주행거리</th>
                                             <th>마지막 방문일자</th>
                                             <th>작성자</th>
                                             <th>작성일자</th>
@@ -43,7 +124,7 @@
                                             <th>차량 명</th>
                                             <th>생산연식</th>
                                             <th>자동차 등록일</th>
-                                 		    <th>마지막 방문시 주행거리</th>
+                                    		<th>마지막 방문시 주행거리</th>
                                             <th>마지막 방문일자</th>
                                             <th>작성자</th>
                                             <th>작성일자</th>
@@ -53,8 +134,8 @@
                                      </tfoot>
                                     <tbody>
                                         
-                                       <tr th:each="CL : ${CUL}">
-                                            <td th:text="${CL.customerCarInfoCode}"></td>
+                                       
+                                            <td th:text="${carUpList.customerCarInfoCode}"></td>
                                             <td th:text="${CL.bsCode}"></td>
                                             <td th:text="${CL.customerCode}"></td>
                                             <td th:text="${CL.customerCarNumber}"></td>
@@ -66,9 +147,10 @@
                                             <td th:text="${CL.lastVisitDate}"></td>
                                             <td th:text="${CL.customerCarInfoWriter}"></td>
                                             <td th:text="${CL.customerCarInfoDate}"></td> 
-                                            <td><a th:href="@{/carUpdateList(cus=${CL.customerCarInfoCode})}">수정</a></td>
+                                            <td><a th:href="@{/carUpdateList}">수정</a></td>
+                                            <!-- <td><a th:href="@{/carUpdateList(cus=${CL.customerCarInfoCode})}">수정</a></td> -->
                                             <td><a th:href="@{dustmq}">삭제</a></td>                                        
-                                        </tr>
+                                      
                                        
                                      
                                        

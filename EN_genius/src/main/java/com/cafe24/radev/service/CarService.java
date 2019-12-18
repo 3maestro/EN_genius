@@ -17,6 +17,10 @@ public class CarService {
 	
 	@Autowired private CarMapper carMapper;
 	
+	public int getCarRegister(VoCarRegister voDetail) {
+		System.out.println("CarService 클래스 getDetailInsert 메서드 실행");
+		return carMapper.getCarRegister(voDetail);
+	}
 	
 	public List<VoCarFuel> getPowTrainSelect() {
 		System.out.println("CarService 클래스 getPowTrainSelect 메서드 실행");
@@ -85,10 +89,6 @@ public class CarService {
 	 * @param voDetail
 	 * @return
 	 */
-	public int getDetailInsert(VoCarDetail voDetail) {
-		System.out.println("CarService 클래스 getDetailInsert 메서드 실행");
-		return carMapper.getDetailInsert(voDetail);
-	}
 	
 	/**
 	 * 연도별 차량 메서드
@@ -136,12 +136,15 @@ public class CarService {
 		return carMapper.getCarOriginSelect();
 	}
 	
-	//차량 수정 조회 메서드
-	/*
-	 * public VoCarRegister getCarUpdate(String cuscar) {
-	 * System.out.println("CarService 클래스 getCarUpdate 메서드 실행"); return
-	 * carMapper.getCarUpdate(cuscar); }
-	 */
+	//차량 상세 조회 메서드
+	public VoCarDetail getCarUpdateList(String carUpList) {
+	  System.out.println("CarService 클래스 getCarUpdateList 메서드 실행"); 
+	  System.out.println(carUpList + "클래스 상혁이형이 도와줌");
+	  VoCarDetail a = carMapper.getCarUpdateList(carUpList);
+	  System.out.println(a+ "<>-=---VoCarDetail");
+	  return a; 
+	  }
+	 
 	
 	/**
 	 * 차량 리스트 메서드
@@ -158,10 +161,12 @@ public class CarService {
 	 * @param vcreg
 	 * @return
 	 */
-	public int getCarInsert(VoCarRegister vcreg) {
-		System.out.println("CarService 클래스 getCarInsert 메서드 실행");
-		return carMapper.getCarInsert(vcreg);
-		
-		
-	}
+	/*
+	 * public int getCarInsert(VoCarDetail voDetailInsert) {
+	 * System.out.println("CarService 클래스 getCarInsert 메서드 실행"); return
+	 * carMapper.getDetailInsert(voDetailInsert);
+	 * 
+	 * 
+	 * }
+	 */
 }
