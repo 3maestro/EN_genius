@@ -15,6 +15,7 @@ public class Employee {
 	private String employeeBirth;		//직원생일
 	private String employeeGender;		//성별
 	private String employeeAddr;		//주소
+	private String addrDetail;			//상세주소
 	private String employeePhone;		//핸드폰번호
 	private String joinDate;			//입사일
 	private String resignationDate;		//퇴사일
@@ -72,6 +73,12 @@ public class Employee {
 	public void setEmployeeAddr(String employeeAddr) {
 		this.employeeAddr = employeeAddr;
 	}
+	public String getAddrDetail() {
+		return addrDetail;
+	}
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
+	}
 	public String getEmployeePhone() {
 		return employeePhone;
 	}
@@ -95,8 +102,8 @@ public class Employee {
 		return "Employee [employeeCode=" + employeeCode + ", bsCode=" + bsCode + ", edCode=" + edCode + ", ddCode="
 				+ ddCode + ", employeePass=" + employeePass + ", employeeName=" + employeeName + ", employeeBirth="
 				+ employeeBirth + ", employeeGender=" + employeeGender + ", employeeAddr=" + employeeAddr
-				+ ", employeePhone=" + employeePhone + ", joinDate=" + joinDate + ", resignationDate=" + resignationDate
-				+ "]";
+				+ ", addrDetail=" + addrDetail + ", employeePhone=" + employeePhone + ", joinDate=" + joinDate
+				+ ", resignationDate=" + resignationDate + "]";
 	}
-	
+
 }

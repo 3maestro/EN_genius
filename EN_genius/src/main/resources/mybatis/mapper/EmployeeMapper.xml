@@ -17,6 +17,18 @@
 			<result property="joinDate"			column="join_date"/>
 			<result property="resignationDate"  column="resignation_date"/>
 		</resultMap>
+		<resultMap type="com.cafe24.radev.vo.DepartmentDuty" id="DepartmentDutyResultMap">
+			<result property="ddCode" 			column="dd_code"/>
+			<result property="bsCode" 			column="bs_code"/>
+			<result property="dutyName" 		column="duty_name"/>
+			<result property="useCheck"   		column="use_check"/>
+		</resultMap>
+		<resultMap type="com.cafe24.radev.vo.EmployeeDepartment" id="EmployeeDepartmentResultMap">
+			<result property="edCode" 			column="ed_code"/>
+			<result property="bsCode" 			column="bs_code"/>
+			<result property="dpName" 			column="dp_name"/>
+			<result property="useCheck"   		column="use_check"/>
+		</resultMap>
 		<select id="employeeList" resultMap="employeeResultMap">
 			SELECT 
 				* 

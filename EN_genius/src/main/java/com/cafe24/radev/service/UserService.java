@@ -100,10 +100,7 @@ public class UserService {
 	}
 	
 	public int approvalCheck(String[] bsCode) {
-		/*
-		 * for(int i=0;i<bsCode.length;i++) {
-		 * System.out.println("코드값--------->"+bsCode[i]); }
-		 */
+
 		//배열은 리스트로 변경
 		List<String> codeList = Arrays.asList(bsCode);
 		//리스트를 dao에 넘김

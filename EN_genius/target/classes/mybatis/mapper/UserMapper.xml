@@ -20,9 +20,9 @@
 			<result property="bsCheck"			column="bs_check"/>
 		</resultMap>
 		<resultMap type="com.cafe24.radev.vo.ImageFile" id="imageFileResultMap">
-			<result property="imageCode" 			column="image_file_code"/>
+			<result property="imageCode" 		column="image_file_code"/>
 			<result property="bsCode" 			column="bs_code"/>
-			<result property="realFileName" 			column="image_file_name"/>
+			<result property="realFileName" 	column="image_file_name"/>
 			<result property="fileSize"   		column="image_file_size"/>
 			<result property="imaWriter"  		column="image_file_writer"/>
 			<result property="imaDate" 	column="image_file_date"/>

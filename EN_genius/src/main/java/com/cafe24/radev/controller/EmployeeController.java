@@ -20,7 +20,7 @@ public class EmployeeController {
 	 * 직원등록
 	 * @return
 	 */
-	@GetMapping("/employeeInsert")
+	@PostMapping("/employeeInsert")
 	public String addEmployee() {
 		return "/employee/employeeInsert";
 	}
