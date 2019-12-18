@@ -35,6 +35,10 @@
 					if(partCheck.length > 1){
 						butBtn.text('다중부품구매');
 						sellBtn.text('다중부품판매');
+						console.log($(this).val());
+						var values[] = $(this).val();
+						console.log(values);
+						
 						// 다중버튼활성화후 포스트방식으로 호출
 						butBtn.click(function(){
 							$('[name=partListForm]').attr({action:'/partGroupToOrder',method:'post'});
@@ -101,7 +105,7 @@
 								<button class="btn-info" type="button" id="sellPartBtn">부품판매</button>
 								<button class="btn-info" type="button" id="buyPartBtn">부품구매</button>
 							</form>
-							<div th:replace="part/partCart :: partCartFragment"></div>
+							<div th:replace="part/partCart :: partCartFragment" style="background: black;"></div>
 						</div>
 					</div>
 				</div>
