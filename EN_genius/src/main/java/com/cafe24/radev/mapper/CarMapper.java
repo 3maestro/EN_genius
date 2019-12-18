@@ -14,6 +14,7 @@ import com.cafe24.radev.vo.VoCarRegister;
 public interface CarMapper {
 	
 	
+	
 	public List<VoCarFuel> getPowTrainSelect();
 	
 	public List<VoCarFuel> getDriveWaySelect();
