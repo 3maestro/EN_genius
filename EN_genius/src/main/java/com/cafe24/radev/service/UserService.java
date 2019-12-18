@@ -57,7 +57,7 @@ public class UserService {
 		
 		int max = userMapper.imageCodeMax();
 		max = max + 1;
-		String code = "image0";
+		String code = "image00";
 		String imgeCode = code + max;
 		imageFile.setImageCode(imgeCode);
 		
