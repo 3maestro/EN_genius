@@ -20,8 +20,10 @@
 		<select id="employeeList" resultMap="employeeResultMap">
 			SELECT 
 				* 
-			from 
-				employee_information_tb;
+			FROM 
+				employee_information_tb
+			WHERE
+				bs_Code = #{bsCode};
 		</select>
 		<select id="employeeLogin" resultMap="employeeResultMap">
 			SELECT 
