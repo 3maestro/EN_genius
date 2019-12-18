@@ -8,10 +8,10 @@
   
 	<!-- 파라미터 타입은 내가 받을 타입을 설정한다 -->
 	<!-- 리절트타입은 내가 돌려줄타입을 (리턴타입)설정한다 -->
-<mapper namespace="com.cafe24.radev.jcs.mapper.CarMapper">
+<mapper namespace="com.cafe24.radev.mapper.CarMapper">
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
 	
-	<resultMap type="com.cafe24.radev.jcs.vo.VoCarDetail" id="CarDetailMap">
+	<resultMap type="com.cafe24.radev.vo.VoCarDetail" id="CarDetailMap">
 		
 		<result property="originCode" column="origin_code"/>
 		<result property="originMain" column="origin_main"/>
@@ -22,7 +22,7 @@
 		<result property="carModelCode" column="car_model_code"/>
 		<result property="carModelName" column="car_model_name"/>
 		<result property="cmWriter" column="cm_writer"/>
-		<result property="cmDate" column="cmD_date"/>
+		<result property="cmDate" column="cm_date"/>
 		<result property="yearCarCode" column="year_car_code"/>
 		<result property="carModelDetail" column="car_model_detail"/>
 		<result property="sellStartYear" column="sell_start_year"/>
@@ -32,11 +32,29 @@
 		<result property="customerCarNumber" column="customer_car_number"/>
 		<result property="rcCode" column="rc_code"/>
 		<result property="carProductionYear" column="car_production_year"/>
+		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="bsCode" column="bs_code"/>
+		<result property="customerCode" column="customer_code"/>
+		<result property="carRegistrationDate" column="car_registration_date"/>
+		<result property="lastDistanceDriven" column="last_distance_driven"/>
+		<result property="lastVisitDate" column="last_visit_date"/>
+		<result property="customerCarInfoWriter" column="customer_car_info_writer"/>
+		<result property="customerCarInfoDate" column="customer_car_info_date"/>
 		
 	</resultMap>
 	
+	<select id="getCarList" resultMap="CarDetailMap">
+		SELECT
+			customer_car_info_code,bs_code,customer_code,customer_car_number
+			,vendor_code,rc_code,car_production_year,car_registration_date
+			,last_distance_driven,last_visit_date,customer_car_info_writer
+			,customer_car_info_date
+		FROM
+			customer_car_info_table
+	</select>
+	
 		<!-- Datail insert -->
-	<insert id="getDetailInsert" parameterType="com.cafe24.radev.jcs.vo.VoCarDetail">
+	<insert id="getDetailInsert" parameterType="com.cafe24.radev.vo.VoCarDetail">
 	INSERT INTO customer_car_info_table
 		(customer_car_info_code, bs_code, customer_code, customer_car_number, vendor_code, rc_code, car_production_year, car_registration_date, last_distance_driven, last_visit_date, customer_car_info_writer, customer_car_info_date)
 	VALUES 
@@ -85,7 +103,7 @@
 	</select>
 	
 	<!-- 차량 수정 조회 쿼리 -->
-	<select id="getCarUpdate" parameterType="String" resultType="com.cafe24.radev.jcs.vo.VoCarRegister">
+	<select id="getCarUpdateList" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
 			SELECT 
 			customer_car_info_code AS customerCarInfoCode,
 			bs_code AS bsCode,
@@ -102,7 +120,7 @@
 			
 		FROM
 			customer_car_info_table
-		WHERE customer_car_info_code = #{cuscar};
+		WHERE customer_car_info_code = #{cul};
 	
 	</select>
 		
