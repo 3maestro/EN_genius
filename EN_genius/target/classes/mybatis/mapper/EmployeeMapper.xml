@@ -44,4 +44,18 @@
 				 employee_information_tb
 			WHERE ei_code= #{employeeCode};
 		</select>
+		<select id="dpName" resultMap="EmployeeDepartmentResultMap">
+			SELECT 
+				*
+			from 
+				employee_department_tb 
+			WHERE bs_code= #{bsCode} AND use_check= 'Y';
+		</select>
+		<select id="dutyName" resultMap="DepartmentDutyResultMap">
+			SELECT 
+				* 
+			from 
+				department_duty_tb 
+			WHERE bs_code= #{bsCode} AND use_check= 'Y';
+		</select>
 	</mapper>

@@ -17,5 +17,10 @@ public interface EmployeeMapper {
 	
 	List<Employee> employeeList(String bsCode);
 	
+	String dpName();
+	
+	String dutyName();
+	
 	Employee employeeLogin(Employee employee);
+	
 }
