@@ -56,8 +56,8 @@ public class CheckController {
 		System.out.println("bigCheckList CheckController 호출");
 		System.out.println(bigCate + " <-bigCate bigCheckList CheckController.java");
 		
-		List<String> midCateList = checkService.getBasicCheckList(bigCate);
-		System.out.println(midCateList + " <-bigCheckList bigCheckList CheckController.java");
+		List<String> midCateList = checkService.getBigCheckList(bigCate);
+		System.out.println(midCateList + " <-midCateList bigCheckList CheckController.java");
 		
 		return midCateList;
 	}
@@ -68,7 +68,10 @@ public class CheckController {
 		System.out.println("midCheckList CheckController 호출");
 		System.out.println(midCate + " <-midCate midCheckList CheckController.java");
 		
-		return null;
+		List<String> smallCateList = checkService.getMidCheckList(midCate);
+		System.out.println(smallCateList + " <-smallCateList midCheckList CheckController.java");
+		
+		return smallCateList;
 	}
 	
 
