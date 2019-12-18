@@ -34,6 +34,17 @@ public class CarController {
 	 * @param voDetail
 	 * @return
 	 */
+	
+	
+	  @GetMapping("carUpdateList") 
+	  public String carUpdateList(@RequestParam(value="carUpList", required=false) String carUpList, Model model) {
+	  System.out.println("CarController 클래스 carUpdateList 메서드 실행");
+	  model.addAttribute("carUpList", carUpList);
+	  return "carUpdateList"; 
+	  
+	}
+	 
+	
 	@PostMapping("carRegister")
 	public String carRegister(VoCarDetail voDetailInsert) {
 		System.out.println("CarController 클래스 carRegister 메서드 실행");
@@ -75,21 +86,27 @@ public class CarController {
 
 	
 	// ajax 컨트롤러에서 받는 방법
-	@PostMapping(value = "/test", produces = "application/json")
-	public @ResponseBody String ajaxTest(@RequestParam Map<String, String> json) {
-		System.out.println("CarController 클래스 ajaxTest 메서드 실행");
-		String a = json.get("age");
-		return a;
-	}
+	/*
+	 * @PostMapping(value = "/test", produces = "application/json")
+	 * public @ResponseBody String ajaxTest(@RequestParam Map<String, String> json)
+	 * { System.out.println("CarController 클래스 ajaxTest 메서드 실행"); String a =
+	 * json.get("age"); return a; }
+	 */
 	
 	  @GetMapping("/carList")
-	  public String carList(VoCarRegister vcreg, Model model) {
+	  public String carList(VoCarDetail voDetail, Model model) {
 	  System.out.println("CarController 클래스 carList 메서드 실행");
-	  List<VoCarRegister> CarList = carService.getCarList(); 
-	  System.out.println("값확인"+ CarList); model.addAttribute("vcreg", CarList); //어트리뷰트 : 어딘가에 등록이 되어있다 
+	  List<VoCarDetail> CarList = carService.getCarList(); 
+	  System.out.println("값확인"+ CarList); model.addAttribute("voDetail", CarList); //어트리뷰트 : 어딘가에 등록이 되어있다 
 	  return "carregister/carList";
 	  
 	  }
 	 
 
+	/*
+	 * @GetMapping("/dustmq") public String dustmq() {
+	 * System.out.println("CarController 연습 메서드 실행"); return "carregister/dustmq";
+	 * 
+	 * }
+	 */
 }
