@@ -53,19 +53,19 @@
                                      </tfoot>
                                     <tbody>
                                         
-                                       <tr th:each="CL : ${CUL}">
-                                            <td th:text="${CL.customerCarInfoCode}"></td>
-                                            <td th:text="${CL.bsCode}"></td>
-                                            <td th:text="${CL.customerCode}"></td>
-                                            <td th:text="${CL.customerCarNumber}"></td>
-                                            <td th:text="${CL.vendorCode}"></td>
-                                            <td th:text="${CL.rcCode}"></td>
-                                            <td th:text="${CL.carProductionYear}"></td>
-                                            <td th:text="${CL.carRegistrationDate}"></td>
-                                            <td th:text="${CL.lastDistanceDriven}"></td>
-                                            <td th:text="${CL.lastVisitDate}"></td>
-                                            <td th:text="${CL.customerCarInfoWriter}"></td>
-                                            <td th:text="${CL.customerCarInfoDate}"></td> 
+                                       <tr th:each="carUpList : ${carUpList}">
+                                            <td th:text="${cUL.customerCarInfoCode}"></td>
+                                            <td th:text="${cUL.bsCode}"></td>
+                                            <td th:text="${cUL.customerCode}"></td>
+                                            <td th:text="${cUL.customerCarNumber}"></td>
+                                            <td th:text="${cUL.vendorCode}"></td>
+                                            <td th:text="${cUL.rcCode}"></td>
+                                            <td th:text="${cUL.carProductionYear}"></td>
+                                            <td th:text="${cUL.carRegistrationDate}"></td>
+                                            <td th:text="${cUL.lastDistanceDriven}"></td>
+                                            <td th:text="${cUL.lastVisitDate}"></td>
+                                            <td th:text="${cUL.customerCarInfoWriter}"></td>
+                                            <td th:text="${cUL.customerCarInfoDate}"></td> 
                                             <td><a th:href="@{/carUpdateList(cuUpList=${CL.customerCarInfoCode})}">수정</a></td>
                                             <td><a th:href="@{dustmq}">삭제</a></td>                                        
                                         </tr>
