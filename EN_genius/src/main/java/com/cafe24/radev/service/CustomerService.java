@@ -36,9 +36,8 @@ public class CustomerService {
 	 * @return 없음
 	 */
 	public Customer getCustomerSelect(String customerCode) {
-		System.out.println(customerCode+"서비스");
-		customerMapper.getCustomerSelect(customerCode);
-		return null;
+		Customer customer = customerMapper.getCustomerSelect(customerCode);
+		return customer;
 	}
 	
 	/********
@@ -79,5 +78,11 @@ public class CustomerService {
 		}
 		System.out.println(code);
 		return code;
+	}
+	
+	public void getCustomerUpdate(Customer customer) {
+		customer.getCustomerCode();
+		customerMapper.getCustomerUpdate(customer);
+		
 	}
 }

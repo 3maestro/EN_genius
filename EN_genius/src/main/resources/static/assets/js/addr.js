@@ -1,5 +1,3 @@
-
-
 // 우편번호 찾기 화면을 넣을 element
 var element_layer = document.getElementById('layer');
 var btn = document.getElementById('btnCloseLayer');
@@ -21,10 +19,23 @@ $(document).ready(function() {
 function closeDaumPostcode() {
     // iframe을 넣은 element를 안보이게 한다.
     element_layer.style.display = 'none';
+    if($('#address').val()=='' && customer!=null){
+    	$('#addr1').attr('class','col-lg-12')
+		$('#address').attr('id','customerAddr')
+		$('#addr2').empty()
+		$('#customerAddr').val(customer.customerAddr)
+    }
 }
 
-function execDaumPostcode() {
-    new daum.Postcode({
+function DaumPostcode() {
+	$('#addr1').attr('class','col-lg-6')
+	$('#customerAddr').attr('id','address')
+	if(!$('#addr2').find("#detailAddress").length){
+		$('#addr2').append('<input class="form-control" type="text" name="addr2" id="detailAddress" placeholder="상세주소"><br>')
+	}
+	$('#address').val('')
+	$('#detailAddress').val('')
+	new daum.Postcode({
         oncomplete: function(data) {
             // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
