@@ -1,14 +1,14 @@
-package com.cafe24.radev.jsh.service;
+package com.cafe24.radev.service;
 
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.radev.jsh.mapper.CheckMapper;
-import com.cafe24.radev.jsh.vo.AskCheck;
-import com.cafe24.radev.jsh.vo.BasicCheck;
-import com.cafe24.radev.jsh.vo.RoutineCheck;
+import com.cafe24.radev.mapper.CheckMapper;
+import com.cafe24.radev.vo.AskCheck;
+import com.cafe24.radev.vo.BasicCheck;
+import com.cafe24.radev.vo.RoutineCheck;
 
 @Service
 public class CheckService {

@@ -1,4 +1,4 @@
-package com.cafe24.radev.jsh.vo;
+package com.cafe24.radev.vo;
 
 public class AskCheck {
 	private String customerCarInfoCode;

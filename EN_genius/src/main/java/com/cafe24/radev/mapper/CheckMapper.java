@@ -1,12 +1,12 @@
-package com.cafe24.radev.jsh.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.*;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.jsh.vo.AskCheck;
-import com.cafe24.radev.jsh.vo.BasicCheck;
-import com.cafe24.radev.jsh.vo.RoutineCheck;
+import com.cafe24.radev.vo.AskCheck;
+import com.cafe24.radev.vo.BasicCheck;
+import com.cafe24.radev.vo.RoutineCheck;
 
 @Mapper
 public interface CheckMapper {
