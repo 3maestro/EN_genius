@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      <!-- layout:decorate 레이아웃 참고 -->
+
+	<th:block layout:fragment="customTitle">
+		<title>부품목록</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+		var groupCode = /*[[ ${groupCode} ]]*/;
+
+		$(document).ready(function(){
+				console.log(groupCode+"그룹코드");
+				$('#groupCode').val(groupCode);
+				
+				console.log($('#groupCode').val()+"그룹코드값");
+				
+		/*]]*/
+				//체크박스클릭시 
+				$('input[name=partCheck]').click(function(){
+					//경고창 초기화
+					$('.card-body').find('h2').empty();
+					
+					var partCheck = $('input[name=partCheck]:checked');
+					var butBtn = $('#buyPartBtn');
+					var sellBtn = $('#sellPartBtn');
+					
+					if(partCheck.length > 1){
+						butBtn.text('다중부품구매');
+						sellBtn.text('다중부품판매');
+						// 다중버튼활성화후 포스트방식으로 호출
+						butBtn.click(function(){
+							$('[name=partListForm]').attr({action:'/partGroupToOrder',method:'post'});
+						});
+						//
+						sellBtn.click(function(){
+							$('[name=partListForm]').attr({action:'/partGroupToEstimate',method:'post'});
+						});
+					}else if(partCheck.length == 1){
+						butBtn.text('부품구매');
+						sellBtn.text('부품판매');
+						butBtn.click(function(){
+							$('[name=partListForm]').attr({action:'/partListToOrder?'+partCheck ,method:'GET'});
+						});
+					}
+				});
+				//모든버튼클릭시
+				$('.btn-info').click(function(){
+					console.log('click');
+					var partCheck = $('input[name=partCheck]:checked');
+					console.log(partCheck);
+
+					if(partCheck.length == 0){
+						$('.card-body').find('h2').empty();
+						$('.card-body').append('<h2>체크값을확인하여주세요</h2>');
+					}else{
+						$('.btn-info').attr('type','submit');
+					};
+				});	
+			});
+		</script>
+		<div class="animated fadeIn">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<strong class="card-title">부품목록</strong>
+						</div>
+						<div class="card-body">
+							<form th:action="@{/partListToEstimate(partCheck)}" name="partListForm">
+								<table style="font-size: 12px;" class="table table-striped table-bordered" id="bootstrap-data-table" border="1">
+									<tr>
+										<td>파트번호</td>
+										<td>대분류</td>
+										<td>중분류</td>
+										<td>제품명</td>
+										<td>개수</td>
+										<td>판매가격</td>
+										<td>등록자</td>
+										<td>업데이트일자</td>
+									</tr>
+									<tr th:each=p:${partList}>
+										<td><input type="checkbox" th:text="${p.partNumber}" th:value="${p.partNumber}" name="partCheck"></td>
+										<td th:text="${p.bigCate}" th:value="${p.bigCate}"></td>
+										<td th:text="${p.midCate}" th:value="${p.midCate}"></td>
+										<td th:text="${p.partName}" th:value="${p.partName}"></td>
+										<td th:text="${p.partMany}" th:value="${p.partMany}"></td>
+										<td th:text="${p.partPrice}" th:value="${p.partPrice}"></td>
+										<td th:text="${p.partWrite}" th:value="${p.partWrite}"></td>
+										<td th:text="${p.partUpdateDate}" th:value="${p.partUpdateDate}"></td>
+									</tr>
+								</table>
+								<input type="hidden" value="0" id="groupCode" name="groupCode">
+								<button class="btn-info" type="button" id="sellPartBtn">부품판매</button>
+								<button class="btn-info" type="button" id="buyPartBtn">부품구매</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+</html>
