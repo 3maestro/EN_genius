@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	<mapper namespace="com.cafe24.radev.pyw.mapper.UserMapper">
-		<resultMap type="com.cafe24.radev.pyw.vo.CarFactory" id="carFactoryResultMap">
+	<mapper namespace="com.cafe24.radev.mapper.UserMapper">
+		<resultMap type="com.cafe24.radev.vo.CarFactory" id="carFactoryResultMap">
 			<result property="bsCode" 			column="bs_code"/>
 			<result property="bsLevel" 			column="bs_level"/>
 			<result property="bossId" 			column="boss_id"/>
@@ -19,8 +19,13 @@
 			<result property="bsWriter"			column="bs_writer"/>
 			<result property="bsCheck"			column="bs_check"/>
 		</resultMap>
+<<<<<<< HEAD
 		<resultMap type="com.cafe24.radev.pyw.vo.ImageFile" id="imageFileResultMap">
 			<result property="imageCode" 			column="image_file_code"/>
+=======
+		<resultMap type="com.cafe24.radev.vo.ImageFile" id="imageFileResultMap">
+			<result property="imageCode" 		column="image_file_code"/>
+>>>>>>> refs/heads/master
 			<result property="bsCode" 			column="bs_code"/>
 			<result property="realFileName" 			column="image_file_name"/>
 			<result property="fileSize"   		column="image_file_size"/>
@@ -34,7 +39,7 @@
 				 business_tb
 			WHERE boss_id= #{bossId};
 		</select>
-		<insert id="addCarFactory" parameterType="com.cafe24.radev.pyw.vo.CarFactory">
+		<insert id="addCarFactory" parameterType="com.cafe24.radev.vo.CarFactory">
 		INSERT INTO business_tb (bs_code,boss_id,boss_pw,boss_name,boss_phonenum,boss_email,bs_name,bs_num,bs_addr,bs_telephone,bs_registration,bs_date) 
 						  VALUES(#{bsCode},
 						   	     #{bossId},
@@ -49,7 +54,7 @@
 							     #{bsRegistration},
 							      now())
 		</insert>
-		<insert id="addDocumentFile" parameterType="com.cafe24.radev.pyw.vo.CarFactory">
+		<insert id="addDocumentFile" parameterType="com.cafe24.radev.vo.CarFactory">
 		INSERT INTO image_file_tb (image_file_code,bs_code,image_file_name,image_file_size,image_file_date) 
 						  VALUES(#{imageCode},
 						   	     #{bsCode},
