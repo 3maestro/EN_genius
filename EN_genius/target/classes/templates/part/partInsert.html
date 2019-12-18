@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      <!-- layout:decorate 레이아웃 참고 -->
+
+	<th:block layout:fragment="customTitle">
+		<title>부품등록</title>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(document).on('change','#fCate',function(){
+			//$('#fCate').change(function(){
+				var PartNumber = $('[name=partNumber]').val();
+				consloe.log(PartNumber);
+				var fVal = $('#fCate').val();
+				console.log(fVal);
+				$('#sCate').empty();
+				
+				var request = $.ajax({
+					url: "/sCateCall",
+					method: "POST",
+					data: { fVal : fVal },
+					dataType: "json"
+				});
+				
+				request.done(function( data ) {
+					var sCate = null;
+					console.log(data);
+						
+					$('#sCate').attr('style','display:block');
+					for(var i=0; i<data.length; i++){
+						sCate = data[i];
+						console.log(sCate);
+						$('#sCate').append('<option value='+sCate+'>'+sCate+'</option>');
+					}
+				});
+				request.fail(function( jqXHR, textStatus ) {
+					alert( "Request failed: " + textStatus );
+				});
+	
+			});
+			
+			$('#serchPartBtn').click(function(){
+				var partValue = $('[name=partNumber]').val();
+				console.log(partValue);
+				if(partValue == '' && partValue.length<1){
+					console.log('값없음');
+					$('#serchPartBtn').css('background-color','red').text('부품번호를 입력해주세요');
+					$('[name=partNumber]').focus();
+					return false;
+				}
+				var request = $.ajax({
+					url: "/serchPartCall",
+					method: "POST",
+					data: { partValue : partValue },
+					dataType: "json"
+				});
+				
+				request.done(function( data ) {
+					$('#callCate').empty();
+					$('[name=partInsertForm]').attr('action','/partUpdate')
+					console.log(data);
+					console.log(data.midCate);
+					$('#fCate').css('display','none');
+					$('#callCate').append('<input type="text" value="'+data.bigCate+'" readonly><br>');
+					$('#callCate').append('<input type="text" value="'+data.midCate+'" readonly>');
+					$('[name=partName]').val(data.partName).attr('readonly','readonly');
+					
+					$(document).on('keyup','[name=partMany]',function(){
+						var many = $('[name=partMany]').val();
+						console.log(many);
+						var tprice = (data.partPrice*many);
+						console.log(tprice);
+						$('[name=partPrice]').val(tprice);
+					})
+					
+				});    
+				
+				request.fail(function( jqXHR, textStatus ) {
+					//alert( "Request failed: " + textStatus );
+					$('serchPartBtn').css('background-color','red').text('다시시도해주세요');
+				});
+				
+			});
+		});
+	</script>
+		등록
+		<form action="/partInsertPro" name=partInsertForm >
+			<input type="text" placeholder="파트넘버" name="partNumber"><span id="serchPartBtn" >조회하기</span><br>
+				<select id="fCate" name="bigCate">
+					<option>::대분류::</option>
+					<option th:each=fcl:${fCateList} th:text="${fcl.firstCateName}" th:value="${fcl.firstCateName}"></option>
+				</select><br>
+				<select id="sCate" style="display: none;" name="midCate">
+					<option>::중분류::</option>
+				</select>
+			<div id="callCate">
+			</div>
+			<input type="text" placeholder="부품명" name="partName"><br>
+			<input type="number" placeholder="수량" name="partMany"><br>
+			<input type="number" placeholder="가격" name="partPrice"><br>
+			<button type="submit">등록하기</button>
+		</form>
+	</th:block>
+</html>

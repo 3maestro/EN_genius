@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      <!-- layout:decorate 레이아웃 참고 -->
+
+	<th:block layout:fragment="customTitle">
+		<title>부품구매</title>
+	</th:block>
+	<th:block layout:fragment="customContents">
+		구매 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(document).on('blur','[name=many]',function(){
+				var oldMany = $(this).attr('placeholder');
+				var many = $(this).val();
+				var price = $('[name='+oldMany+']').attr('price')
+				
+				console.log(many);
+				if(many != oldMany){
+					//$('[name=price]').text('ok');
+					//$('[name=list]').find('#price').text('ok');
+					$('[name='+oldMany+']').text((many*price));
+				};
+				
+			});
+		});
+	</script>
+	<form>
+		<!-- 한줄 -->
+		<th:block th:if="${checkPartList == null}">
+			<!--부품목록에서 구매로갈경우-->
+			<input type="hidden" value="0" id="groupCode" name="groupCode">
+			<th:block th:if="${partRow != null}">
+				<table border="1" th:each=p:${partRow}>
+						<tr>
+							<td>부품번호</td>
+							<td><input type="text" th:value="${p.partNumber}"></td>
+						</tr>
+						<tr>
+							<td>부품명</td>
+							<td><input type="text" th:value="${p.partName}"></td>
+						</tr>
+						<tr>
+							<td>개수</td>
+							<td><input type="number"></td>
+						</tr>
+						<tr>
+							<td>가격</td>
+							<td><input type="number" th:value="${p.partPrice}"></td>
+						</tr>
+				</table>
+			</th:block>
+			<!--메뉴에서 구매로갈경우-->
+			<th:block th:unless="${partRow != null}">
+				<table border="1">
+						<tr>
+							<td>부품번호</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>부품명</td>
+							<td><input type="text"></td>
+						</tr>
+						<tr>
+							<td>개수</td>
+							<td><input type="number"></td>
+						</tr>
+						<tr>
+							<td>가격</td>
+							<td><input type="number"></td>
+						</tr>
+				</table>
+			</th:block>
+		</th:block>
+		<!-- 두줄이상 -->
+		<th:block th:if="${checkPartList} != null">
+			<table style="font-size: 12px;" class="table table-striped table-bordered" id="bootstrap-data-table" border="1">
+				<tr>
+					<td>파트번호</td>
+					<td>대분류</td>
+					<td>중분류</td>
+					<td>제품명</td>
+					<td>개수</td>
+					<td>판매가격</td>
+				</tr>
+				<tr th:each=p:${checkPartList} th:name="list">
+					<td th:text="${p.partNumber}" th:value="${p.partNumber}"></td>
+					<td th:text="${p.bigCate}" th:value="${p.bigCate}"></td>
+					<td th:text="${p.midCate}" th:value="${p.midCate}"></td>
+					<td th:text="${p.partName}" th:value="${p.partName}"></td>
+					<td><input type="number" th:placeholder="${p.partMany}" th:value="${p.partMany}" th:name=many></td>
+					<td th:text="${p.partPrice}*${p.partMany}" th:price="${p.partPrice}" id="price" th:name="${p.partMany}"></td>
+				</tr>
+			</table>
+		</th:block>
+		업체목록추가하여 업체정보까지 신청서로
+		<button type="button" class="btn-info">신청서출력</button>
+	</form>
+		
+	
+	</th:block>
+</html>
