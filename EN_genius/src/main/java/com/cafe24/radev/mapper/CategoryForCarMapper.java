@@ -1,11 +1,11 @@
-package com.cafe24.radev.pet.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.pet.vo.FirstCategoryForCar;
-import com.cafe24.radev.pet.vo.SecondCategoryForCar;
+import com.cafe24.radev.vo.FirstCategoryForCar;
+import com.cafe24.radev.vo.SecondCategoryForCar;
 
 @Mapper
 public interface CategoryForCarMapper{

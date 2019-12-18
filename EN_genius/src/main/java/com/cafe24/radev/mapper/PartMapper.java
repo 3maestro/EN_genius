@@ -1,11 +1,11 @@
-package com.cafe24.radev.pet.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.pet.vo.Group;
-import com.cafe24.radev.pet.vo.Part;
+import com.cafe24.radev.vo.Group;
+import com.cafe24.radev.vo.Part;
 @Mapper
 public interface PartMapper {
 	/**

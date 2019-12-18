@@ -1,10 +1,10 @@
-package com.cafe24.radev.pet.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.pet.vo.Store;
+import com.cafe24.radev.vo.Store;
 
 /**
  * 거래처 맵퍼

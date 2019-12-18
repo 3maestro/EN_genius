@@ -1,4 +1,4 @@
-package com.cafe24.radev.pet.controller;
+package com.cafe24.radev.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cafe24.radev.pet.service.StoreService;
+import com.cafe24.radev.service.StoreService;
 
 @Controller
 public class StoreController {

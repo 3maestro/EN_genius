@@ -1,4 +1,4 @@
-package com.cafe24.radev.pet.vo;
+package com.cafe24.radev.vo;
 
 public class FirstCategoryForCar {
 	private String firstCateCode;

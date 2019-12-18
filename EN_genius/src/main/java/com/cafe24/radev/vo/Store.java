@@ -1,4 +1,4 @@
-package com.cafe24.radev.pet.vo;
+package com.cafe24.radev.vo;
 /**
  * 스토어vo
  *  @author EuTteum

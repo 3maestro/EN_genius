@@ -1,4 +1,4 @@
-package com.cafe24.radev.pet.vo;
+package com.cafe24.radev.vo;
 /**
  * 그룹 VO
  * @author 박으뜸

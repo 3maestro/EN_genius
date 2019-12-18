@@ -1,4 +1,4 @@
-package com.cafe24.radev.pet.service;
+package com.cafe24.radev.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,11 +10,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.radev.pet.mapper.CategoryForCarMapper;
-import com.cafe24.radev.pet.mapper.PartMapper;
-import com.cafe24.radev.pet.vo.FirstCategoryForCar;
-import com.cafe24.radev.pet.vo.Part;
-import com.cafe24.radev.pet.vo.SecondCategoryForCar;
+import com.cafe24.radev.mapper.CategoryForCarMapper;
+import com.cafe24.radev.mapper.PartMapper;
+import com.cafe24.radev.vo.FirstCategoryForCar;
+import com.cafe24.radev.vo.Part;
+import com.cafe24.radev.vo.SecondCategoryForCar;
 
 @Service
 public class PartService {

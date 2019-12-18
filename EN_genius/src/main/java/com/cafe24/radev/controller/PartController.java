@@ -1,4 +1,4 @@
-package com.cafe24.radev.pet.controller;
+package com.cafe24.radev.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cafe24.radev.pet.service.PartService;
-import com.cafe24.radev.pet.vo.Part;
+import com.cafe24.radev.service.PartService;
+import com.cafe24.radev.vo.Part;
 
 @Controller
 public class PartController {
