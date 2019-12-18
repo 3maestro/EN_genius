@@ -1,5 +1,7 @@
 package com.cafe24.radev.pyw.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +41,8 @@ public class EmployeeController {
 	 * @return
 	 */
 	@GetMapping("/employeeSelect")
-	public String employeeList(Model model, String bsCode) {
+	public String employeeList(Model model, HttpSession session) {
+		String bsCode = (String)session.getAttribute("SCODE");
 		System.out.println("사업장코드==>"+ bsCode);
 		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
 		return "/employee/employeeList";

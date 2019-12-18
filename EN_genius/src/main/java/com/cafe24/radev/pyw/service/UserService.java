@@ -40,6 +40,8 @@ public class UserService {
 	
 	public int addCarFactory(CarFactory carFactory){
 		System.out.println("이때는 코드값이 없쥬?" + carFactory);
+		carFactory.setBossEmail(carFactory.getBossEmail() +carFactory.getEmailAddr());
+		System.out.println(carFactory.getBossEmail());
 		int max = userMapper.bsCodeMax();
 		max = max + 1;
 		String code = "bs00";
