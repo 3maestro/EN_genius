@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customCss">
+		<style>
+			.types{
+				height: 250px !important;
+				font-size: 18px;
+			}
+			.catecate{text-align: center; background: menu;}
+		</style>
+	</th:block>
+	
+	<!-- 사용자 title -->
+	<th:block layout:fragment="customTitle">
+		<title>기본 점검 항목</title>
+	</th:block>
+	
+	<!-- 사용자 Script -->
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			
+			$(document).ready(function(){	
+				$('.bigCate').click(function(){
+					var bigCate = $(this).val();
+					console.log(bigCate + " <-bigCate")
+
+					var request = $.ajax({
+						  url: "/basicCheckList",	//호출될 url
+						  method: "POST",
+						  data: {"bigCate" : bigCate},//파라미터
+						  dataType: "json"		//응답 타입
+					});
+				
+					request.done(function( data ) {
+							console.log(data)
+						if(data != null || data != "" || data != "undefined"){
+							var midCateCheck = $('#midCate')
+							console.log(midCateCheck)
+							for(var i=0; i<data.length; i++){
+								var midCate = data[i];
+ 								console.log(midCate + " <-midCate")
+									var html =''
+								$.each(data,function(i, item){	
+									html += '"<option class = "midCate" value=';
+									html += data[i];
+									html += '>';
+									html += data[i];
+									html += '</option>"';
+									midCateCheck.html(html)
+								})
+								//'<option"+ " class = "midCate" value='+ data[i] +'>'data[i]'</option>
+									//"<option"+ " class=midCate" + " value="+ data[i] +">" + data[i] +"</option>"
+								//<option class = "midCate" value=data[i]>"
+// 								var midCate = data[i];
+// 								console.log(midCate + " <-midCate")
+								
+							}
+							
+// 								midCateCheck.each(function(i){
+// 									$(this).html("<option"+ "class=midCate" + "value="+ data[i] +">" + data[i] +"</option>")
+// 								})
+// 								document.getElementById("midCate").value = midCate
+// 								document.getElementById("midCate").text = midCate
+								
+						}			
+					})
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  //alert( "Request failed: " + textStatus );
+					});
+				
+				})
+				$('.midCate').on('click',(function(){
+					var midCate = $(this).val();
+					console.log(midCate + " <-midCate")
+					
+				}))
+				
+	 		});	
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="dashboardFragment">
+		<h1>아아아</h1>
+	</th:block>
+	<th:block layout:fragment="dashboardFragmentOl">
+		<ol class="breadcrumb text-right">
+		<li><a href="#">1</a></li>
+		<li><a href="#">UI 2</a></li>
+		<li class="active">3</li>
+		</ol>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+		
+		
+		<div class="card">
+			<div class="card-header">
+				<i class="fa fa-user"></i>
+				<strong class="card-title pl-2">기본 점검</strong>
+			</div>
+			<div class="card-body">
+				
+				<div class="row">
+					<div class="col-sm-3"><button class="btn btn-lg btn-block btn-danger">1</button></div>
+					<div class="col-sm-3"><button class="btn btn-lg btn-block btn-info">1</button></div>
+					<div class="col-sm-3"><button class="btn btn-lg btn-block btn-info">1</button></div>
+					<div class="col-sm-3"><button class="btn btn-lg btn-block btn-info">1</button></div>
+				</div>
+				<br>				
+				<br>				
+				<div class="row">
+					<div class="col-sm-3">
+						<h3 class="catecate">대분류</h6>
+						<select id="bigCate" multiple="multiple" class="form-control types">
+							<option value="엔진" class="bigCate">엔진</option>
+							<option value="섀시" class="bigCate">섀시</option>
+							<option value="전장" class="bigCate">전장</option>		
+							<option value="바디" class="bigCate">바디</option>		
+							<option value="변속기" class="bigCate">변속기</option>		
+						</select>
+					</div>
+					<div class="col-sm-3">
+						<h3 class="catecate">중분류</h6>
+						<select id="midCate" multiple="multiple" class="form-control types">
+							<option></option>
+
+<!-- 							<option class="midCate">섀시</option> -->
+<!-- 							<option class="midCate">변속기</option>		 -->
+<!-- 							<option class="midCate">전장</option>		 -->
+<!-- 							<option class="midCate">바디</option>		 -->
+						</select>
+					</div>
+					<div class="col-sm-3">
+						<h3 class="catecate">소분류</h6>
+						<select id="types" multiple="multiple" class="form-control types">
+							<option value="엔진">엔진</option>
+							<option value="섀시">섀시</option>
+							<option value="전장">전장</option>		
+							<option value="바디">바디</option>		
+							<option value="변속기">변속기</option>		
+						</select>
+					</div>
+					<div class="col-sm-3">
+						<h3 class="catecate">상세분류</h6>
+						<select id="types" multiple="multiple" class="form-control types">
+							<option value="engine">엔진</option>
+							<option value="chassis">섀시</option>
+							<option value="transmission">변속기</option>		
+							<option value="electric">전장</option>		
+							<option value="body">바디</option>		
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+<!-- 		<div>
+			<div class="test">
+				<button type="button" id="search" style="margin-top:auto,500px;">연관단어검색 ▶</button>		
+			</div>
+		</div> -->
+	</th:block>
+</html>

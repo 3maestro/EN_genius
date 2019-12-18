@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis맵퍼  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace속성은 인터페이스의 위치를 적는다. -->
+<mapper namespace="com.cafe24.radev.mapper.CustomerMapper">
+	
+	<resultMap type="com.cafe24.radev.vo.Customer" id="CustomerResultMap">
+		<result property="customerCode"		column="customer_code"/>
+		<result property="bsCode"			column="bs_code"/>
+		<result property="eiCode"			column="ei_code"/>
+		<result property="customerSign"		column="customer_sign"/>
+		<result property="customerName"		column="customer_name"/>
+		<result property="customerBirth"	column="customer_birth"/>
+		<result property="customerGender"	column="customer_gender"/>
+		<result property="customerPost"		column="customer_post"/>
+		<result property="customerAddr"		column="customer_addr"/>
+		<result property="customerPhone"	column="customer_phone"/>
+		<result property="customerMemo"		column="customer_memo"/>
+	</resultMap>
+	
+	<select id="getCustomerList" resultMap="CustomerResultMap">
+	  	SELECT 
+			customer_code
+			,bs_code
+			,ei_code
+			,customer_sign
+			,customer_name
+			,customer_birth
+			,customer_gender
+			,customer_post
+			,customer_addr
+			,customer_phone
+			,customer_memo
+		FROM
+			customer_tb
+		WHERE
+			bs_code='bs001'
+	</select>
+	
+	<select id="getCustomerInsertAjax" resultType="String">
+	  	SELECT 
+			customer_code
+		FROM
+			customer_tb
+		
+		WHERE
+				bs_code='bs001'
+			AND 
+				customer_name=#{name}
+			AND 
+				customer_birth=#{birth}
+	</select>
+	
+	<insert id="getCustomerInsert" parameterType="com.cafe24.radev.vo.Customer">
+		INSERT INTO
+			customer_tb
+		VALUES(
+			 #{customerCode}
+			,#{bsCode}
+			,#{eiCode}
+			,now()
+			,#{customerName}
+			,#{customerBirth}
+			,#{customerGender}
+			,#{customerPost}
+			,#{customerAddr}
+			,#{customerPhone}
+			,#{customerMemo}
+		)
+	</insert>
+	
+</mapper>
