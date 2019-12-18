@@ -1,4 +1,4 @@
-package com.cafe24.radev.pyw.controller;
+package com.cafe24.radev.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.cafe24.radev.pyw.service.UserService;
-import com.cafe24.radev.pyw.vo.CarFactory;
-import com.cafe24.radev.pyw.vo.Employee;
+import com.cafe24.radev.service.UserService;
+import com.cafe24.radev.vo.CarFactory;
+import com.cafe24.radev.vo.Employee;
 
 @Controller
 public class UserController {

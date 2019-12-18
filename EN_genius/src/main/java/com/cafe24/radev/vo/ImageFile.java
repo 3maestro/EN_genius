@@ -1,4 +1,4 @@
-package com.cafe24.radev.pyw.vo;
+package com.cafe24.radev.vo;
 
 public class ImageFile {
 

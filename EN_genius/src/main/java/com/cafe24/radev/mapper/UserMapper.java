@@ -1,12 +1,12 @@
-package com.cafe24.radev.pyw.mapper;
+package com.cafe24.radev.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.pyw.vo.CarFactory;
-import com.cafe24.radev.pyw.vo.Employee;
-import com.cafe24.radev.pyw.vo.ImageFile;
+import com.cafe24.radev.vo.CarFactory;
+import com.cafe24.radev.vo.Employee;
+import com.cafe24.radev.vo.ImageFile;
 
 @Mapper
 public interface UserMapper {

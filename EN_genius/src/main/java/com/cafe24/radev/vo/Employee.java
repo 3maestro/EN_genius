@@ -1,4 +1,4 @@
-package com.cafe24.radev.pyw.vo;
+package com.cafe24.radev.vo;
 /**
  * 	직원 vo
  * @author 박연우
