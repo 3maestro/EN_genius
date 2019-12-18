@@ -7,6 +7,13 @@
 		<title>EN_genius 고객 목록</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
+		<script>
+			function doImgPop(img) {
+				img1 = new Image();
+				img1.src = ("images/"+img);
+				imgControll(img);
+			}
+		</script>
 		<div class="card">
 			<div class="card-header">
 				<strong class="card-title">

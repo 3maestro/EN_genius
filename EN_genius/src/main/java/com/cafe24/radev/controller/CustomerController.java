@@ -35,9 +35,8 @@ public class CustomerController {
 	public String getCustomerUpdate(Model model, @RequestParam(value="customerCode") String customerCode) {
 		model.addAttribute("title", "고객수정");
 		String bsCode = "bs001";
-		customerCode = bsCode+"_"+customerCode;
-		System.out.println(customerCode+"컨트롤");
-		customerService.getCustomerSelectGet(customerCode);
+		System.out.println(bsCode+"_"+customerCode);
+		customerService.getCustomerSelectForOne(customerCode);
 		return "/customer/customerInfo";
 	}
 	

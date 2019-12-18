@@ -47,12 +47,10 @@
 		
 		WHERE
 				bs_code='bs001'
-			AND
+			AND 
 				customer_name=#{name}
-			AND
+			AND 
 				customer_birth=#{birth}
-			AND
-				customer_phone=#{phone}
 	</select>
 	
 	<insert id="getCustomerInsert" parameterType="com.cafe24.radev.vo.Customer">

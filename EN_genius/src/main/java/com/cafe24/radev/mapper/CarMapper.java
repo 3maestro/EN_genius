@@ -102,7 +102,7 @@ public interface CarMapper {
 	 * 차량 리스트 (....)
 	 * @return
 	 */
-	public List<VoCarRegister> getCarList();
+	public List<VoCarDetail> getCarList();
 	
 	
 	
@@ -115,7 +115,7 @@ public interface CarMapper {
 	
 	//가져갈 값이 1개일땐 리턴데이터 타입을 vo객체로 한다
 	//차량 등록 수정 메서드
-	public VoCarRegister getCarUpdate(String cuscar);
+	public VoCarDetail getCarUpdateList(String cul);
 	
 	
 	
