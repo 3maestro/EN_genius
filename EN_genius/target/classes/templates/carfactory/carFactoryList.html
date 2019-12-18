@@ -37,7 +37,7 @@
 					url:"/selectImage",
 					method: "POST",
 					data : { 'bsCode' : bsCode }, 
-					dataType : "text"	
+					dataType : "text"			
 				});
 				
 				request.done(function(data){
@@ -61,7 +61,7 @@
                 <strong class="card-title">사업장 리스트</strong>
             </div>
             <div class="card-body">  
-            <form th:action="@{/approvalCheck}" method="post">
+            <form th:action="@{/approvalCheck}">
                 <table class="table">
                     <thead>
                         <tr>
@@ -79,7 +79,7 @@
                   </thead>
                   <tbody th:each="c : ${carfactorylist}">
                     <tr>
-                        <td class="a-center">
+                        <td class="a-center ">
                           <input type="checkbox" name="bsCode" th:value="${c.bsCode}">
                         </td>
                         <!-- <th scope="row">1</th> -->
@@ -88,7 +88,7 @@
                         <td><span class="nana" th:text="${c.bsAddr}"></span></td>
                         <td><span class="name" th:text="${c.bsTelephone}"></span></td>
                         <td><span class="name" th:text="${c.bsCheck}"></span></td>                       
-                        <td><button type="button" th:data-bsCode="${c.bsCode}" th:text="서류" name="bsCodePopupBtn" class="btn btn-outline-link"></button></td>
+                        <td><button th:data-bsCode="${c.bsCode}" th:text="서류" name="bsCodePopupBtn" class="btn btn-outline-link"></button></td>
                     </tr>
                 </tbody>          
             </table>

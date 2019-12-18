@@ -1,4 +1,4 @@
-package com.cafe24.radev.jsh.controller;
+package com.cafe24.radev.controller;
 
 import java.util.*;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cafe24.radev.jsh.service.CheckService;
-import com.cafe24.radev.jsh.vo.BasicCheck;
-import com.cafe24.radev.jsh.vo.RoutineCheck;
+import com.cafe24.radev.service.CheckService;
+import com.cafe24.radev.vo.BasicCheck;
+import com.cafe24.radev.vo.RoutineCheck;
 
 @Controller
 public class CheckController {

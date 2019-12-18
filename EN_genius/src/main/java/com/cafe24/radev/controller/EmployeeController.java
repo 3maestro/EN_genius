@@ -1,6 +1,4 @@
-package com.cafe24.radev.pyw.controller;
-
-import javax.servlet.http.HttpSession;
+package com.cafe24.radev.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.cafe24.radev.pyw.service.EmployeeService;
+import com.cafe24.radev.service.EmployeeService;
 
 @Controller
 public class EmployeeController {
@@ -41,10 +39,8 @@ public class EmployeeController {
 	 * @return
 	 */
 	@GetMapping("/employeeSelect")
-	public String employeeList(Model model, HttpSession session) {
-		String bsCode = (String)session.getAttribute("SCODE");
-		System.out.println("사업장코드==>"+ bsCode);
-		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
+	public String employeeList(Model model) {
+		model.addAttribute("employeeList", employeeService.employeeList());
 		return "/employee/employeeList";
 	}
 	/**

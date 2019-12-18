@@ -20,7 +20,7 @@
 			<result property="bsCheck"			column="bs_check"/>
 		</resultMap>
 		<resultMap type="com.cafe24.radev.pyw.vo.ImageFile" id="imageFileResultMap">
-			<result property="imageCode" 			column="image_file_code"/>
+			<result property="imageCode" 		column="image_file_code"/>
 			<result property="bsCode" 			column="bs_code"/>
 			<result property="realFileName" 			column="image_file_name"/>
 			<result property="fileSize"   		column="image_file_size"/>
@@ -84,22 +84,5 @@
 			FROM 
 				 image_file_tb
 		</select>
-		
-		<update id="approvalCheck" parameterType="list">
-			UPDATE business_tb
-				SET bs_check = 'Y'
-			WHERE 
-			<choose>
-				<when test="list neq null">
-					bs_code 
-					<foreach item="bsCode" collection="list" open="IN(" close=")" separator=",">
-						#{bsCode}
-					</foreach>				
-				</when>
-				<otherwise>
-					1=0
-				</otherwise>
-			</choose>
-		</update>
 		
 	</mapper>
