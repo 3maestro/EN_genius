@@ -76,7 +76,7 @@
 		        <h3 class="modal-title" id="myModalLabel">직원등록</h3>
 		      </div>
 		      <div class="modal-body">
-			    <form method="post" th:action="@{/employeeInsert}" enctype="multipart/form-data">
+			    <form method="post" th:action="@{/addEmployee}">
 				    <div class="form-group">
 				    <div class="input-group">
 		   				<select name="edCode" class="form-control">
@@ -106,15 +106,15 @@
 				    </div>
 					<div class="row">
 						<div class="col-lg-6">
-							<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="사업장주소" readonly="readonly"><br>
+							<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="주소" readonly="readonly"><br>
 						</div>
 						<div class="col-lg-6">
-							<input class="form-control btn-danger" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+							<input class="form-control btn-danger" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
-							<input class="form-control" type="text"	name="employeeAddr" placeholder="주소" readonly="readonly"><br>
+							<input class="form-control" type="text"	id="address" name="employeeAddr" placeholder="주소" readonly="readonly"><br>
 						</div>
 						<div class="col-lg-6">
 							<input class="form-control" type="text" name="addrDetail" placeholder="상세주소"><br>
@@ -145,7 +145,7 @@
 				    </div>
 					<div class="modal-footer">
 					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					  <button type="submit" class="btn btn-secondary btn-sm">등록</button>
+					  <button type="submit" id="addEmployee" class="btn btn-secondary btn-sm">등록</button>
 					</div>
 			    </form>
 		      </div>

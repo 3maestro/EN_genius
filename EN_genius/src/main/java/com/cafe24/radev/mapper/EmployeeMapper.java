@@ -21,6 +21,8 @@ public interface EmployeeMapper {
 	
 	List<String> DepartmentDutySelect(String bsCode);
 	
+	int addEmployee(Employee employee);
+	
 	Employee employeeLogin(Employee employee);
 	
 }

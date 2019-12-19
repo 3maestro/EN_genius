@@ -39,7 +39,7 @@ public class UserService {
 	String bsCode = null;
 	
 	public int addCarFactory(CarFactory carFactory){
-		System.out.println("이때는 코드값이 없쥬?" + carFactory);
+		System.out.println("사업장 등록폼에서 받아온 값 ==> " + carFactory);
 		carFactory.setBossEmail(carFactory.getBossEmail() +carFactory.getEmailAddr());
 		carFactory.setBsAddr(carFactory.getBsAddr() + carFactory.getAddrDetail());
 		System.out.println(carFactory.getBossEmail());
@@ -57,7 +57,7 @@ public class UserService {
 		
 		int max = userMapper.imageCodeMax();
 		max = max + 1;
-		String code = "image0";
+		String code = "image00";
 		String imgeCode = code + max;
 		imageFile.setImageCode(imgeCode);
 		

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cafe24.radev.service.EmployeeService;
+import com.cafe24.radev.vo.Employee;
 
 @Controller
 public class EmployeeController {
@@ -20,8 +21,12 @@ public class EmployeeController {
 	 * 직원등록
 	 * @return
 	 */
-	@PostMapping("/employeeInsert")
-	public String addEmployee() {
+	@PostMapping("/addEmployee")
+	public String addEmployee(Employee employee, HttpSession session) {
+		String bsCode = (String)session.getAttribute("SCODE");
+		employee.setBsCode(bsCode);
+		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
+		
 		return "/employee/employeeInsert";
 	}
 	/**
