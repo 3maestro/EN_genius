@@ -74,7 +74,14 @@ public class CheckController {
 		return smallCateList;
 	}
 	
-
+	@PostMapping("/small/smallCheckList")
+	public @ResponseBody List<String> smallCheckList(
+			@RequestParam(value="smallCate[]", required = false) List<String> smallCate){
+		System.out.println("smallCheckList CheckController 호출");
+		System.out.println(smallCate + " <-smallCate smallCheckList CheckController.java");
+		return null;
+	}
+	
 	
 	//@ResponseBody Map<String, Object>
 	//@ResponseBody List<Map<String, Object>>

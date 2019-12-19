@@ -169,12 +169,15 @@ public class CheckService {
 		System.out.println(list + " <-list getMidCheckList CheckService.java");
 		System.out.println(list.size() + " <-list.size() getMidCheckList");
 		
-		List<String> smallCateList = new ArrayList<String>();
 		
-		for(int i=0; i<list.size(); i++) {
-			BasicCheck basicCaheck = list.get(i);
-			smallCateList.add(basicCaheck.getCkSmallContent());
-		}
+		  List<String> smallCateList = new ArrayList<String>();
+		  //System.out.println(smallCateList + "<-----=-=9=0-");
+		 
+		
+		  for(int i=0; i<list.size(); i++) { BasicCheck basicCaheck = list.get(i);
+			 smallCateList.add(basicCaheck.getCkSmallContent()); 
+		  }
+		 
 		
 		return smallCateList;
 	}
