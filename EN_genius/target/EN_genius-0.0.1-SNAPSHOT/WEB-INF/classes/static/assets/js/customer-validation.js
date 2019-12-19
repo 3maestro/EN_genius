@@ -7,8 +7,7 @@ $(document).ready(function() {
 	});
 
 	var phoneRegex = /^([0-9]{11})$/;
-	
-	$('#customerPhoneInput').change(function() {
+	$(document).on('blur','#customerPhoneInput',function() {
 		if(!phoneRegex.test($("#customerPhoneInput").val())) {
 			alert('숫자 11자리를 입력해주세요.');
 			$("#customerPhoneInput").focus();
@@ -46,6 +45,18 @@ $(document).ready(function() {
 		}else if ($("#detailAddress").val() == '') {
 			alert('주소를 입력해주세요.');
 			return false;
+		}else if(customer!=null){
+			console.log('하하하하')
+			$("<input type='hidden' name='customerCode' value='"+customer.customerCode+"'>").appendTo("form");
+			if($('#addr2').find("#detailAddress").length){
+				var addr1 = document.getElementById('address').value;
+				var addr2 = document.getElementById('detailAddress').value;
+				$("<input type='hidden' name='customerAddr' value='"+addr1+" "+addr2+"'>").appendTo("form");
+			}else{
+				$("<input type='hidden' name='customerAddr' value='"+customer.customerAddr+"'>").appendTo("form");
+			}
+			$('#form').attr('action','/customerUpdate');
+			$('#form').submit();
 		}else {
 			var request = $.ajax({
 				url : '/customerInsertAjax',
@@ -57,8 +68,6 @@ $(document).ready(function() {
 			request.done(function(data) {
 				console.log(data)
 				if(data=='미가입'){
-					var addr1 = document.getElementById('address').value;
-					var addr2 = document.getElementById('detailAddress').value;
 					$("<input type='hidden' name='customerAddr' value='"+addr1+" "+addr2+"'>").appendTo("form");
 					$('#form').attr('action','/customerInsert');
 					$('#form').submit();
