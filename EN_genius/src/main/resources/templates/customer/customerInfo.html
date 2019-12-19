@@ -6,7 +6,15 @@
 		<title>EN_genius [[${title}]]</title>
 	</th:block>
 	<th:block layout:fragment="customScript">
+	
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+				var customer = [[${customer}]];
+				console.log(customer);
+			/*]]>*/
+		</script>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="assets/js/customer-list-value.js"></script>
 		<script src="assets/js/customer-validation.js"></script>
 	</th:block>
 	<th:block layout:fragment="customContents">
@@ -20,8 +28,7 @@
 						<label>
 							고객 명
 						</label>
-						<input type="text" th:if="${title} == '고객등록'" id="customerName" name="customerName" class="form-control" placeholder="고객 명">
-						<input type="text" th:unless="${title} == '고객등록'" value="aa" id="customerName" name="customerName" class="form-control" placeholder="고객 명">
+						<input type="text" id="customerName" name="customerName" class="form-control" placeholder="고객 명">
 					</div>
 					<div class="form-group col-lg-6">
 						<label>
@@ -58,7 +65,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="form-group col-lg-12">
+					<div class="form-group col-lg-12"  style="margin : 0px">
 						<label>
 							고객주소
 						</label>
@@ -67,14 +74,14 @@
 								<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="우편번호" readonly="readonly"><br>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control btn-danger" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+								<input class="form-control btn-danger" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-lg-6">
+						<div class="row" id="">
+							<div class="col-lg-6" id="addr1">
 								<input class="form-control" type="text"	name="addr1" id="address" placeholder="주소" readonly="readonly"><br>
 							</div>
-							<div class="col-lg-6">
+							<div class="col-lg-6" id="addr2">
 								<input class="form-control" type="text" name="addr2" id="detailAddress" placeholder="상세주소"><br>
 							</div>
 						</div>
@@ -82,22 +89,19 @@
 						<div id="layer">
 							<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" onclick="closeDaumPostcode()" alt="닫기 버튼">
 						</div>
-						<div th:unless="${title} == '고객등록'" class="row">
-							<div class="col-lg-12">
-								<input class="form-control" type="text" placeholder="메모" >
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-12">
-								<label>
-									<input type="checkbox">
-									SMS 수신 동의
-								</label>
-							</div>
-						</div>
 					</div>
 				</div>
-				<button type="submit" id="Registration-submit" class="btn btn-primary btn-flat m-b-30 m-t-30">고객 등록</button>
+				<div class="row" id="memo">
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<label>
+							<input type="checkbox">
+							SMS 수신 동의
+						</label>
+					</div>
+				</div>
+				<button type="submit" id="Registration-submit" class="btn btn-primary btn-flat m-b-30 m-t-30">[[${title}]]</button>
 			</form>
 		</div>
 		<script src="assets/js/addr.js"></script>
