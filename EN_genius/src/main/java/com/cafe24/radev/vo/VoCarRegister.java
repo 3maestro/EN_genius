@@ -16,7 +16,6 @@ public class VoCarRegister {
 	private String lastVisitDate;	// 마지막방문날짜
 	private String customerCarInfoWriter;	// 작성자
 	private String customerCarInfoDate;	// 작성일자
-	
 	public String getCustomerCarInfoCode() {
 		return customerCarInfoCode;
 	}
@@ -112,4 +111,7 @@ public class VoCarRegister {
 				+ ", customerCarInfoWriter=" + customerCarInfoWriter + ", customerCarInfoDate=" + customerCarInfoDate
 				+ "]";
 	}
+	
+	
+	
 }

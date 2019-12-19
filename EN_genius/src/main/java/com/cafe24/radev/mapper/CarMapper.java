@@ -59,12 +59,14 @@ public interface CarMapper {
 	 */
 	public List<VoCarOption> getOpGradeSelect();
 	
+	//등록할떄마다 값을 가져와야 하기 떄문에 vo의 매개변수를 입력해야 한다
+	//차량 등록 메서드
 	/**
 	 * voCarDetail insert
 	 * @param voDetail
 	 * @return
 	 */
-	public int getDetailInsert(VoCarDetail voDetail);
+	public int getCarRegister(VoCarRegister voDetail);
 	
 	/**
 	 * 연도별 차량 메서드
@@ -104,26 +106,8 @@ public interface CarMapper {
 	 */
 	public List<VoCarDetail> getCarList();
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//가져갈 값이 1개일땐 리턴데이터 타입을 vo객체로 한다
 	//차량 등록 수정 메서드
-	public VoCarDetail getCarUpdateList(String cul);
-	
-	
-	
-	
-	
-
-	//등록할떄마다 값을 가져와야 하기 떄문에 vo의 매개변수를 입력해야 한다
-	//차량 등록 메서드
-	public int getCarInsert(VoCarRegister vcreg);
+	public VoCarDetail getCarUpdateList(String carUpList);
 
 }
