@@ -53,7 +53,7 @@
 			arrayAsk.ri_code
 	</select>
 	
-	<select id="getBasicCheckList" parameterType="String" 
+	<select id="getBigCheckList" parameterType="String" 
 	 resultType="com.cafe24.radev.vo.BasicCheck">
 		SELECT
 			b.ck_big_name as ckBigName,
@@ -66,6 +66,22 @@
 			b.ck_big_code = m.ck_big_code
 		WHERE 
 			b.ck_big_name = #{bigCate}
+	</select>
+	
+	<select id="getMidCheckList" parameterType="String" 
+	 resultType="com.cafe24.radev.vo.BasicCheck">
+		SELECT
+			m.ck_big_name as ckBigName,
+			m.ck_mid_name as ckMidName,
+			s.ck_small_content as ckSmallContent
+		FROM 
+			check_smallcate_tb AS s
+		INNER join
+			check_midcate_tb AS m
+		ON
+			s.ck_mid_code  = m.ck_mid_code
+		WHERE
+			m.ck_mid_name = #{midCate}
 	</select>
 			
 </mapper>
