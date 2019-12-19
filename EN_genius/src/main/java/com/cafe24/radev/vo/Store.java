@@ -5,6 +5,7 @@ package com.cafe24.radev.vo;
  */
 public class Store {
 	private String storeCode;
+	private String bsCode;
 	private String storeName;
 	private String storeLisen;
 	private String storeCeoName;
@@ -22,6 +23,13 @@ public class Store {
 	public void setStoreCode(String storeCode) {
 		this.storeCode = storeCode;
 	}
+	public String getBsCode() {
+		return bsCode;
+	}
+	public void setBsCode(String bsCode) {
+		this.bsCode = bsCode;
+	}
+	
 	public String getStoreName() {
 		return storeName;
 	}
