@@ -43,11 +43,13 @@
 		
 	</resultMap>
 	
+	
 		<!-- Datail insert -->
 	<insert id="getCarRegister" parameterType="com.cafe24.radev.vo.VoCarRegister">
 		INSERT INTO customer_car_info_table
-	(customer_car_info_code, bs_code, customer_code, customer_car_number, vendor_code, rc_code, car_production_year, car_registration_date, last_distance_driven, last_visit_date, customer_car_info_writer, customer_car_info_date)
-	VALUES ('123', '123', '123', '123', '123', '123', NOW(), NOW(), '', NOW(), '', NOW())
+			(customer_car_info_code, bs_code, customer_code, customer_car_number, vendor_code, rc_code, car_production_year, car_registration_date, last_distance_driven, last_visit_date, customer_car_info_writer, customer_car_info_date)
+		VALUES 
+			(#{customerCarInfoCode}, 'cp001', '123', '123', '123', '123', NOW(), NOW(), '13500', NOW(), 'id002', NOW())
 	</insert>
 	
 	
@@ -62,7 +64,6 @@
 	</select>
 	
 	
-	
 	<!-- 연도별 차량 모델 -->
 	<select id="getYearCarSelect" resultMap="CarDetailMap">
 		SELECT 
@@ -70,6 +71,7 @@
 		FROM 
 			year_car_tb
 	</select>
+	
 	
 	<!-- 차량 모델 종류 -->
 	<select id="getCarModelSelect" resultMap="CarDetailMap">
@@ -80,6 +82,7 @@
 			car_model_tb
 	</select>
 	
+	
 	<!-- 차량 종류 선택 -->
 	<select id="getCarClassSelect" resultMap="CarDetailMap">
 		SELECT 
@@ -87,6 +90,8 @@
 		FROM 
 			car_class_tb
 	 </select>
+	 
+	 
 	<!-- 제작회사 선택 -->
 	<select id="getCarVendorSelect" resultMap="CarDetailMap">
 		SELECT 
@@ -95,6 +100,7 @@
 			vendor_tb
 	</select>
 	
+	
 	<!-- 차량 등록 국가 선택 쿼리 -->
 	<select id="getCarOriginSelect" resultMap="CarDetailMap">
 		SELECT 
@@ -102,25 +108,23 @@
 	FROM origin_tb
 	</select>
 	
+	
 	<!-- 차량 상세 조회 쿼리 -->
 	<select id="getCarUpdateList" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
 		SELECT 
-			customer_car_info_code,
-			bs_code,
-			customer_code,
-			customer_car_number,
-			vendor_code,
-			rc_code,
-			car_production_year,
-			car_registration_date,
-			last_distance_driven,
-			last_visit_date,
-			customer_car_info_writer,
-			customer_car_info_date	
+			customer_car_info_code AS customerCarInfoCode
+			,customer_code AS customerCode 
+			,customer_car_number AS customerCarNumber
+			
+			,car_production_year AS carProductionYear
+			,customer_car_info_date AS customerCarInfoDate
+			,customer_car_info_writer AS customerCarInfoWriter
+			,last_visit_date AS lastVisitDate
+			,last_distance_driven AS lastDistanceDriven
+			,car_registration_date AS carRegistrationDate
 		FROM
 			customer_car_info_table
 		WHERE customer_car_info_code = #{carUpList};
-	
 	</select>
 	
 		

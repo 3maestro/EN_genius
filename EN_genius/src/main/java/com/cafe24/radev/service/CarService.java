@@ -139,7 +139,7 @@ public class CarService {
 	//차량 상세 조회 메서드
 	public VoCarDetail getCarUpdateList(String carUpList) {
 	  System.out.println("CarService 클래스 getCarUpdateList 메서드 실행"); 
-	  System.out.println(carUpList + "클래스 상혁이형이 도와줌");
+	  System.out.println(carUpList + "서비스 상혁이형이 도와줌");
 	  VoCarDetail a = carMapper.getCarUpdateList(carUpList);
 	  System.out.println(a+ "<>-=---VoCarDetail");
 	  return a; 
