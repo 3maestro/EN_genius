@@ -4,9 +4,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- namespace속성은 인터페이스의 위치를 적는다. -->
-<mapper namespace="com.cafe24.radev.jsh.mapper.CheckMapper">
+<mapper namespace="com.cafe24.radev.mapper.CheckMapper">
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
-	<select id="getRoutineCheckList" resultType="com.cafe24.radev.jsh.vo.RoutineCheck">
+	<select id="getRoutineCheckList" resultType="com.cafe24.radev.vo.RoutineCheck">
 		SELECT 
 			ri_code as riCode,
 			bs_code as bsCode,
@@ -26,7 +26,7 @@
 	</select>
 
 	<select id="getAskCheck" parameterType="String" 
-	 	resultType="com.cafe24.radev.jsh.vo.AskCheck">
+	 	resultType="com.cafe24.radev.vo.AskCheck">
  		SELECT
 			arrayAsk.customer_car_info_code AS customerCarInfoCode,
 			R.ri_code AS riCode,
@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="getBasicCheckList" parameterType="String" 
-	 resultType="com.cafe24.radev.jsh.vo.BasicCheck">
+	 resultType="com.cafe24.radev.vo.BasicCheck">
 		SELECT
 			b.ck_big_name as ckBigName,
 			m.ck_mid_name as ckMidName
