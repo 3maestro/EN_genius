@@ -83,5 +83,6 @@
 		WHERE
 			m.ck_mid_name = #{midCate}
 	</select>
+
 			
 </mapper>

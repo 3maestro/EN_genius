@@ -64,9 +64,9 @@
 					});
 				})
 	 		});	
-			
+					
 				$(document).on('click','.midCate',(function(){
-					midCate = $(this).val();
+					var midCate = $(this).val();
 					console.log(midCate + " <-midCate")	
 
 					var request = $.ajax({
@@ -82,17 +82,19 @@
 							var smallCateCheck = $('#smallCate')
 							console.log(smallCateCheck)
 							for(var i=0; i<data.length; i++){
-								var smallCate = data[i];
+								data[i];
  								//console.log(smallCate + " <-smallCate")
 									var html =''
 								$.each(data,function(i, item){	
 									html += '"<option class = "smallCate" value=';
-									html += data[i];
+									html += data[i].ckSmallContent;
 									html += '>';
-									html += data[i];
+									html += data[i].ckSmallContent;
 									html += '</option>"';
 									smallCateCheck.html(html)
 								})
+								finalBigCate = data[i].ckBigName;
+								finalMidCate = data[i].ckMidName;
 							}
 						}
 					})
@@ -101,39 +103,93 @@
 					  //alert( "Request failed: " + textStatus );
 					});
 				}))
+								
+
 				
 					var smallCateCheck = [];
 					var finalCheck = [];
 				$(document).on('click','.smallCate',(function(){
 					var basicList = $('#basicList')
+					//var midCheck = $(this).val();
 					var smallCate = $(this).val();
-					console.log(smallCate + " <-smallCate")	
+					//console.log(smallCate + " <-smallCate")	
 					//var size = smallCateCheck.length;
 					//console.log(size + "<-s")
+					
 					smallCateCheck.push(smallCate);
-
-					//$.each(smallCateCheck,function(i,smallCate){
-				    if(finalCheck.indexOf(smallCate) == -1 ) finalCheck.push(smallCate);
-				    console.log(finalCheck + " <-finalCheck")
-					//});
-					var i;
-					for(i=0; i<finalCheck.length; i++){
-						var basicCheck = finalCheck[i]
-						console.log(basicCheck)
-						
-						var html ='';
+				   	if(finalCheck.indexOf(smallCate) == -1 ) finalCheck.push(smallCate);
+				    	console.log(finalCheck + " <-finalCheck")
+					
+			    	for(var i=0; i<finalCheck.length; i++){
+ 							var basicCheck = finalCheck[i]
+							//console.log(basicCheck)
+							var html ='';
 						$.each(finalCheck,function(i, item){
-							/* var j;
-							if(i!=0)j++; */
-							html += '<tr>'
-							html += '<td>'+ i +'</td>'
-							html += '<td>'+ 'bigCate' +'</td>'
-							html += '<td>'+ 'midCate' +'</td>'
-							html += '<td>'+ finalCheck[i] +'</td>'
-							html += '</tr>'
-							basicList.html(html)
+								html += '<tr>'
+								html += '<td>'+ i +'</td>'
+		 						html += '<td>'+ finalBigCate +'</td>'
+		 						html += '<td>'+ finalMidCate +'</td>'
+								html += '<td>'+ finalCheck[i] +'</td>'
+								html += '</tr>'
+								basicList.html(html)
 						})
-					}
+			    	}	
+
+				    	
+				    	
+						
+// 						$(document).on('click','.midCate',function(){
+// 							finalMidCate = $(this).val();
+// 						})
+				
+// 					$(document).on('change','#bigCate',function(){
+// 									finalBigCate = $(this).val();		
+// 									$('#smallCate').empty();
+// 								})
+// 					$(document).on('change','#midCate',function(){
+// 									finalBigCate = $(this).val();
+// 								})
+
+							
+// 						html += '<td>'+ finalBigCate +'</td>'
+// 						html += '<td>'+ finalMidCate +'</td>'s
+// 					var request = $.ajax({
+//  						  url: "/small/smallCheckList",	//호출될 url
+//  						  method: "POST",
+//  						  data: {"midCheck" : midCheck},//파라미터
+//  						  dataType: "json"		//응답 타입
+//  					});
+				
+//  					request.done(function( data ) {
+//  						console.log(data);
+//  						var smallCate;
+//  						var midCate;
+//  						var bigCate;
+ 						
+// 					for(var j=0; j<data.length; j++){
+// 						smallCate = data[j].ckSmallContent;
+// 						midCate = data[j].ckMidName;
+// 						bigCate = data[j].ckBigName;
+					
+// 					smallCateCheck.push(smallCate);
+// 				   	if(finalCheck.indexOf(smallCate) == -1 ) finalCheck.push(smallCate);
+// 				    	console.log(finalCheck + " <-finalCheck")
+//  					}
+
+
+
+
+ 						
+//  					})
+//  					request.fail(function( jqXHR, textStatus ) {
+//  						  //alert( "Request failed: " + textStatus );
+//  					});
+					
+ 					
+					
+//	 					//$.each(smallCateCheck,function(i,smallCate){
+//	 					//});
+
 					/* for(var i=0; i<smallCateCheck.length; i++){
 						var smallCateCh = smallCateCheck[i]
 						if(finalCheck.indexOf(smallCate) == -1 && smallCateCh != '' && smallCateCh != 'undefined'){

@@ -161,7 +161,7 @@ public class CheckService {
 	
 	}
 	
-	public List<String> getMidCheckList(String midCate) {
+	public List<BasicCheck> getMidCheckList(String midCate) {
 		System.out.println("getMidCheckList CheckService 호출");
 		System.out.println(midCate + " <-midCate getMidCheckList CheckService.java");
 	
@@ -170,17 +170,27 @@ public class CheckService {
 		System.out.println(list.size() + " <-list.size() getMidCheckList");
 		
 		
-		  List<String> smallCateList = new ArrayList<String>();
-		  //System.out.println(smallCateList + "<-----=-=9=0-");
+//		  List<String> smallCateList = new ArrayList<String>();
+//		  //System.out.println(smallCateList + "<-----=-=9=0-");
+//		 
+//		
+//		  for(int i=0; i<list.size(); i++) { 
+//			  BasicCheck basicCaheck = list.get(i);
+//			  smallCateList.add(basicCaheck.getCkSmallContent()); 
+//		  }
 		 
 		
-		  for(int i=0; i<list.size(); i++) { BasicCheck basicCaheck = list.get(i);
-			 smallCateList.add(basicCaheck.getCkSmallContent()); 
-		  }
-		 
-		
-		return smallCateList;
+		return list;
 	}
+	
+	public List<BasicCheck> getSamllCheckList(String smallCate){
+		System.out.println("getSamllCheckList CheckService 호출");
+		System.out.println(smallCate + " <-midCheck getSamllCheckList CheckService.java");
+		List<BasicCheck> list = checkMapper.getMidCheckList(smallCate);
+
+		return list;
+	}
+	
 	
 //	public List<Map<String, Object>> getCheckList(String bigcate){
 //		System.out.println("getCheckList CheckService 호출");
