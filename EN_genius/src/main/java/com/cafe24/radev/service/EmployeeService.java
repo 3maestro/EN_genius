@@ -16,8 +16,10 @@ public class EmployeeService {
 	
 	public List<Employee> employeeList(String bsCode){
 		System.out.println(employeeMapper.employeeList(bsCode));
-		employeeMapper.dpName();
-		employeeMapper.dutyName();
 		return employeeMapper.employeeList(bsCode);
+	}
+	
+	public List<String> DepartmentDutySelect(String bsCode){
+		return employeeMapper.DepartmentDutySelect(bsCode);
 	}
 }

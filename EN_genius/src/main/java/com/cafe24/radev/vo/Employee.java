@@ -19,6 +19,9 @@ public class Employee {
 	private String employeePhone;		//핸드폰번호
 	private String joinDate;			//입사일
 	private String resignationDate;		//퇴사일
+	private String cCode;
+	private DepartmentDuty departmentDuty;	
+	private EmployeeDepartment employeeDepartment;
 	public String getEmployeeCode() {
 		return employeeCode;
 	}
@@ -97,13 +100,34 @@ public class Employee {
 	public void setResignationDate(String resignationDate) {
 		this.resignationDate = resignationDate;
 	}
+	public DepartmentDuty getDepartmentDuty() {
+		return departmentDuty;
+	}
+	public void setDepartmentDuty(DepartmentDuty departmentDuty) {
+		this.departmentDuty = departmentDuty;
+	}
+	public EmployeeDepartment getEmployeeDepartment() {
+		return employeeDepartment;
+	}
+	public void setEmployeeDepartment(EmployeeDepartment employeeDepartment) {
+		this.employeeDepartment = employeeDepartment;
+	}
+	public String getcCode() {
+		return cCode;
+	}
+	public void setcCode(String cCode) {
+		this.cCode = cCode;
+	}
 	@Override
 	public String toString() {
 		return "Employee [employeeCode=" + employeeCode + ", bsCode=" + bsCode + ", edCode=" + edCode + ", ddCode="
 				+ ddCode + ", employeePass=" + employeePass + ", employeeName=" + employeeName + ", employeeBirth="
 				+ employeeBirth + ", employeeGender=" + employeeGender + ", employeeAddr=" + employeeAddr
 				+ ", addrDetail=" + addrDetail + ", employeePhone=" + employeePhone + ", joinDate=" + joinDate
-				+ ", resignationDate=" + resignationDate + "]";
+				+ ", resignationDate=" + resignationDate + ", cCode=" + cCode + ", departmentDuty=" + departmentDuty
+				+ ", employeeDepartment=" + employeeDepartment + "]";
 	}
 
+	
+	
 }

@@ -45,6 +45,8 @@ public class EmployeeController {
 		String bsCode = (String)session.getAttribute("SCODE");
 		System.out.println("사업장코드==>"+ bsCode);
 		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
+		model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode));
+		System.out.println("어떻게 나오니" + employeeService.DepartmentDutySelect(bsCode));
 		return "/employee/employeeList";
 	}
 	/**

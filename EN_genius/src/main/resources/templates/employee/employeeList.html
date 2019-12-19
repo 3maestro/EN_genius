@@ -49,8 +49,8 @@
 				                            <a href="#"><img class="rounded-circle" src="images/avatar/jic.jpg" alt=""></a>
 				                        </div>
 				                    </td>
-				                    <td th:text="${I.edCode}"></td>
-				                    <td><p th:text="${I.ddCode}"></p></td>
+				                    <td th:text="${I.employeeDepartment.dpName}"></td>
+				                    <td th:text="${I.departmentDuty.dutyName}"></td>
 				                    <td><span class="name" th:text="${I.employeeName}"></span> </td>
 				                    <td><span class="product" th:text="${I.employeeAddr}"></span> </td>
 				                    <td><span class="count">10</span></td>
@@ -67,7 +67,7 @@
 			</div>
 		</div>
 	    
-		<!-- Modal -->
+		<!-- Modal --><!-- fade 지우면 똑딱 뜨고 넣으면 소로록 -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -81,9 +81,11 @@
 				    <div class="input-group">
 		   				<select name="edCode" class="form-control">
 				    		<option value="">부서</option>
+				    		<option  th:if="${I.cCode eq '부서'}" th:each="I, i : ${dutyList}" th:value="${I.employeeDepartment.edCode}" th:text="${I.employeeDepartment.dpName}"></option>
 				   		</select>
 		   				<select name="ddCode" class="form-control">
 				    		<option value="">직책</option>
+				    		<option  th:unless="${I.cCode eq '부서'}" th:each="I, i : ${dutyList}" th:value="${I.employeeDepartment.edCode}" th:text="${I.employeeDepartment.dpName}"></option>
 				   		</select>
 				    </div>
 				    </div>				    

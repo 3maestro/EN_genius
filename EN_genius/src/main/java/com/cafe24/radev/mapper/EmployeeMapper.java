@@ -19,9 +19,7 @@ public interface EmployeeMapper {
 	
 	List<Employee> employeeList(String bsCode);
 	
-	List<DepartmentDuty> DepartmentDutySelect();
-	
-	List<EmployeeDepartment> EmployeeDepartmentSelect();
+	List<String> DepartmentDutySelect(String bsCode);
 	
 	Employee employeeLogin(Employee employee);
 	
