@@ -9,8 +9,15 @@
 	</th:block>
 	<th:block layout:fragment="customContents">
 			거래처등록폼
-			<form th:action="@{/storeInsert}" method="post">
-				<input type="text">
+			<form th:action="@{/store/storeInsert}" method="post">
+				<input type="text" placeholder="상호명" name="storeName"><br>
+				<input type="text" placeholder="사업자등록번호" name="storeLisen"><br>
+				<input type="text" placeholder="대표자" name="storeCeoName"><br>
+				<input type="text" placeholder="주소" name="storeAddr"><br>
+				<input type="text" placeholder="전화번호" name="storePhone"><br>
+				<input type="text" placeholder="FAX" name="storeFax"><br>
+				<input type="text" placeholder="은행" name="storeBank"><br>
+				<input type="text" placeholder="계좌번호" name="storeAccount"><br>
 				<button type="submit">등록하기</button>
 			</form>
 	</th:block>

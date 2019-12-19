@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div th:fragment="partCartFragment" style="border-color: black; color: black;">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+	
+	<th:block th:fragment="partCart">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+		var list = /*[[ ${list} ]]*/;
+		$(document).ready(function(){
+			console.log(list+"리스트");
 		
-	</div>
-</body>
+			//$('#cartTable').children().append('<tr>'+partNumber+'<</tr>');
+		});
+		/*]]*/
+		</script>
+		<table id="cartTable" style="display: none; position : absolute;" class="table table-striped table-bordered" border="1">
+			<tr>
+				<td>No</td>
+				<td>파트번호</td>
+				<td>제품명</td>
+			<tr>
+		</table>	
+		<button class="btn-info" id="delBtn">제거</button>
+	</th:block>
+
+
+
 </html>
