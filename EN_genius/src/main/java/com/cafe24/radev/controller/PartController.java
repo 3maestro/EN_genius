@@ -123,6 +123,7 @@ public class PartController {
 
 		return "/part/partOrder";
 	};
+	
 	/**
 	 * 다중값을가지고 부품판매로이동
 	 * @param model
@@ -140,6 +141,7 @@ public class PartController {
 		
 		return "/part/partOrder";
 	}
+	
 	/**
 	 * 다중값을가지고 부품견적으로 이동
 	 * @param model
@@ -185,7 +187,7 @@ public class PartController {
 	}
 
 	/**
-	 * 
+	 * 부품견적으로이동
 	 * @return
 	 */
 	@GetMapping("part/partEstimate")
@@ -195,7 +197,7 @@ public class PartController {
 	}
 
 	/**
-	 * 부품업데이트 partInsert.html
+	 * 부품수량업데이트 partInsert.html
 	 * 
 	 * @param part
 	 * @return
@@ -207,6 +209,11 @@ public class PartController {
 		return "redirect:/partList";
 	}
 	
+	/**
+	 * 
+	 * @param checks
+	 * @return
+	 */
 	@PostMapping(value = "part/cartCall", produces = "application/json")
 	public 
 //		@ResponseBody List<String> addcartCall(
