@@ -13,13 +13,15 @@
 
 		$(document).ready(function(){
 			 
-			
+			var regex= /^\d{2,3}-\d{3,4}-\d{4}$/;
+
 			$('#formCheck').click(function(){
 			var bossIdCheck = $('input[name="bossId"]');
 			var bossPwCheck = $('input[name="bossPw"]');
 			var bossPwCheck2 = $('input[name="passwordCheck"]');
 			var bossNameCheck = $('input[name="bossName"]');
 			var bossPhoneNumCheck = $('input[name="bossPhonenum"]');
+			var PhoneNumCheck = $('input[name="bossPhonenum"]').val();			
 			var bossEmailCheck = $('input[name="bossEmail"]');
 			var emailAddrCheck = $('input[name="emailAddr"]');
 			var bsNameCheck = $('input[name="bsName"]');
@@ -51,6 +53,9 @@
 					alert('휴대폰 번호를 입력하세요');
 					bossPhoneNumCheck.focus();
 					return false;
+				}else if(!regexp.test(PhoneNumCheck)){
+					alert("숫자만 입력하세요");
+					$(PhoneNumCheck).val(v.replace(regexp,''));
 				}else if(bossEmailCheck.val() == ''){
 					alert('이메일을 입력하세요');
 					bossEmailCheck.focus();
