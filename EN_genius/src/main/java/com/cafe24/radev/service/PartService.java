@@ -46,7 +46,7 @@ public class PartService {
 	 * 부품등록시 대분류선택을 위한 데이터조회 
 	 * @return
 	 */
-	public List<FirstCategoryForCar> selectFristDate(){
+	public List<FirstCategoryForCar> selectFristData(){
 		System.out.println("대분류목록/service");
 		
 		return categoryMapper.getFirstCateList();
@@ -55,7 +55,7 @@ public class PartService {
 	 * 부품등록시 중분류선택을 위한 데이터조회(Ajax)
 	 * @return
 	 */
-	public List<String> selectSecondDate(String fVal){
+	public List<String> selectSecondData(String fVal){
 		System.out.println("중분류목록/service");
 		List<SecondCategoryForCar> sCateList = new ArrayList<SecondCategoryForCar>();
 		List<String> sCateNameList = new ArrayList<String>();
@@ -169,8 +169,13 @@ public class PartService {
 		return GroupCode;
 	}
 	
+		/**
+		 * 카트로이동시킬 부품정보/ajax
+		 * @param checks
+		 * @return
+		 */
 	//public List<String> addCart(List<String> checks) {
-		public List<Part> addCart(List<String> checks) {
+	public List<Part> addCart(List<String> checks) {
 		System.out.println(checks);
 		System.out.println(checks.size());
 		
@@ -180,10 +185,11 @@ public class PartService {
 			checkValue = checks.get(i);
 		list.add(partMapper.partSelectForOrder(checkValue)); 
 		}
-		 
-		  
-		 
 		return list;
+	}
+	
+	public void partSelect(String partNumber) {
+		partMapper.getData();
 	}
 	/*
 	 * Group group = new Group(); group.setGroupCode(GroupCode);

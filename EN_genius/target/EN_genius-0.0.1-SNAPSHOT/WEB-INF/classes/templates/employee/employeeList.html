@@ -6,25 +6,41 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius</title>
 	</th:block>
+	
+	<th:block layout:fragment="customScript">	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			
+			$('#myModal').on('shown.bs.modal', function () {
+				  $('#myInput').focus()
+				})
+		});
+				
+	</script>
+	</th:block>
+	
 	<th:block layout:fragment="customContents">
-	 <div class="col-lg-12" th:fragment="listfragment">
-				<div class="card">
-				    <div class="card-header">
-				        <strong class="card-title">직원리스트</strong>
-				    </div>
-				    <div class="table-stats order-table ov-h">
-				        <table class="table ">
-				            <thead>
-				                <tr>
-				                    <th>사진</th>
-				                    <th>부서</th>
-				                    <th>직책</th>
-				                    <th>이름</th>
-				                    <th>주소</th>
-				                    <th>작업량</th>
-				                    <th>입사일</th>
-				                    <th>수정</th>
-				                </tr>
+		<div class="col-lg-12" th:fragment="listfragment">
+			<div class="card">
+				<div class="card-header">
+					<strong class="card-title">직원리스트</strong>
+					<button type="button" th:text="등록" name="emInsertPopupBtn" data-toggle="modal" data-target="#myModal" style="float: right" class="btn btn-outline-link btn-sm"></button>			
+				</div>				    
+					<div class="table-stats order-table ov-h">
+						<table class="table ">
+							<thead>
+								<tr>
+									<th>사진</th>
+									<th>부서</th>
+									<th>직책</th>
+									<th>이름</th>
+									<th>주소</th>
+									<th>작업량</th>
+									<th>입사일</th>
+									<th>수정</th>
+								</tr>
 				            </thead>
 				            <tbody th:each="I : ${employeeList}">
 				                <tr>
@@ -33,22 +49,110 @@
 				                            <a href="#"><img class="rounded-circle" src="images/avatar/jic.jpg" alt=""></a>
 				                        </div>
 				                    </td>
-				                    <td th:text="${I.edCode}"></td>
-				                    <td><p th:text="${I.ddCode}"></p></td>
+				                    <td th:text="${I.employeeDepartment.dpName}"></td>
+				                    <td th:text="${I.departmentDuty.dutyName}"></td>
 				                    <td><span class="name" th:text="${I.employeeName}"></span> </td>
 				                    <td><span class="product" th:text="${I.employeeAddr}"></span> </td>
 				                    <td><span class="count">10</span></td>
 				                    <td><span class="date" th:text="${I.joinDate}"></span></td>
 				                    <td>
 				                    	<a th:href="@{/updateE(employeeCode=${I.employeeCode})}">
-				                        <span class="badge badge-complete">수정</span>
+											<span class="badge badge-complete">수정</span>
 				                    	</a>
 				                    </td>
 				                </tr>
 				            </tbody>
-				        </table>
-				    </div> <!-- /.table-stats -->
-				</div>
+						</table>
+					</div> <!-- /.table-stats -->
+			</div>
+		</div>
+	    
+		<!-- Modal --><!-- fade 지우면 똑딱 뜨고 넣으면 소로록 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h3 class="modal-title" id="myModalLabel">직원등록</h3>
+		      </div>
+		      <div class="modal-body">
+			    <form method="post" th:action="@{/employeeInsert}" enctype="multipart/form-data">
+				    <div class="form-group">
+				    <div class="input-group">
+		   				<select name="edCode" class="form-control">
+				    		<option value="">부서</option>
+				    		<option  th:if="${I.cCode eq '부서'}" th:each="I, i : ${dutyList}" th:value="${I.employeeDepartment.edCode}" th:text="${I.employeeDepartment.dpName}"></option>
+				   		</select>
+		   				<select name="ddCode" class="form-control">
+				    		<option value="">직책</option>
+				    		<option  th:unless="${I.cCode eq '부서'}" th:each="I, i : ${dutyList}" th:value="${I.employeeDepartment.edCode}" th:text="${I.employeeDepartment.dpName}"></option>
+				   		</select>
+				    </div>
+				    </div>				    
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="employeeName" placeholder="이름" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="password" name="employeePass" placeholder="비밀번호" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="date" name="employeeBirth" placeholder="생일" class="form-control">
+				    </div>
+				    </div>
+					<div class="row">
+						<div class="col-lg-6">
+							<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="사업장주소" readonly="readonly"><br>
+						</div>
+						<div class="col-lg-6">
+							<input class="form-control btn-danger" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<input class="form-control" type="text"	name="employeeAddr" placeholder="주소" readonly="readonly"><br>
+						</div>
+						<div class="col-lg-6">
+							<input class="form-control" type="text" name="addrDetail" placeholder="상세주소"><br>
+						</div>
+					</div>
+					<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+					<div id="layer">
+						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" onclick="closeDaumPostcode()" alt="닫기 버튼">
+					</div>			 			    
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<select name="employeeGender" class="form-control">
+				    		<option value="">성별</option>
+				    		<option value="">남</option>
+				    		<option value="">여</option>
+				   		</select>
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="tel" name="employeePhone" placeholder="핸드폰" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="date" name="joinDate" placeholder="입사일" class="form-control">
+				    </div>
+				    </div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					  <button type="submit" class="btn btn-secondary btn-sm">등록</button>
+					</div>
+			    </form>
+		      </div>
 		    </div>
+		  </div>
+		</div>
+	<script src="assets/js/addr.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
 	</th:block>
 </html>
