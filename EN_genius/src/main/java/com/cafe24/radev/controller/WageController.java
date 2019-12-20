@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class WageController {
 
-	@GetMapping("/ccStandardWage")
+	@GetMapping("/work/ccStandardWage")
 	public String standardWage() {
 		return "/wage/ccStandardWage";
 	}
 	
-	@GetMapping("/workManHour")
+	@GetMapping("/work/workManHour")
 	public String workManHour() {
 		return "/wage/workManHour";
 	}
 	
-	@GetMapping("/workingNow")
+	@GetMapping("/work/workingNow")
 	public String workingNow() {
 		return "/wage/workingNow";
 	}
 	
-	@GetMapping("/wageEstimate")
+	@GetMapping("/work/wageEstimate")
 	public String wageEstimate() {
 		return "/wage/wageEstimate";
 	}

@@ -32,7 +32,7 @@
 					console.log(bigCate + " <-bigCate")
 
 					var request = $.ajax({
-						  url: "/big/bigCheckList",	//호출될 url
+						  url: "/check/bigCheckList",	//호출될 url
 						  method: "POST",
 						  data: {"bigCate" : bigCate},//파라미터
 						  dataType: "json"		//응답 타입
@@ -71,7 +71,7 @@
 					console.log(midCate + " <-midCate")	
 
 					var request = $.ajax({
-						  url: "/mid/midCheckList",	//호출될 url
+						  url: "/check/midCheckList",	//호출될 url
 						  method: "POST",
 						  data: {"midCate" : midCate},//파라미터
 						  dataType: "json"		//응답 타입
@@ -117,7 +117,7 @@
 					console.log(smallCate + " <-smallCate")	
 
 			    	var request = $.ajax({
-						url: "/small/smallCheckList",	//호출될 url
+						url: "/check/smallCheckList",	//호출될 url
 						method: "POST",
 						data: {"smallCate" : smallCate},//파라미터
 						dataType: "json"		//응답 타입

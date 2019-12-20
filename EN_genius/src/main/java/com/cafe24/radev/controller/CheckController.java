@@ -21,7 +21,7 @@ public class CheckController {
 
 	@Autowired private CheckService checkService;
 	
-	@GetMapping("/routineCheckList")
+	@GetMapping("/check/routineCheckList")
 	public String routineCheckList(Model model) {
 		System.out.println("routineCheckList CheckController 호출");
 		
@@ -31,7 +31,7 @@ public class CheckController {
 		return "/check/routineCheckList";
 	}
 	
-	@PostMapping("/askCheck")
+	@PostMapping("/check/askCheck")
 	public @ResponseBody List<String> askCheck(
 			@RequestParam(value="check[]", required = false) List<String> check, String car) {
 		System.out.println("askCheck CheckController 호출");
@@ -45,12 +45,12 @@ public class CheckController {
 		return list;
 	}
 	
-	@GetMapping("/basicCheck")
+	@GetMapping("/check/basicCheck")
 	public String basicCheck() {
 		return "/check/basicCheckList";
 	}
 	
-	@PostMapping("/big/bigCheckList")
+	@PostMapping("/check/bigCheckList")
 	public @ResponseBody List<BasicCheck> bigCheckList(
 			@RequestParam(value="bigCate", required = false) String bigCate) {
 		System.out.println("bigCheckList CheckController 호출");
@@ -62,7 +62,7 @@ public class CheckController {
 		return bigCateList;
 	}
 	
-	@PostMapping("/mid/midCheckList")
+	@PostMapping("/check/midCheckList")
 	public @ResponseBody List<BasicCheck> midCheckList(
 			@RequestParam(value="midCate", required = false) String midCate){
 		System.out.println("midCheckList CheckController 호출");
@@ -74,7 +74,7 @@ public class CheckController {
 		return smallCateList;
 	}
 	
-	@PostMapping("/small/smallCheckList")
+	@PostMapping("/check/smallCheckList")
 	public @ResponseBody BasicCheck smallCheckList(
 			@RequestParam(value="smallCate", required = false) String smallCate){
 		System.out.println("smallCheckList CheckController 호출");
@@ -89,7 +89,7 @@ public class CheckController {
 	
 	//@ResponseBody Map<String, Object>
 	//@ResponseBody List<Map<String, Object>>
-	@GetMapping("/diagnosisGuide") 
+	@GetMapping("/check/diagnosisGuide") 
 	public String checkList() {
 		System.out.println("checkList CheckController 호출");
 		return "/check/diagnosisGuide";
