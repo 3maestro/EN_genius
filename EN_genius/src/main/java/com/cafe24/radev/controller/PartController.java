@@ -56,7 +56,7 @@ public class PartController {
 	public String partCate(Model model) {
 		System.out.println("부품등록(카테고리호출)/컨트롤러");
 
-		model.addAttribute("fCateList", partService.selectFristDate());
+		model.addAttribute("fCateList", partService.selectFristData());
 
 		return "/part/partInsert";
 	};
@@ -69,12 +69,12 @@ public class PartController {
 	 */
 	@PostMapping(value = "/part/serchPartCall", produces = "application/json")
 	public @ResponseBody Part serchPartCall(
-			@RequestParam(value = "partValue", defaultValue = "1", required = false) String partValue) {
+			@RequestParam(value = "partValue", defaultValue = "1", required = false) String partNumber) {
 		System.out.println("부품로우조회ajax호출/controller");
-		System.out.println(partValue + "<-paramr/ajax호출/controller");
-
-		return partService.partSelectForOrder(partValue);
+		System.out.println(partNumber + "<-paramr/ajax호출/controller");
+		return partService.partSelectForOrder(partNumber);
 	};
+	
 
 	/**
 	 * 신규부품등록처리
@@ -104,7 +104,7 @@ public class PartController {
 		System.out.println("카테고리ajax호출/컨트롤러");
 		System.out.println(firstVal + "<-paramr/ajax호출/컨트롤러");
 
-		return partService.selectSecondDate(firstVal);
+		return partService.selectSecondData(firstVal);
 	};
 
 	/**
@@ -227,7 +227,10 @@ public class PartController {
 		return partService.addCart(checks);
 		//return"/part/partCart";
 	};
-
-
+	@GetMapping("/part/test")
+	public String test() {
+	
+		return"/part/test";
+	}
 	
 }

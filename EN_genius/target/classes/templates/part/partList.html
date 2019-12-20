@@ -104,13 +104,13 @@
 		</script>
 		<div class="animated fadeIn">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="card">
 						<div class="card-header">
 							<strong class="card-title">부품목록</strong>
 						</div>
 						<div class="card-body">
-							<form th:action="@{/part/partListToEstimate(partCheck)}" name="partListForm">
+							<form th:action="@{/part/partListToEstimate(partCheck)}" name="partListForm" >
 								<table style="font-size: 12px;" class="table table-striped table-bordered" id="bootstrap-data-table" border="1">
 									<tr>
 										<td>파트번호</td>
