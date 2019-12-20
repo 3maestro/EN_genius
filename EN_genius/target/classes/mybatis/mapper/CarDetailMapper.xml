@@ -115,7 +115,6 @@
 			customer_car_info_code AS customerCarInfoCode
 			,customer_code AS customerCode 
 			,customer_car_number AS customerCarNumber
-			
 			,car_production_year AS carProductionYear
 			,customer_car_info_date AS customerCarInfoDate
 			,customer_car_info_writer AS customerCarInfoWriter
@@ -132,7 +131,28 @@
 	<!-- 값을 [리턴받아] 사용할때 리절트 타입을 사용한다 -->
 	<!-- 차량 리스트 조회 쿼리 -->
 	
-	
+	<select id="getDBCarModel" parameterType="String" resultMap="CarDetailMap">
+		SELECT
+			car_model_name
+		FROM 
+			car_model_tb
+			<if test="originSm == kr1">
+			WHERE
+				origin_main = '국산승용'
+			</if>
+			<if test="originSm == kr2">
+			WHERE
+				origin_main = '국산상용'
+			</if>
+			<if test="originSm == im1">
+			WHERE
+				origin_main = '해외승용'
+			</if>
+			<if test="originSm == im2">
+			WHERE
+				origin_main = '해외상용'
+			</if> 
+	</select>
 
 	
 </mapper>

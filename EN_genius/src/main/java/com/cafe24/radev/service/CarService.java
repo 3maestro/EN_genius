@@ -1,7 +1,9 @@
 package com.cafe24.radev.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -169,4 +171,28 @@ public class CarService {
 	 * 
 	 * }
 	 */
+	
+//  셀렉트한 값을 가져와서 벤더사(모델명) 가져오기
+	/*
+	 * public List<String> getDBVendor(int selectVal){ List<VoCarDetail> list =
+	 * carMapper.getDBVendor(selectVal); List<String> nameList = new
+	 * ArrayList<String>();
+	 * 
+	 * for(int i =0; i < list.size(); i++) {
+	 * nameList.add(list.get(i).getCarModelName());
+	 * System.out.println((i+1)+"번째 모델명 : "+list.get(i).getCarModelName()); } return
+	 * nameList; }
+	 */
+
+	public List<String> getDBCarModel(String originSm){
+		System.out.println("서비스서비ㅡㅅ");
+		List<VoCarDetail> originList = carMapper.getDBCarModel(originSm);
+		List<String> CarModelList = new ArrayList<String>();
+		
+		for(int i =0; i < originList.size(); i++) {
+			CarModelList.add(originList.get(i).getCarModelName());
+			System.out.println((i+1)+"번째 모델명 : "+originList.get(i).getCarModelName());
+		}
+	return CarModelList;
+}
 }
