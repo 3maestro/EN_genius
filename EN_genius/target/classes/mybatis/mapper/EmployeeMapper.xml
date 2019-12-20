@@ -11,11 +11,13 @@
 			<result property="employeePass"  			column="emp_pass"/>
 			<result property="employeeName" 			column="emp_name"/>
 			<result property="employeeBirth" 			column="emp_birth"/>
+			<result property="employeePhone"			column="emp_phone"/>
 			<result property="employeeGender"			column="emp_gender"/>
 			<result property="employeeAddr"				column="emp_addr"/>
-			<result property="employeePhone"			column="emp_phone"/>
 			<result property="joinDate"					column="join_date"/>
 			<result property="resignationDate"  		column="resignation_date"/>
+			<result property="bossName"  				column="boss_name"/>
+			<result property="eiDate"  					column="ei_date"/>
 			<result property="cCode"  					column="c_code"/>			
 			<collection property="departmentDuty" 		resultMap="DepartmentDutyResultMap"/>
 			<collection property="employeeDepartment" 	resultMap="EmployeeDepartmentResultMap"/>
@@ -32,6 +34,41 @@
 			<result property="dpName" 					column="dp_name"/>
 			<result property="useCheck"   				column="use_check"/>
 		</resultMap>
+		<insert id="addEmployee" parameterType="com.cafe24.radev.vo.Employee">
+			<selectKey keyProperty="employeeCode" resultType="String" order="BEFORE">
+				SELECT 
+					CONCAT('emp',(SELECT LPAD(RIGHT(MAX(e.ei_code),3)+1,3,'0'))) as employeeCode
+				FROM employee_information_tb AS e
+			</selectKey>
+			INSERT INTO employee_information_tb (
+					ei_code,
+					bs_code,
+					ed_code,
+					dd_code,
+					emp_pass,
+					emp_name,
+					emp_birth,
+					emp_phone,
+					emp_gender,
+					emp_addr,
+					join_date,
+					boss_name,
+					ei_date
+					)VALUES(
+					#{employeeCode},
+					#{bsCode},
+					#{edCode},
+					#{ddCode},
+					#{employeePass},
+					#{employeeName},
+					#{employeeBirth},
+					#{employeePhone},
+					#{employeeGender},
+					#{employeeAddr},
+					#{joinDate},
+					#{bossName},
+					now())
+		</insert>
 		<select id="employeeList" resultMap="employeeResultMap">
 			SELECT 
 				B.dp_name, C.duty_name, A.*

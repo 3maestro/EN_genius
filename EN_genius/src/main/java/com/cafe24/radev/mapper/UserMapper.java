@@ -17,8 +17,6 @@ public interface UserMapper {
 	
 	int bsCodeMax();
 	
-	int imageCodeMax();
-	
 	CarFactory adminLogin(CarFactory carFactory);
 	
 	List<CarFactory> carFactoryList();

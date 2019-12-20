@@ -24,6 +24,7 @@ public class EmployeeService {
 	}
 	
 	public int addEmployee(Employee employee) {
+		employee.setEmployeeAddr(employee.getEmployeeAddr() + employee.getAddrDetail());
 		return employeeMapper.addEmployee(employee);
 	}
 }

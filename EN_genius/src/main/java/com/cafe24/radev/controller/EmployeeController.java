@@ -24,10 +24,13 @@ public class EmployeeController {
 	@PostMapping("/addEmployee")
 	public String addEmployee(Employee employee, HttpSession session) {
 		String bsCode = (String)session.getAttribute("SCODE");
+		String bossName = (String)session.getAttribute("SNAME");
 		employee.setBsCode(bsCode);
+		employee.setBossName(bossName);
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
-		
-		return "/employee/employeeInsert";
+		int r = employeeService.addEmployee(employee);
+		System.out.println("직원 등록 결과 값==>"+ r);
+		return "redirect:/employeeSelect";
 	}
 	/**
 	 * 직원수정
@@ -51,7 +54,6 @@ public class EmployeeController {
 		System.out.println("사업장코드==>"+ bsCode);
 		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
 		model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode));
-		System.out.println("어떻게 나오니" + employeeService.DepartmentDutySelect(bsCode));
 		return "/employee/employeeList";
 	}
 	/**

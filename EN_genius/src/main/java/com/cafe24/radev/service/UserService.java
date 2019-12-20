@@ -42,25 +42,19 @@ public class UserService {
 		System.out.println("사업장 등록폼에서 받아온 값 ==> " + carFactory);
 		carFactory.setBossEmail(carFactory.getBossEmail() +carFactory.getEmailAddr());
 		carFactory.setBsAddr(carFactory.getBsAddr() + carFactory.getAddrDetail());
-		System.out.println(carFactory.getBossEmail());
+		System.out.println("email 문자열 합쳐서 다시 셋팅==>" + carFactory.getBossEmail());
 		int max = userMapper.bsCodeMax();
 		max = max + 1;
 		String code = "bs00";
 		bsCode = code + max;
 		carFactory.setBsCode(bsCode);
-		System.out.println("코드증가하나요ㅠㅠ--------->" + carFactory.toString());
+		System.out.println("코드증가--------->" + carFactory.toString());
 		return userMapper.addCarFactory(carFactory);
 	}
 	
 	public int addDocumentFile(MultipartFile bs_docu) {
 		ImageFile imageFile = new ImageFile();
-		
-		int max = userMapper.imageCodeMax();
-		max = max + 1;
-		String code = "image00";
-		String imgeCode = code + max;
-		imageFile.setImageCode(imgeCode);
-		
+				
 		if(bs_docu != null) {			
 			String filename = StringUtils.cleanPath(bs_docu.getOriginalFilename());				
 		
