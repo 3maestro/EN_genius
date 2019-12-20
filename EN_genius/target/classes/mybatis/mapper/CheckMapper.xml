@@ -84,5 +84,21 @@
 			m.ck_mid_name = #{midCate}
 	</select>
 
+	<select id="getSmallCheckList" parameterType="String" 
+	 resultType="com.cafe24.radev.vo.BasicCheck">
+		SELECT
+			m.ck_big_name as ckBigName,
+			m.ck_mid_name as ckMidName,
+			s.ck_small_content as ckSmallContent
+		FROM 
+			check_smallcate_tb AS s
+		INNER join
+			check_midcate_tb AS m
+		ON
+			s.ck_mid_code  = m.ck_mid_code
+		WHERE
+		s.ck_small_content = #{smallCate}
+	</select>
+
 			
 </mapper>
