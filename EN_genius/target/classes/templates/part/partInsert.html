@@ -22,7 +22,7 @@
 				$('#sCate').empty();
 				
 				var request = $.ajax({
-					url: "/sCateCall",
+					url: "/part/sCateCall",
 					method: "POST",
 					data: { fVal : fVal },
 					dataType: "json"
@@ -55,7 +55,7 @@
 					return false;
 				}
 				var request = $.ajax({
-					url: "/serchPartCall",
+					url: "/part/serchPartCall",
 					method: "POST",
 					data: { partValue : partValue },
 					dataType: "json"
@@ -90,7 +90,7 @@
 		});
 	</script>
 		등록
-		<form action="/partInsertPro" name=partInsertForm >
+		<form action="/part/partInsertPro" name=partInsertForm >
 			<input type="text" placeholder="파트넘버" name="partNumber"><span id="serchPartBtn" >조회하기</span><br>
 				<select id="fCate" name="bigCate">
 					<option>::대분류::</option>
