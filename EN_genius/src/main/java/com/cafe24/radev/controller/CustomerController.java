@@ -71,4 +71,9 @@ public class CustomerController {
 		return "/customer/customerSMS";
 	}
 
+	@GetMapping("/calendar")
+	public String getCalendar(Model model) {
+		System.out.println("calendar");
+		return "/calendar";
+	}
 }
