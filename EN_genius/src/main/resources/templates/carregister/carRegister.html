@@ -17,66 +17,46 @@
 		$(document).on('change','#carModelSm',function(){
 			console.log($(this).val());
 		})
+			$(document).on('change','#vendorSm',function(){
+			console.log($(this).val());
+		})
 		
-		
-		
-		$('#originSm').change(function(){
+		$('#originSm, #vendorSm').change(function(){
+			var contents = '';
 			var originSm = $(this).val();
+			var vendorSm = $(this).val();
 			console.log(originSm);
+			console.log(vendorSm);
 			
 			var request = $.ajax({
 				  url: "/getCarModel",
 				  method: "POST",
-				  data: { 'originSm' : originSm },
+				  data: { 'originSm' : originSm, 'vendorSm' : vendorSm },
 				  dataType: "json"
 				});
 				 
-				request.done(function(CarModel) {
-					var contents = '';
-					for(var i = 0; i < CarModel.length; i++){
-						contents += '<option value = "'+CarModel[i]+'">'+CarModel[i]+'</option>'
+				request.done(function(carModelSm) {
+					for(var i = 0; i < carModelSm.length; i++){
+						contents += '<option value = "'+carModelSm[i]+'">'+carModelSm[i]+'</option>'
 					}
 					$('#carModelSm').html(contents)
+				});
+				
+				request.done(function(vendorSm) {
+					for(var i = 0; i < vendorSm.length; i++){
+						contents += '<option value = "'+vendorSm[i]+'">'+vendorSm[i]+'</option>'
+					}
+					$('#vendorSm').html(contents)
 				});
 				 
 				request.fail(function( jqXHR, textStatus ) {
 				  alert( "Request failed: " + textStatus );
 				});
 		})
-	})
-	
-	
-	
-	
-	/* ($document).on('change','#originSm', function(){
-		
-		var originSm = ["#originSm"];
-		var vendorSm = ["#vendorSm"];
-		var carClassSm = ["#carClassSm"];
-		var carModelSm = ["#carModelSm"];
-		
-		var
-		var carDetail;
-		
-		if() {
-			
-		}
 
-		var request = $.ajax({
-		  url: "originSm",
-		  method: "POST",
-		  data: { id : menuId },
-		  dataType: "html"
-		});
-		 
-		request.done(function( msg ) {
-		  $( "#log" ).html( msg );
-		});
-		 
-		request.fail(function( jqXHR, textStatus ) {
-		  alert( "Request failed: " + textStatus );
-		});
-	}) */
+	})
+		
+
 </script>
 
 
@@ -112,8 +92,8 @@
 											선택</label>
 									</div>
 									<div>
-										<select name="selectSm1" id="originSm" class="form-control-sm form-control">
-											<!-- <option value="0">제작국가 선택</option> -->
+										<select name="selectSm" id="originSm" class="form-control-sm form-control">
+											<option value="0">제작국가 선택</option>
 											<option th:value="${originSel.originCode}" th:each="originSel : ${originSelect}" th:text="${originSel.originMain}"></option>
 										</select>
 									</div>
@@ -128,6 +108,7 @@
 										<select name="selectSm2" id="vendorSm"	class="form-control-sm form-control">
 											<!-- 벤더사  ajax 로 가져오기 -->
 											<option value="0">벤더사 선택</option>
+											<option th:value="${vendorSel.vendorCode}" th:each="vendorSel : ${vendorSelect}" th:text="${vendorSel.vendorName}"></option>
 											
 											
 										</select>

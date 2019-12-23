@@ -1,9 +1,10 @@
 package com.cafe24.radev.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -174,25 +175,38 @@ public class CarService {
 	
 //  셀렉트한 값을 가져와서 벤더사(모델명) 가져오기
 	/*
-	 * public List<String> getDBVendor(int selectVal){ List<VoCarDetail> list =
-	 * carMapper.getDBVendor(selectVal); List<String> nameList = new
-	 * ArrayList<String>();
+	 * public List<String> getDBVendor(int selectVal){ 
+	 * List<VoCarDetail> list = carMapper.getDBVendor(selectVal); 
+	 * List<String> nameList = newArrayList<String>();
 	 * 
 	 * for(int i =0; i < list.size(); i++) {
 	 * nameList.add(list.get(i).getCarModelName());
-	 * System.out.println((i+1)+"번째 모델명 : "+list.get(i).getCarModelName()); } return
-	 * nameList; }
+	 * System.out.println((i+1)+"번째 모델명 : "+list.get(i).getCarModelName()); 
+	 * } return nameList; }
 	 */
 
-	public List<String> getDBCarModel(String originSm){
-		System.out.println("서비스서비ㅡㅅ");
-		List<VoCarDetail> originList = carMapper.getDBCarModel(originSm);
-		List<String> CarModelList = new ArrayList<String>();
+	public Map<String, Object> getDBCarModel(String originSm, String vendorSm){
+		Map<String, Object> CarListMap = new HashMap<String, Object>();
+		System.out.println(originSm + ": 서비스로 온 값 국가");
+		System.out.println(vendorSm + ": 서비스로 온 값 벤더사");
+		CarListMap.put("originSm", carMapper.getDBCarModel(originSm));
+		CarListMap.put("vendorSm", carMapper.getDBCarModel(vendorSm));
 		
-		for(int i =0; i < originList.size(); i++) {
-			CarModelList.add(originList.get(i).getCarModelName());
-			System.out.println((i+1)+"번째 모델명 : "+originList.get(i).getCarModelName());
-		}
-	return CarModelList;
-}
+		System.out.println(originSm + "서비스 오리진리스트");
+		System.out.println(vendorSm + "서비스 벤더사리스트");
+		System.out.println(originSm + "맵퍼에서 넘어온 값 국가");
+		
+		
+	
+		  for(String carKey : CarListMap.keySet()) {
+			  
+			  System.out.println("방법1) carKey : " + originSm +" / value : " + CarListMap.get(carKey)); 
+			  //CarListMap.put(originSm.length().getDBCarModel());
+		  //System.out.println((i+1)+"번째 모델명 : " + CarListMap.get(i).getCarModelName()); 
+		 
+		  }
+	return CarListMap;
+	}
+
+
 }

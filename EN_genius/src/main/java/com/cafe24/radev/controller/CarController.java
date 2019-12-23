@@ -1,8 +1,6 @@
 package com.cafe24.radev.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,12 +114,13 @@ public class CarController {
 
 	/*
 	 * @GetMapping("/dustmq") public String dustmq() {
-	 * System.out.println("CarController 연습 메서드 실행"); return "carregister/dustmq";
-	 * 
+	 * System.out.println("CarController 연습 메서드 실행"); 
+	 * return "carregister/dustmq";
 	 * }
 	 */
 	/*
-	 * @PostMapping("/getModel") public @ResponseBody List<String>
+	 * @PostMapping("/getModel") 
+	 * public @ResponseBody List<String>
 	 * getModel(@RequestParam(value = "selectVal")int selectVal){ List<String>
 	 * nameList = carService.getDBVendor(selectVal); //Map<String,List<String>> map
 	 * = new HashMap<String, List<String>>(); //map.put("carName", nameList); return
@@ -129,10 +128,16 @@ public class CarController {
 	 */
 	  
 	  @PostMapping("/getCarModel")
-	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "originSm")String originSm){
-		  System.out.println(originSm + "assasadasdsadsadas");
-		  List<String> CarModelList = carService.getDBCarModel(originSm);
-		  return CarModelList;
+	  public @ResponseBody Map<String, Object> getDBCarModel(@RequestParam(value = "originSm")String originSm,
+			  @RequestParam(value = "vendorSm")String vendorSm){
+		  Map<String, Object> CarListMap;
+		 
+		  System.out.println(originSm + " : 에이작스에서 넘어올때 국가");
+		  System.out.println(vendorSm + " : 에이작스에서 넘어올때 벤더사");
+		  CarListMap = carService.getDBCarModel(originSm,vendorSm);
+		  
+		  return CarListMap;
+		 
 		  //Map<String,List<String>> map = new HashMap<String, List<String>>();
 		  //map.put("carName", nameList);
 	  }
