@@ -1,6 +1,7 @@
 package com.cafe24.radev.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -12,7 +13,8 @@ public class WageController {
 	}
 	
 	@GetMapping("/work/workManHour")
-	public String workManHour() {
+	public String workManHour(Model model) {
+		
 		return "/wage/workManHour";
 	}
 	
