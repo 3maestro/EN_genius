@@ -123,4 +123,21 @@
 			</choose>
 		</update>
 		
+		<update id="approvalRefusal" parameterType="list">
+			UPDATE business_tb
+				SET bs_check = 'N'
+			WHERE 
+			<choose>
+				<when test="list neq null">
+					bs_code 
+					<foreach item="bsCode" collection="list" open="IN(" close=")" separator=",">
+						#{bsCode}
+					</foreach>				
+				</when>
+				<otherwise>
+					1=0
+				</otherwise>
+			</choose>
+		</update>
+		
 	</mapper>

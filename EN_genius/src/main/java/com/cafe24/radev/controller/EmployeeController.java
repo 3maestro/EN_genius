@@ -25,7 +25,6 @@ public class EmployeeController {
 	 */
 	@PostMapping(value = "/addEmployee")
 	public String addEmployee(Employee employee, HttpSession session) {
-
 		employee.setBsCode((String)session.getAttribute("SCODE"));
 		employee.setBossName((String)session.getAttribute("SNAME"));
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());

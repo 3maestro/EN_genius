@@ -93,12 +93,14 @@ public class UserService {
 		return userMapper.selectImage(bsCode);
 	}
 	
-	public int approvalCheck(String[] bsCode) {
+	public int approvalCheck(List<String> checkArray) {
 
-		//배열은 리스트로 변경
-		List<String> codeList = Arrays.asList(bsCode);
-		//리스트를 dao에 넘김
-		return userMapper.approvalCheck(codeList);
+		return userMapper.approvalCheck(checkArray);
+	}
+	
+	public int approvalRefusal(List<String> checkArray) {
+		
+		return userMapper.approvalRefusal(checkArray);
 	}
 /********************************************************************************************************로그인*/
 
