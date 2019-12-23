@@ -9,10 +9,30 @@
 	
 	<th:block layout:fragment="customScript">	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
 	<script type="text/javascript" th:inline="javascript">
-	
-	
-		
+	 //<![CDATA[		 
+			employee = [[${employeeList}]];
+			console.log(employee + "<-employeeemployee")
+			for(var i=0; i<employee.length; i++){
+				var b = employee[i];
+				console.log(b + "<-bbb")
+				
+				var c = b.employeeName
+				console.log(c + "<-employeeName")
+			}	
+		//]]>	
+	 
+		$(document).on('click','.updateBtn',function(){
+			var employeeCode = $(this).attr('data-employeeCode');
+			var dpName = $(this).attr('data-dpName');
+			var employeeName = $(this).attr('data-employeeName');
+			var employeeAddr = $(this).attr('data-employeeAddr');
+			var joinDate = $(this).attr('data-joinDate');
+		                
+			console.log(employeeCode, dpName, employeeName, employeeAddr, joinDate);
+			
+		})
 		var tt = 1
 		$(document).ready(function(){
 			console.log(tt)
@@ -42,24 +62,6 @@
 // 					alert("첨부파일 출력 중 오류가 발생하였습니다.");			
 // 				});				
 // 			});
-			
-			$('.updateBtn').click(function(){
-				var employeeCode = $(this).attr('data-employeeCode');
-				var dpName = $(this).attr('data-dpName');
-				var employeeName = $(this).attr('data-employeeName');
-				var employeePass = $(this).attr('data-employeePass');
-				var employeeAddr = $(this).attr('data-employeeAddr');
-				var joinDate = $(this).attr('data-joinDate');
-				
-				$('input[name="employeeName"]').val(employeeName);
-				$('input[name="employeePass"]').val(employeePass);
-			    
-				//$('#myModal1').modal('show');
-				
-				console.log(employeeCode, dpName, employeeName, employeeAddr, joinDate);
-				
-			});
-			
 		});
 			
 	</script>
@@ -101,14 +103,12 @@
 				                    <td><span class="date" th:text="${I.joinDate}"></span></td>
 				                    <td>
 					                    <span class="badge badge-complete updateBtn" id="modify" 
-					                 	th:data-employeeCode="${I.employeeCode}" 
+					                    data-toggle="modal" 
+					                    data-target="#myModal1"
+					                    th:data-employeeCode="${I.employeeCode}" 
 					                    th:data-dpName="${I.employeeDepartment.dpName}"
-					                    th:data-dutyName="${I.departmentDuty.dutyName}"
 					                    th:data-employeeName="${I.employeeName}"
-					                    th:data-employeePass="${I.employeePass}"
-					                    th:data-employeeBirth="${I.employeeBirth}"
 					                    th:data-employeeAddr="${I.employeeAddr}"
-					                    th:data-addrDetail="${I.addrDetail}"
 					                    th:data-joinDate="${I.joinDate}"
 					                    >수정</span>
 				                    </td>
@@ -218,9 +218,11 @@
 				    <div class="input-group">
 		   				<select name="edCode" class="form-control">
 				    		<option value="">부서</option>
+				    		<option  th:if="${I.cCode eq '부서'}" th:each="I, i : ${dutyList}" th:value="${I.employeeDepartment.edCode}" th:text="${I.employeeDepartment.dpName}"></option>
 				   		</select>
 		   				<select name="ddCode" class="form-control">
 				    		<option value="">직책</option>
+				    		<option  th:unless="${I.cCode eq '부서'}" th:each="I, i : ${dutyList}" th:value="${I.employeeDepartment.edCode}" th:text="${I.employeeDepartment.dpName}"></option>
 				   		</select>
 				    </div>
 				    </div>
@@ -261,7 +263,7 @@
 				    <div class="form-group">
 				    <div class="input-group">
 				    	<select name="employeeGender" class="form-control" >
-				    		<option th:text=""></option>
+				    		<option value="" >성별</option>
 				   		</select>
 				    </div>
 				    </div>
