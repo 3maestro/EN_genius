@@ -34,6 +34,21 @@
 			<result property="dpName" 					column="dp_name"/>
 			<result property="useCheck"   				column="use_check"/>
 		</resultMap>
+		<update id="modifyEmployee" parameterType="com.cafe24.radev.vo.Employee">
+			UPDATE 
+				employee_information_tb
+			SET
+				ed_code = #{edCode},
+				dd_code = #{ddCode},
+				emp_pass = #{employeePass},
+				emp_name = #{employeeName},
+				emp_phone = #{employeePhone},
+				emp_addr = #{employeeAddr},
+				boss_name = #{bossName}
+			WHERE
+				ei_code = #{employeeCode};
+			 
+		</update>
 		<insert id="addEmployee" parameterType="com.cafe24.radev.vo.Employee">
 			<selectKey keyProperty="employeeCode" resultType="String" order="BEFORE">
 				SELECT 
@@ -67,7 +82,7 @@
 					#{employeeAddr},
 					#{joinDate},
 					#{bossName},
-					now())
+					now());
 		</insert>
 		<select id="employeeList" resultMap="employeeResultMap">
 			SELECT 
@@ -84,13 +99,6 @@
 				A.dd_code = C.dd_code
 			WHERE 
 				A.bs_code= #{bsCode};
-		</select>
-		<select id="employeeLogin" resultMap="employeeResultMap">
-			SELECT 
-				* 
-			FROM 
-				 employee_information_tb
-			WHERE ei_code= #{employeeCode};
 		</select>
 		<select id="DepartmentDutySelect" resultMap="employeeResultMap">
 			SELECT
@@ -120,5 +128,12 @@
 			AND 
 				E.bs_code = #{bsCode}
 			GROUP BY D.duty_name;
+		</select>
+		<select id="employeeLogin" resultMap="employeeResultMap">
+			SELECT 
+				* 
+			FROM 
+				 employee_information_tb
+			WHERE ei_code= #{employeeCode};
 		</select>
 	</mapper>

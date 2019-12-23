@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.EmployeeService;
 import com.cafe24.radev.vo.Employee;
@@ -21,15 +23,14 @@ public class EmployeeController {
 	 * 직원등록
 	 * @return
 	 */
-	@PostMapping("/addEmployee")
+	@PostMapping(value = "/addEmployee")
 	public String addEmployee(Employee employee, HttpSession session) {
-		String bsCode = (String)session.getAttribute("SCODE");
-		String bossName = (String)session.getAttribute("SNAME");
-		employee.setBsCode(bsCode);
-		employee.setBossName(bossName);
+
+		employee.setBsCode((String)session.getAttribute("SCODE"));
+		employee.setBossName((String)session.getAttribute("SNAME"));
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
-		int r = employeeService.addEmployee(employee);
-		System.out.println("직원 등록 결과 값==>"+ r);
+		System.out.println(employee + " <-employee");
+		employeeService.addEmployee(employee);
 		return "redirect:/employeeSelect";
 	}
 	/**
@@ -37,8 +38,8 @@ public class EmployeeController {
 	 * @param employeeCode
 	 * @return
 	 */
-	@GetMapping("/updateE")			
-	public String updateEmployee(String employeeCode) {
+	@GetMapping("/modifyE")			
+	public String modifyEmployee(String employeeCode) {
 		System.out.println(employeeCode);
 		//employeeService.
 		return "/index";
