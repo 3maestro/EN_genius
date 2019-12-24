@@ -39,28 +39,22 @@ public class UserService {
 	String bsCode = null;
 	
 	public int addCarFactory(CarFactory carFactory){
-		System.out.println("이때는 코드값이 없쥬?" + carFactory);
+		System.out.println("사업장 등록폼에서 받아온 값 ==> " + carFactory);
 		carFactory.setBossEmail(carFactory.getBossEmail() +carFactory.getEmailAddr());
 		carFactory.setBsAddr(carFactory.getBsAddr() + carFactory.getAddrDetail());
-		System.out.println(carFactory.getBossEmail());
+		System.out.println("email 문자열 합쳐서 다시 셋팅==>" + carFactory.getBossEmail());
 		int max = userMapper.bsCodeMax();
 		max = max + 1;
 		String code = "bs00";
 		bsCode = code + max;
 		carFactory.setBsCode(bsCode);
-		System.out.println("코드증가하나요ㅠㅠ--------->" + carFactory.toString());
+		System.out.println("코드증가--------->" + carFactory.toString());
 		return userMapper.addCarFactory(carFactory);
 	}
 	
 	public int addDocumentFile(MultipartFile bs_docu) {
 		ImageFile imageFile = new ImageFile();
-		
-		int max = userMapper.imageCodeMax();
-		max = max + 1;
-		String code = "image0";
-		String imgeCode = code + max;
-		imageFile.setImageCode(imgeCode);
-		
+				
 		if(bs_docu != null) {			
 			String filename = StringUtils.cleanPath(bs_docu.getOriginalFilename());				
 		
@@ -99,12 +93,14 @@ public class UserService {
 		return userMapper.selectImage(bsCode);
 	}
 	
-	public int approvalCheck(String[] bsCode) {
+	public int approvalCheck(List<String> checkArray) {
 
-		//배열은 리스트로 변경
-		List<String> codeList = Arrays.asList(bsCode);
-		//리스트를 dao에 넘김
-		return userMapper.approvalCheck(codeList);
+		return userMapper.approvalCheck(checkArray);
+	}
+	
+	public int approvalRefusal(List<String> checkArray) {
+		
+		return userMapper.approvalRefusal(checkArray);
 	}
 /********************************************************************************************************로그인*/
 

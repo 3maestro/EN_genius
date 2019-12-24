@@ -93,10 +93,19 @@ public class UserController {
 	 */
 
 	  @PostMapping("/approvalCheck") 
-	  public String approvalCheck(@RequestParam(value="bsCode") String[] bsCode) { 
-		  System.out.println("승인체크배열->"+ bsCode);
-		  userService.approvalCheck(bsCode); 
-		  return "redirect:/CarFactorySearch";
+	  public @ResponseBody String approvalCheck(@RequestParam(value="checkArray") List<String> checkArray) { 
+		  
+		  System.out.println(checkArray);
+		  userService.approvalCheck(checkArray); 
+		  return "";
+	  }
+	  
+	  @PostMapping("/approvalRefusal") 
+	  public @ResponseBody String approvalRefusal(@RequestParam(value="checkArray") List<String> checkArray) { 
+		  
+		  System.out.println(checkArray);
+		  userService.approvalRefusal(checkArray); 
+		  return "";
 	  }
 	 
 	 

@@ -6,22 +6,24 @@ package com.cafe24.radev.vo;
  */
 public class Employee {
 
-	private String employeeCode;		//직원정보코드
-	private String bsCode;				//사업장코드
-	private String edCode;				//부서코드
-	private String ddCode;				//직책코드
-	private String employeePass;		//직원비밀번호
-	private String employeeName;		//직원이름
-	private String employeeBirth;		//직원생일
-	private String employeeGender;		//성별
-	private String employeeAddr;		//주소
-	private String addrDetail;			//상세주소
-	private String employeePhone;		//핸드폰번호
-	private String joinDate;			//입사일
-	private String resignationDate;		//퇴사일
-	private String cCode;
-	private DepartmentDuty departmentDuty;	
-	private EmployeeDepartment employeeDepartment;
+	private String employeeCode;					//직원정보코드
+	private String bsCode;							//사업장코드
+	private String edCode;							//부서코드
+	private String ddCode;							//직책코드
+	private String employeePass;					//직원비밀번호
+	private String employeeName;					//직원이름
+	private String employeeBirth;					//직원생일
+	private String employeePhone;					//핸드폰번호
+	private String employeeGender;					//성별
+	private String employeeAddr;					//주소
+	private String addrDetail;						//상세주소
+	private String joinDate;						//입사일
+	private String resignationDate;					//퇴사일
+	private String bossName;						//작성자(사장님이름)
+	private String eiDate;							//작성일
+	private String cCode;							//쿼리문에서 직책/부서 별칭
+	private DepartmentDuty departmentDuty;			//직책 vo
+	private EmployeeDepartment employeeDepartment;	//부서vo
 	public String getEmployeeCode() {
 		return employeeCode;
 	}
@@ -64,6 +66,12 @@ public class Employee {
 	public void setEmployeeBirth(String employeeBirth) {
 		this.employeeBirth = employeeBirth;
 	}
+	public String getEmployeePhone() {
+		return employeePhone;
+	}
+	public void setEmployeePhone(String employeePhone) {
+		this.employeePhone = employeePhone;
+	}
 	public String getEmployeeGender() {
 		return employeeGender;
 	}
@@ -82,12 +90,6 @@ public class Employee {
 	public void setAddrDetail(String addrDetail) {
 		this.addrDetail = addrDetail;
 	}
-	public String getEmployeePhone() {
-		return employeePhone;
-	}
-	public void setEmployeePhone(String employeePhone) {
-		this.employeePhone = employeePhone;
-	}
 	public String getJoinDate() {
 		return joinDate;
 	}
@@ -99,6 +101,24 @@ public class Employee {
 	}
 	public void setResignationDate(String resignationDate) {
 		this.resignationDate = resignationDate;
+	}
+	public String getBossName() {
+		return bossName;
+	}
+	public void setBossName(String bossName) {
+		this.bossName = bossName;
+	}
+	public String getEiDate() {
+		return eiDate;
+	}
+	public void setEiDate(String eiDate) {
+		this.eiDate = eiDate;
+	}
+	public String getcCode() {
+		return cCode;
+	}
+	public void setcCode(String cCode) {
+		this.cCode = cCode;
 	}
 	public DepartmentDuty getDepartmentDuty() {
 		return departmentDuty;
@@ -112,22 +132,13 @@ public class Employee {
 	public void setEmployeeDepartment(EmployeeDepartment employeeDepartment) {
 		this.employeeDepartment = employeeDepartment;
 	}
-	public String getcCode() {
-		return cCode;
-	}
-	public void setcCode(String cCode) {
-		this.cCode = cCode;
-	}
 	@Override
 	public String toString() {
 		return "Employee [employeeCode=" + employeeCode + ", bsCode=" + bsCode + ", edCode=" + edCode + ", ddCode="
 				+ ddCode + ", employeePass=" + employeePass + ", employeeName=" + employeeName + ", employeeBirth="
-				+ employeeBirth + ", employeeGender=" + employeeGender + ", employeeAddr=" + employeeAddr
-				+ ", addrDetail=" + addrDetail + ", employeePhone=" + employeePhone + ", joinDate=" + joinDate
-				+ ", resignationDate=" + resignationDate + ", cCode=" + cCode + ", departmentDuty=" + departmentDuty
-				+ ", employeeDepartment=" + employeeDepartment + "]";
+				+ employeeBirth + ", employeePhone=" + employeePhone + ", employeeGender=" + employeeGender
+				+ ", employeeAddr=" + employeeAddr + ", addrDetail=" + addrDetail + ", joinDate=" + joinDate
+				+ ", resignationDate=" + resignationDate + ", bossName=" + bossName + ", eiDate=" + eiDate + ", cCode="
+				+ cCode + ", departmentDuty=" + departmentDuty + ", employeeDepartment=" + employeeDepartment + "]";
 	}
-
-	
-	
 }
