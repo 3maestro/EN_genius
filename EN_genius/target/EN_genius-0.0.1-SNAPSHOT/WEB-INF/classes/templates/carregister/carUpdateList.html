@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title>EN_genius</title>
+</th:block>
+<script type="text/javascript"></script>
+<th:block layout:fragment="customContents">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+		
+	$(document).ready(function(){
+		$("#askBtn").click(function () {
+    	$("form").attr("action", "/carregister/update");
+	});
+ 
+		$("#carBtn").click(function () {
+        $("form").attr("action", "/carregister/carList");
+	})
+	</script> -->
+
+	<div class="col col-md-12">
+		<div class="card">
+			<div class="card-header"><strong>[[${carUpList.customerCode}]]</strong>
+				<small> 님의 차량정보</small>
+			</div>
+				<div class="card-body card-block">
+					<form th:action="@{repHistory}" method="Post">
+						<div class="form-group">
+							<label for="company" class=" form-control-label">차대번호</label>
+							<span id="company"  class="form-control" name="customerCarInfoCode1">[[${carUpList.customerCarInfoCode}]]</span>
+						</div>
+					<div class="form-group">
+						<label for="vat" class=" form-control-label">고객 이름</label>
+						<span id="vat" class="form-control" name="customerCode1">[[${carUpList.customerCode}]]</span>
+					</div>
+					<div class="form-group">
+						<label for="street" class=" form-control-label">차량 번호</label>
+						<span id="street" class="form-control">[[${carUpList.customerCarNumber}]]</span>
+					</div>
+				<div class="row form-group">
+<table>     
+            
+	<tr>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">국가 선택</label></div>
+				<div>
+					<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+						<option value="0">제작국가 선택</option>
+						<option th:each="originSel : ${originSelect}" th:text="${originSel.originMain}"></option>
+					</select>
+				</div>
+		</td>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">벤더사 선택</label></div>
+				<div>
+					<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+						<option value="0">제작회사 선택</option>
+						<option th:each="vendorSel : ${vendorSelect}" th:text="${vendorSel.vendorName}">차량 종류 선택</option>
+					</select>
+				</div>
+		</td>
+	</tr>
+	<tr>
+		<td> 	
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 종류</label></div>
+				<div>
+					<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+						<option value="0">차량 종류 선택</option>
+						<option th:each="carClassSel : ${carClassSelect}" th:text="${carClassSel.carClassMain}">차량 종류 선택</option>             
+					</select>		
+				</div>
+		</td>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 모델</label></div>
+				<div>
+					<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+						<option value="0">차량 모델 선택</option>
+						<option th:each="carModelSel : ${carModelSelect}" th:text="${carModelSel.carModelName}">차량 모델 선택</option>                           
+					</select>
+			</div>
+		</td>
+	</tr>    
+	<tr>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">상세 모델 선택</label></div>
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">상세 모델 선택</option>
+					<option th:each="yearCarSel : ${yearCarSelect}" th:text="${yearCarSel.carModelDetail}"></option>
+				</select>
+		</td>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 등급 선택</label></div>
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">차량 등급 선택</option>
+					<option th:each="opGradeSel : ${opGradeSelect}" th:text="${opGradeSel.optionGradeName}">차량 등급 선택</option>
+				</select>
+		</td>
+	</tr>
+	<tr>
+		<td>			
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 선택옵션 선택</label></div>
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option th:each="opChoiceSel : ${opChoiceSelect}" th:text="${opChoiceSel.choiceOptionName}"></option>
+				</select>
+		</td>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 컬러 대분류</label></div>
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">차량 색상 선택</option>
+					<option th:each="bigColSel : ${bigColSelect}" th:text="${bigColSel.colorBigName}"></option>
+				</select>
+		<td>
+	</tr>
+	<tr>
+		<td>     	
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 컬러 상세분류</label></div>
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">상세 색상 선택</option>
+					<option th:each="midColSel : ${midColSelect}" th:text="${midColSel.colorMidName}"></option>
+				</select>
+		</td>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">연료 종류</label></div>
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">차량 연료 선택</option>
+					<option th:each="fuelSel : ${fuelSelect}" th:text="${fuelSel.fuelType}"></option>
+				</select>
+		<td>
+	</tr>
+	<tr>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 종류</label></div>
+			
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">차량 엔진 선택</option>
+					<option th:each="engineSel : ${engineSelect}" th:text="${engineSel.engineType}">차량 엔진 선택</option>
+				</select>
+		</td>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 미션</label></div>
+			
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option th:each="trnsMiSel : ${trnsMielect}" th:text="${trnsMiSel.tmType}">차량 미션 선택</option>
+				</select>
+		<td>
+	</tr>
+	<tr>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">차량 구동 방식</label></div>
+			
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">구동 방식 선택</option>
+					<option th:each="driveWaySel : ${driveWaySelect}" th:text="${driveWaySel.dwType}">차량 구동 방식</option>
+				</select>
+		</td>
+		<td>
+			<div class="col col-md-12"><label for="selectSm" class=" form-control-label">엔진 형식</label></div>
+			
+				<select name="selectSm" id="selectSm" class="form-control-sm form-control">
+					<option value="0">엔진 형식 선택</option>
+					<option th:each="powTrainSel : ${powTrainSelect}" th:text="${powTrainSel.engineForm}">엔진 형식</option>
+				</select>
+		<td>
+	</tr>
+</table>    
+		</div>
+			<div class="col col-6" >
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">생산년도</label>
+					<span id="postal-code" class="form-control">[[${carUpList.carProductionYear}]]</span>
+				</div>
+			</div>
+			<div class="col col-6">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">자동차 등록일</label>
+					<span id="postal-code" class="form-control">[[${carUpList.carRegistrationDate}]]</span>
+				</div>
+			</div>
+			<div class="col col-6">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">마지막 방문시 주행거리</label>
+					<span id="postal-code" class="form-control">[[${carUpList.lastDistanceDriven}]]</span>
+				</div>
+			</div>
+			<div class="col col-6">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">마지막 방문일</label>
+					<span id="postal-code" class="form-control">[[${carUpList.lastVisitDate}]]</span>
+				</div>
+			</div>
+			<div class="col col-6">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">작성자</label>
+					<span id="postal-code" class="form-control">[[${carUpList.customerCarInfoWriter}]]</span>
+				</div>
+			</div>
+			<div class="col col-6">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">작성일자</label>
+					<span id="postal-code" class="form-control">[[${carUpList.customerCarInfoDate}]]</span>
+				</div>
+			</div>
+				    <!-- <button type="submit" class="btn btn-outline-success" id="askBtn">과거 정비 이력 보기</button> -->
+					<!-- <button type="button" th:href="${carList}">리스트로 돌아가기</button> -->
+					<a th:href="carList" class="btn btn-primary" id="carBtn">리스트로 돌아가기</a>
+			</form>
+				</div>
+		</div>
+	</div>
+</th:block>
+</html>

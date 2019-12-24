@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customCss">
+		<style>
+			.types{
+				height: 250px !important;
+				font-size: 18px;
+			}
+			.catecate{text-align: center; background: menu;}
+		</style>
+	</th:block>
+	
+	<!-- 사용자 title -->
+	<th:block layout:fragment="customTitle">
+		<title>기본 점검 항목</title>
+	</th:block>
+	
+	<!-- 사용자 Script -->
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			
+			$(document).ready(function(){	
+				var finalBigCate;
+				var finalMidCate;
+				
+				$('.bigCate').click(function(){
+					bigCate = $(this).val();
+					console.log(bigCate + " <-bigCate")
+
+					var request = $.ajax({
+						  url: "/big/bigCheckList",	//호출될 url
+						  method: "POST",
+						  data: {"bigCate" : bigCate},//파라미터
+						  dataType: "json"		//응답 타입
+					});
+				
+					request.done(function( data ) {
+							console.log(data)
+						if(data != null || data != "" || data != "undefined"){
+							var midCateCheck = $('#midCate')
+							console.log(midCateCheck)
+							for(var i=0; i<data.length; i++){
+								var midCate = data[i];
+ 								console.log(midCate + " <-midCate")
+									var html =''
+								$.each(data,function(i, item){	
+									html += '"<option class = "midCate" value=';
+									html += data[i];
+									html += '>';
+									html += data[i];
+									html += '</option>"';
+									midCateCheck.html(html)
+								})		
+							}		
+						}			
+					})
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  //alert( "Request failed: " + textStatus );
+					});
+				})
+	 		});	
+			
+				$(document).on('click','.midCate',(function(){
+					midCate = $(this).val();
+					console.log(midCate + " <-midCate")	
+
+					var request = $.ajax({
+						  url: "/mid/midCheckList",	//호출될 url
+						  method: "POST",
+						  data: {"midCate" : midCate},//파라미터
+						  dataType: "json"		//응답 타입
+					});
+				
+					request.done(function( data ) {
+						console.log(data)
+						if(data != null || data != "" || data != "undefined"){
+							var smallCateCheck = $('#smallCate')
+							console.log(smallCateCheck)
+							for(var i=0; i<data.length; i++){
+								var smallCate = data[i];
+ 								//console.log(smallCate + " <-smallCate")
+									var html =''
+								$.each(data,function(i, item){	
+									html += '"<option class = "smallCate" value=';
+									html += data[i];
+									html += '>';
+									html += data[i];
+									html += '</option>"';
+									smallCateCheck.html(html)
+								})
+							}
+						}
+					})
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  //alert( "Request failed: " + textStatus );
+					});
+				}))
+				
+					var smallCateCheck = [];
+					var finalCheck = [];
+				$(document).on('click','.smallCate',(function(){
+					var basicList = $('#basicList')
+					var smallCate = $(this).val();
+					console.log(smallCate + " <-smallCate")	
+					//var size = smallCateCheck.length;
+					//console.log(size + "<-s")
+					smallCateCheck.push(smallCate);
+
+					//$.each(smallCateCheck,function(i,smallCate){
+				    if(finalCheck.indexOf(smallCate) == -1 ) finalCheck.push(smallCate);
+				    console.log(finalCheck + " <-finalCheck")
+					//});
+					var i;
+					for(i=0; i<finalCheck.length; i++){
+						var basicCheck = finalCheck[i]
+						console.log(basicCheck)
+						
+						var html ='';
+						$.each(finalCheck,function(i, item){
+							/* var j;
+							if(i!=0)j++; */
+							html += '<tr>'
+							html += '<td>'+ i +'</td>'
+							html += '<td>'+ 'bigCate' +'</td>'
+							html += '<td>'+ 'midCate' +'</td>'
+							html += '<td>'+ finalCheck[i] +'</td>'
+							html += '</tr>'
+							basicList.html(html)
+						})
+					}
+					/* for(var i=0; i<smallCateCheck.length; i++){
+						var smallCateCh = smallCateCheck[i]
+						if(finalCheck.indexOf(smallCate) == -1 && smallCateCh != '' && smallCateCh != 'undefined'){
+			               		/* console.log(smallCateCheck + " <-smallCateCheck")
+			               		smallCateCheck.join(smallCate); */
+/* 						}else{
+					}
+
+		               		smallCateCheck.pop(smallCate);
+					}   */
+ 
+					/* var request = $.ajax({
+						  url: "/small/smallCheckList",	//호출될 url
+						  method: "POST",
+						  data: {"smallCate" : smallCateCheck},//파라미터
+						  dataType: "json"		//응답 타입
+					});
+				
+					request.done(function( data ) {
+						console.log(data);
+					})
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  //alert( "Request failed: " + textStatus );
+					});  */
+				}))
+				
+				$(document).on('click','#basicBtn',(function(){
+					console.log(finalCheck + "버튼 클릭시")
+					if(finalCheck ==null || finalCheck == 'undefined' || finalCheck == ''){
+						alert('항목을 선택 하세요.')
+					}	
+					
+/* 					var request = $.ajax({
+						  url: "/small/smallCheckList",	//호출될 url
+						  method: "POST",
+						  data: {"finalCheck" : finalCheck[]},//파라미터
+						  dataType: "json"		//응답 타입
+					});
+				
+					request.done(function( data ) {
+						console.log(data);
+					})
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  //alert( "Request failed: " + textStatus );
+					}); */
+					
+				}))	
+				
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="dashboardFragment">
+		<h1>아아아</h1>
+	</th:block>
+	<th:block layout:fragment="dashboardFragmentOl">
+		<ol class="breadcrumb text-right">
+		<li><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li class="active">3</li>
+		</ol>
+	</th:block>
+	
+	<th:block layout:fragment="customContents">
+		
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="card col-sm-10">
+				<div class="card-header">
+					<i class="fa fa-user"></i>
+					<strong class="card-title pl-2">기본 점검</strong>
+					<button type="button" style="float: right;" id="basicBtn">기본 점검 리스트</button>
+				</div>
+				<div class="card-body">
+<!-- 					<div class="row">
+						<div class="col-sm-4"><button class="btn btn-lg btn-block btn-danger">1</button></div>
+						<div class="col-sm-4"><button class="btn btn-lg btn-block btn-info">1</button></div>
+						<div class="col-sm-4"><button class="btn btn-lg btn-block btn-info">1</button></div>
+						<div class="col-sm-3"><button class="btn btn-lg btn-block btn-info">1</button></div>
+					</div>
+					<br>				
+					<br> -->				
+					<div class="row">
+						<div class="col-sm-4">
+							<h3 class="catecate">대분류</h6>
+							<select id="bigCate" multiple="multiple" class="form-control types">
+								<option value="엔진" class="bigCate">엔진</option>
+								<option value="섀시" class="bigCate">섀시</option>
+								<option value="전장" class="bigCate">전장</option>		
+								<option value="트림" class="bigCate">트림</option>		
+								<option value="진단" class="bigCate">진단</option>		
+								<option value="바디" class="bigCate">바디</option>		
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<h3 class="catecate">중분류</h6>
+							<select id="midCate" multiple="multiple" class="form-control types">
+								<option></option>	
+	<!-- 							<option class="midCate">섀시</option> -->
+	<!-- 							<option class="midCate">변속기</option>		 -->
+	<!-- 							<option class="midCate">전장</option>		 -->
+	<!-- 							<option class="midCate">바디</option>		 -->
+							</select>
+						</div>
+						<div class="col-sm-4">
+							<h3 class="catecate">소분류</h6>
+							<select id="smallCate" multiple="multiple" class="form-control types">
+								<option></option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-1"></div>
+			<div class="col-sm-1"></div>
+			<div class="card col-sm-10" >
+				<div class="card-body">
+				    <table class="table">
+				        <thead class="thead-dark">
+				          <tr>
+				          	<th scope="col">no.</th>
+				            <th scope="col">대분류</th>
+				            <th scope="col">중분류</th>
+				            <th scope="col">소분류</th>
+				          </tr>
+				      </thead>
+				      <tbody id="basicList">
+				        <tr>
+				            <td></td>
+				            <td></td>
+				            <td></td>
+				            <td></td>
+				        </tr>
+				    </tbody>
+				</table>
+		        </div>
+		    </div>
+			<div class="col-sm-1"></div>
+		</div>
+
+	</th:block>
+</html>
