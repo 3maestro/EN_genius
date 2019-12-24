@@ -22,4 +22,9 @@ public class EmployeeService {
 	public List<String> DepartmentDutySelect(String bsCode){
 		return employeeMapper.DepartmentDutySelect(bsCode);
 	}
+	
+	public void addEmployee(Employee employee) {
+		employee.setEmployeeAddr(employee.getEmployeeAddr() + employee.getAddrDetail());
+		employeeMapper.addEmployee(employee);
+	}
 }
