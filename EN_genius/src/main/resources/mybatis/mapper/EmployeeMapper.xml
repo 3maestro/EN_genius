@@ -16,7 +16,7 @@
 			<result property="employeeAddr"				column="emp_addr"/>
 			<result property="joinDate"					column="join_date"/>
 			<result property="resignationDate"  		column="resignation_date"/>
-			<result property="bossName"  				column="boss_name"/>
+			<result property="eiWriter"  				column="ei_writer"/>
 			<result property="eiDate"  					column="ei_date"/>
 			<result property="cCode"  					column="c_code"/>			
 			<collection property="departmentDuty" 		resultMap="DepartmentDutyResultMap"/>
@@ -40,11 +40,10 @@
 			SET
 				ed_code = #{edCode},
 				dd_code = #{ddCode},
-				emp_pass = #{employeePass},
 				emp_name = #{employeeName},
+				emp_pass = #{employeePass},
 				emp_phone = #{employeePhone},
-				emp_addr = #{employeeAddr},
-				boss_name = #{bossName}
+				emp_addr = #{employeeAddr}
 			WHERE
 				ei_code = #{employeeCode};
 			 
@@ -67,7 +66,7 @@
 					emp_gender,
 					emp_addr,
 					join_date,
-					boss_name,
+					ei_writer,
 					ei_date
 					)VALUES(
 					#{employeeCode},
@@ -81,7 +80,7 @@
 					#{employeeGender},
 					#{employeeAddr},
 					#{joinDate},
-					#{bossName},
+					#{eiWriter},
 					now());
 		</insert>
 		<select id="employeeList" resultMap="employeeResultMap">

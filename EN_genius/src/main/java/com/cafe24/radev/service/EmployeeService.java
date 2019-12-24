@@ -23,6 +23,11 @@ public class EmployeeService {
 		return employeeMapper.DepartmentDutySelect(bsCode);
 	}
 	
+	public void modifyEmployee(Employee employee) {
+		employee.setEmployeeAddr(employee.getEmployeeAddr() + employee.getAddrDetail());
+		employeeMapper.modifyEmployee(employee);
+	}
+	
 	public void addEmployee(Employee employee) {
 		employee.setEmployeeAddr(employee.getEmployeeAddr() + employee.getAddrDetail());
 		employeeMapper.addEmployee(employee);

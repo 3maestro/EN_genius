@@ -1,6 +1,8 @@
 package com.cafe24.radev.mapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,7 +25,7 @@ public interface UserMapper {
 	
 	String selectImage(String bsCode);
 	
-	int approvalCheck(List<String> checkArray);
+	int approvalCheck(Map<String, Object> map);
 	
 	int approvalRefusal(List<String> checkArray);
 }

@@ -106,9 +106,10 @@
 				 image_file_tb
 		</select>
 		
-		<update id="approvalCheck" parameterType="list">
+		<update id="approvalCheck" parameterType="hashMap">
 			UPDATE business_tb
-				SET bs_check = 'Y'
+				SET bs_check = 'Y',
+					bs_writer = #{bsWriter}
 			WHERE 
 			<choose>
 				<when test="list neq null">
