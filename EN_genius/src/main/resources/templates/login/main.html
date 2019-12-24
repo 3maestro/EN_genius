@@ -39,7 +39,6 @@
 			        #cellPaiChart{
 			            height: 160px;
 			        }
-
 		</style>
 	</th:block>
 
@@ -47,8 +46,29 @@
 		<title>EN_genius</title>
 	</th:block>
 
-	<th:block layout:fragment="customScript">	
-
+	<th:block layout:fragment="customScript">		
+		<script type="text/javascript">	 
+			
+			$(document).ready(function(){
+	 			$('').click(function(){							
+	 		        
+	 				var request = $.ajax({
+						url:"/",
+						method: "POST",
+						data : form,
+						dataType : "json"	
+					});
+					
+					request.done(function(data){
+						console.log(data)
+					});
+					request.fail(function(jqXHR, textStatus){
+						//alert("첨부파일 출력 중 오류가 발생하였습니다.");			
+					});				
+				});
+			});
+				
+		</script>
 	</th:block>
 	
 	<th:block layout:fragment="dashboardFragment">
