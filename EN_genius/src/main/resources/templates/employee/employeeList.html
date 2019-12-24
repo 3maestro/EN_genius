@@ -7,35 +7,13 @@
 		<title>EN_genius</title>
 	</th:block>
 	
-	<th:block layout:fragment="customScript">	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<th:block layout:fragment="customScript">		
 	
-	<script type="text/javascript" th:inline="javascript">
-	 //<![CDATA[		 
-			employee = [[${employeeList}]];
-			console.log(employee + "<-employeeemployee")
-			for(var i=0; i<employee.length; i++){
-				var b = employee[i];
-				console.log(b + "<-bbb")
-				
-				var c = b.employeeName
-				console.log(c + "<-employeeName")
-			}	
-		//]]>	
-	 
-		$(document).on('click','.updateBtn',function(){
-			var employeeCode = $(this).attr('data-employeeCode');
-			var dpName = $(this).attr('data-dpName');
-			var employeeName = $(this).attr('data-employeeName');
-			var employeeAddr = $(this).attr('data-employeeAddr');
-			var joinDate = $(this).attr('data-joinDate');
-		                
-			console.log(employeeCode, dpName, employeeName, employeeAddr, joinDate);
-			
-		})
+	<script type="text/javascript">	 
+		
 		var tt = 1
 		$(document).ready(function(){
-			console.log(tt)
+			
 			$('#add').click(function(){
 				tt = 1
 				console.log(tt)
@@ -43,6 +21,24 @@
 			$('#modify').click(function(){
 				tt = 2
 				console.log(tt)
+			})
+			
+			$('.updateBtn').click(function(){
+				
+				var employeeCode = $(this).attr('data-employeeCode');
+				var dpName = $(this).attr('data-dpName');
+				var employeeName = $(this).attr('data-employeeName');
+				var employeeAddr = $(this).attr('data-employeeAddr');
+				var joinDate = $(this).attr('data-joinDate');
+			    
+				
+				$('input[name="employeeName"]').val(employeeName);
+				
+				
+				$('#myModal1').modal('show');
+				
+				console.log(employeeCode, dpName, employeeName, employeeAddr, joinDate);
+				
 			})
 			
 			
@@ -102,9 +98,7 @@
 				                    <td><span class="count">10</span></td>
 				                    <td><span class="date" th:text="${I.joinDate}"></span></td>
 				                    <td>
-					                    <span class="badge badge-complete updateBtn" id="modify" 
-					                    data-toggle="modal" 
-					                    data-target="#myModal1"
+					                    <span class="badge badge-complete updateBtn"			                 
 					                    th:data-employeeCode="${I.employeeCode}" 
 					                    th:data-dpName="${I.employeeDepartment.dpName}"
 					                    th:data-employeeName="${I.employeeName}"
