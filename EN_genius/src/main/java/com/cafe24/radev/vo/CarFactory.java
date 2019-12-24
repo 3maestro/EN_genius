@@ -14,9 +14,11 @@ public class CarFactory {
 	private String bossName;
 	private String bossPhonenum;
 	private String bossEmail;
+	private String emailAddr;
 	private String bsName;
 	private String bsNumber;
 	private String bsAddr;
+	private String addrDetail;
 	private String bsTelephone;
 	private String bsRegistration;
 	private String bsWriter;
@@ -63,6 +65,12 @@ public class CarFactory {
 	public void setBossEmail(String bossEmail) {
 		this.bossEmail = bossEmail;
 	}
+	public String getEmailAddr() {
+		return emailAddr;
+	}
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
+	}
 	public String getBsName() {
 		return bsName;
 	}
@@ -80,6 +88,12 @@ public class CarFactory {
 	}
 	public void setBsAddr(String bsAddr) {
 		this.bsAddr = bsAddr;
+	}
+	public String getAddrDetail() {
+		return addrDetail;
+	}
+	public void setAddrDetail(String addrDetail) {
+		this.addrDetail = addrDetail;
 	}
 	public String getBsTelephone() {
 		return bsTelephone;
@@ -108,9 +122,10 @@ public class CarFactory {
 	@Override
 	public String toString() {
 		return "CarFactory [bsCode=" + bsCode + ", bsLevel=" + bsLevel + ", bossId=" + bossId + ", bossPw=" + bossPw
-				+ ", bossName=" + bossName + ", bossPhonenum=" + bossPhonenum + ", bossEmail=" + bossEmail + ", bsName="
-				+ bsName + ", bsNumber=" + bsNumber + ", bsAddr=" + bsAddr + ", bsTelephone=" + bsTelephone
-				+ ", bsRegistration=" + bsRegistration + ", bsWriter=" + bsWriter + ", bsCheck=" + bsCheck + "]";
+				+ ", bossName=" + bossName + ", bossPhonenum=" + bossPhonenum + ", bossEmail=" + bossEmail
+				+ ", emailAddr=" + emailAddr + ", bsName=" + bsName + ", bsNumber=" + bsNumber + ", bsAddr=" + bsAddr
+				+ ", addrDetail=" + addrDetail + ", bsTelephone=" + bsTelephone + ", bsRegistration=" + bsRegistration
+				+ ", bsWriter=" + bsWriter + ", bsCheck=" + bsCheck + "]";
 	}
-	
+
 }

@@ -14,8 +14,17 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeMapper employeeMapper;
 	
-	public List<Employee> employeeList(){
-		System.out.println(employeeMapper.employeeList());
-		return employeeMapper.employeeList();
+	public List<Employee> employeeList(String bsCode){
+		System.out.println(employeeMapper.employeeList(bsCode));
+		return employeeMapper.employeeList(bsCode);
+	}
+	
+	public List<String> DepartmentDutySelect(String bsCode){
+		return employeeMapper.DepartmentDutySelect(bsCode);
+	}
+	
+	public void addEmployee(Employee employee) {
+		employee.setEmployeeAddr(employee.getEmployeeAddr() + employee.getAddrDetail());
+		employeeMapper.addEmployee(employee);
 	}
 }

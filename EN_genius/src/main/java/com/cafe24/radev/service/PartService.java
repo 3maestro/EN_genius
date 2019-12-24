@@ -3,9 +3,7 @@ package com.cafe24.radev.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +46,7 @@ public class PartService {
 	 * 부품등록시 대분류선택을 위한 데이터조회 
 	 * @return
 	 */
-	public List<FirstCategoryForCar> selectFristDate(){
+	public List<FirstCategoryForCar> selectFristData(){
 		System.out.println("대분류목록/service");
 		
 		return categoryMapper.getFirstCateList();
@@ -57,7 +55,7 @@ public class PartService {
 	 * 부품등록시 중분류선택을 위한 데이터조회(Ajax)
 	 * @return
 	 */
-	public List<String> selectSecondDate(String fVal){
+	public List<String> selectSecondData(String fVal){
 		System.out.println("중분류목록/service");
 		List<SecondCategoryForCar> sCateList = new ArrayList<SecondCategoryForCar>();
 		List<String> sCateNameList = new ArrayList<String>();
@@ -91,16 +89,14 @@ public class PartService {
 	 * 부품수량업데이트
 	 */
 	public void partUpdateforMany(Part part) {
-		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
-		Calendar time = Calendar.getInstance();
+		
 		//수정자아이디
 		String partWrite = "id002";
-		String partUpdateDate = format.format(time.getTime());
 		
-		System.out.println(partUpdateDate+"<<현재시간/service");
+		System.out.println(nowDate+"<<현재시간/service");
 		
 		part.setPartWrite(partWrite);
-		part.setPartUpdateDate(partUpdateDate);
+		part.setPartUpdateDate(nowDate);
 		
 		
 		partMapper.partUpdateforMany(part);
@@ -113,25 +109,19 @@ public class PartService {
 	 * @param partCheck
 	 * @param groupCode
 	 */
-//	public Map<String,Object> getPartGroup(String partCheck,String groupCode) {
-	public List<Part> getPartGroup(String partCheck,String groupCode) {
+	public List<Part> getPartGroupList(String partCheck,String groupCode) {
 		System.out.println(partCheck +"getPartGroup/service");
 		System.out.println(groupCode +"getPartGroup/service");
 		List<Part> checkList = new ArrayList<Part>();
-		Map<String,Object> checksMap = new HashMap<String,Object>();
 		String checkValue = null;
 		
 		String[] partChecks =  partCheck.split(",");
 		for(int i=0 ;i<partChecks.length; i++) {
 			System.out.println(i+":"+partChecks[i]);
 			checkValue = partChecks[i];
-			//checksMap.put(checkValue,partMapper.partSelectForOrder(checkValue));
-			//System.out.println(i+":"+partMapper.partSelectForOrder(checkValue).toString());
 			checkList.add(partMapper.partSelectForOrder(checkValue));
 		}
-		//System.out.println(checksMap.toString()+"<담긴값");
 			System.out.println(checkList.toString()+"<담긴값");
-		//return checksMap;
 		return checkList;
 	}
 	
@@ -177,6 +167,29 @@ public class PartService {
 		System.out.println(GroupCode);
 		
 		return GroupCode;
+	}
+	
+		/**
+		 * 카트로이동시킬 부품정보/ajax
+		 * @param checks
+		 * @return
+		 */
+	//public List<String> addCart(List<String> checks) {
+	public List<Part> addCart(List<String> checks) {
+		System.out.println(checks);
+		System.out.println(checks.size());
+		
+		List<Part> list = new ArrayList<Part>();
+		String checkValue = null;
+		for(int i=0;i<checks.size();i++) {
+			checkValue = checks.get(i);
+		list.add(partMapper.partSelectForOrder(checkValue)); 
+		}
+		return list;
+	}
+	
+	public void partSelect(String partNumber) {
+		partMapper.getData();
 	}
 	/*
 	 * Group group = new Group(); group.setGroupCode(GroupCode);

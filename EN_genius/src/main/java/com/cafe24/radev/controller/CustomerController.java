@@ -18,10 +18,9 @@ public class CustomerController {
 	
 	@GetMapping("/customerList")
 	public String getMemberList(Model model) {
+		model.addAttribute("title", "고객목록");
 		List<Customer> list = customerService.getCustomerList();
-		
 		model.addAttribute("customerList", list);
-		
 		return "/customer/customerList";
 	}
 	
@@ -30,20 +29,26 @@ public class CustomerController {
 		model.addAttribute("title", "고객등록");
 		return "/customer/customerInfo";
 	}
-
-	@GetMapping("/customerUpdate")
-	public String getCustomerUpdate(Model model, @RequestParam(value="customerCode") String customerCode) {
-		model.addAttribute("title", "고객수정");
-		String bsCode = "bs001";
-		System.out.println(bsCode+"_"+customerCode);
-		customerService.getCustomerSelectForOne(customerCode);
-		return "/customer/customerInfo";
-	}
 	
 	@PostMapping("/customerInsert")
 	public String getCustomerInsert(Model model, Customer customer) {
 		System.out.println(customer);
 		customerService.getCustomerInsert(customer);
+		return "redirect:/customerList";
+	}
+
+	@GetMapping("/customerUpdate")
+	public String getCustomerUpdate(Model model, @RequestParam(value="customerCode") String customerCode) {
+		model.addAttribute("title", "고객수정");
+		Customer customer = customerService.getCustomerSelect("bs001_"+customerCode);
+		model.addAttribute("customer", customer);
+		return "/customer/customerInfo";
+	}
+	
+	@PostMapping("/customerUpdate")
+	public String getCustomerUpdate(Customer customer) {
+		System.out.println(customer);
+		customerService.getCustomerUpdate(customer);
 		return "redirect:/customerList";
 	}
 	

@@ -4,20 +4,14 @@
 	layout:decorate="~{layout/default}">
 
 	<th:block layout:fragment="customTitle">
-		<title>EN_genius 고객 목록</title>
+		<title>EN_genius [[${title}]]</title>
 	</th:block>
 	<th:block layout:fragment="customContents">
-		<script>
-			function doImgPop(img) {
-				img1 = new Image();
-				img1.src = ("images/"+img);
-				imgControll(img);
-			}
-		</script>
+
 		<div class="card">
 			<div class="card-header">
 				<strong class="card-title">
-					고객목록
+					[[${title}]]
 				</strong>
 			</div>
 			<div class="card-body">

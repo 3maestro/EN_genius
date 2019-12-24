@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.cafe24.radev.vo.Group;
 import com.cafe24.radev.vo.Part;
+import com.cafe24.radev.vo.PartGuide;
 @Mapper
 public interface PartMapper {
 	/**
@@ -51,6 +52,6 @@ public interface PartMapper {
 	 */
 	public Group makeGroupCode(Group group);
 	
-	//public Map<String,List<String>> getPartGroupList(String checkValue);
+	List<PartGuide> getData();
 	
 }

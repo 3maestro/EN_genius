@@ -1,7 +1,10 @@
-
-
 // 우편번호 찾기 화면을 넣을 element
-var element_layer = document.getElementById('layer');
+var element_layer = null;
+if(tt == 1){
+	element_layer=document.getElementById('layer');
+}else if(tt==2){
+	element_layer=document.getElementById('layer2');
+}
 var btn = document.getElementById('btnCloseLayer');
 
 $(document).ready(function() {
@@ -21,11 +24,27 @@ $(document).ready(function() {
 function closeDaumPostcode() {
     // iframe을 넣은 element를 안보이게 한다.
     element_layer.style.display = 'none';
+    if($('#address').val()=='' && customer!=null){
+    	$('#addr1').attr('class','col-lg-12')
+		$('#address').attr('id','customerAddr')
+		$('#addr2').empty()
+		$('#customerAddr').val(customer.customerAddr)
+    }
 }
 
-function execDaumPostcode() {
-    new daum.Postcode({
+function DaumPostcode() {
+	console.log(tt)
+	$('#addr1').attr('class','col-lg-6')
+	$('#customerAddr').attr('id','address')
+	if(!$('#addr2').find("#detailAddress").length){
+		$('#addr2').append('<input class="form-control" type="text" name="addr2" id="detailAddress" placeholder="상세주소"><br>')
+	}
+	$('#address').val('')
+	$('#detailAddress').val('')
+	console.log(tt)
+	new daum.Postcode({
         oncomplete: function(data) {
+        	console.log(tt)
             // 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
@@ -38,13 +57,19 @@ function execDaumPostcode() {
             } else { // 사용자가 지번 주소를 선택했을 경우(J)
                 addr = data.jibunAddress;
             }
-					
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('customerPost').value = data.zonecode;
-            document.getElementById("address").value = addr;
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("detailAddress").focus();
-
+            if(tt == 1){
+            	document.getElementById('customerPost').value = data.zonecode;
+            	document.getElementById("address").value = addr;
+            	// 커서를 상세주소 필드로 이동한다.
+            	document.getElementById("detailAddress").focus();
+            }else if(tt==2){
+            	document.getElementById('customerPost2').value = data.zonecode;
+            	document.getElementById("address2").value = addr;
+            	// 커서를 상세주소 필드로 이동한다.
+            	document.getElementById("detailAddress2").focus();
+            }
+            
             // iframe을 넣은 element를 안보이게 한다.
             // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
             element_layer.style.display = 'none';

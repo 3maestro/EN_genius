@@ -8,14 +8,19 @@ import java.util.List;
  */
 import org.apache.ibatis.annotations.Mapper;
 
+import com.cafe24.radev.vo.DepartmentDuty;
 import com.cafe24.radev.vo.Employee;
+import com.cafe24.radev.vo.EmployeeDepartment;
 
 @Mapper
 public interface EmployeeMapper {
 
-	int addEmployee();
+	void addEmployee(Employee employee);
 	
-	List<Employee> employeeList();
+	List<Employee> employeeList(String bsCode);
+	
+	List<String> DepartmentDutySelect(String bsCode);
 	
 	Employee employeeLogin(Employee employee);
+	
 }

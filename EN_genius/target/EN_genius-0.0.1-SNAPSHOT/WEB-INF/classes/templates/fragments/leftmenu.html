@@ -32,21 +32,21 @@
 						<li>
 							<i class="fa fa-id-badge">
 							</i>
-							<a th:href="@{/customerInsertPage}">
+							<a th:href="@{/customerInsert}">
 								#고객등록
 							</a>
 						</li>
 						<li>
 							<i class="fa fa-bars">
 							</i>
-							<a th:href="@{/customerVisit}">
+							<a th:href="@{/customerX}">
 								!방문내역
 							</a>
 						</li>
 						<li>
 							<i class="fa fa-puzzle-piece">
 							</i>
-							<a href="#">
+							<a th:href="@{/customerX}">
 								#이벤트 달력
 							</a>
 						</li>
@@ -62,21 +62,21 @@
 						<li>
 							<i class="fa fa-puzzle-piece">
 							</i>
-							<a href="#">
+							<a th:href="@{/customerX}">
 								#SMS 예약어 관리
 							</a>
 						</li>
 						<li>
 							<i class="fa fa-id-badge">
 							</i>
-							<a href="#">
+							<a th:href="@{/customerX}">
 								#SMS 발송
 							</a>
 						</li>
 						<li>
 							<i class="fa fa-bars">
 							</i>
-							<a href="#">
+							<a th:href="@{/customerX}">
 								#SMS 발송내역
 							</a>
 						</li>
@@ -87,10 +87,9 @@
                     <li class="menu-item-has-children dropdown" th:if="${session.ECODE eq null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>#직원관리</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="/employeeInsert">직원등록</a></li>
-                            <li><i class="fa fa-table"></i><a href="/employeeSelect">직원조회</a></li>
-                            <li><i class="fa fa-table"></i><a href="/workCurrentState">직원작업현황</a></li>
-                            <li><i class="fa fa-table"></i><a href="/statistics">직원별통계</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/employeeSelect}">!직원 조회</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/workCurrentState}">!직원 작업현황</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/statistics}">!직원별 통계</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -116,9 +115,9 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>#점검,진단</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a th:href="@{/routineCheckList}">#표준정기점검표</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/basicCheck}">#기본점검항목</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/diagnosisGuide}">#진단 가이드</a></li>
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a th:href="@{/routineCheckList}">!표준정기점검표</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/basicCheck}">!기본점검항목</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/diagnosisGuide}">!진단 가이드</a></li>
                           
                         </ul>
                     </li>
@@ -126,20 +125,20 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon ti-email"></i>#정비,공임 </a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a th:href="@{/ccStandardWage}">#배기량별 공임 단가표</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/workManHour}">#표준 작업 시간</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/workingNow}">#진행 중인 작업</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/wageEstimate}">#공임 견적</a></li>
+                            <li><i class="menu-icon fa fa-fort-awesome"></i><a th:href="@{/ccStandardWage}">!배기량별 공임 단가표</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/workManHour}">!표준 작업 시간</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/workingNow}">!진행 중인 작업</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/wageEstimate}">!공임 견적</a></li>
                           
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="/partMain" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#부품</a>
+                        <a href="/part/partMain" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#부품</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><a href="/partList">!부품목록</a></li>
-                            <li><a href="/partInsert">!부품등록</a></li>
-                            <li><a href="/partOrder">!부품구매</a></li>
-                            <li><a href="/partEstimate">#부품견적</a></li>
+                            <li><a href="/part/partList">!부품목록</a></li>
+                            <li><a href="/part/partInsert">!부품등록</a></li>
+                            <li><a href="/part/partOrder">!부품구매</a></li>
+                            <li><a href="/part/partEstimate">#부품견적</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -153,9 +152,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a th:href="@{/loginForm}" th:if="${session.SID eq null}">Login</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a th:href="@{/loginForm}" th:if="${session.SID eq null}">!Login</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -179,7 +176,7 @@
                 	<li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>#사업장관리</a>
                     	<ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="/CarFactorySearch">사업장조회</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/CarFactorySearch}">!사업장 조회</a></li>
                     	</ul>
                 	</li>
             	</ul>

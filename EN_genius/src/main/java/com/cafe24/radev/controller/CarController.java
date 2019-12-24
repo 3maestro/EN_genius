@@ -35,25 +35,41 @@ public class CarController {
 	 * @return
 	 */
 	
-	@GetMapping("carUpdateList")
-	public String carUpdateList(String cul ) {
-		System.out.println("CarController 클래스 carUpdateList 메서드 실행");
-		
-		return "redirect:carUpdateList";
-	}
 	
+	/*
+	 * @GetMapping("repHistory") public String getCarRepHistory(Model model) {
+	 * System.out.println("CarController 클래스 getCarRepHistory 메서드 실행"); return
+	 * "carregister/repHistory"; }
+	 */
+	
+	/**
+	 * 차량 상세보기
+	 * @param carUpList
+	 * @return
+	 */
+	  @GetMapping("carUpdateList") 
+	  public String getCarUpdateList(@RequestParam("carUpList") String carUpList, Model model) {
+	  System.out.println(carUpList + "UpList 값 확인");
+	  model.addAttribute("carUpList", carService.getCarUpdateList(carUpList));
+	  System.out.println(carUpList + "<---aaaa");
+	  
+	  System.out.println("CarController 클래스 carUpdateList 메서드 실행");
+	  return "carregister/carUpdateList"; 
+	  }
+	  
+	 
 	@PostMapping("carRegister")
-	public String carRegister(VoCarDetail voDetailInsert) {
+	public String carRegister(VoCarRegister voDetailInsert) {
 		System.out.println("CarController 클래스 carRegister 메서드 실행");
 		System.out.println(voDetailInsert + "차량등록 값 확인");
 
-		carService.getDetailInsert(voDetailInsert);
+		carService.getCarRegister(voDetailInsert);
 		return "redirect:carList";
 	}
 
-
+	
 	@GetMapping("carRegister")
-	public String carRegister(Model originSelect, Model vendorSelect, Model carClassSelect,Model carModelSelect, 
+	public String carRegister(Model originSelect, Model vendorSelect, Model carClassSelect, Model carModelSelect, 
 								Model yearCarSelect, Model voDetail, Model opGradeSelect, Model opChoiceSelect,
 								  Model bigColSelect, Model midColSelect, Model fuelSelect, Model engineSelect,
 								  	Model transMiSelect, Model driveWaySelect, Model powTrainSelect) {

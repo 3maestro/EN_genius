@@ -25,7 +25,7 @@ public class PartController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/partMain")
+	@GetMapping("/part/partMain")
 	public String partMain() {
 		return "/part/partMain";
 	};
@@ -37,7 +37,7 @@ public class PartController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/partList")
+	@GetMapping("/part/partList")
 	public String getPartList(Model model) {
 		System.out.println("파트리스트/controller");
 
@@ -52,11 +52,11 @@ public class PartController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/partInsert")
+	@GetMapping("/part/partInsert")
 	public String partCate(Model model) {
 		System.out.println("부품등록(카테고리호출)/컨트롤러");
 
-		model.addAttribute("fCateList", partService.selectFristDate());
+		model.addAttribute("fCateList", partService.selectFristData());
 
 		return "/part/partInsert";
 	};
@@ -67,14 +67,14 @@ public class PartController {
 	 * @param partValue
 	 * @return
 	 */
-	@PostMapping(value = "/serchPartCall", produces = "application/json")
+	@PostMapping(value = "/part/serchPartCall", produces = "application/json")
 	public @ResponseBody Part serchPartCall(
-			@RequestParam(value = "partValue", defaultValue = "1", required = false) String partValue) {
+			@RequestParam(value = "partValue", defaultValue = "1", required = false) String partNumber) {
 		System.out.println("부품로우조회ajax호출/controller");
-		System.out.println(partValue + "<-paramr/ajax호출/controller");
-
-		return partService.partSelectForOrder(partValue);
+		System.out.println(partNumber + "<-paramr/ajax호출/controller");
+		return partService.partSelectForOrder(partNumber);
 	};
+	
 
 	/**
 	 * 신규부품등록처리
@@ -83,14 +83,13 @@ public class PartController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/partInsertPro")
+	@GetMapping("/part/partInsertPro")
 	public String partInsertPro(Part parts, HttpSession session) {
 		// 등록자입력을 위한 세션값
-		// String id = (String)session.getAttribute("userId");
 		System.out.println(parts.getPartName() + "<<<부품등록값");
 		partService.partInsertPro(parts);
 
-		return "redirect:/partInsert";
+		return "redirect:/part/partInsert";
 	};
 
 	/**
@@ -99,13 +98,13 @@ public class PartController {
 	 * @param fVal
 	 * @return
 	 */
-	@PostMapping(value = "/sCateCall", produces = "application/json")
+	@PostMapping(value = "/part/sCateCall", produces = "application/json")
 	public @ResponseBody List<String> sCateCall(
 			@RequestParam(value = "fVal", defaultValue = "engine", required = false) String firstVal) {
 		System.out.println("카테고리ajax호출/컨트롤러");
 		System.out.println(firstVal + "<-paramr/ajax호출/컨트롤러");
 
-		return partService.selectSecondDate(firstVal);
+		return partService.selectSecondData(firstVal);
 	};
 
 	/**
@@ -114,7 +113,7 @@ public class PartController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/partListToOrder")
+	@GetMapping("/part/partListToOrder")
 	public String partSelectForOrder(Model model, @RequestParam(value = "partCheck") String partNumber) {
 		System.out.println(partNumber + "<select for order/controller");
 
@@ -124,22 +123,42 @@ public class PartController {
 
 		return "/part/partOrder";
 	};
+	
 	/**
-	 * 
+	 * 다중값을가지고 부품판매로이동
 	 * @param model
 	 * @param partCheck
 	 * @return
 	 */
-	@PostMapping("/partGroupToOrder")
-	public String getPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
+	@PostMapping("/part/partGroupToOrder")
+	public String getBuyPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
 		System.out.println("뭉탱이데이터호출");
 		System.out.println(partCheck+"<체크값들");
 		System.out.println(groupCode+"<코드값");
 		
-		model.addAttribute("checkPartList",partService.getPartGroup(partCheck,groupCode));
+		model.addAttribute("checkPartList",partService.getPartGroupList(partCheck,groupCode));
 		model.addAttribute("groupCode", partService.getGroup());
 		
 		return "/part/partOrder";
+	}
+	
+	/**
+	 * 다중값을가지고 부품견적으로 이동
+	 * @param model
+	 * @param partCheck
+	 * @param groupCode
+	 * @return
+	 */
+	@PostMapping("/part/partGroupToEstimate")
+	public String getSellPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode) {
+		System.out.println("뭉탱이데이터호출");
+		System.out.println(partCheck+"<체크값들");
+		System.out.println(groupCode+"<코드값");
+		
+		model.addAttribute("checkPartList",partService.getPartGroupList(partCheck,groupCode));
+		model.addAttribute("groupCode", partService.getGroup());
+		
+		return "/part/partEstimate";
 	}
 
 	/**
@@ -148,7 +167,7 @@ public class PartController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/partOrder")
+	@GetMapping("/part/partOrder")
 	public String partorder(Model model) {
 		model.addAttribute("groupCode", partService.getGroup());
 		return "/part/partOrder";
@@ -159,7 +178,7 @@ public class PartController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/partListToEstimate")
+	@GetMapping("/part/partListToEstimate")
 	public String setPartListToEstimate(Model model, @RequestParam(value = "partCheck") String partCheck) {
 		System.out.println(partCheck + "<<푸붐체크값");
 		model.addAttribute("groupCode", partService.getGroup());
@@ -168,25 +187,50 @@ public class PartController {
 	}
 
 	/**
-	 * 
+	 * 부품견적으로이동
 	 * @return
 	 */
-	@GetMapping("/partEstimate")
+	@GetMapping("/part/partEstimate")
 	public String setPartEstimate() {
 		
 		return "/part/partEstimate";
 	}
 
 	/**
-	 * 부품업데이트 partInsert.html
+	 * 부품수량업데이트 partInsert.html
 	 * 
 	 * @param part
 	 * @return
 	 */
-	@GetMapping("/partUpdate")
+	@GetMapping("/part/partUpdate")
 	public String partUpdate(Part part) {
 		System.out.println("업데이트");
 		partService.partUpdateforMany(part);
-		return "redirect:/partList";
+		return "redirect:/part/partList";
 	}
+	
+	/**
+	 * 
+	 * @param checks
+	 * @return
+	 */
+	@PostMapping(value = "/part/cartCall", produces = "application/json")
+	public 
+//		@ResponseBody List<String> addcartCall(
+				@ResponseBody List<Part> addcartCall(
+		//String addChecked(
+			@RequestParam(value = "checkvalues[]", required = false) List<String> checks ) {
+		System.out.println("partCart/ajax호출/컨트롤러");
+		System.out.println(checks + "<-partCart/ajax호출/컨트롤러");
+		//model.addAttribute("list",partService.addCart(checks));
+		
+		return partService.addCart(checks);
+		//return"/part/partCart";
+	};
+	@GetMapping("/part/test")
+	public String test() {
+	
+		return"/part/test";
+	}
+	
 }

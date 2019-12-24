@@ -10,20 +10,22 @@
 	<th:block layout:fragment="customContents">
 		구매 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+		var groupCode = /*[[ ${groupCode} ]]*/;
+
 		$(document).ready(function(){
+			
+			console.log(groupCode+"그룹코드");
+			$('#groupCode').val(groupCode);
+		/*]]*/
 			$(document).on('blur','[name=many]',function(){
-				var oldMany = $(this).attr('placeholder');
+				var partNumber = $(this).attr('partNumber');
 				var many = $(this).val();
-				var price = $('[name='+oldMany+']').attr('price')
-				
+				var price = $('[name='+partNumber+']').attr('price')
+				$('[name='+partNumber+']').text((many*price));
 				console.log(many);
-				if(many != oldMany){
-					//$('[name=price]').text('ok');
-					//$('[name=list]').find('#price').text('ok');
-					$('[name='+oldMany+']').text((many*price));
-				};
-				
 			});
 		});
 	</script>
@@ -90,15 +92,15 @@
 					<td th:text="${p.bigCate}" th:value="${p.bigCate}"></td>
 					<td th:text="${p.midCate}" th:value="${p.midCate}"></td>
 					<td th:text="${p.partName}" th:value="${p.partName}"></td>
-					<td><input type="number" th:placeholder="${p.partMany}" th:value="${p.partMany}" th:name=many></td>
-					<td th:text="${p.partPrice}*${p.partMany}" th:price="${p.partPrice}" id="price" th:name="${p.partMany}"></td>
+					<td><input type="number" th:placeholder="'현재수량 : '+${p.partMany}" th:partNumber="${p.partNumber}" th:value="${p.partMany}" name=many></td>
+					<td th:text="${p.partPrice}*${p.partMany}" th:price="${p.partPrice}" id="price" th:name="${p.partNumber}"></td>
 				</tr>
 			</table>
 		</th:block>
 		업체목록추가하여 업체정보까지 신청서로
-		<button type="button" class="btn-info">신청서출력</button>
 	</form>
-		
+		<button type="button" class="btn-info">신청서출력</button>
+		<input type="hidden" value="" id="groupCode">		
 	
 	</th:block>
 </html>

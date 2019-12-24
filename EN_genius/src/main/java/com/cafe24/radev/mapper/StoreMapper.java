@@ -18,4 +18,15 @@ public interface StoreMapper {
 	 * @return
 	 */
 	List<Store> getStoreList();
+	/**
+	 * 거래처등록
+	 * @param store
+	 */
+	void storeInsertPro(Store store);
+	/**
+	 * 코드최댓값
+	 * @param bsCode
+	 * @return
+	 */
+	String getStoreCode(String bsCode);
 }

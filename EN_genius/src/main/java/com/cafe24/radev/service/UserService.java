@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,25 +39,22 @@ public class UserService {
 	String bsCode = null;
 	
 	public int addCarFactory(CarFactory carFactory){
-		System.out.println("이때는 코드값이 없쥬?" + carFactory);
+		System.out.println("사업장 등록폼에서 받아온 값 ==> " + carFactory);
+		carFactory.setBossEmail(carFactory.getBossEmail() +carFactory.getEmailAddr());
+		carFactory.setBsAddr(carFactory.getBsAddr() + carFactory.getAddrDetail());
+		System.out.println("email 문자열 합쳐서 다시 셋팅==>" + carFactory.getBossEmail());
 		int max = userMapper.bsCodeMax();
 		max = max + 1;
 		String code = "bs00";
 		bsCode = code + max;
 		carFactory.setBsCode(bsCode);
-		System.out.println("코드증가하나요ㅠㅠ--------->" + carFactory.toString());
+		System.out.println("코드증가--------->" + carFactory.toString());
 		return userMapper.addCarFactory(carFactory);
 	}
 	
 	public int addDocumentFile(MultipartFile bs_docu) {
 		ImageFile imageFile = new ImageFile();
-		
-		int max = userMapper.imageCodeMax();
-		max = max + 1;
-		String code = "image0";
-		String imgeCode = code + max;
-		imageFile.setImageCode(imgeCode);
-		
+				
 		if(bs_docu != null) {			
 			String filename = StringUtils.cleanPath(bs_docu.getOriginalFilename());				
 		
@@ -94,11 +93,14 @@ public class UserService {
 		return userMapper.selectImage(bsCode);
 	}
 	
-	public int approvalCheck(String[] bsCode) {
-		for(int i=0;i<bsCode.length;i++) {
-			System.out.println("코드값--------->"+bsCode[i]);
-		}
-		return userMapper.approvalCheck(bsCode);
+	public int approvalCheck(List<String> checkArray) {
+
+		return userMapper.approvalCheck(checkArray);
+	}
+	
+	public int approvalRefusal(List<String> checkArray) {
+		
+		return userMapper.approvalRefusal(checkArray);
 	}
 /********************************************************************************************************로그인*/
 
@@ -108,14 +110,20 @@ public class UserService {
 		Map<String,Object> map = new HashMap<String,Object>();
 
 		if(c != null && !"".equals(c.getBossId())) {
-			if(carFactory.getBossPw().equals(c.getBossPw())){
-				re="login";
-				map.put("login", c);
+			if("Y".equals(c.getBsCheck())) {				
+				if(carFactory.getBossPw().equals(c.getBossPw())){
+					re="login";
+					map.put("login", c);
+				}else {
+					re = "비밀번호 불일치";
+				}
+			}else if("N".equals(c.getBsCheck())){
+				re = "승인이 거부되었습니다. 정확한 정보로 다시 한번 등록해주세요.";
 			}else {
-				re = "비밀번호 불일치";
+				re = "승인 요청 중입니다.";
 			}
 		}else {
-			re = "아이디가 존재하지 않습니다";			
+			re = "아이디가 존재하지 않습니다.";			
 		}		
 		map.put("re",re);
 		return map;
@@ -125,7 +133,7 @@ public class UserService {
 		Employee e = employeeMapper.employeeLogin(employee);
 		String re = null;
 		Map<String,Object> map = new HashMap<String,Object>();
-		
+	
 		if(e != null && !"".equals(e.getEmployeeCode())) {
 			if(employee.getEmployeePass().equals(e.getEmployeePass())){
 				re="login";
