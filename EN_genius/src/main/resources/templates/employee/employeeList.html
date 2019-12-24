@@ -7,8 +7,7 @@
 		<title>EN_genius</title>
 	</th:block>
 	
-	<th:block layout:fragment="customScript">		
-	
+	<th:block layout:fragment="customScript">			
 	<script type="text/javascript">	 
 		
 		$(document).ready(function(){
@@ -29,6 +28,7 @@
 				
 				$('.edCode').val(edCode).prop(':selected');
 				$('.ddCode').val(ddCode).prop(':selected');
+				$('.employeeCode').val(employeeCode);
 				$('.employeeName').val(employeeName);
 				$('.employeePass').val(employeePass);
 				$('.employeeBirth').val(employeeBirth);
@@ -41,7 +41,6 @@
 				
 				$('#myModal1').modal('show');
 				
-				console.log(employeeCode, dpName, employeeName, employeeAddr, joinDate);
 				
 			})
 			
@@ -113,6 +112,7 @@
 					                    th:data-employeeBirth="${I.employeeBirth}"
 					                    th:data-employeeAddr="${I.employeeAddr}"
 					                    th:data-employeePhone="${I.employeePhone}"
+					                    th:data-employeeGender="${I.employeeGender}"
 					                    th:data-joinDate="${I.joinDate}"
 					                    th:data-resignationDate="${I.resignationDate}"
 					                    >수정</span>
@@ -134,7 +134,7 @@
 		      </div>
 		      <div class="modal-body">
 			    <form method="post" th:action="@{/addEmployee}">
-				    <div class="form-group">
+			    	<div class="form-group">
 				    <div class="input-group">
 		   				<select name="edCode" class="form-control">
 				    		<option value="">부서</option>
@@ -201,7 +201,7 @@
 				    </div>
 					<div class="modal-footer">
 					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					  <button type="submit" id="addEmployee" class="btn btn-secondary btn-sm">등록</button>
+					  <button type="submit" class="btn btn-secondary btn-sm">등록</button>
 					</div>
 			    </form>
 		      </div>
@@ -219,6 +219,7 @@
 		      </div>
 		      <div class="modal-body">
 			    <form method="post" th:action="@{/modifyE}">
+			    	<input type="hidden" name="employeeCode" class="employeeCode">
 				    <div class="form-group">
 				    <div class="input-group">
 		   				<select name="edCode" class="form-control edCode">
@@ -265,9 +266,7 @@
 					</div>			 			    
 				    <div class="form-group">
 				    <div class="input-group">
-				    	<select name="employeeGender" class="form-control employeeGender" >
-				    		<option value="" >성별</option>
-				   		</select>
+				    	<input type="text" name="employeeGender" class="form-control employeeGender" readonly>
 				    </div>
 				    </div>
 				    <div class="form-group">
@@ -283,8 +282,9 @@
 				    </div>
 				    </div>
 					<div class="modal-footer">
-					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					  <button type="submit" id="upEmployee" class="btn btn-secondary btn-sm">수정</button>
+					  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
+					  <button type="submit" class="btn btn-secondary btn-sm">수정</button>
+					  <button type="submit" class="btn btn-secondary btn-sm resignation">퇴사</button>
 					</div>
 			    </form>
 		      </div>

@@ -23,10 +23,10 @@ public class EmployeeController {
 	 * 직원등록
 	 * @return
 	 */
-	@PostMapping(value = "/addEmployee")
+	@PostMapping("/addEmployee")
 	public String addEmployee(Employee employee, HttpSession session) {
 		employee.setBsCode((String)session.getAttribute("SCODE"));
-		employee.setBossName((String)session.getAttribute("SNAME"));
+		employee.setEiWriter((String)session.getAttribute("SCODE"));
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
 		System.out.println(employee + " <-employee");
 		employeeService.addEmployee(employee);
@@ -37,11 +37,12 @@ public class EmployeeController {
 	 * @param employeeCode
 	 * @return
 	 */
-	@GetMapping("/modifyE")			
-	public String modifyEmployee(String employeeCode) {
-		System.out.println(employeeCode);
-		//employeeService.
-		return "/index";
+	@PostMapping("/modifyE")			
+	public String modifyEmployee(Employee employee, HttpSession session) {
+		employee.setBsCode((String)session.getAttribute("SCODE"));
+		System.out.println("수정화면에서 받아온 값 ==>" + employee);
+		employeeService.modifyEmployee(employee);
+		return "redirect:/employeeSelect";
 	}
 	/**
 	 * 직원조회
