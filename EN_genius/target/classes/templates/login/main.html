@@ -51,7 +51,115 @@
 	
 	<th:block layout:fragment="customContents">
 		<div class="row">
-	        <div class="col-lg-12">
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-1">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="currency float-left mr-1">$</span>
+			                    <span class="count">23569</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">Revenue</p>
+			            </div><!-- /.card-left -->
+						<div class="card-right float-right text-right">
+						    <i class="icon fade-5 icon-lg pe-7s-cart"></i>
+						</div><!-- /.card-right -->	
+			        </div>
+			    </div>
+			</div>
+			<!--/.col-->
+			
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-6">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="count float-left">85</span>
+			                    <span>%</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">Dummy text here</p>
+			          	</div><!-- /.card-left -->
+			          	<div class="card-right float-right text-right">
+			              	<div id="flotBar1" class="flotBar1"></div>
+			          	</div><!-- /.card-right -->
+			        </div>
+			    </div>
+			</div>
+			<!--/.col-->
+			
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-3">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="count">6569</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">Total clients</p>
+			            </div><!-- /.card-left -->
+						<div class="card-right float-right text-right">
+			              <i class="icon fade-5 icon-lg pe-7s-users"></i>
+						</div><!-- /.card-right -->
+			        </div>
+			    </div>
+			</div>
+			<!--/.col-->
+	
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-2">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="count">1490</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">New users</p>
+			            </div><!-- /.card-left -->
+						<div class="card-right float-right text-right">
+						    <div id="flotLine1" class="flotLine1"></div>
+						</div><!-- /.card-right -->
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<!--/.col-->
+		
+		<!-- 차량 번호 조회 -->
+		<dic calss="row">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-8">
+		        <div class="card">
+		            <div class="card-header">
+		                <strong>Horizontal</strong> Form
+		            </div>
+		            <div class="card-body card-block">
+		                <form action="#" method="post" class="form-horizontal">
+		                    <div class="row form-group">
+		                        <div class="col col-md-3"><label for="hf-email" class=" form-control-label">Email</label></div>
+		                        <div class="col-12 col-md-9"><input type="email" id="hf-email" name="hf-email" placeholder="Enter Email..." class="form-control"><span class="help-block">Please enter your email</span></div>
+		                    </div>
+		                    <div class="row form-group">
+		                        <div class="col col-md-3"><label for="hf-password" class=" form-control-label">Password</label></div>
+		                        <div class="col-12 col-md-9"><input type="password" id="hf-password" name="hf-password" placeholder="Enter Password..." class="form-control"><span class="help-block">Please enter your password</span></div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div class="card-footer">
+		                <button type="submit" class="btn btn-primary btn-sm">
+		                    <i class="fa fa-dot-circle-o"></i> Submit
+		                </button>
+		                <button type="reset" class="btn btn-danger btn-sm">
+		                    <i class="fa fa-ban"></i> Reset
+		                </button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-2"></div>
+	    </div>
+	    <!-- /차량 번호 조회 -->
+        
+		<!-- chart -->
+		<div class="row">
+	        <div class="col-lg-1"></div>
+	        <div class="col-lg-10">
 	            <div class="card">
 	                <div class="card-body">
 	                    <h4 class="box-title">Traffic </h4>
@@ -61,7 +169,58 @@
 	                        <div class="card-body">
 	                            <!-- <canvas id="TrafficChart"></canvas>   -->
 	                            <div id="traffic-chart" class="traffic-chart">
-	                            	<svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;"><g class="ct-grids"><line x1="50" x2="50" y1="15" y2="300" class="ct-grid ct-horizontal"></line><line x1="148.865625" x2="148.865625" y1="15" y2="300" class="ct-grid ct-horizontal"></line><line x1="247.73125" x2="247.73125" y1="15" y2="300" class="ct-grid ct-horizontal"></line><line x1="346.59687499999995" x2="346.59687499999995" y1="15" y2="300" class="ct-grid ct-horizontal"></line><line x1="445.4625" x2="445.4625" y1="15" y2="300" class="ct-grid ct-horizontal"></line><line x1="544.328125" x2="544.328125" y1="15" y2="300" class="ct-grid ct-horizontal"></line><line y1="300" y2="300" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line><line y1="259.2857142857143" y2="259.2857142857143" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line><line y1="218.57142857142856" y2="218.57142857142856" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line><line y1="177.85714285714286" y2="177.85714285714286" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line><line y1="137.14285714285714" y2="137.14285714285714" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line><line y1="96.42857142857142" y2="96.42857142857142" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line><line y1="55.71428571428572" y2="55.71428571428572" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line><line y1="15" y2="15" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line></g><g><g class="ct-series ct-series-a"><path d="M 50 300 L 50 300 C 82.955 251.143 115.91 200.89 148.866 153.429 C 181.821 105.967 214.776 15 247.731 15 C 280.686 15 313.642 83.901 346.597 96.429 C 379.552 108.956 412.507 106.526 445.463 120.857 C 478.418 135.189 511.373 240.286 544.328 300 L 544.328 300 Z" class="ct-area"></path></g><g class="ct-series ct-series-b"><path d="M 50 300 L 50 300 C 82.955 210.429 115.91 31.286 148.866 31.286 C 181.821 31.286 214.776 177.857 247.731 177.857 C 280.686 177.857 313.642 137.143 346.597 137.143 C 379.552 137.143 412.507 157.603 445.463 177.857 C 478.418 198.111 511.373 257.657 544.328 297.557 L 544.328 300 Z" class="ct-area"></path></g><g class="ct-series ct-series-c"><path d="M 50 300 L 50 300 C 82.955 259.286 115.91 215.663 148.866 177.857 C 181.821 140.051 214.776 72 247.731 72 C 280.686 72 313.642 177.857 346.597 177.857 C 379.552 177.857 412.507 55.714 445.463 55.714 C 478.418 55.714 511.373 191.429 544.328 259.286 L 544.328 300 Z" class="ct-area"></path></g></g><g class="ct-labels"><foreignObject style="overflow: visible;" x="50" y="305" width="98.865625" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Jan</span></foreignObject><foreignObject style="overflow: visible;" x="148.865625" y="305" width="98.865625" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Feb</span></foreignObject><foreignObject style="overflow: visible;" x="247.73125" y="305" width="98.86562499999997" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Mar</span></foreignObject><foreignObject style="overflow: visible;" x="346.59687499999995" y="305" width="98.86562500000002" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Apr</span></foreignObject><foreignObject style="overflow: visible;" x="445.4625" y="305" width="98.86562500000002" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">May</span></foreignObject><foreignObject style="overflow: visible;" x="544.328125" y="305" width="30" height="20"><span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 30px; height: 20px;">Jun</span></foreignObject><foreignObject style="overflow: visible;" y="259.2857142857143" x="10" height="40.714285714285715" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 41px; width: 30px;">0</span></foreignObject><foreignObject style="overflow: visible;" y="218.57142857142856" x="10" height="40.714285714285715" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 41px; width: 30px;">5000</span></foreignObject><foreignObject style="overflow: visible;" y="177.85714285714283" x="10" height="40.71428571428571" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 41px; width: 30px;">10000</span></foreignObject><foreignObject style="overflow: visible;" y="137.14285714285714" x="10" height="40.71428571428572" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 41px; width: 30px;">15000</span></foreignObject><foreignObject style="overflow: visible;" y="96.42857142857142" x="10" height="40.71428571428572" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 41px; width: 30px;">20000</span></foreignObject><foreignObject style="overflow: visible;" y="55.71428571428572" x="10" height="40.714285714285694" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 41px; width: 30px;">25000</span></foreignObject><foreignObject style="overflow: visible;" y="15" x="10" height="40.71428571428572" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 41px; width: 30px;">30000</span></foreignObject><foreignObject style="overflow: visible;" y="-15" x="10" height="30" width="30"><span class="ct-label ct-vertical ct-start" xmlns="http://www.w3.org/2000/xmlns/" style="height: 30px; width: 30px;">35000</span></foreignObject></g></svg>
+	                            	<svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;">
+	                            		<g class="ct-grids">
+	                            			<line x1="50" x2="50" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="148.865625" x2="148.865625" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="247.73125" x2="247.73125" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="346.59687499999995" x2="346.59687499999995" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="445.4625" x2="445.4625" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="544.328125" x2="544.328125" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line y1="300" y2="300" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="259.2857142857143" y2="259.2857142857143" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="218.57142857142856" y2="218.57142857142856" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="177.85714285714286" y2="177.85714285714286" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="137.14285714285714" y2="137.14285714285714" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="96.42857142857142" y2="96.42857142857142" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="55.71428571428572" y2="55.71428571428572" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="15" y2="15" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            		</g>
+	                            		<g>
+	                            			<g class="ct-series ct-series-a">
+	                            				<path d="M 50 300 L 50 300 C 82.955 251.143 115.91 200.89 148.866 153.429 C 181.821 105.967 214.776 15 247.731 15 C 280.686 15 313.642 83.901 346.597 96.429 C 379.552 108.956 412.507 106.526 445.463 120.857 C 478.418 135.189 511.373 240.286 544.328 300 L 544.328 300 Z" class="ct-area"></path>
+	                            			</g>
+	                            			<g class="ct-series ct-series-b">
+	                            				<path d="M 50 300 L 50 300 C 82.955 210.429 115.91 31.286 148.866 31.286 C 181.821 31.286 214.776 177.857 247.731 177.857 C 280.686 177.857 313.642 137.143 346.597 137.143 C 379.552 137.143 412.507 157.603 445.463 177.857 C 478.418 198.111 511.373 257.657 544.328 297.557 L 544.328 300 Z" class="ct-area"></path>
+	                            			</g>
+	                            			<g class="ct-series ct-series-c">
+	                            				<path d="M 50 300 L 50 300 C 82.955 259.286 115.91 215.663 148.866 177.857 C 181.821 140.051 214.776 72 247.731 72 C 280.686 72 313.642 177.857 346.597 177.857 C 379.552 177.857 412.507 55.714 445.463 55.714 C 478.418 55.714 511.373 191.429 544.328 259.286 L 544.328 300 Z" class="ct-area"></path>
+	                            			</g>
+	                            		</g>
+	                            		<g class="ct-labels">
+	                            			<foreignObject style="overflow: visible;" x="50" y="305" width="98.865625" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Jan</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="148.865625" y="305" width="98.865625" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Feb</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="247.73125" y="305" width="98.86562499999997" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Mar</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="346.59687499999995" y="305" width="98.86562500000002" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Apr</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="445.4625" y="305" width="98.86562500000002" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">May</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="544.328125" y="305" width="30" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 30px; height: 20px;">Jun</span>
+	                            			</foreignObject>
+	                            			
+	                            			
+	                            			
+	                            		</g>
+	                            	</svg>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -101,6 +260,7 @@
 	                <div class="card-body"></div>
 	            </div>
 	        </div><!-- /# column -->
+	        <div class="col-lg-1"></div>
 	    </div>
 	</th:block>
 
