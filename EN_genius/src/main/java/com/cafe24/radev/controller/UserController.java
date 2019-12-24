@@ -149,7 +149,7 @@ public class UserController {
 			//session.setAttribute("lo", re);
 			return "/login/login";
 		}		
-		return "redirect:/main";
+		return "redirect:/main/main";
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class UserController {
 		CarFactory c = (CarFactory)map.get("login");	
 		
 		if("login".equals(re)) {
-			if("박연우".equals(c.getBsWriter())) {
+			if("bs001".equals(c.getBsWriter())) {
 				session.setAttribute("SID", c.getBossId());
 				session.setAttribute("SCODE", c.getBsCode());
 				session.setAttribute("SNAME", c.getBossName());
@@ -181,7 +181,7 @@ public class UserController {
 			model.addAttribute("lo", re);
 			return "/login/login";
 		}		
-		return "redirect:/main";
+		return "redirect:/main/main";
 	} 
 
 	/**
@@ -207,7 +207,7 @@ public class UserController {
 			session.setAttribute("ECODE", e.getEmployeeCode());
 			session.setAttribute("SNAME", e.getEmployeeName());
 		}
-		return "redirect:/main";
+		return "redirect:/main/main";
 	}
  
 	/**

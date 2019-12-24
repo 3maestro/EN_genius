@@ -50,22 +50,65 @@
 		<script type="text/javascript">	 
 			
 			$(document).ready(function(){
-	 			$('').click(function(){							
+	 			$('#carSearchBtn').click(function(){							
 	 		        
-	 				var request = $.ajax({
-						url:"/",
-						method: "POST",
-						data : form,
-						dataType : "json"	
-					});
-					
-					request.done(function(data){
-						console.log(data)
-					});
-					request.fail(function(jqXHR, textStatus){
-						//alert("첨부파일 출력 중 오류가 발생하였습니다.");			
-					});				
+	 				
+	 				var carNum = $('input[name=carNum]').val();
+	 				var carCode = $('input[name=carCode]').val();
+	 				console.log(carNum.length + " <-carNum")
+	 				console.log(carCode + " <-carCode")
+	 				var car;
+	 				//차량번호에 값이 있고  7 or 8자리 라면
+	 				if(carNum != '' && 6 < carNum.length && carNum != 'undefined'){
+	 					console.log(carNum + " <-carNum")
+	 					car = carNum;
+	 					var request = $.ajax({
+							url:"/main/carRefer",
+							method: "POST",
+							data : {"car" : car},
+							dataType : "json"	
+						});
+	 					
+	 					//차량번호에 값이 있는데 차대 번호에 값이 있으면
+// 	 					if(carCode != ''){
+// 		 					alert('차량 정보는 동시에 입력 안됩니다.')
+// 		 					$('input[name=carNum]').val('')
+// 	 						$('input[name=carCode]').val('')
+// 		 				}
+
+	 				//차대번호에 값이 있으면
+	 				}else if(carCode != '' && 17 == carCode.length && carCode != 'undefined'){
+	 					console.log(carCode + " <-carCode")
+	 					car = carCode;					
+	 					var request = $.ajax({
+							url:"/main/carRefer",
+							method: "POST",
+							data : {"car" : car},
+							dataType : "json"	
+						});
+	 					
+	 				//둘다 값이 없으면
+	 				}else{
+	 					alert('차량 정보를 다시 입력 하세요.')
+	 					$('input[name=carNum]').val('')
+	 					$('input[name=carCode]').val('')
+	 				}
+// 					request.done(function(data){
+// 						if(data != 'undefined'){
+// 							console.log(data)
+// 						}else{
+							
+// 						}
+// 					});
+// 					request.fail(function(jqXHR, textStatus){
+// 						//alert("첨부파일 출력 중 오류가 발생하였습니다.");			
+// 					});				
 				});
+	 			
+	 			$('#carResetBtn').click(function(){
+	 				$('input[name=carNum]').val('')
+					$('input[name=carCode]').val('')
+	 			})
 			});
 				
 		</script>
@@ -166,28 +209,28 @@
 		            <div class="card-body card-block">
 		                <form action="#" method="post" class="form-horizontal">
 		                    <div class="row form-group">
-		                        <div class="col col-md-3">
-		                        	<label for="hf-email" class=" form-control-label">차량번호</label>
+		                        <div class="col col-md-4">
+		                        	<label for="hf-email" class=" form-control-label">차량번호(7 or 8자리)</label>
 		                        </div>
-		                        <div class="col-12 col-md-9">
-		                        	<input type="email" id="hf-email" name="hf-email" placeholder="차량 번호를 입력 하세요." class="form-control">
+		                        <div class="col-12 col-md-8">
+		                        	<input type="text" id="carNum" name="carNum" maxlength="8" placeholder="차량 번호를 입력 하세요." class="form-control">
 		                        </div>
 		                    </div>
 		                    <div class="row form-group">
-		                        <div class="col col-md-3">
-		                        	<label for="hf-password" class=" form-control-label">차대번호</label>
+		                        <div class="col col-md-4">
+		                        	<label for="hf-password" class=" form-control-label">차대번호(17자리)</label>
 		                        </div>
-		                        <div class="col-12 col-md-9">
-		                        	<input type="password" id="hf-password" name="hf-password" placeholder="차대 번호를 입력 하세요." class="form-control">
+		                        <div class="col-12 col-md-8">
+		                        	<input type="text" id="carCode" name="carCode" maxlength="17" placeholder="차대 번호를 입력 하세요." class="form-control">
 		                        </div>
 		                    </div>
 		                </form>
 		            </div>
 		            <div style="background-color: silver; ">
-			                <button type="submit" class="btn btn-outline-secondary" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
+			                <button type="submit" class="btn btn-outline-secondary" id="carSearchBtn" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
 			                    <i class="fa fa-dot-circle-o">조회 하기</i> 
 			                </button>
-			                <button type="reset" class="btn btn-outline-secondary" style="margin-left: 10px;">
+			                <button type="reset" class="btn btn-outline-secondary" id="carResetBtn" style="margin-left: 10px;">
 			                    <i class="fa fa-ban">리셋</i>
 			                </button>
 		            </div>
