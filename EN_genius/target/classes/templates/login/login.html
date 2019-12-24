@@ -9,7 +9,7 @@
 	<th:block layout:fragment="customCss">
 		<style>
 		.btn-info-type1 {color: #fff; background-color: #76b3bdfa; border-color: #8e7b41;}	
- 		.btn-outline-info {}	 
+ 		.btn-outline-info {} 
 		</style>
 	</th:block>	
 	<th:block layout:fragment="customScript">	
@@ -17,11 +17,18 @@
 	<script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
 
+<<<<<<< HEAD
+			var result = /* [[ ${lo} ]] */;
+    
+			alert(result);
+			
+=======
 			var result = /*[[ ${lo} ]]*/;
     		if(result!=null){
 				alert(result);
     		}
     		
+>>>>>>> refs/heads/develop
 	  		$(document).ready(function(){
 		
  			$('#formCheck').click(function(){
