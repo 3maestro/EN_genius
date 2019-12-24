@@ -24,24 +24,8 @@ public class CarController {
 
 	@Autowired
 	private CarService carService;
-	
-	
 
 
-	/**
-	 * 등록버튼 누르기 전 Datail쪽 마무리 해야됨
-	 * 등록버튼 누르기 전 Color쪽 마무리 해야됨
-	 * @param voDetail
-	 * @return
-	 */
-	
-	
-	/*
-	 * @GetMapping("repHistory") public String getCarRepHistory(Model model) {
-	 * System.out.println("CarController 클래스 getCarRepHistory 메서드 실행"); return
-	 * "carregister/repHistory"; }
-	 */
-	
 	/**
 	 * 차량 상세보기
 	 * @param carUpList
@@ -87,20 +71,13 @@ public class CarController {
 		CarSelect.addAttribute("carClassSelect", carService.getCarClassSelect()); //차량 종류
 		CarSelect.addAttribute("vendorSelect", carService.getCarVendorSelect()); // 제작 업체
 		CarSelect.addAttribute("originSelect", carService.getCarOriginSelect()); // 차량 국가
-		System.out.println(CarSelect + "차량 컬러 대분류 선택");
-		System.out.println(CarSelect + "제작 회사 선택");
-		System.out.println(CarSelect + "차량 국가 선택");
+		/*
+		 * System.out.println(CarSelect + "차량 컬러 대분류 선택"); System.out.println(CarSelect
+		 * + "제작 회사 선택"); System.out.println(CarSelect + "차량 국가 선택");
+		 */
 		return "carregister/carRegister";
 	}
 
-	
-	// ajax 컨트롤러에서 받는 방법
-	/*
-	 * @PostMapping(value = "/test", produces = "application/json")
-	 * public @ResponseBody String ajaxTest(@RequestParam Map<String, String> json)
-	 * { System.out.println("CarController 클래스 ajaxTest 메서드 실행"); String a =
-	 * json.get("age"); return a; }
-	 */
 	
 	  @GetMapping("/carList")
 	  public String carList(VoCarDetail voDetail, Model model) {
@@ -113,12 +90,6 @@ public class CarController {
 	 
 
 	/*
-	 * @GetMapping("/dustmq") public String dustmq() {
-	 * System.out.println("CarController 연습 메서드 실행"); 
-	 * return "carregister/dustmq";
-	 * }
-	 */
-	/*
 	 * @PostMapping("/getModel") 
 	 * public @ResponseBody List<String>
 	 * getModel(@RequestParam(value = "selectVal")int selectVal){ List<String>
@@ -126,18 +97,23 @@ public class CarController {
 	 * = new HashMap<String, List<String>>(); //map.put("carName", nameList); return
 	 * nameList; }
 	 */
+	  @PostMapping("getCarModel")
+	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "carClassSm")String carClassSm){
+		  System.out.println(carClassSm + " : 에이작스에서 넘어올때 벤더");
+		  List<String> carClassList = carService.getCarClass(carClassSm);
+		  return carClassList;
+	  }
 	  
-	  @PostMapping("/getCarModel")
-	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "originSm")String originSm,
-			  @RequestParam(value = "vendorSm")String vendorSm){
-		  
-		 
-		  System.out.println(originSm + " : 에이작스에서 넘어올때 국가");
-		  System.out.println(vendorSm + " : 에이작스에서 넘어올때 벤더사");
-		  List<String> originList = carService.getCarVendor(originSm, vendorSm);
+	  @PostMapping("getCarClass")
+	  public @ResponseBody List<String> getDBCarClass(@RequestParam(value = "vendorSm")String vendorSm){
+		  System.out.println(vendorSm + " : 에이작스에서 넘어올때 벤더");
+		  List<String> vendorList = carService.getCarClass(vendorSm);
+		  return vendorList;
+	  }
+	  
+	  @PostMapping("getCarVendor")
+	  public @ResponseBody List<String> getDBCarVendor(@RequestParam(value = "originSm")String originSm){
+		  List<String> originList = carService.getCarVendor(originSm);
 		  return originList;
-		 
-		  //Map<String,List<String>> map = new HashMap<String, List<String>>();
-		  //map.put("carName", nameList);
 	  }
 }

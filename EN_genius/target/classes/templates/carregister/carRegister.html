@@ -20,28 +20,22 @@
 			$(document).on('change','#vendorSm',function(){
 			console.log($(this).val());
 		})
+			$(document).on('change','#carClassSm',function(){
+			console.log($(this).val());
+		})
 		
-		$('#originSm, #vendorSm').change(function(){
-			var contents = '';
+		$('#originSm').change(function(){
+			var contents = '<option>선택해주세요</option>';
 			var originSm = $(this).val();
-			var vendorSm = $(this).val();
 			console.log(originSm);
-			console.log(vendorSm);
 			
 			var request = $.ajax({
-				  url: "/getCarModel",
+				  url: "getCarVendor",
 				  method: "POST",
-				  data: { 'originSm' : originSm, 'vendorSm' : vendorSm },
+				  data: { 'originSm' : originSm },
 				  dataType: "json"
 				});
-				 
-				request.done(function(carModelSm) {
-					for(var i = 0; i < carModelSm.length; i++){
-						contents += '<option value = "'+carModelSm[i]+'">'+carModelSm[i]+'</option>'
-					}
-					$('#carModelSm').html(contents)
-				});
-				
+			
 				request.done(function(vendorSm) {
 					for(var i = 0; i < vendorSm.length; i++){
 						contents += '<option value = "'+vendorSm[i]+'">'+vendorSm[i]+'</option>'
@@ -49,18 +43,72 @@
 					$('#vendorSm').html(contents)
 				});
 				 
+				
+				
 				request.fail(function( jqXHR, textStatus ) {
 				  alert( "Request failed: " + textStatus );
 				});
 		})
 
-	})
+		$(document).on('change','#vendorSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var vendorSm = $(this).val();
+			console.log(vendorSm);
+			
+			var request = $.ajax({
+				  url: "getCarClass",
+				  method: "POST",
+				  data: { 'vendorSm' : vendorSm },
+				  dataType: "json"
+				});
+			
+				request.done(function(carClassSm) {
+					console.log(carClassSm);
+					for(var i = 0; i < carClassSm.length; i++){
+						contents += '<option value = "'+carClassSm[i]+'">'+carClassSm[i]+'</option>'
+					}
+					$('#carClassSm').html(contents)
+				});
+				 
+				
+				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				}); 
+		})
 		
+		$(document).on('change','#carClassSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var carClassSm = $(this).val();
+			console.log(carClassSm);
+			
+			var request = $.ajax({
+				  url: "getCarModel",
+				  method: "POST",
+				  data: { 'carClassSm' : carClassSm },
+				  dataType: "json"
+				});
+			
+				request.done(function(carModelSm) {
+					console.log(carModelSm);
+					for(var i = 0; i < carModelSm.length; i++){
+						contents += '<option value = "'+carModelSm[i]+'">'+carModelSm[i]+'</option>'
+					}
+					$('#carModelSm').html(contents)
+				});
+				 
+				
+				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				}); 
+		})
+	})	
 
 </script>
 
 
-	<div class="col col-md-6">
+	<div class="col col-md-9">
 		<div class="card">
 			<div class="card-header">
 				<strong>차량 등록</strong> <small> 졸리다..</small>
@@ -107,8 +155,8 @@
 									<div>
 										<select name="selectSm2" id="vendorSm"	class="form-control-sm form-control">
 											<!-- 벤더사  ajax 로 가져오기 -->
-											<option value="0">벤더사 선택</option>
-											<option th:value="${vendorSel.vendorCode}" th:each="vendorSel : ${vendorSelect}" th:text="${vendorSel.vendorName}"></option>
+											<!-- <option value="0">제작국가 먼저 선택해주세요</option> -->
+											<!-- <option th:value="${vendorSel.vendorCode}" th:each="vendorSel : ${vendorSelect}" th:text="${vendorSel.vendorName}"></option> -->
 											
 											
 										</select>
@@ -126,9 +174,9 @@
 									<div>
 										<select name="selectSm3" id="carClassSm"
 											class="form-control-sm form-control">
-											<option value="0">차량 종류 선택</option>
+											<!-- <option value="0">차량 종류 선택</option>
 											<option th:each="carClassSel : ${carClassSelect}"
-												th:text="${carClassSel.carClassMain}">차량 종류 선택</option>
+												th:text="${carClassSel.carClassMain}">차량 종류 선택</option> -->
 										</select>
 									</div>
 								</td>
