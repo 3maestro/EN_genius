@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout/default}">
-
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      
 	<th:block layout:fragment="customCss">
 		<style>
 			#weatherWidget .currentDesc {
@@ -45,10 +46,22 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius</title>
 	</th:block>
+
 	<th:block layout:fragment="customScript">	
 
 	</th:block>
 	
+	<th:block layout:fragment="dashboardFragment">
+		<h1>아아아</h1>
+	</th:block>
+	<th:block layout:fragment="dashboardFragmentOl">
+		<ol class="breadcrumb text-right">
+		<li><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li class="active">3</li>
+		</ol>
+	</th:block>
+      
 	<th:block layout:fragment="customContents">
 		<div class="row">
 			<div class="col-sm-6 col-lg-3">
@@ -123,39 +136,47 @@
 		<!--/.col-->
 		
 		<!-- 차량 번호 조회 -->
-		<dic calss="row">
-			<div class="col-lg-2"></div>
-			<div class="col-lg-8">
+		<div class="row">
+			<div class="col-lg-2" ></div>
+			<div class="col-lg-8" align="center" >
 		        <div class="card">
-		            <div class="card-header">
-		                <strong>Horizontal</strong> Form
+		            <div class="card-header" style="background-color:orange;">
+		                <strong>고객 차량 정보 조회</strong> 
 		            </div>
 		            <div class="card-body card-block">
 		                <form action="#" method="post" class="form-horizontal">
 		                    <div class="row form-group">
-		                        <div class="col col-md-3"><label for="hf-email" class=" form-control-label">Email</label></div>
-		                        <div class="col-12 col-md-9"><input type="email" id="hf-email" name="hf-email" placeholder="Enter Email..." class="form-control"><span class="help-block">Please enter your email</span></div>
+		                        <div class="col col-md-3">
+		                        	<label for="hf-email" class=" form-control-label">차량번호</label>
+		                        </div>
+		                        <div class="col-12 col-md-9">
+		                        	<input type="email" id="hf-email" name="hf-email" placeholder="차량 번호를 입력 하세요." class="form-control">
+		                        </div>
 		                    </div>
 		                    <div class="row form-group">
-		                        <div class="col col-md-3"><label for="hf-password" class=" form-control-label">Password</label></div>
-		                        <div class="col-12 col-md-9"><input type="password" id="hf-password" name="hf-password" placeholder="Enter Password..." class="form-control"><span class="help-block">Please enter your password</span></div>
+		                        <div class="col col-md-3">
+		                        	<label for="hf-password" class=" form-control-label">차대번호</label>
+		                        </div>
+		                        <div class="col-12 col-md-9">
+		                        	<input type="password" id="hf-password" name="hf-password" placeholder="차대 번호를 입력 하세요." class="form-control">
+		                        </div>
 		                    </div>
 		                </form>
 		            </div>
-		            <div class="card-footer">
-		                <button type="submit" class="btn btn-primary btn-sm">
-		                    <i class="fa fa-dot-circle-o"></i> Submit
-		                </button>
-		                <button type="reset" class="btn btn-danger btn-sm">
-		                    <i class="fa fa-ban"></i> Reset
-		                </button>
+		            <div style="background-color: silver; ">
+			                <button type="submit" class="btn btn-outline-secondary" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
+			                    <i class="fa fa-dot-circle-o">조회 하기</i> 
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" style="margin-left: 10px;">
+			                    <i class="fa fa-ban">리셋</i>
+			                </button>
 		            </div>
 		        </div>
 		    </div>
-		    <div class="col-lg-2"></div>
-	    </div>
+		    <div class="col-lg-2" ></div>
+		</div>
 	    <!-- /차량 번호 조회 -->
-        
+		
 		<!-- chart -->
 		<div class="row">
 	        <div class="col-lg-1"></div>
@@ -216,9 +237,6 @@
 	                            			<foreignObject style="overflow: visible;" x="544.328125" y="305" width="30" height="20">
 	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 30px; height: 20px;">Jun</span>
 	                            			</foreignObject>
-	                            			
-	                            			
-	                            			
 	                            		</g>
 	                            	</svg>
 	                            </div>
@@ -261,7 +279,6 @@
 	            </div>
 	        </div><!-- /# column -->
 	        <div class="col-lg-1"></div>
-	    </div>
+	    </div>		
 	</th:block>
-
 </html>

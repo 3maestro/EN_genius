@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
-      
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
 	<th:block layout:fragment="customCss">
 		<style>
 			#weatherWidget .currentDesc {
@@ -46,7 +45,6 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius</title>
 	</th:block>
-
 	<th:block layout:fragment="customScript">	
 
 	</th:block>
@@ -61,7 +59,7 @@
 		<li class="active">3</li>
 		</ol>
 	</th:block>
-      
+	
 	<th:block layout:fragment="customContents">
 		<div class="row">
 			<div class="col-sm-6 col-lg-3">
@@ -135,9 +133,8 @@
 		</div>
 		<!--/.col-->
 		
-		<!-- 차량 번호 조회 -->
-		<div class="row">
-			<div class="col-lg-2" ></div>
+		<dic calss="row">
+			<!-- 차량 번호 조회 -->
 			<div class="col-lg-8" align="center" >
 		        <div class="card">
 		            <div class="card-header" style="background-color:orange;">
@@ -173,10 +170,9 @@
 		            </div>
 		        </div>
 		    </div>
-		    <div class="col-lg-2" ></div>
-		</div>
 	    <!-- /차량 번호 조회 -->
-		
+	    </div>
+        
 		<!-- chart -->
 		<div class="row">
 	        <div class="col-lg-1"></div>
@@ -279,6 +275,6 @@
 	            </div>
 	        </div><!-- /# column -->
 	        <div class="col-lg-1"></div>
-	    </div>		
+	    </div>
 	</th:block>
 </html>
