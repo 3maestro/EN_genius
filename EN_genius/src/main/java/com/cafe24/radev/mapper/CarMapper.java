@@ -119,6 +119,6 @@ public interface CarMapper {
 	//  셀렉트한 값을 가져와서 벤더사 가져오기
 	public List<VoCarDetail> getDBCarModel(String originSm);
 
-	public List<VoCarDetail> getDBCarVendor(String vendorSm); 
+	public List<VoCarDetail> getCarVendor(String vendorSm); 
 	
 }

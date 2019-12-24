@@ -185,27 +185,23 @@ public class CarService {
 	 * } return nameList; }
 	 */
 
-	public Map<String, Object> getDBCarModel(String originSm, String vendorSm){
-		Map<String, Object> CarListMap = new HashMap<String, Object>();
+	public List<String> getCarVendor(String originSm, String vendorSm){
+		List<String> carVendorList = new ArrayList<String>();
 		System.out.println(originSm + ": 서비스로 온 값 국가");
 		System.out.println(vendorSm + ": 서비스로 온 값 벤더사");
-		CarListMap.put("originSm", carMapper.getDBCarModel(originSm));
-		CarListMap.put("vendorSm", carMapper.getDBCarModel(vendorSm));
+		List<VoCarDetail> originList = carMapper.getCarVendor(originSm);
 		
 		System.out.println(originSm + "서비스 오리진리스트");
 		System.out.println(vendorSm + "서비스 벤더사리스트");
 		System.out.println(originSm + "맵퍼에서 넘어온 값 국가");
 		
-		
-	
-		  for(String carKey : CarListMap.keySet()) {
-			  
-			  System.out.println("방법1) carKey : " + originSm +" / value : " + CarListMap.get(carKey)); 
-			  //CarListMap.put(originSm.length().getDBCarModel());
-		  //System.out.println((i+1)+"번째 모델명 : " + CarListMap.get(i).getCarModelName()); 
+		  for(int i=0; i < originList.size(); i++ ) {
+			   
+		  carVendorList.add(originList.get(i).getVendorName());
+		  System.out.println((i+1)+"번째 모델명 : " + originList.get(i).getVendorName()); 
 		 
 		  }
-	return CarListMap;
+	return carVendorList;
 	}
 
 

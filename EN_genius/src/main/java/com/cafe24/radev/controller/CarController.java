@@ -128,15 +128,14 @@ public class CarController {
 	 */
 	  
 	  @PostMapping("/getCarModel")
-	  public @ResponseBody Map<String, Object> getDBCarModel(@RequestParam(value = "originSm")String originSm,
+	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "originSm")String originSm,
 			  @RequestParam(value = "vendorSm")String vendorSm){
-		  Map<String, Object> CarListMap;
+		  
 		 
 		  System.out.println(originSm + " : 에이작스에서 넘어올때 국가");
 		  System.out.println(vendorSm + " : 에이작스에서 넘어올때 벤더사");
-		  CarListMap = carService.getDBCarModel(originSm,vendorSm);
-		  
-		  return CarListMap;
+		  List<String> originList = carService.getCarVendor(originSm, vendorSm);
+		  return originList;
 		 
 		  //Map<String,List<String>> map = new HashMap<String, List<String>>();
 		  //map.put("carName", nameList);
