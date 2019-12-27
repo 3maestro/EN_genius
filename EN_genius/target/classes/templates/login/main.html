@@ -128,17 +128,55 @@
 				
 		</script>
 	</th:block>
-	
 	<th:block layout:fragment="dashboardFragment">
-		<h1>아아아</h1>
+<!-- 		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1>아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block> -->
 	</th:block>
-	<th:block layout:fragment="dashboardFragmentOl">
+	<!-- <th:block layout:fragment="dashboardFragment" th:if="${session.CARCODE eq null}">
+		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1>아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block>
+	</th:block>
+	
+	<th:block layout:fragment="dashboardFragment" th:if="${session.CARCODE ne null}">
+		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1 th:text="${session.CARCODE}">아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block>
+	</th:block> -->
+	
+	<!-- <th:block layout:fragment="dashboardFragmentH1" th:if="${session.CARCODE ne null}">
+		<h1 th:text="${session.CARCODE}">1111</h1>
+	</th:block>
+	<th:block layout:fragment="dashboardFragmentOl" th:if="${session.CARCODE ne null}">
 		<ol class="breadcrumb text-right">
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li class="active">3</li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li class="active">3</li>
 		</ol>
-	</th:block>
+	</th:block> -->
+	
       
 	<th:block layout:fragment="customContents">
 		<div class="row">
@@ -279,9 +317,9 @@
 			                <button type="submit" class="btn btn-outline-secondary" id="totalSearchBtn" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
 			                    <i class="fa fa-dot-circle-o">검색 하기</i> 
 			                </button>
-			                <a th:href="@{/refer/reset}">리셋</a>
 			                <button type="button" class="btn btn-outline-danger" id="carReferCancelBtn" style="margin-left: 10px;">
-			                    <i class="fa fa-ban">리셋</i>
+				                <a th:href="@{/refer/reset}">리셋</a>
+<!-- 			                    <i class="fa fa-ban">리셋</i> -->
 			                </button>
 		            </div>
 		        </div>

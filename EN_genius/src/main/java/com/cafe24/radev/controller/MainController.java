@@ -50,9 +50,11 @@ public class MainController {
 				session.setAttribute("CARNAME", carRefer.getCarModelDetail());	//차량 이름
 				session.setAttribute("CUSNAME", carRefer.getCustomerName());	//고객 이름
 				session.setAttribute("CUSPHONE", carRefer.getCustomerPhone());	//고객 번호
-				session.setAttribute("CCCODE", carRefer.getCcWageCode());		//배기량 코드 
+				session.setAttribute("CCCODE", carRefer.getCcWageCode());		//배기량 코드
 			}
 		}
+		String a = (String)session.getAttribute("CARCODE");
+		System.out.println(a + " <-aaa");
 //			System.out.println("차량 정보 조회 실패!!!");
 //			carRefer = null;
 //		}else {
@@ -84,7 +86,12 @@ public class MainController {
 	
 	@GetMapping("/refer/reset")
 	public String resetCarRefer(HttpSession session) {
-		session.invalidate();
+		session.setAttribute("CARCODE", null); 	//차대 번호
+		session.setAttribute("CARNUM", null); 	//차량 번호 
+		session.setAttribute("CARNAME",null);	//차량 이름
+		session.setAttribute("CUSNAME",null);	//고객 이름
+		session.setAttribute("CUSPHONE",null);	//고객 번호
+		session.setAttribute("CCCODE",null);
 		return "redirect:/main/main";
 	}
 	
