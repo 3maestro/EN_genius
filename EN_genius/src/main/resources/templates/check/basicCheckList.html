@@ -20,9 +20,8 @@
 	
 	<!-- 사용자 Script -->
 	<th:block layout:fragment="customScript">
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript">
-			
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
 			$(document).ready(function(){	
 				var finalBigCate;
 				var finalMidCate;
@@ -195,11 +194,11 @@
 					}); */
 					
 				}))	
-				
+		/*]]>*/
 		</script>
 	</th:block>
 	
-	<th:block layout:fragment="dashboardFragment">
+<!-- 	<th:block layout:fragment="dashboardFragment">
 		<h1>아아아</h1>
 	</th:block>
 	<th:block layout:fragment="dashboardFragmentOl">
@@ -208,9 +207,9 @@
 		<li><a href="#">2</a></li>
 		<li class="active">3</li>
 		</ol>
-	</th:block>
+	</th:block> -->
 	
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 		
 		<div class="row">
 			<div class="col-sm-1"></div>

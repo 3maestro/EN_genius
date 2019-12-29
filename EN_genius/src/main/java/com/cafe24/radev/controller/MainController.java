@@ -17,8 +17,13 @@ public class MainController {
 
 	@Autowired private CarReferService carReferService;
 	
+//	@GetMapping("/")
+//	public String index() {
+//		return "index";
+//	}
+	
 	@GetMapping("/main/main")
-	public String index() {
+	public String main() {
 		return "/login/main";
 	}
 	 

@@ -47,7 +47,8 @@
 	</th:block>
 
 	<th:block layout:fragment="customScript">		
-		<script type="text/javascript">	 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">	 
 			
 			$(document).ready(function(){
 	 			$('#carSearchBtn').click(function(){							
@@ -178,7 +179,7 @@
 	</th:block> -->
 	
       
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 		<div class="row">
 			<div class="col-sm-6 col-lg-3">
 			    <div class="card text-white bg-flat-color-1">

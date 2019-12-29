@@ -7,10 +7,7 @@
 	<th:block layout:fragment="customTitle">
 		<title>부품목록</title>
 	</th:block>
-	<th:block layout:fragment="customContents">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
+	<th:block layout:fragment="contentFragment">
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 
@@ -102,7 +99,6 @@
 			});
 		});
 		</script>
-		<div class="animated fadeIn">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="card">
@@ -145,6 +141,5 @@
 							</th:block>
 				</div>
 			</div>
-		</div>
 	</th:block>
 </html>
