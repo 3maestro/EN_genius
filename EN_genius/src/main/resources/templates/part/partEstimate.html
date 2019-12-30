@@ -8,9 +8,8 @@
 		<title>부품견적</title>
 	</th:block>
 	
-	<th:block layout:fragment="contentFragment">
-		부품견적입니다.
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<th:block layout:fragment="customContents">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 
@@ -32,6 +31,7 @@
 			
 		/*]]*/
 			var list = $('[name=list]');
+			//자동합산
 			$(document).on('blur','[name=many]',function(){
 				var partNumber = $(this).attr('partNumber');
 				var many = $(this).val();
@@ -43,31 +43,48 @@
 				a=0;
 				$('[name=list]').each(function(){
 					var value = $(this).find('.price').text()*1;
-					console.log(value);
+					//console.log(value);
 					a=a+value
 				})	
-				console.log(a)
-				console.log('btn클릭')
  				$('#sumPriceBtn').text('총가격 : '+numberFormat(a));
 			});
-			
+			//합산하기버튼
 			$('#sumPriceBtn').click(function(){
 				a=0;
 				$('[name=list]').each(function(){
 					var value = $(this).find('.price').text()*1;
-					console.log(value);
+				//	console.log(value);
 					a=a+value
 				})	
-				console.log(a)
-				console.log('btn클릭')
  				$(this).text('총가격 : '+numberFormat(a));
+			});
+			//접수번호조회
+			$('#serchRecep').click(function(){
+				console.log('클릭');
+				var serchRecep = null;
+				var request = $.ajax({
+					url: "/part/serchRecepCall",
+					method: "POST",
+					data: { serchRecep : serchRecep },
+					dataType: "json"
+				});
+				request.done(function( data ) {
+					console.log('연결');
+					console.log(data);
+				});    
+				request.fail(function( jqXHR, textStatus ) {
+					//alert( "Request failed: " + textStatus );
+					console.log('실패');
+				});
 			});
 		});
 	</script>
 	<form>	
 		<!--  -->
-		<input type="text" placeholder="차량번호">
-		<span>접수번호조회하기</span>
+		<div>
+			<span id="carNum"></span>
+			<span id="serchRecep">접수번호조회하기</span>
+		</div>
 		<input type="hidden" value="" id="groupCode">
 		<!-- 한줄 -->
 		<th:block th:if="${checkPartList == null}">
