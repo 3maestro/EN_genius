@@ -18,7 +18,6 @@
 				$('.resignation').attr('readonly',false)				
 				$('[name=edCode]').val('').prop(':selected');
 				$('[name=ddCode]').val('').prop(':selected');
-				$('[name=employeeCode]').val('');
 				$('[name=employeeName]').val('');
 				$('[name=employeePass]').val('');
 				$('[name=employeeBirth]').val('');
@@ -26,7 +25,6 @@
 				$('[name=employeeGender]').val('');
 				$('[name=employeePhone]').val('');
 				$('[name=joinDate]').val('');
-				$('[name=resignationDate]').val('');
 			})
 			
 			$('.updateBtn').click(function(){
@@ -53,11 +51,15 @@
 				$('[name=employeeCode]').val(employeeCode);
 				$('[name=employeeName]').val(employeeName);
 				$('[name=employeePass]').val(employeePass);
+				$('[name=employeePass]').attr('readonly',true);
 				$('[name=employeeBirth]').val(employeeBirth);
+				$('[name=employeeBirth]').attr('readonly',true);
 				$('[name=employeeAddr]').val(employeeAddr);
 				$('[name=employeeGender]').val(employeeGender);
+				$('[name=employeeGender]').attr('readonly',true);
 				$('[name=employeePhone]').val(employeePhone);
 				$('[name=joinDate]').val(joinDate);
+				$('[name=joinDate]').attr('readonly',true);
 				$('[name=resignationDate]').val(resignationDate);
 				
 				$('#myModal1').modal('show');
@@ -179,6 +181,7 @@
 				    </div>				    
 				    <div class="form-group">
 				    <div class="input-group">
+				    	<input type="hidden" name="employeeCode">
 				    	<input type="text" name="employeeName" placeholder="이름" class="form-control">
 				    </div>
 				    </div>
@@ -229,7 +232,7 @@
 				    <div class="form-group">
 					<div class="input-group">
 				    	<input type="date" name="joinDate" placeholder="입사일" class="form-control col read">
-				    	<input type="date" name="joinDate" placeholder="퇴사일" class="form-control col modify read">
+				    	<input type="date" name="resignationDate" placeholder="퇴사일" class="form-control col modify read">
 					</div>
 				    </div>
 					<div class="modal-footer">

@@ -41,7 +41,6 @@
 				ed_code = #{edCode},
 				dd_code = #{ddCode},
 				emp_name = #{employeeName},
-				emp_pass = #{employeePass},
 				emp_phone = #{employeePhone},
 				emp_addr = #{employeeAddr}
 			WHERE
