@@ -37,6 +37,8 @@
 			customer_tb
 		WHERE
 			bs_code='bs001'
+		<where>
+		</where>
 	</select>
 	
 	<select id="getCustomerSelect" parameterType="com.cafe24.radev.vo.Customer" resultMap="CustomerResultMap">
@@ -103,5 +105,5 @@
 		WHERE 
 			customer_code=#{customerCode}
 	</update>
-	
+
 </mapper>

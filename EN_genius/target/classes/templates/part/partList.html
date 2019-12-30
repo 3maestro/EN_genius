@@ -3,22 +3,29 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
       <!-- layout:decorate 레이아웃 참고 -->
-
 	<th:block layout:fragment="customTitle">
 		<title>부품목록</title>
+		<link rel="stylesheet" href="/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
 	</th:block>
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-
 		var groupCode = /*[[ ${groupCode} ]]*/;
-
 		$(document).ready(function(){
+			$('#bootstrap-data-table-export').DataTable({
+		        'language': {
+		            'lengthMenu': '메뉴 _MENU_ 씩보기',
+		            "decimal": ",",
+		            "thousands": "."
+		        }
+			});
+			var text = $('#bootstrap-data-table_length').find('select');
+			console.log(text);
+			var mText = $('.dataTables_info')
+			mText.empty();
 			var checkvalues = [];
-			
 			console.log(groupCode+"그룹코드");
 			$('#groupCode').val(groupCode);
 		/*]]*/
@@ -26,20 +33,19 @@
 			$('input[name=partCheck]').click(function(){
 				//경고창 초기화
 				$('.card-body').find('h2').empty();
-				$('#left-panel').attr('th:replace','part/partCart :: partCart');
+				//$('#left-panel').attr('th:replace','/part/partCart :: partCart');
 				var partCheck = $('input[name=partCheck]:checked');
 				var butBtn = $('#buyPartBtn');
 				var sellBtn = $('#sellPartBtn');
 				
 				console.log($(this).val());
-			
-					checkvalues.push($(this).val());
+				checkvalues.push($(this).val());
+				$('#cartTable').attr('style','display:block');
 
 				//값이 두개이상일때
 				if(partCheck.length > 1){
 					butBtn.text('다중부품구매');
 					sellBtn.text('다중부품판매');
-					$('#cartTable').attr('style','display:block');
 					
 					// 다중버튼활성화후 포스트방식으로 호출
 					butBtn.click(function(){
@@ -69,6 +75,8 @@
 			});
 			//저장하기버튼클릭시
 			$('#cartAddBtn').click(function(){
+				
+				$.unique(checkvalues);
 				console.log(checkvalues+"<ajax밸류");
 				var part;
 				//$('#test').text(checkvalues);
@@ -80,44 +88,49 @@
 				});
 				
 				request.done(function( data ) {
+					$('#cartTable').children().empty();
 					console.log(data);
 
 					for(var i=0; i<data.length;i++){
 						part = data[i];
 						var partNumber = part.partNumber;
+						var partName = part.partName;
 						console.log(partNumber);
-						//$('#cartTable').append('<span>'+partNumber+'<><></span>');
-						//$('#cartTable').children().append('<tr>'+partNumber+'<</tr>');
-						$('#cartTable').append('<tr>야아</tr>');
+						$('#cartTable').append('<tr><td>'+[i+1]+'</td><td>'+partNumber+'</td><td>'+partName+'</td></tr>');
 					}
-					
 				});
 				request.fail(function( jqXHR, textStatus ) {
-					alert( "Request failed: " + textStatus );
+					//alert( "Request failed: " + textStatus );
 				});
 			});
 		});
 		</script>
-		<div class="animated fadeIn">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
-							<strong class="card-title">부품목록</strong>
-						</div>
-						<div class="card-body">
-							<form th:action="@{/part/partListToEstimate(partCheck)}" name="partListForm">
-								<table style="font-size: 12px;" class="table table-striped table-bordered" id="bootstrap-data-table" border="1">
-									<tr>
-										<td>파트번호</td>
-										<td>대분류</td>
-										<td>중분류</td>
-										<td>제품명</td>
-										<td>개수</td>
-										<td>판매가격</td>
-										<td>등록자</td>
-										<td>업데이트일자</td>
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">부품목록</strong>
+					</div>
+					<div class="card-body">
+						<div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+							<th:block th:if="${partList != null}">
+							<div class="row">
+							<form th:action="@{/part/partListToEstimate(partCheck)}" name="partListForm" style="width: 100%">
+								<table style="font-size: 12px;"id="bootstrap-data-table" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="bootstrap-data-table_info">
+									<thead>
+										<tr role="row">
+										<th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 64px;">파트번호</th>
+										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 92px;">대분류</th>
+										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 60px;">중분류</th>
+										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">제품명</th>
+										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">개수</th>
+										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">판매가격</th>
+										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">등록자</th>
+										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">업데이트일자</th>
 									</tr>
+									</thead>
+									<tbody>
 									<tr th:each=p:${partList}>
 										<td><input type="checkbox" th:text="${p.partNumber}" th:partNumber="${p.partNumber}" th:value="${p.partNumber}" name="partCheck"></td>
 										<td th:text="${p.bigCate}" th:value="${p.bigCate}"></td>
@@ -128,19 +141,38 @@
 										<td th:text="${p.partWrite}" th:value="${p.partWrite}"></td>
 										<td th:text="${p.partUpdateDate}" th:value="${p.partUpdateDate}"></td>
 									</tr>
+									</tbody>
 								</table>
 								<input type="hidden"  id="groupCode" name="groupCode">
 								<button class="btn-info" type="button" id="sellPartBtn">부품판매</button>
 								<button class="btn-info" type="button" id="buyPartBtn">부품구매</button>
 							</form>
-							<button class="btn-info" type="button" id="cartAddBtn">저장하기</button>
+							</div>
+								<button class="btn-info" type="button" id="cartAddBtn">저장하기</button>
+							</th:block>
+							<th:block th:if="${partList == null}">
+								<h1>부품등록을해주세요</h1>
+							</th:block>
 						</div>
 					</div>
-							<th:block th:replace="part/partCart :: partCart">
-								
-							</th:block>
 				</div>
 			</div>
 		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<script src="/assets/js/lib/data-table/datatables.min.js"></script>
+	<script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script src="/assets/js/lib/data-table/jszip.min.js"></script>
+	<script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script src="/assets/js/init/datatables-init.js"></script>
+	</th:block>
+	<th:block th:replace="/part/partCart :: partCart">
+	
 	</th:block>
 </html>

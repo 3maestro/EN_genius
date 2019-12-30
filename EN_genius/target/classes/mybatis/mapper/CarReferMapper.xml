@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis맵퍼  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace속성은 인터페이스의 위치를 적는다. -->
+<mapper namespace="com.cafe24.radev.mapper.CarReferMapper">
+	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
+	<select id="getCarRefer" parameterType="String" resultType="com.cafe24.radev.vo.CarRefer">
+		SELECT
+			cusCarInfo.customer_car_info_code AS cusCarInfoCode,
+			cusCarInfo.bs_code AS bsCode,
+			cusCarInfo.customer_code AS customerCode,
+			cusCarInfo.cc_wage_code AS ccWageCode,
+			cusCarInfo.rc_code AS rcCode,
+			cus.customer_name AS customerName,
+			cus.customer_phone AS customerPhone,
+			cusCarInfo.last_distance_driven AS lastDistanceDriven,
+			cusCarInfo.last_visit_date AS lastVisitDate,
+			cusCarInfo.customer_car_number AS customerCarNum,
+			lastCarInfo.origin_main AS originMain,
+			lastCarInfo.vendor_name AS vendorName,
+			lastCarInfo.car_model_name AS carModelName,
+			lastCarInfo.car_model_detail AS carModelDetail,
+			ccStaWage.min_cc AS minCc,
+			ccStaWage.max_cc AS maxCc,
+			ccStaWage.standard_wage AS standardWage,
+			cusCarInfo.car_production_year AS carProductYear,
+			cusCarInfo.car_registration_date AS carRegiDate,
+			cusCarInfo.customer_car_info_writer AS customerCarInfoWriter,
+			cusCarInfo.customer_car_info_date AS customerCarInfoDate
+		FROM
+			customer_car_info_table AS cusCarInfo
+		INNER join
+			(	
+				SELECT
+					registCarInfo.rc_code,
+					registCarInfo.year_car_code,
+					finalCarInfo.car_model_code,
+					finalCarInfo.origin_main,
+					finalCarInfo.vendor_name,
+					finalCarInfo.car_model_name,
+					finalCarInfo.car_model_detail,
+					finalCarInfo.sell_start_year,
+					finalCarInfo.sell_end_year
+				FROM
+					registration_carinfo_tb AS registCarInfo
+				INNER join
+					(
+						SELECT
+							yearCarTb.year_car_code,
+							yearCarTb.car_model_code,
+							carModel.origin_main,
+							carModel.vendor_name,
+							yearCarTb.car_model_name,
+							yearCarTb.car_model_detail,
+							yearCarTb.sell_start_year,
+							yearCarTb.sell_end_year
+						FROM
+							year_car_tb AS yearCarTb
+						INNER join
+							(
+								SELECT
+									carModelTb.car_model_code,
+									carModelTb.origin_code,
+									carModelTb.vendor_code,
+									carModelTb.car_class_code,
+									carModelTb.car_model_name,
+									originTb.origin_main,
+									vendorTb.vendor_name
+								FROM
+									car_model_tb AS carModelTb
+								INNER JOIN
+									origin_tb AS originTb
+								on	
+									carModelTb.origin_code = originTb.origin_code
+								INNER JOIN
+									vendor_tb AS vendorTb
+								ON 
+									carModelTb.vendor_code = vendorTb.vendor_code
+							) AS carModel
+						ON
+							yearCarTb.car_model_code = carModel.car_model_code
+					) AS finalCarInfo
+				ON
+					registCarInfo.year_car_code = finalCarInfo.year_car_code
+			) AS lastCarInfo
+		ON
+			cusCarInfo.rc_code = lastCarInfo.rc_code
+		INNER JOIN 
+			customer_tb AS cus
+		ON
+			cusCarInfo.customer_code = cus.customer_code
+		INNER JOIN
+			cc_standard_wage_tb AS ccStaWage
+		ON
+			cusCarInfo.cc_wage_code = ccStaWage.cc_wage_code
+		WHERE
+			<choose>
+				<when test = "carInfo.length() == 7 || carInfo.length() == 8">
+					cusCarInfo.customer_car_number = #{carInfo}
+				</when>
+				<otherwise>
+					cusCarInfo.customer_car_info_code = #{carInfo}
+				</otherwise>
+				
+			</choose>
+	</select>
+</mapper>

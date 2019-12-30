@@ -6,10 +6,12 @@
   <!-- namespace속성은 인터페이스의 위치를 적는다. -->
 <mapper namespace="com.cafe24.radev.mapper.PartMapper">
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
+	
 	<!-- 부품vo -->
 	<resultMap type="com.cafe24.radev.vo.Part" id="partRM">
+		<result property="partCode" column="part_use_code"/>
 		<result property="partNumber" column="part_number"/>
-		<result property="factory" column="bs_code"/>
+		<result property="bsCode" column="bs_code"/>
 		<result property="bigCate" column="ck_big_code"/>
 		<result property="midCate" column="ck_mid_code"/>
 		<result property="partName" column="part_use_name"/>
@@ -18,6 +20,7 @@
 		<result property="partWrite" column="pu_writer"/>
 		<result property="partUpdateDate" column="pu_date"/>
 	</resultMap>
+	
 	<!-- 그룹vo -->
 	<resultMap type="com.cafe24.radev.vo.Group" id="groupRM">
 		<result property="groupCode" column="group_code"/>
@@ -26,9 +29,21 @@
 		<result property="groupDate" column="gr_date"/>
 		<result property="bsCode" column="bs_code"/>
 	</resultMap>
+
+	<!-- 파트가이드vo -->
+	<resultMap type="com.cafe24.radev.vo.PartGuide" id="guideRM">
+		<result property="PGuideNumber" column="part_number"/>
+		<result property="PGuideBig" column="ck_big_code"/>
+		<result property="PGuideMid" column="ck_mid_code"/>
+		<result property="PGuideName" column="part_name"/>
+		<result property="PGuideWriter" column="part_writer"/>
+		<result property="PGuideDate" column="part_date"/>
+	</resultMap>
+	
 	<!-- 부품리스트 -->
-	<select id="getPartList" resultMap="partRM">
+	<select id="getPartList" resultMap="partRM" parameterType="String">
 		SELECT 
+			part_use_code,
 			part_number,
 			ck_big_code,
 			ck_mid_code,
@@ -39,8 +54,11 @@
 			pu_date
 		FROM
 			part_use_tb
+		WHERE
+			bs_code=#{bsCode}
 	</select>
-	<!-- 부품한로우조회 -->
+	
+	<!-- 부품한로우조회 ajax-->
 	<select id="partSelectForOrder" resultMap="partRM">
 		SELECT 
 			part_number,
@@ -54,15 +72,34 @@
 		FROM
 			part_use_tb
 		WHERE
-			part_number=#{partNumber}
+			part_number=#{partNumber} AND bs_code=#{bsCode}
 	</select>
+
+	<select id="leadCode" resultType="String">
+		SELECT
+			MAX(part_use_code)
+		FROM
+			part_use_tb
+		WHERE
+			bs_code = #{bsCode} AND part_use_code LIKE #{select}
+	</select>
+
+	<!-- 전체 파트 조회 부품테이블-->
+	<select id="getData" resultMap="guideRM">
+		SElect
+			*
+		from
+			part_tb
+	</select>
+	
 	<!-- 부품등록 -->
 	<insert id="partInsertPro" parameterType="com.cafe24.radev.vo.Part">
 		insert into part_use_tb
-			(part_number,bs_code,ck_big_code,ck_mid_code,part_use_name,part_use_many,part_use_price,pu_writer,pu_date)
+			(part_use_code,part_number,bs_code,ck_big_code,ck_mid_code,part_use_name,part_use_many,part_use_price,pu_writer,pu_date)
 		values
-			(#{partNumber},#{factory},#{bigCate},#{midCate},#{partName},#{partMany},#{partPrice},#{partWrite},#{partUpdateDate})
+			(#{partCode},#{partNumber},#{bsCode},#{bigCate},#{midCate},#{partName},#{partMany},#{partPrice},#{partWrite},#{partUpdateDate})
 	</insert>
+	
 	<!-- 부품수량업데이트 -->
 	<update id="partUpdateforMany" parameterType="com.cafe24.radev.vo.Part">
 		UPDATE 
@@ -70,20 +107,10 @@
 		SET
 			part_use_many = part_use_many+#{partMany},pu_date=#{partUpdateDate}
 		WHERE
-			part_number=#{partNumber};
+			part_number=#{partNumber} AND bs_code=#{bsCode};
 	</update>
 	
-	<select id="getCheckGroup" resultType="String">
-		SELECT
-			MAX(gc.group_code) as group_code,group_name
-		FROM
-				(SELECT
-				g.group_code,g.group_name
-			FROM
-				group_tb AS g
-			WHERE 
-			g.group_code LIKE '%part%')AS gc
-	</select>
+	
 	<!-- 그룹코드조회 -->
 	<select id="getGroup" resultType="String" parameterType="String">
 		SELECT
@@ -96,6 +123,7 @@
 			WHERE 
 			g.group_code LIKE #{select})AS gc
 	</select>
+	
 	<!-- 그룹코드생성 -->
 	<insert id="makeGroupCode" parameterType="com.cafe24.radev.vo.Group">
 		INSERT INTO 
