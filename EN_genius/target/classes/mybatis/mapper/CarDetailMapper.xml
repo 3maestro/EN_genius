@@ -139,7 +139,7 @@
 		ON 
 			cm.car_class_code = cc.car_class_code 
 		WHERE 
-		 	cm.car_model_name = #{MdoelSm}
+		 	cm.car_class_main = #{carClassSm}
 	</select>
 	
 	<select id="getCarClass" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
@@ -169,18 +169,6 @@
 
 	</select>
 	
-	<select id="getDBCarModel" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
-		SELECT
-			c.car_model_name AS carModelName
-		FROM 
-			car_model_tb AS c
-		INNER JOIN 
-			origin_tb AS o
-		ON 
-			c.origin_code = o.origin_code 
-		WHERE 
-		 	c.origin_code = #{originSm}
-
-	</select>
+	
 	
 </mapper>

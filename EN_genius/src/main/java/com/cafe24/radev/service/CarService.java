@@ -184,10 +184,10 @@ public class CarService {
 	 * System.out.println((i+1)+"번째 모델명 : "+list.get(i).getCarModelName()); 
 	 * } return nameList; }
 	 */
-	public List<String> getCarModel(String ClassSm) {
+	public List<String> getCarModel(String carClassSm) {
 		List<String> carModelList = new ArrayList<String>();
-		System.out.println(ClassSm + " : 서비스");
-		List<VoCarDetail> classList = carMapper.getCarModel(ClassSm);
+		System.out.println(carClassSm + " : 서비스");
+		List<VoCarDetail> classList = carMapper.getCarModel(carClassSm);
 		
 		for(int i=0; i < classList.size(); i++) {
 			carModelList.add(classList.get(i).getCarModelName());

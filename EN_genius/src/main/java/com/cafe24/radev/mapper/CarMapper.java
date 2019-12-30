@@ -114,10 +114,10 @@ public interface CarMapper {
 	 */
 	public VoCarDetail getCarUpdateList(String carUpList);
 
+	public List<VoCarDetail> getCarModel(String carModelSm);
 	
-	public List<VoCarDetail> getCarClass(String ClassSm); 
+	public List<VoCarDetail> getCarClass(String carClassSm); 
 
-	public List<VoCarDetail> getCarModel(String modelSm);
 
 	public List<VoCarDetail> getCarVendor(String vendorSm); 
 	

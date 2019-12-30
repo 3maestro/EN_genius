@@ -99,8 +99,9 @@ public class CarController {
 	 */
 	  @PostMapping("getCarModel")
 	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "carClassSm")String carClassSm){
-		  System.out.println(carClassSm + " : 에이작스에서 넘어올때 벤더");
-		  List<String> carClassList = carService.getCarClass(carClassSm);
+		  System.out.println("카모델!@@@@@@@@@@@@@@");
+		  System.out.println(carClassSm + " : 에이작스에서 넘어올때 모델");
+		  List<String> carClassList = carService.getCarModel(carClassSm);
 		  return carClassList;
 	  }
 	  
