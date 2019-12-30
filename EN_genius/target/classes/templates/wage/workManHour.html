@@ -7,25 +7,34 @@
 	<th:block layout:fragment="customTitle">
 		<title>표준 작업 시간</title>      
 	</th:block>
-	<th:block layout:fragment="customCss">
-		<style>
-			tr {counter-reset:num;}
-			.sorting_1:before {counter-increment: num1; content:counter(num);}
-		</style>    
-	</th:block>
 	
 	<th:block layout:fragment="customScript">
-		<script type="text/javascript" th:inline="javascript">
-		/*<![CDATA[*/	
-			var ccCode = [[${session.CCCODE}]]
-			console.log(ccCode + " <-ccCode")
+		<script type="text/javascript">
+			
 			$(document).ready(function(){
-					$('#periodBtn').click(function(){
-						alert('안녕')
-						
-					})
+				$('.manHourCheck').click(function(){
+					var arrVal = [];
+					$('.manHourCheck:checked').each(function(){
+						arrVal.push($(this).val());
+					});
+					console.log(arrVal);
+				});
+			})
+			/* $(document).on('click','#periodBtn',function(){
+				var a = new Array();
+				//var checkChildren;
+				var checkBox = $("input[name=manHourCheck]:checked");
+				//var alist;
+				checkBox.each(function(){
+					
+					var tr = $('input[name=manHourCheck]').parent().parent();
+					var td = tr.find('.sorting_1');
+					console.log(td.val() + " <-ttat")
+					//a.push(td.val());
+					//console.log(a +' <-aaa')
 				})
-		/*]]>*/
+			}) */
+		
 		</script>
 	</th:block>
 	
@@ -58,15 +67,17 @@
 											</tr>
 										</thead>
 										<tbody >  
-											<tr th:each = "l : ${wageManHour}" role="row" class="odd">
-												<td class="sorting_1" th:text="${num}"></td>
-<!-- 												<td th:text="${l.ccWageSmallCode}">ABS속도 센서 교환</td>
+											<tr th:each = "l,index : ${wageManHour}" role="row" class="odd">
+												<td class="sorting_1" th:text="${index.index}+1" th:value="${l.ccWageSmallCode}"></td>
+												<!-- <td th:text="${l.ccWageSmallCode}">ABS속도 센서 교환</td>
 												<td th:text="${l.ccWageCode}">0.7</td> -->
 												<td th:text="${l.wageBigName}" style="font-variant:normal;">0.7</td>
 												<td th:text="${l.wageMidName}" style="font-variant:normal;">0.7</td>
 												<td th:text="${l.wageSmallName}" style="font-variant:normal;">0.8</td>
 												<td th:text="${l.manHour}" style="font-variant:normal;">1</td>
-												<td><input type="checkbox"></td>
+												<td>
+													<input type="checkbox" name="manHourCheck" class="manHourCheck" th:value="${l.ccWageSmallCode}">
+												</td>
 											</tr>
 										</tbody>
 									</table>

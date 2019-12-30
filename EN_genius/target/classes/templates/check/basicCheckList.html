@@ -156,9 +156,8 @@
 							var deletePar= $(this).parent().parent()
 							var deleteVal = $(this).val()
 							console.log(deleteVal + "<asdfkjasdof")
-							deletePar.empty(deleteVal);
-							html = '';
-							basicList.html(html)
+							deletePar.remove();
+							
 							//deletePar.removechild(deleteVal);
 							//deletePar.find()
 							//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
