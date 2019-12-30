@@ -1,5 +1,10 @@
 package com.cafe24.radev.vo;
-
+/**
+ * 전체부품vo
+ * partTable
+ * @author Administrator
+ *
+ */
 public class PartGuide {
 	private String PGuideNumber;
 	private String PGuideBig;

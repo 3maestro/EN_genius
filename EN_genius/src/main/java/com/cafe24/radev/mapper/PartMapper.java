@@ -10,22 +10,25 @@ import com.cafe24.radev.vo.PartGuide;
 @Mapper
 public interface PartMapper {
 	/**
-	 * 부품전체목록
+	 * 공업사별 부품목록
 	 * @return
 	 */
-	public List<Part> getPartList();
+	public List<Part> getPartList(String bsCode);
+	
 	/**
 	 * 
 	 * serchPartCall ajax
 	 * @param partNumber
 	 * @return
 	 */
-	public Part partSelectForOrder(String partNumber);
+	public Part partSelectForOrder(String partNumber,String bsCode);
+	
 	/**
 	 * 부품등록
 	 * @param parts
 	 */
 	public void partInsertPro(Part parts);
+	
 	/**
 	 * 부품수량업데이트
 	 * @param partValue
@@ -33,11 +36,6 @@ public interface PartMapper {
 	 */
 	public void partUpdateforMany(Part part);
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public String getCheckGroup();
 	
 	/**
 	 * 그룹코드조회
@@ -52,6 +50,17 @@ public interface PartMapper {
 	 */
 	public Group makeGroupCode(Group group);
 	
+	/**
+	 * 전체부품목록
+	 * @return
+	 */
 	List<PartGuide> getData();
+	
+	/**
+	 * 공업사별 부품목록코드가져오기
+	 * @param bsCode
+	 * @return
+	 */
+	String leadCode(String bsCode,String select);
 	
 }
