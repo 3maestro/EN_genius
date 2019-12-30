@@ -142,7 +142,7 @@ public class UserController {
 				session.setAttribute("SID", c.getBossId());
 				session.setAttribute("SCODE", c.getBsCode());
 				session.setAttribute("SWRITER", c.getBsWriter());
-			}else {
+			}else if("bs001".equals(c.getBsWriter())){
 				model.addAttribute("lo", "관리자 로그인 창입니다");
 				return "login/login";
 			}
@@ -175,7 +175,7 @@ public class UserController {
 				session.setAttribute("SCODE", c.getBsCode());
 				session.setAttribute("SNAME", c.getBossName());
 				session.setAttribute("SWRITER", c.getBsWriter());
-			}else {
+			}else if("관리자".equals(c.getBsWriter())){
 				model.addAttribute("lo", "사장님 로그인 창입니다");
 				return "login/login";
 			}

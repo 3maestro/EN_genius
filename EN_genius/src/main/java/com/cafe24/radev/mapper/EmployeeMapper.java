@@ -19,6 +19,8 @@ public interface EmployeeMapper {
 	
 	void modifyEmployee(Employee employee);
 	
+	void resignationEmployee(Employee employee);
+	
 	List<Employee> employeeList(String bsCode);
 	
 	List<String> DepartmentDutySelect(String bsCode);

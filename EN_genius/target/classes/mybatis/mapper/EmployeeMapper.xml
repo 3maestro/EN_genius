@@ -48,6 +48,14 @@
 				ei_code = #{employeeCode};
 			 
 		</update>
+		<update id="resignationEmployee" parameterType="com.cafe24.radev.vo.Employee">
+			UPDATE
+				employee_information_tb
+			SET
+				resignation_date = NOW()
+			WHERE 
+				ei_code = #{employeeCode};
+		</update>
 		<insert id="addEmployee" parameterType="com.cafe24.radev.vo.Employee">
 			<selectKey keyProperty="employeeCode" resultType="String" order="BEFORE">
 				SELECT 
@@ -97,7 +105,7 @@
 			ON 
 				A.dd_code = C.dd_code
 			WHERE 
-				A.bs_code= #{bsCode};
+				A.bs_code= #{bsCode} AND resignation_date ='0000-00-00';
 		</select>
 		<select id="DepartmentDutySelect" resultMap="employeeResultMap">
 			SELECT
@@ -112,7 +120,6 @@
 				E.use_check = 'Y'
 			AND 
 				E.bs_code = #{bsCode}
-			GROUP BY E.dp_name
 			UNION			
 			SELECT
 				'직책' AS c_code, D.duty_name, D.dd_code
@@ -125,14 +132,13 @@
 			WHERE 
 				D.use_check = 'Y'
 			AND 
-				E.bs_code = #{bsCode}
-			GROUP BY D.duty_name;
+				E.bs_code = #{bsCode};
 		</select>
 		<select id="employeeLogin" resultMap="employeeResultMap">
 			SELECT 
 				* 
 			FROM 
 				 employee_information_tb
-			WHERE ei_code= #{employeeCode};
+			WHERE ei_code= #{employeeCode} AND resignation_date='0000-00-00';
 		</select>
 	</mapper>
