@@ -19,6 +19,7 @@
 				request.done(function(data) {
 					console.log(data)
 					$.each(data, function (i, l) {
+						$('tbody').remove()
 						var result='';
 						result+='<tr>'
 						result+='<td>'+l.customerCode+'</td>'
@@ -171,21 +172,6 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="l : ${customerList}">
-							<td th:text="${l.customerCode}"></td>
-							<td th:text="${l.customerName}"></td>
-							<td th:text="${l.customerBirth}"></td>
-							<td th:text="${l.customerGender}"></td>
-							<td th:text="${l.customerAddr}"></td>
-							<td th:text="${l.customerPhone}"></td>
-							<td th:text="${l.customerSign}"></td>
-							<td th:text="${l.customerMemo}"></td>
-							<td>
-								<a th:href="@{/customer/customerUpdate(customerCode=${l.customerCode})}">
-									정보수정
-								</a>
-							</td>
-						</tr>
 					</tbody>
 				</table>
 				<div class="paging" style="text-align: center;">
