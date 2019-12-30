@@ -32,8 +32,9 @@
 			) AS bm
 		ON
 			mh.wage_mid_code = bm.wage_mid_code 
+		WHERE 
+			mh.cc_wage_code = #{ccCode}
 		ORDER BY
-			 cc_wage_small_code
-				
+			cc_wage_small_code
 	</select>
 </mapper>
