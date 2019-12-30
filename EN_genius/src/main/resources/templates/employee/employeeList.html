@@ -11,8 +11,32 @@
 	<script type="text/javascript">	 
 		
 		$(document).ready(function(){
-			$('.updateBtn').click(function(){
+			$('#add').click(function(){
+				$('.modal-title').text('직원등록')
+				$('.add').css('display','block')
+				$('.modify').css('display','none')
+				$('.read').attr('readonly',false)
 				
+				$('[name=edCode]').val('').prop(':selected');
+				$('[name=ddCode]').val('').prop(':selected');
+				$('[name=employeeCode]').val('');
+				$('[name=employeeName]').val('');
+				$('[name=employeePass]').val('');
+				$('[name=employeeBirth]').val('');
+				$('[name=employeeAddr]').val('');
+				$('[name=employeeGender]').val('');
+				$('[name=employeePhone]').val('');
+				$('[name=joinDate]').val('');
+				$('[name=resignationDate]').val('');
+			})
+			
+			$('.updateBtn').click(function(){
+				$('.modal-title').text('직원수정')
+				$('.add').css('display','none')
+				$('.modify').css('display','block')
+				$('.read').attr('readonly',true)
+				$('.detail').css('display','none')
+
 				var employeeCode = $(this).attr('data-employeeCode');
 				var edCode = $(this).attr('data-edCode');
 				var ddCode = $(this).attr('data-ddCode');
@@ -24,43 +48,34 @@
 				var employeePhone = $(this).attr('data-employeePhone');
 				var joinDate = $(this).attr('data-joinDate');
 				var resignationDate = $(this).attr('data-resignationDate');
-			    
 				
-				$('.edCode').val(edCode).prop(':selected');
-				$('.ddCode').val(ddCode).prop(':selected');
-				$('.employeeCode').val(employeeCode);
-				$('.employeeName').val(employeeName);
-				$('.employeePass').val(employeePass);
-				$('.employeeBirth').val(employeeBirth);
-				$('.employeeAddr').val(employeeAddr);
-				$('.employeeGender').val(employeeGender);
-				$('.employeePhone').val(employeePhone);
-				$('.joinDate').val(joinDate);
-				$('.resignationDate').val(resignationDate);
-				
+				$('[name=edCode]').val(edCode).prop(':selected');
+				$('[name=ddCode]').val(ddCode).prop(':selected');
+				$('[name=employeeCode]').val(employeeCode);
+				$('[name=employeeName]').val(employeeName);
+				$('[name=employeePass]').val(employeePass);
+				$('[name=employeeBirth]').val(employeeBirth);
+				$('[name=employeeAddr]').val(employeeAddr);
+				$('[name=employeeGender]').val(employeeGender);
+				$('[name=employeePhone]').val(employeePhone);
+				$('[name=joinDate]').val(joinDate);
+				$('[name=resignationDate]').val(resignationDate);
 				
 				$('#myModal1').modal('show');
 				
+				$('.post').click(function(){
+					$('[name=employeeAddr]').val('');
+					$('.detail').css('display','block')
+				})
 				
+				$('#btnCloseLayer').click(function(){
+					if($('[name=employeeAddr]').val()==''){
+						$('[name=employeeAddr]').val(employeeAddr);
+						$('.detail').css('display','none')
+					}
+				})
 			})
 			
-			
-//  			$('#addEmployee').click(function(){							
-//  		        var form =  jQuery("#form").serialize(); 		     		        
-// 				var request = $.ajax({
-// 					url:"/addEmployee",
-// 					method: "POST",
-// 					data : form,
-// 					dataType : "json"	
-// 				});
-				
-// 				request.done(function(data){
-// 					console.log(data)
-// 				});
-// 				request.fail(function(jqXHR, textStatus){
-// 					alert("첨부파일 출력 중 오류가 발생하였습니다.");			
-// 				});				
-// 			});
 		});
 			
 	</script>
@@ -101,7 +116,10 @@
 				                    <td><span class="count">10</span></td>
 				                    <td><span class="date" th:text="${I.joinDate}"></span></td>
 				                    <td>
-					                    <span class="badge badge-complete updateBtn"			                 
+					                    <span
+					                    data-toggle="modal"
+					                    data-target="#myModal" 
+					                    class="badge badge-complete updateBtn"			                 
 					                    th:data-employeeCode="${I.employeeCode}" 
 					                    th:data-edCode="${I.edCode}" 
 					                    th:data-ddCode="${I.ddCode}" 
@@ -130,18 +148,18 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h3 class="modal-title" id="myModalLabel">직원등록</h3>
+		        <h3 class="modal-title" id="myModalLabel"></h3>
 		      </div>
 		      <div class="modal-body">
 			    <form method="post" th:action="@{/addEmployee}">
 			    	<div class="form-group">
 				    <div class="input-group">
 		   				<select name="edCode" class="form-control">
-				    		<option value="">부서</option>
-				    		<option  th:if="${D.cCode eq '부서'}" th:each="D, i : ${dutyList}" th:value="${D.employeeDepartment.edCode}" th:text="${D.employeeDepartment.dpName}"></option>
+				    		<option value="" class="add">부서</option>
+				    		<option th:if="${D.cCode eq '부서'}" th:each="D, i : ${dutyList}" th:value="${D.employeeDepartment.edCode}" th:text="${D.employeeDepartment.dpName}"></option>
 				   		</select>
 		   				<select name="ddCode" class="form-control">
-				    		<option value="">직책</option>
+				    		<option value="" class="add">직책</option>
 				    		<option  th:unless="${D.cCode eq '부서'}" th:each="D, i : ${dutyList}" th:value="${D.employeeDepartment.edCode}" th:text="${D.employeeDepartment.dpName}"></option>
 				   		</select>
 				    </div>
@@ -158,22 +176,22 @@
 				    </div>
 				    <div class="form-group">
 				    <div class="input-group">
-				    	<input type="date" name="employeeBirth" placeholder="생일" class="form-control">
+				    	<input type="date" name="employeeBirth" placeholder="생일" class="form-control read">
 				    </div>
 				    </div>
 					<div class="row">
 						<div class="col-lg-6">
-							<input class="form-control" type="text" id="customerPost" name="customerPost" placeholder="주소" readonly="readonly"><br>
+							<input class="form-control" type="text" id="post" name="customerPost" placeholder="주소" readonly="readonly"><br>
 						</div>
 						<div class="col-lg-6">
-							<input class="form-control btn-danger"  type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
+							<input class="form-control btn-danger post" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col">
 							<input class="form-control" type="text"	id="address" name="employeeAddr" placeholder="주소" readonly="readonly"><br>
 						</div>
-						<div class="col-lg-6">
+						<div class="col detail">
 							<input class="form-control" type="text" id="detailAddress" name="addrDetail" placeholder="상세주소"><br>
 						</div>
 					</div>
@@ -182,11 +200,12 @@
 					</div>			 			    
 				    <div class="form-group">
 				    <div class="input-group">
-				    	<select name="employeeGender" class="form-control">
+				    	<select name="employeeGender" class="form-control add">
 				    		<option value="">성별</option>
 				    		<option value="남">남</option>
 				    		<option value="여">여</option>
 				   		</select>
+				   		<input name="employeeGender" type="text" class="form-control modify read">
 				    </div>
 				    </div>
 				    <div class="form-group">
@@ -195,103 +214,22 @@
 				    </div>
 				    </div>
 				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="date" name="joinDate" placeholder="입사일" class="form-control">
-				    </div>
+					<div class="input-group">
+				    	<input type="date" name="joinDate" placeholder="입사일" class="form-control col read">
+				    	<input type="date" name="joinDate" placeholder="퇴사일" class="form-control col modify read">
+					</div>
 				    </div>
 					<div class="modal-footer">
+					  <button type="button" class="btn btn-secondary btn-sm add">등록</button>
+					  <button type="button" class="btn btn-secondary btn-sm modify">수정</button>
+					  <button type="button" class="btn btn-secondary btn-sm modify">퇴사</button>
 					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					  <button type="submit" class="btn btn-secondary btn-sm">등록</button>
 					</div>
 			    </form>
 		      </div>
 		    </div>
 		  </div>
 		</div>
-		
-		<!-- Modal --><!-- fade 지우면 똑딱 뜨고 넣으면 소로록 -->
-		<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal1" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h3 class="modal-title" id="myModalLabel">직원 정보 수정</h3>
-		      </div>
-		      <div class="modal-body">
-			    <form method="post" th:action="@{/modifyE}">
-			    	<input type="hidden" name="employeeCode" class="employeeCode">
-				    <div class="form-group">
-				    <div class="input-group">
-		   				<select name="edCode" class="form-control edCode">
-				    		<option  th:if="${D.cCode eq '부서'}" th:each="D, i : ${dutyList}" th:value="${D.employeeDepartment.edCode}" th:text="${D.employeeDepartment.dpName}"></option>
-				   		</select>
-		   				<select name="ddCode" class="form-control ddCode">
-				    		<option  th:unless="${D.cCode eq '부서'}" th:each="D, i : ${dutyList}" th:value="${D.employeeDepartment.edCode}" th:text="${D.employeeDepartment.dpName}"></option>
-				   		</select>
-				    </div>
-				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="text" name="employeeName" placeholder="이름" class="form-control employeeName ">
-				    </div>
-				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="text" name="employeePass" placeholder="비밀번호" class="form-control employeePass">
-				    </div>
-				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="date" name="employeeBirth" placeholder="생일" class="form-control employeeBirth" readonly="readonly">
-				    </div>
-				    </div>
-					<div class="row">
-						<div class="col-lg-6">
-							<input class="form-control" type="text" id="customerPost2" name="customerPost" placeholder="주소" readonly="readonly"><br>
-						</div>
-						<div class="col-lg-6">
-							<input class="form-control btn-danger" id="button2" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6">
-							<input class="form-control employeeAddr" type="text" id="address2" name="employeeAddr" placeholder="주소" readonly="readonly"><br>
-						</div>
-						<div class="col-lg-6">
-							<input class="form-control addrDetail" type="text" id="detailAddress2" name="addrDetail" placeholder="상세주소"><br>
-						</div>
-					</div>
-					<div id="layer2">
-						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" onclick="closeDaumPostcode()" alt="닫기 버튼">
-					</div>			 			    
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="text" name="employeeGender" class="form-control employeeGender" readonly>
-				    </div>
-				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="tel" name="employeePhone" placeholder="핸드폰" class="form-control employeePhone">
-				    </div>
-				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="date" name="joinDate" placeholder="입사일" class="form-control joinDate" readonly="disabled">
-	
-				    	<input type="date" name="resignationDate" placeholder="퇴사일" class="form-control resignationDate" readonly="disabled">
-				    </div>
-				    </div>
-					<div class="modal-footer">
-					  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">닫기</button>
-					  <button type="submit" class="btn btn-secondary btn-sm">수정</button>
-					  <button type="submit" class="btn btn-secondary btn-sm resignation">퇴사</button>
-					</div>
-			    </form>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		
 	<script src="assets/js/addr.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
 	</th:block>
