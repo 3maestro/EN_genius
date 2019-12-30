@@ -7,9 +7,15 @@
 		<title>EN_genius</title>
 	</th:block>
 	<th:block layout:fragment="customCss">
+<<<<<<< HEAD
 		<style>
 		.btn-info-type1 {color: #fff; background-color: #76b3bdfa; border-color: #8e7b41;}	
  		.btn-outline-info {} 
+=======
+		<style>
+		.btn-info-type1 {color: #fff; background-color: #76b3bdfa; border-color: #8e7b41;}	
+ 		.btn-outline-info {}	 
+>>>>>>> refs/heads/develop
 		</style>
 	</th:block>	
 	<th:block layout:fragment="customScript">	
@@ -17,18 +23,11 @@
 	<script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
 
-<<<<<<< HEAD
-			var result = /* [[ ${lo} ]] */;
-    
-			alert(result);
-			
-=======
 			var result = /*[[ ${lo} ]]*/;
     		if(result!=null){
 				alert(result);
     		}
     		
->>>>>>> refs/heads/develop
 	  		$(document).ready(function(){
 		
  			$('#formCheck').click(function(){
@@ -70,7 +69,7 @@
 	</script>
 	</th:block>
 	
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 		<div class="login-content">
 		    <div class="login-logo">
 		        <a href="index.html">

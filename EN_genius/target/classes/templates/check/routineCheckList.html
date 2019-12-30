@@ -9,8 +9,8 @@
 </th:block>
 
 <th:block layout:fragment="customScript">
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
 		
 		$(document).ready(function(){
 			
@@ -34,12 +34,19 @@
 				if(check == "undefined" || check == ''){
 					alert('항목을 체크 하시오.')
 				}else{		
+					if([[${session.CARCODE}]] != null){
+						var car = [[${session.CARCODE}]];
+						console.log(car + " <---tptus")
+					}else{
+						alert('차량 조회를 해주세요')
+					}
+					
 					console.log(check + '<-뭐니')
 					var request = $.ajax({
 						  url: "/check/askCheck",	//호출될 url
 						  method: "POST",
 						  //최근 수리 내역 중 수리항목코드와 당시 수리 날짜
-						  data: {"check" : check, "car":"KHMAJOU135795"},//파라미터
+						  data: {"check" : check, "car" : car},//파라미터
 						  dataType: "json"		//응답 타입
 					});
 					
@@ -91,11 +98,12 @@
 				$("input[name=check]").prop("checked",false);
 			}
 		})
-
+		
+	/*]]>*/ 
 	</script>
 </th:block>	
       
-<th:block layout:fragment="customContents">
+<th:block layout:fragment="contentFragment">
 	<div class="row" >
 		<div class="col-sm-1" ></div>
 		<div class="card col-sm-10" >

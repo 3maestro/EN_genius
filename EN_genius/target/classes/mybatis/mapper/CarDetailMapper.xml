@@ -115,7 +115,6 @@
 			customer_car_info_code AS customerCarInfoCode
 			,customer_code AS customerCode 
 			,customer_car_number AS customerCarNumber
-			
 			,car_production_year AS carProductionYear
 			,customer_car_info_date AS customerCarInfoDate
 			,customer_car_info_writer AS customerCarInfoWriter
@@ -130,9 +129,46 @@
 		
 
 	<!-- 값을 [리턴받아] 사용할때 리절트 타입을 사용한다 -->
-	<!-- 차량 리스트 조회 쿼리 -->
+	<select id="getCarModel" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
+		SELECT
+			cm.car_model_name AS carModelName
+		FROM 
+			car_model_tb AS cm
+		INNER JOIN 
+			car_class_tb AS cc
+		ON 
+			cm.car_class_code = cc.car_class_code 
+		WHERE 
+		 	cm.car_class_main = #{carClassSm}
+	</select>
 	
+	<select id="getCarClass" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
+		SELECT
+			cc.car_class_main AS carClassMain
+		FROM 
+			car_class_tb AS cc
+		INNER JOIN 
+			vendor_tb AS vd
+		ON 
+			vd.vendor_code = cc.vendor_code
+		WHERE 
+		 	vd.vendor_name = #{vendorSm}
+	</select>
 	
+	<select id="getCarVendor" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
+		SELECT
+			v.vendor_name AS vendorName
+		FROM 
+			vendor_tb AS v
+		INNER JOIN 
+			origin_tb AS o
+		ON 
+			v.origin_code = o.origin_code 
+		WHERE 
+		 	v.origin_code = #{originSm}
 
+	</select>
+	
+	
 	
 </mapper>

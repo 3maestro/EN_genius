@@ -39,7 +39,6 @@ public class UserService {
 	String bsCode = null;
 	
 	public int addCarFactory(CarFactory carFactory){
-		System.out.println("사업장 등록폼에서 받아온 값 ==> " + carFactory);
 		carFactory.setBossEmail(carFactory.getBossEmail() +carFactory.getEmailAddr());
 		carFactory.setBsAddr(carFactory.getBsAddr() + carFactory.getAddrDetail());
 		System.out.println("email 문자열 합쳐서 다시 셋팅==>" + carFactory.getBossEmail());
@@ -93,9 +92,8 @@ public class UserService {
 		return userMapper.selectImage(bsCode);
 	}
 	
-	public int approvalCheck(List<String> checkArray) {
-
-		return userMapper.approvalCheck(checkArray);
+	public int approvalCheck(Map<String, Object> map) {
+		return userMapper.approvalCheck(map);
 	}
 	
 	public int approvalRefusal(List<String> checkArray) {

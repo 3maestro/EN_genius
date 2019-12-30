@@ -13,9 +13,9 @@ public class WageService implements WageMapper {
 	
 	@Autowired private WageMapper wageMapper;
 	
-	public List<WageManHour> getWorkManHour() {
+	public List<WageManHour> getWorkManHour(String ccCode) {
 		System.out.println("getWorkManHour WageService 호출");
-		List<WageManHour> list = wageMapper.getWorkManHour();
+		List<WageManHour> list = wageMapper.getWorkManHour(ccCode);
 		//System.out.println(list + " <-list getWorkManHour WageService.java");
 		return list;
 	}

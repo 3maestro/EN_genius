@@ -6,5 +6,5 @@ import com.cafe24.radev.vo.WageManHour;
 
 public interface WageMapper {
 
-	public List<WageManHour> getWorkManHour();
+	public List<WageManHour> getWorkManHour(String ccCode);
 }

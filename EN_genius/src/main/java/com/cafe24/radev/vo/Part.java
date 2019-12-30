@@ -1,6 +1,11 @@
 package com.cafe24.radev.vo;
-
+/**
+ * 공업사별 부품목록 vo
+ * @author Administrator
+ *
+ */
 public class Part {
+	private String partCode;
 	private String partNumber;
 	private String bigCate;
 	private String midCate;
@@ -9,13 +14,20 @@ public class Part {
 	private String partPrice;
 	private String partWrite;
 	private String partUpdateDate;
-	private String factory;
+	private String bsCode;
 	
-	public String getFactory() {
-		return factory;
+	
+	public String getPartCode() {
+		return partCode;
 	}
-	public void setFactory(String factory) {
-		this.factory = factory;
+	public void setPartCode(String partCode) {
+		this.partCode = partCode;
+	}
+	public String getBsCode() {
+		return bsCode;
+	}
+	public void setBsCode(String bsCode) {
+		this.bsCode = bsCode;
 	}
 	public String getPartNumber() {
 		return partNumber;

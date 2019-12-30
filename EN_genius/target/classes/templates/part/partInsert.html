@@ -8,30 +8,26 @@
 		<title>부품등록</title>
 	</th:block>
 	
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var PartNumber = $('[name=partNumber]').val();
+			/*대분류값입력시 중분류 호출ajax  */
 			$(document).on('change','#fCate',function(){
-			//$('#fCate').change(function(){
-				//consloe.log(PartNumber);
 				var fVal = $('#fCate').val();
 				console.log(fVal);
 				$('#sCate').empty();
-				
 				var request = $.ajax({
 					url: "/part/sCateCall",
 					method: "POST",
 					data: { fVal : fVal },
 					dataType: "json"
 				});
-				
 				request.done(function( data ) {
 					var sCate = null;
 					console.log(data);
-						
 					$('#sCate').attr('style','display:block');
 					for(var i=0; i<data.length; i++){
 						sCate = data[i];
@@ -44,7 +40,7 @@
 				});
 	
 			});
-			
+			/* 부품조회시 기존에 있는데이터호출ajax */
 			$('#serchPartBtn').click(function(){
 				var partValue = $('[name=partNumber]').val();
 				var url;
@@ -57,14 +53,12 @@
 				}else if(partValue.length<5){
 					$('#serchPartBtn').attr('background-color','default');
 				}
-				
 				var request = $.ajax({
 					url: "/part/serchPartCall",
 					method: "POST",
 					data: { partValue : partValue },
 					dataType: "json"
 				});
-				
 				request.done(function( data ) {
 					$('#callCate').empty();
 					$('[name=partInsertForm]').attr('action','/part/partUpdate')
@@ -74,7 +68,7 @@
 					$('#callCate').append('<input type="text" value="'+data.bigCate+'" readonly><br>');
 					$('#callCate').append('<input type="text" value="'+data.midCate+'" readonly>');
 					$('[name=partName]').val(data.partName).attr('readonly','readonly');
-					
+
 					$(document).on('keyup','[name=partMany]',function(){
 						var many = $('[name=partMany]').val();
 						console.log(many);
@@ -82,22 +76,21 @@
 						console.log(tprice);
 						$('[name=partPrice]').val(tprice);
 					})
-					
 				});    
-				
 				request.fail(function( jqXHR, textStatus ) {
 					//alert( "Request failed: " + textStatus );
-					$('serchPartBtn').css('background-color','red').text('다시시도해주세요');
+					$('#serchPartBtn').css('background-color','red').text('검색값이없습니다');
 				});
-				
 			});
+			/* 유효성검사 */
 		});
 	</script>
 		등록
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-4">
 				<form action="/part/partInsertPro" name=partInsertForm >
-					<input type="text" placeholder="파트넘버" name="partNumber"><span id="serchPartBtn" >조회하기</span><br>
+					<input type="text" placeholder="파트넘버" name="partNumber"><br>
+					<span id="serchPartBtn" >조회하기</span><br>
 						<select id="fCate" name="bigCate">
 							<option>::대분류::</option>
 							<option th:each=fcl:${fCateList} th:text="${fcl.firstCateName}" th:value="${fcl.firstCateName}"></option>
@@ -114,12 +107,20 @@
 					<button type="submit">등록하기</button>
 				</form>
 			</div>
-			<div class="col-md-6">
-				<table border="1">
+			<div class="col-md-4">
+				<table border="1" style="width: 100%;">
 					<tr>
-						<td>1</td>
+						<td>파트넘버</td>
+						<td>파트명</td>
+					</tr>
+					<tr th:each=gl:${guideList}>
+						<td th:text="${gl.PGuideNumber}"></td>
+						<td th:text="${gl.PGuideName}"></td>
 					</tr>
 				</table>
+			</div>
+			<div class="col-md-4">
+				sds
 			</div>
 		</div>
 	</th:block>

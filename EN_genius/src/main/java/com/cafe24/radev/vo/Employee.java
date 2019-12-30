@@ -19,7 +19,7 @@ public class Employee {
 	private String addrDetail;						//상세주소
 	private String joinDate;						//입사일
 	private String resignationDate;					//퇴사일
-	private String bossName;						//작성자(사장님이름)
+	private String eiWriter;							//작성자(사장님이름)
 	private String eiDate;							//작성일
 	private String cCode;							//쿼리문에서 직책/부서 별칭
 	private DepartmentDuty departmentDuty;			//직책 vo
@@ -102,11 +102,11 @@ public class Employee {
 	public void setResignationDate(String resignationDate) {
 		this.resignationDate = resignationDate;
 	}
-	public String getBossName() {
-		return bossName;
+	public String getEiWriter() {
+		return eiWriter;
 	}
-	public void setBossName(String bossName) {
-		this.bossName = bossName;
+	public void setEiWriter(String eiWriter) {
+		this.eiWriter = eiWriter;
 	}
 	public String getEiDate() {
 		return eiDate;
@@ -138,7 +138,8 @@ public class Employee {
 				+ ddCode + ", employeePass=" + employeePass + ", employeeName=" + employeeName + ", employeeBirth="
 				+ employeeBirth + ", employeePhone=" + employeePhone + ", employeeGender=" + employeeGender
 				+ ", employeeAddr=" + employeeAddr + ", addrDetail=" + addrDetail + ", joinDate=" + joinDate
-				+ ", resignationDate=" + resignationDate + ", bossName=" + bossName + ", eiDate=" + eiDate + ", cCode="
+				+ ", resignationDate=" + resignationDate + ", eiWriter=" + eiWriter + ", eiDate=" + eiDate + ", cCode="
 				+ cCode + ", departmentDuty=" + departmentDuty + ", employeeDepartment=" + employeeDepartment + "]";
 	}
+
 }

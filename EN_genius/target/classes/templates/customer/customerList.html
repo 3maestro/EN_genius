@@ -6,7 +6,7 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius [[${title}]]</title>
 	</th:block>
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 
 		<div class="card">
 			<div class="card-header">
@@ -15,6 +15,16 @@
 				</strong>
 			</div>
 			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-1">
+						고객명
+					</label>
+					<input class="col form-control" type="text" >
+					<label class="col-1">
+						고객성별
+					</label>
+					<input class="col form-control" type="text" >
+				</div>
 				<table class="table">
 					<thead>
 						<tr>
@@ -58,15 +68,21 @@
 							<td th:text="${l.customerSign}"></td>
 							<td th:text="${l.customerMemo}"></td>
 							<td>
-								<a th:href="@{/customerUpdate(customerCode=${l.customerCode})}">
+								<a th:href="@{/customer/customerUpdate(customerCode=${l.customerCode})}">
 									정보수정
 								</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="paging" style="text-align: center;">
+					<button>
+						tt
+					</button>
+				</div>
 			</div>
 		</div>
+		
 	</th:block>
 </html>
 

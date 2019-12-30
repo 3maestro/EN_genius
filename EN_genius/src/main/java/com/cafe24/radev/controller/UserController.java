@@ -53,15 +53,14 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("/carFactoryInsert") 
-	public String addCarFactory( CarFactory carFactory
+	public String addCarFactory( HttpSession session, CarFactory carFactory
 								,@RequestParam("bs_docu") MultipartFile bs_docu
 								){
-		
-		  System.out.println("carFactory ==> " + carFactory.toString());
-		  System.out.println("파일====>" + bs_docu);
-		  int r = userService.addCarFactory(carFactory);
-		  System.out.println(r + "r 결과 값");
-		  userService.addDocumentFile(bs_docu);
+			System.out.println("carFactory ==> " + carFactory.toString());
+			System.out.println("파일====>" + bs_docu);
+			int r = userService.addCarFactory(carFactory);
+			System.out.println(r + "r 결과 값");
+			userService.addDocumentFile(bs_docu);
 		 
 		return "redirect:/index";
 	}
@@ -93,10 +92,13 @@ public class UserController {
 	 */
 
 	  @PostMapping("/approvalCheck") 
-	  public @ResponseBody String approvalCheck(@RequestParam(value="checkArray") List<String> checkArray) { 
-		  
+	  public @ResponseBody String approvalCheck(@RequestParam(value="checkArray") List<String> checkArray, HttpSession session) { 		  
 		  System.out.println(checkArray);
-		  userService.approvalCheck(checkArray); 
+		  String bsWriter = (String)session.getAttribute("SCODE");
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  map.put("bsWriter", bsWriter);
+		  map.put("list", checkArray);		  
+		  userService.approvalCheck(map); 
 		  return "";
 	  }
 	  
@@ -149,7 +151,7 @@ public class UserController {
 			//session.setAttribute("lo", re);
 			return "/login/login";
 		}		
-		return "redirect:/main";
+		return "redirect:/main/main";
 	}
 
 	/**
@@ -168,7 +170,7 @@ public class UserController {
 		CarFactory c = (CarFactory)map.get("login");	
 		
 		if("login".equals(re)) {
-			if("박연우".equals(c.getBsWriter())) {
+			if("bs001".equals(c.getBsWriter())) {
 				session.setAttribute("SID", c.getBossId());
 				session.setAttribute("SCODE", c.getBsCode());
 				session.setAttribute("SNAME", c.getBossName());
@@ -181,7 +183,7 @@ public class UserController {
 			model.addAttribute("lo", re);
 			return "/login/login";
 		}		
-		return "redirect:/main";
+		return "redirect:/main/main";
 	} 
 
 	/**
@@ -207,7 +209,7 @@ public class UserController {
 			session.setAttribute("ECODE", e.getEmployeeCode());
 			session.setAttribute("SNAME", e.getEmployeeName());
 		}
-		return "redirect:/main";
+		return "redirect:/main/main";
 	}
  
 	/**
