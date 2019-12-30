@@ -159,7 +159,7 @@ public class UserController {
 		CarFactory c = (CarFactory)map.get("login");	
 		
 		if("login".equals(re)) {
-			if("박연우".equals(c.getBsWriter())) {
+			if("bs001".equals(c.getBsWriter())) {
 				session.setAttribute("SID", c.getBossId());
 				session.setAttribute("SCODE", c.getBsCode());
 				session.setAttribute("SNAME", c.getBossName());

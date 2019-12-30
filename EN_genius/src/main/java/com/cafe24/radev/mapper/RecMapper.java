@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.vo.VoCarRegister;
 import com.cafe24.radev.vo.VoRecRegister;
 
 @Mapper

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <aside id="left-panel" class="left-panel" th:fragment="leftmenuFragment" th:if="${session.SCODE NE null}">
 	<nav class="navbar navbar-expand-sm navbar-default">
 		<div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -85,6 +86,7 @@
 				<li class="menu-title">Icons</li>
 				<!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown" th:if="${session.ECODE eq null}">
+                    
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>#직원관리</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a th:href="@{/employeeSelect}">!직원 조회</a></li>
@@ -96,17 +98,17 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>#접수관리</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="#">예약 등록</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{recRegister}">접수 등록</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{recList}">접수 리스트</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{repHistory}">과거 정비 이력</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/recRegister}">접수 등록</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/recList}">접수 리스트</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/repHistory}">과거 정비 이력</a></li>
                         </ul>
                     </li>
                                         <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>#차량관리</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{carRegister}">차량 등록</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{carList}">차량 리스트</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{carRecallInfo}">차량별 리콜 조회</a></li>       
+                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/carRegister}">차량 등록</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/carList}">차량 리스트</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/carRecallInfo}">차량별 리콜 조회</a></li>       
                         </ul>
                     </li>
 

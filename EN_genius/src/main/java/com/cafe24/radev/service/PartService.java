@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import com.cafe24.radev.mapper.CategoryForCarMapper;
 import com.cafe24.radev.mapper.PartMapper;
 import com.cafe24.radev.vo.FirstCategoryForCar;
 import com.cafe24.radev.vo.Part;
+import com.cafe24.radev.vo.PartGuide;
 import com.cafe24.radev.vo.SecondCategoryForCar;
 
 @Service
@@ -22,14 +25,31 @@ public class PartService {
 	SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 	Calendar time = Calendar.getInstance();
 	String nowDate = format.format(time.getTime());
-	
+	HttpSession session;
+	String bsCode /* = (String)session.getAttribute("SCODE") */;
+	List<Part> list = null;
+
 	/**
 	 * 부품전체목록조회
 	 * @return
 	 */
-	public List<Part> getPartList(){
+	public List<PartGuide> getPartList(){
 		
-		return partMapper.getPartList();
+		return partMapper.getData();
+	}
+	/**
+	 * 공업사별부품전체목록조회
+	 * @return
+	 */
+	public List<Part> getUsePartList(HttpSession session){
+		bsCode = (String)session.getAttribute("SCODE");
+		list = new ArrayList<Part>();
+		list=partMapper.getPartList(bsCode);
+		if(list.size()==0) {
+			list=null;
+			return list;
+		}
+		return list;
 	}
 	/**
 	 * 목록에서 리스트로 이동시 따라가는정보
@@ -37,10 +57,10 @@ public class PartService {
 	 * @param partNumber
 	 * @return
 	 */
-	public Part partSelectForOrder(String partNumber) {
+	public Part partSelectForOrder(String partNumber , HttpSession session) {
 		System.out.println("partSelectForOrder/Service");
-		
-		return partMapper.partSelectForOrder(partNumber);
+		bsCode=(String)session.getAttribute("SCODE");
+		return partMapper.partSelectForOrder(partNumber,bsCode);
 	}
 	/**
 	 * 부품등록시 대분류선택을 위한 데이터조회 
@@ -48,6 +68,7 @@ public class PartService {
 	 */
 	public List<FirstCategoryForCar> selectFristData(){
 		System.out.println("대분류목록/service");
+		
 		
 		return categoryMapper.getFirstCateList();
 	}
@@ -71,33 +92,51 @@ public class PartService {
 	 * 신규부품등록
 	 * @param parts
 	 */
-	public void partInsertPro(Part parts) {
-		//수정자아이디
-		String partWrite = "id002";
-		//수정공업사코드
-		String factory = "cp002";
+	public void partInsertPro(Part parts, HttpSession session) {
 		System.out.println("partInsertPro/Service");
 		System.out.println(nowDate+"<<현재시간/service");
+		String partWrite = (String)session.getAttribute("SID");
+		bsCode = (String)session.getAttribute("SCODE");
 		
+		//현제날짜
+		String newCodeDate = nowDate.replace("-","").trim();
+		newCodeDate = newCodeDate.substring(2);
+		String select = "%"+newCodeDate+"%";
+		String partCode = partMapper.leadCode(bsCode,select);
+		if(partCode == null) {
+			//없으면 1번 생성
+			partCode = "pa_"+bsCode+"_"+newCodeDate+"00001";
+		}else {
+			String codeDate = partCode.substring(9);
+			int codeNum = Integer.parseInt(codeDate.substring(6));
+			codeNum += 1;
+			String index = String.format("%05d", codeNum);
+			
+			partCode="pa_"+bsCode+"_"+newCodeDate+(index);
+			
+		}
+		System.out.println(partCode+"//완성");
+		
+		parts.setPartCode(partCode);
 		parts.setPartWrite(partWrite);
 		parts.setPartUpdateDate(nowDate);
-		parts.setFactory(factory);
+		parts.setBsCode(bsCode);
 		
 		partMapper.partInsertPro(parts);
 	}
 	/**
 	 * 부품수량업데이트
 	 */
-	public void partUpdateforMany(Part part) {
+	public void partUpdateforMany(Part part, HttpSession session) {
 		
-		//수정자아이디
-		String partWrite = "id002";
-		
+		String partWrite = (String)session.getAttribute("SID");
+		bsCode = (String)session.getAttribute("SCODE");
+		System.out.println(partWrite+"<<sessionID/service");
 		System.out.println(nowDate+"<<현재시간/service");
 		
+		part.setBsCode(bsCode);
 		part.setPartWrite(partWrite);
 		part.setPartUpdateDate(nowDate);
-		
 		
 		partMapper.partUpdateforMany(part);
 	}
@@ -109,20 +148,20 @@ public class PartService {
 	 * @param partCheck
 	 * @param groupCode
 	 */
-	public List<Part> getPartGroupList(String partCheck,String groupCode) {
+	public List<Part> getPartGroupList(String partCheck,String groupCode, HttpSession session) {
 		System.out.println(partCheck +"getPartGroup/service");
 		System.out.println(groupCode +"getPartGroup/service");
-		List<Part> checkList = new ArrayList<Part>();
+		list = new ArrayList<Part>();
 		String checkValue = null;
-		
+		bsCode = (String) session.getAttribute("SCODE");
 		String[] partChecks =  partCheck.split(",");
 		for(int i=0 ;i<partChecks.length; i++) {
 			System.out.println(i+":"+partChecks[i]);
 			checkValue = partChecks[i];
-			checkList.add(partMapper.partSelectForOrder(checkValue));
+			list.add(partMapper.partSelectForOrder(checkValue, bsCode));
 		}
-			System.out.println(checkList.toString()+"<담긴값");
-		return checkList;
+			System.out.println(list.toString()+"<담긴값");
+		return list;
 	}
 	
 	/**
@@ -142,26 +181,24 @@ public class PartService {
 		System.out.println(partCode+"<1");
 		if(partCode == null) {
 			//없으면 1번 생성
-			GroupCode += "group_part_"+partUpdateDate+"_1";
-			
+			GroupCode += "group_part_"+partUpdateDate+"_001";
 		}else {
 			//값있으면 조회후+1 생성
 			String[] code = partCode.split("_");
-			
 			for(int i=0 ;i<code.length; i++) {
 				System.out.println(i+":"+code[i]);
 			}
 			//끝번호자동증가
 			int codeIndex = Integer.parseInt(code[3]);
 			codeIndex += 1;
+			String index = String.format("%03d", codeIndex);
 			System.out.println(codeIndex+"증가번호");
 			System.out.println(partCode+"<2");
-			
 			//나눠났던 코드 합치기
 			GroupCode = code[0];
 			GroupCode += "_"+code[1];
 			GroupCode += "_"+(code[2] = partUpdateDate);
-			GroupCode += "_"+codeIndex;
+			GroupCode += "_"+index;
 			System.out.println(GroupCode+"그룹코드 완성");
 		}
 		System.out.println(GroupCode);
@@ -174,16 +211,15 @@ public class PartService {
 		 * @param checks
 		 * @return
 		 */
-	//public List<String> addCart(List<String> checks) {
-	public List<Part> addCart(List<String> checks) {
+	public List<Part> addCart(List<String> checks, HttpSession session) {
 		System.out.println(checks);
 		System.out.println(checks.size());
-		
-		List<Part> list = new ArrayList<Part>();
+		bsCode = (String) session.getAttribute("SCODE");
+		list = new ArrayList<Part>();
 		String checkValue = null;
 		for(int i=0;i<checks.size();i++) {
 			checkValue = checks.get(i);
-		list.add(partMapper.partSelectForOrder(checkValue)); 
+		list.add(partMapper.partSelectForOrder(checkValue, bsCode)); 
 		}
 		return list;
 	}
