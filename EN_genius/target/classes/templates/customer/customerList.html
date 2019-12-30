@@ -8,17 +8,22 @@
 	</th:block>
 	<th:block layout:fragment="contentFragment">
 
-		<div class="card" style="text-align: center;">
-			<div class="card-header" style="text-align: left;">
+		<div class="card">
+			<div class="card-header">
 				<strong class="card-title">
 					[[${title}]]
 				</strong>
 			</div>
 			<div class="card-body">
-				<div class="row">
-					<label>
-						고객주소
+				<div class="form-group row">
+					<label class="col-1">
+						고객명
 					</label>
+					<input class="col form-control" type="text" >
+					<label class="col-1">
+						고객성별
+					</label>
+					<input class="col form-control" type="text" >
 				</div>
 				<table class="table">
 					<thead>
@@ -70,7 +75,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="paging" >
+				<div class="paging" style="text-align: center;">
 					<button>
 						tt
 					</button>
