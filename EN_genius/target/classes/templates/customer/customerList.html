@@ -6,6 +6,42 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius [[${title}]]</title>
 	</th:block>
+	<th:block layout:fragment="customScript">
+		<script th:inline="javascript">
+			$(document).ready(function() {
+				var request = $.ajax({
+					url : '/customerSelcet',
+					method : "get",
+					data : {},
+					dataType : "json"
+				});
+	
+				request.done(function(data) {
+					console.log(data)
+					$.each(data, function (i, l) {
+						var result='';
+						result+='<tr>'
+						result+='<td>'+l.customerCode+'</td>'
+						result+='<td>'+l.customerName+'</td>'
+						result+='<td>'+l.customerBirth+'</td>'
+						result+='<td>'+l.customerGender+'</td>'
+						result+='<td>'+l.customerAddr+'</td>'
+						result+='<td>'+l.customerPhone+'</td>'
+						result+='<td>'+l.customerSign+'</td>'
+						result+='<td>'+l.customerMemo+'</td>'
+						result+='<td><a href="/customer/customerUpdate?customerCode='+l.customerCode+'">정보수정</a></td>'
+						result+='</tr>'
+						$('tbody').append(result)
+					})
+				});
+	
+				request.fail(function(jqXHR, textStatus) {
+					alert("검색 실패!")
+				})
+				
+			})
+		</script>
+	</th:block>
 	<th:block layout:fragment="contentFragment">
 
 		<div class="card">
@@ -15,81 +51,93 @@
 				</strong>
 			</div>
 			<div class="card-body">
-				<table class="table table-cols">
-					<tbody>	
-						<tr>
-							<th>아이디</th>
-							<td style="margin:0px;padding:5px">
-								<input type="text" id="h_id" value="" name="keyword" class="form-control">
-							</td>
-							<th>이름</th>
-							<td style="margin:0px;padding:5px">
-								<input type="text" id="h_name" value="" name="keyword" class="form-control">
-							</td>
-						</tr>
-						<tr>
-							<th>닉네임</th>
-							<td style="margin:0px;padding:5px">
-								<input type="text" id="h_nick" value="" name="keyword" class="form-control">
-							</td>
-							<th>회원등급</th>
-							<td>
-								<label class="radio-inline">
-									<input type="radio" name="h_level" value="" checked="checked"> 전체
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="h_level" value="구매자"> 구매자
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="h_level" value="판매자"> 판매자
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="h_level" value="관리자"> 관리자
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<th>성별</th>
-							<td>
-								<label class="radio-inline">
-									<input type="radio" name="h_gender" value="" checked="checked"> 전체
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="h_gender" value="남"> 남성
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="h_gender" value="여"> 여성
-								</label>
-							</td>
-							<th>가입승인</th>
-							<td>
-								<label class="radio-inline">
-									<input type="radio" name="h_permit" value="" checked="checked"> 전체
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="h_permit" value="O"> 승인
-								</label>
-								<label class="radio-inline">
-									<input type="radio" name="h_permit" value="X"> 미승인
-								</label>
-							</td>
-						</tr>
-						<tr>
-							<th>가입일</th>
-							<td class="row">
-								<input type="date" name="h_jday1" class="form-control">~
-								<input type="date" name="h_jday2" class="form-control">
-							</td>
-						</tr>
-						<tr>
-							<th>생일</th>
-							<td class="row">
-								<input type="date" name="h_bday1" class="form-control">~
-								<input type="date" name="h_bday2" class="form-control">
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="row">
+					<div class="form-group col-lg-1">
+						<label>
+							고객 명
+						</label>
+					</div>
+					<div class="form-group col-lg-5">
+						<input type="text" id="customerName" name="customerName" class="form-control" placeholder="고객 명">
+					</div>
+					<div class="form-group col-lg-1">
+						<label>
+							고객 성별
+						</label>
+					</div>
+					<div class="form-group col-lg-5">
+						<div class="form-control">
+							<div class="row" style="text-align: center">
+								<div style="width: 34%">
+									<label>
+										<input type="radio" name="customerGender" value="" style="margin-left : 15px;">전체
+									</label>
+								</div>
+								<div style="width: 33%">
+									<label>
+										<input type="radio" name="customerGender" value="님">남
+									</label>
+								</div>
+								<div style="width: 33%">
+									<label>
+										<input type="radio" name="customerGender" value="여">여
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-1">
+						<label>
+							고객 연락처
+						</label>
+					</div>
+					<div class="form-group col-lg-5">
+						<input type="text" id="customerPhone" name="customerPhone" class="form-control" placeholder="고객 연락처">
+					</div>
+					<div class="form-group col-lg-1">
+						<label>
+							고객 메모
+						</label>
+					</div>
+					<div class="form-group col-lg-5">
+						<input type="text" id="customerMemo" name="customerMemo" class="form-control" placeholder="고객 메모">
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-1">
+						<label>
+							고객 생일
+						</label>
+					</div>
+					<div class="form-group col-lg-5">
+						<input type="date" id="customerBirth1" name="customerBirth1" class="form-control" placeholder="Email">
+					</div>
+					<div class="form-group col-lg-1" style="text-align: center">
+						~
+					</div>
+					<div class="form-group col-lg-5">
+						<input type="date" id="customerBirth2" name="customerBirth2" class="form-control" placeholder="Email">
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-1">
+						<label>
+							고객 가입일
+						</label>
+					</div>
+					<div class="form-group col-lg-5">
+						<input type="date" id="customerBirth1" name="customerBirth1" class="form-control" placeholder="Email">
+					</div>
+					<div class="form-group col-lg-1" style="text-align: center">
+						~
+					</div>
+					<div class="form-group col-lg-5">
+						<input type="date" id="customerBirth2" name="customerBirth2" class="form-control" placeholder="Email">
+					</div>
+				</div>
+				
 				<table class="table">
 					<thead>
 						<tr>

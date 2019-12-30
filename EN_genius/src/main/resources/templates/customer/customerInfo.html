@@ -6,16 +6,15 @@
 		<title>EN_genius [[${title}]]</title>
 	</th:block>
 	<th:block layout:fragment="customScript">
-	
-		<script th:inline="javascript">
+	<script th:inline="javascript">
 			/*<![CDATA[*/
 				var customer = [[${customer}]];
 				console.log(customer);
 			/*]]>*/
 		</script>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="assets/js/customer-list-value.js"></script>
-		<script src="assets/js/customer-validation.js"></script>
+		<script src="../assets/js/customer-list-value.js"></script>
+		<script src="../assets/js/customer-validation.js"></script>
 	</th:block>
 	<th:block layout:fragment="contentFragment">
 		<h1>
@@ -104,7 +103,7 @@
 				<button type="submit" id="Registration-submit" class="btn btn-primary btn-flat m-b-30 m-t-30">[[${title}]]</button>
 			</form>
 		</div>
-		<script src="assets/js/addr.js"></script>
+		<script src="../assets/js/addr.js"></script>
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	</th:block>
 </html>

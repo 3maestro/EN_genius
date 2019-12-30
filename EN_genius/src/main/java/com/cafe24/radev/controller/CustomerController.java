@@ -19,9 +19,13 @@ public class CustomerController {
 	@GetMapping("/customer/customerList")
 	public String getMemberList(Model model) {
 		model.addAttribute("title", "고객목록");
-		List<Customer> list = customerService.getCustomerList();
-		model.addAttribute("customerList", list);
 		return "/customer/customerList";
+	}
+	
+	@GetMapping(value="/customerSelcet", produces = "application/json")
+	public @ResponseBody List<Customer> getMemberList() {
+		List<Customer> list = customerService.getCustomerList();
+		return list;
 	}
 	
 	@GetMapping("/customer/customerInsert")
@@ -45,7 +49,7 @@ public class CustomerController {
 		return "/customer/customerInfo";
 	}
 	
-	@PostMapping("/customer/customerUpdate")
+	@PostMapping("/customerUpdate")
 	public String getCustomerUpdate(Customer customer) {
 		System.out.println(customer);
 		customerService.getCustomerUpdate(customer);
@@ -59,7 +63,7 @@ public class CustomerController {
 		return "/customer/customerX";
 	}
 	
-	@PostMapping(value="/customer/customerInsertAjax", produces = "application/json")
+	@PostMapping(value="/customerInsertAjax", produces = "text/plain")
 	public @ResponseBody String getCustomerInsertAjax(@RequestParam(value="name") String name, @RequestParam(value="birth") String birth, @RequestParam(value="phone") String phone) {
 		String code = customerService.getCustomerInsertAjax(name,birth,phone);
 		return code;
