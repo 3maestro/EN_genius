@@ -13,8 +13,6 @@
 
 		$(document).ready(function(){
 			 
-			var regex= /^\d{2,3}-\d{3,4}-\d{4}$/;
-
 			$('#formCheck').click(function(){
 			var bossIdCheck = $('input[name="bossId"]');
 			var bossPwCheck = $('input[name="bossPw"]');
@@ -121,8 +119,8 @@
 		});	
 	</script>
 	</th:block>
-	<th:block layout:fragment="customContents">
-	<div class="col-lg-6">
+	<th:block layout:fragment="contentFragment">
+	<div class="col-lg-6" style="left: 25%">
 	    <div class="card">
 		    <div class="card-header">회원가입</div>
 		    <div class="card-body card-block">
@@ -161,7 +159,7 @@
 				    <div class="input-group">
 				    	<input type="text" id="boss_email" name="bossEmail" placeholder="이메일" class="form-control">
 		   				<select name="emailAddr" class="form-control">
-				    		<option value="">이메일</option>
+				    		<option>email</option>
 				    		<option value="@naver.com">naver.com</option>
 				    		<option value="@hanmail.net">hanmail.net</option>
 				    		<option value="@google.com">google.com</option>
@@ -186,7 +184,7 @@
 							<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="사업장주소" readonly="readonly"><br>
 						</div>
 						<div class="col-lg-6">
-							<input class="form-control btn-danger" type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+							<input class="form-control btn-danger" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 						</div>
 					</div>
 					<div class="row">
@@ -223,8 +221,8 @@
 			    </form>
 		    </div>
 	    </div>
-    </div>
-    <script src="assets/js/addr.js"></script>
+	</div>
+    <script th:src="@{/assets/js/addr.js}"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>    
 	</th:block>
 </html>

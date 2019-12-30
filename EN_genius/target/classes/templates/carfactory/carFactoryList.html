@@ -6,23 +6,67 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius</title>
 	</th:block>
-	<th:block layout:fragment="customScript">
-	
+	<th:block layout:fragment="customScript">	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
 
 		$(document).ready(function(){
 			
+			var checkArray = new Array();
+
 			$("#check-all").click(function(){
 				var isCheck = $(this).is(':checked');
 				var checklist = $('input:checkbox[name="bsCode"]');
-				console.log(isCheck)
+				console.log(isCheck);				
 				if(isCheck){
 					checklist.prop('checked',true);
 				}else{
 					checklist.prop('checked',false);
 				}
 			});
+			
+		  	$('#approval').click(function(){
+				
+				$('.bsCode').each(function(){
+					if($(this).is(':checked')){						
+						checkArray.push($(this).val());	
+					}					
+				});
+				console.log(checkArray)
+				
+				var dataMap = {'checkArray' : checkArray}
+				var request = $.ajax({
+					url:"/approvalCheck",
+					type: "POST",
+					traditional:true,
+					data : dataMap,
+					success : function(data){
+						location.href = '/CarFactorySearch';
+					}
+				});
+							
+			}) 
+			
+		 	$('#Refusal').click(function(){
+				
+		 		$('.bsCode').each(function(){
+					if($(this).is(':checked')){						
+						checkArray.push($(this).val());	
+					}					
+				});
+				console.log(checkArray)
+				
+				var dataMap = {'checkArray' : checkArray}
+				var request = $.ajax({
+					url:"/approvalRefusal",
+					type: "POST",
+					traditional:true,
+					data : dataMap,
+					success : function(data){
+						location.href = '/CarFactorySearch';
+					}
+				});	
+			})  
 			
 			$('[name=bsCodePopupBtn]').click(function(){				
 				var bsCode = $(this).attr('data-bsCode');
@@ -54,14 +98,14 @@
 	</script>
 	</th:block>
 	
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 		<div class="col-lg-12">
         <div class="card">
             <div class="card-header">
                 <strong class="card-title">사업장 리스트</strong>
             </div>
             <div class="card-body">  
-            <form th:action="@{/approvalCheck}" method="post">
+            <form>
                 <table class="table">
                     <thead>
                         <tr>
@@ -80,19 +124,20 @@
                   <tbody th:each="c : ${carfactorylist}">
                     <tr>
                         <td class="a-center">
-                          <input type="checkbox" name="bsCode" th:value="${c.bsCode}">
+                          <input type="checkbox" name="bsCode" class="bsCode" th:value="${c.bsCode}">
                         </td>
                         <!-- <th scope="row">1</th> -->
-                        <td><span class="name" th:text="${c.bsName}"></span></td>
-                        <td><span class="name" th:text="${c.bossName}"></span></td>
-                        <td><span class="nana" th:text="${c.bsAddr}"></span></td>
-                        <td><span class="name" th:text="${c.bsTelephone}"></span></td>
-                        <td><span class="name" th:text="${c.bsCheck}"></span></td>                       
+                        <td><span class="bsname" th:text="${c.bsName}"></span></td>
+                        <td><span class="bossname" th:text="${c.bossName}"></span></td>
+                        <td><span class="addr" th:text="${c.bsAddr}"></span></td>
+                        <td><span class="tel" th:text="${c.bsTelephone}"></span></td>
+                        <td><span class="check" th:text="${c.bsCheck}"></span></td>                       
                         <td><button type="button" th:data-bsCode="${c.bsCode}" th:text="서류" name="bsCodePopupBtn" class="btn btn-outline-link"></button></td>
                     </tr>
                 </tbody>          
             </table>
-          	<hr><button type="submit" class="btn btn-outline-primary" style="float: right; border-bottom-right-radius: 0.5em;">승인</button>
+          	<hr><button type="button" class="btn btn-outline-primary" id="approval" style="float: right;">승인</button>
+          	<button type="button" class="btn btn-outline-primary" id="Refusal" style="float: right;" >승인거부</button>
             </form>   
         </div>    
     </div>

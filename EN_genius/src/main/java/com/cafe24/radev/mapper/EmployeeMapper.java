@@ -15,7 +15,7 @@ import com.cafe24.radev.vo.EmployeeDepartment;
 @Mapper
 public interface EmployeeMapper {
 
-	int addEmployee();
+	void addEmployee(Employee employee);
 	
 	List<Employee> employeeList(String bsCode);
 	

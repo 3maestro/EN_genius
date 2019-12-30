@@ -6,15 +6,22 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius</title>
 	</th:block>
+	<th:block layout:fragment="customCss">
+		<style>
+		.btn-info-type1 {color: #fff; background-color: #76b3bdfa; border-color: #8e7b41;}	
+ 		.btn-outline-info {}	 
+		</style>
+	</th:block>	
 	<th:block layout:fragment="customScript">	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
 
 			var result = /*[[ ${lo} ]]*/;
-    
-			alert(result);
-			
+    		if(result!=null){
+				alert(result);
+    		}
+    		
 	  		$(document).ready(function(){
 		
  			$('#formCheck').click(function(){
@@ -56,16 +63,17 @@
 	</script>
 	</th:block>
 	
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 		<div class="login-content">
 		    <div class="login-logo">
 		        <a href="index.html">
 		            <img class="align-content" src="images/logo.png" alt="">
 		        </a>
 		    </div>
-		<div class="card-header" style="display: flex;">
+		<div class="card-header row" style="display: flex;">
 		<div class="login-form" style="flex: 1;" >
 			<form method="post" action="/Adminlogin">
+				<div>
 				<p style=text-align:center>개발자</p><br><br>
 		       	<div class="form-group">
 		            <label>아이디</label>
@@ -75,9 +83,10 @@
 		        <div class="form-group">
 		            <label>비밀번호</label>
 		            <input type="password" class="form-control" name="bossPw" placeholder="비밀번호를 입력해주세요">
-		        </div><br>
-		        <button type="submit" id="formCheck" class="btn btn-success btn-flat m-b-30 m-t-30">로그인</button>
+		        </div>
+		        <button type="submit" id="formCheck" class="btn btn-info-type1">로그인</button>
 		        <br><br><br><br>
+		        </div>
 		    </form>
 		</div>
 		<div class="login-form" style="flex: 1;">
@@ -92,18 +101,11 @@
 		            <input type="password" class="form-control" name="bossPw" placeholder="비밀번호를 입력해주세요">
 		        </div>
 		        <div class="checkbox">
-		            <label>
+<!-- 		            <label>
 		                <input type="checkbox"> 아이디 저장
-		            </label>
-		            <label class="pull-right">
-		                <a href="#">비밀번호 찾기</a>
-		            </label>
-		
+		            </label> -->
 		        </div>
-		        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">로그인</button>
-		        <div class="register-link m-t-15 text-center"><br>
-		            <p><a href="/CarFactoryInsert">사업장등록</a></p>
-		        </div>
+		        <button type="submit" class="btn btn-info-type1">로그인</button>
 		    </form>
 		</div>		
 		<div class="login-form" style="flex: 1;">
@@ -117,11 +119,19 @@
                     <label>비밀번호</label>
                     <input type="password" class="form-control" name="employeePass" placeholder="비밀번호를 입력해주세요">
                 </div>
+                
+                <button type="submit" class="btn btn-info-type1">로그인</button>
                 <br>
-                <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">로그인</button>
                 <br><br><br><br>
         </form>
-		            </div>
+		        <div class="register-link m-t-15 text-center"><br>		                      
+	            	<a th:href="@{/CarFactoryInsert}" style="color: #554888;">사업장등록</a>
+	            	<br><br>
+	            	<a th:href="@{/#}" style="color: #554888;">비밀번호 찾기</a>
+		        </div>
+            </div>
+			</div>
+					<div class="row">
 					</div>
 		        </div>	
 	</th:block>
