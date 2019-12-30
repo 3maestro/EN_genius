@@ -16,7 +16,7 @@ import com.cafe24.radev.vo.Customer;
 public class CustomerController {
 	@Autowired CustomerService customerService;
 	
-	@GetMapping("/customerList")
+	@GetMapping("/customer/customerList")
 	public String getMemberList(Model model) {
 		model.addAttribute("title", "고객목록");
 		List<Customer> list = customerService.getCustomerList();
@@ -24,20 +24,20 @@ public class CustomerController {
 		return "/customer/customerList";
 	}
 	
-	@GetMapping("/customerInsert")
+	@GetMapping("/customer/customerInsert")
 	public String getCustomerInsert(Model model) {
 		model.addAttribute("title", "고객등록");
 		return "/customer/customerInfo";
 	}
 	
-	@PostMapping("/customerInsert")
+	@PostMapping("/customer/customerInsert")
 	public String getCustomerInsert(Model model, Customer customer) {
 		System.out.println(customer);
 		customerService.getCustomerInsert(customer);
-		return "redirect:/customerList";
+		return "redirect:/customer/customerList";
 	}
 
-	@GetMapping("/customerUpdate")
+	@GetMapping("/customer/customerUpdate")
 	public String getCustomerUpdate(Model model, @RequestParam(value="customerCode") String customerCode) {
 		model.addAttribute("title", "고객수정");
 		Customer customer = customerService.getCustomerSelect("bs001_"+customerCode);
@@ -45,27 +45,27 @@ public class CustomerController {
 		return "/customer/customerInfo";
 	}
 	
-	@PostMapping("/customerUpdate")
+	@PostMapping("/customer/customerUpdate")
 	public String getCustomerUpdate(Customer customer) {
 		System.out.println(customer);
 		customerService.getCustomerUpdate(customer);
-		return "redirect:/customerList";
+		return "redirect:/customer/customerList";
 	}
 	
-	@GetMapping("/customerX")
+	@GetMapping("/customer/customerX")
 	public String getCustomerVisit(Model model) {
 		model.addAttribute("title", "미구현");
 		System.out.println("Visit");
 		return "/customer/customerX";
 	}
 	
-	@PostMapping(value="/customerInsertAjax", produces = "application/json")
+	@PostMapping(value="/customer/customerInsertAjax", produces = "application/json")
 	public @ResponseBody String getCustomerInsertAjax(@RequestParam(value="name") String name, @RequestParam(value="birth") String birth, @RequestParam(value="phone") String phone) {
 		String code = customerService.getCustomerInsertAjax(name,birth,phone);
 		return code;
 	}
 	
-	@GetMapping("/customerSMS")
+	@GetMapping("/customer/customerSMS")
 	public String getCustomerSMS(Model model) {
 		System.out.println("SMS");
 		return "/customer/customerSMS";

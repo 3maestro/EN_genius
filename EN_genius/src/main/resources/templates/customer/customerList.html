@@ -8,13 +8,18 @@
 	</th:block>
 	<th:block layout:fragment="contentFragment">
 
-		<div class="card">
-			<div class="card-header">
+		<div class="card" style="text-align: center;">
+			<div class="card-header" style="text-align: left;">
 				<strong class="card-title">
 					[[${title}]]
 				</strong>
 			</div>
 			<div class="card-body">
+				<div class="row">
+					<label>
+						고객주소
+					</label>
+				</div>
 				<table class="table">
 					<thead>
 						<tr>
@@ -58,15 +63,21 @@
 							<td th:text="${l.customerSign}"></td>
 							<td th:text="${l.customerMemo}"></td>
 							<td>
-								<a th:href="@{/customerUpdate(customerCode=${l.customerCode})}">
+								<a th:href="@{/customer/customerUpdate(customerCode=${l.customerCode})}">
 									정보수정
 								</a>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="paging" >
+					<button>
+						tt
+					</button>
+				</div>
 			</div>
 		</div>
+		
 	</th:block>
 </html>
 
