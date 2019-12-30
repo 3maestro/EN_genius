@@ -16,4 +16,5 @@ public interface CheckMapper {
 	public String getDate(String repairDate);
 	public List<BasicCheck> getBigCheckList(String bigCate);
 	public List<BasicCheck> getMidCheckList(String midCate);
+	public BasicCheck getSmallCheckList(String smallCate);
 }
