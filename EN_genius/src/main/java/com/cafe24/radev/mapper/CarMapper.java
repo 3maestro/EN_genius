@@ -114,6 +114,8 @@ public interface CarMapper {
 	 */
 	public VoCarDetail getCarUpdateList(String carUpList);
 
+	public List<VoCarDetail> getCarModelCode(String carModelSm);
+	
 	public List<VoCarDetail> getCarModel(String carModelSm);
 	
 	public List<VoCarDetail> getCarClass(String carClassSm); 

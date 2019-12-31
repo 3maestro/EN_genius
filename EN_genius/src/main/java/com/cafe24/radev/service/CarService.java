@@ -184,30 +184,34 @@ public class CarService {
 	 * System.out.println((i+1)+"번째 모델명 : "+list.get(i).getCarModelName()); 
 	 * } return nameList; }
 	 */
+
+	
 	public List<String> getCarModel(String carClassSm) {
 		List<String> carModelList = new ArrayList<String>();
 		System.out.println(carClassSm + " : 서비스");
 		List<VoCarDetail> classList = carMapper.getCarModel(carClassSm);
-		
+		System.out.println(classList + "ssssssssssssssssssss" + carClassSm);
 		for(int i=0; i < classList.size(); i++) {
+			System.out.println(classList + "aaaaaaaaaaa");
 			carModelList.add(classList.get(i).getCarModelName());
 		}
 		return carModelList;
 	}
 	
-	public List<String> getCarClass(String vendorSm){
+	public List<VoCarDetail> getCarClass(String vendorSm){
+		System.out.println("벤더 서비스");
 		List<String> carClssList = new ArrayList<String>();
 		List<VoCarDetail> vendorList = carMapper.getCarClass(vendorSm);
+		System.out.println(vendorList + "aaaaaaaa" + vendorSm);
 
-		  for(int i=0; i < vendorList.size(); i++ ) {
-			  carClssList.add(vendorList.get(i).getCarClassMain());
-		  }
-	return carClssList;
+		  
+	return vendorList;
 	}
 
 	public List<String> getCarVendor(String originSm){
+		//System.out.println("벤더 서비스");
 		List<String> carVendorList = new ArrayList<String>();
-		//System.out.println(originSm + ": 서비스로 온 값 국가");
+		System.out.println(originSm + ": 서비스로 온 값 국가");
 		List<VoCarDetail> originList = carMapper.getCarVendor(originSm);
 		
 		//System.out.println(originSm + "서비스 오리진리스트");

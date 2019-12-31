@@ -97,24 +97,30 @@ public class CarController {
 	 * = new HashMap<String, List<String>>(); //map.put("carName", nameList); return
 	 * nameList; }
 	 */
+	 
+	  
 	  @PostMapping("getCarModel")
-	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "carClassSm")String carClassSm){
+	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "carClassSm")String carClassSm,
+			  @RequestParam(value = "vendorSm")String vendorSm){
 		  System.out.println("카모델!@@@@@@@@@@@@@@");
 		  System.out.println(carClassSm + " : 에이작스에서 넘어올때 모델");
+		  System.out.println(vendorSm + "에작에작");
 		  List<String> carClassList = carService.getCarModel(carClassSm);
 		  return carClassList;
 	  }
 	  
 	  @PostMapping("getCarClass")
-	  public @ResponseBody List<String> getDBCarClass(@RequestParam(value = "vendorSm")String vendorSm){
+	  public @ResponseBody List<VoCarDetail> getDBCarClass(@RequestParam(value = "vendorSm")String vendorSm){
 		  System.out.println(vendorSm + " : 에이작스에서 넘어올때 벤더");
-		  List<String> vendorList = carService.getCarClass(vendorSm);
+		  List<VoCarDetail> vendorList = carService.getCarClass(vendorSm);
+		  System.out.println(vendorList + "adsasdasd222");
 		  return vendorList;
 	  }
 	  
 	  @PostMapping("getCarVendor")
 	  public @ResponseBody List<String> getDBCarVendor(@RequestParam(value = "originSm")String originSm){
 		  List<String> originList = carService.getCarVendor(originSm);
+		  System.out.println(originList + "adsasdasd");
 		  return originList;
 	  }
 }

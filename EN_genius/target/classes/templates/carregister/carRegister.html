@@ -17,9 +17,6 @@
 		$(document).on('change','#carModelSm',function(){
 			console.log($(this).val());
 		})
-			$(document).on('change','#vendorSm',function(){
-			console.log($(this).val());
-		})
 			$(document).on('change','#carClassSm',function(){
 			console.log($(this).val());
 		})
@@ -63,36 +60,38 @@
 				});
 			
 				request.done(function(carClassSm) {
-					console.log(carClassSm);
-					for(var i = 0; i < carClassSm.length; i++){
-						contents += '<option value = "'+carClassSm[i]+'">'+carClassSm[i]+'</option>'
+					console.log(carClassSm[0].carClassCode);
+				for(var i = 0; i < carClassSm.length; i++){
+					contents += '<option value = "'+carClassSm[i].carClassMain+'">'+carClassSm[i].carClassMain+'</option>'
+						
 					}
 					$('#carClassSm').html(contents)
 				});
-				 
-				
 				
 				request.fail(function( jqXHR, textStatus ) {
 				  alert( "Request failed: " + textStatus );
 				}); 
 		})
 		
-		$(document).on('change','#carClassSm',function(){
+	$(document).on('change','#carClassSm',function(){
 			var contents = '<option>선택해주세요</option>';
 			var carClassSm = $(this).val();
+			var vendorSm = $(this).val();
 			console.log(carClassSm);
+			console.log(vendorSm);
 			
 			var request = $.ajax({
 				  url: "getCarModel",
 				  method: "POST",
-				  data: { 'carClassSm' : carClassSm },
+				  data: { 'carClassSm' : carClassSm , 'vendorSm' : vendorSm},
 				  dataType: "json"
 				});
 			
 				request.done(function(carModelSm) {
 					console.log(carModelSm);
+					
 					for(var i = 0; i < carModelSm.length; i++){
-						contents += '<option value = "'+carModelSm[i]+'">'+carModelSm[i]+'</option>'
+						contents += '<option value = "'+carModelSm.get(i).carClassMain+'">'+carModelSm.get(i).carClassMain+'</option>'
 					}
 					$('#carModelSm').html(contents)
 				});
@@ -192,6 +191,9 @@
 											<option th:each="carModelSel : ${carModelSelect}"
 												th:text="${carModelSel.carModelName}">차량 모델 선택</option> -->
 										</select>
+										<th:block th:each="ve : ${vendorList}">
+											<input type="text" th:value="${ve.originCode}">
+										</th:block>
 									</div>
 								</td>
 							</tr>
