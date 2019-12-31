@@ -1,6 +1,7 @@
 package com.cafe24.radev.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class CustomerService {
 	 * 고객 목록을 조회 하는 메소드
 	 * @return 리스트 타입
 	 */
-	public List<Customer> getCustomerList(){
-		List<Customer> list = customerMapper.getCustomerList();
+	public List<Customer> getCustomerSelect(Map<String,String> search){
+		List<Customer> list = customerMapper.getCustomerSelect(search);
 		for(int i=0;i<list.size();i++) {
 			Customer customer = new Customer();
 			customer = list.get(i);
@@ -35,8 +36,8 @@ public class CustomerService {
 	 * 고객정보를 수정하기 위해서 정보를 조회하는 메소드
 	 * @return 없음
 	 */
-	public Customer getCustomerSelect(String customerCode) {
-		Customer customer = customerMapper.getCustomerSelect(customerCode);
+	public Customer getCustomerSelectOne(String customerCode) {
+		Customer customer = customerMapper.getCustomerSelectOne(customerCode);
 		return customer;
 	}
 	

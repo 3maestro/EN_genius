@@ -20,7 +20,7 @@
 		<result property="customerMemo"		column="customer_memo"/>
 	</resultMap>
 	
-	<select id="getCustomerList" resultMap="CustomerResultMap">
+	<select id="getCustomerSelect" resultMap="CustomerResultMap">
 	  	SELECT 
 			customer_code
 			,bs_code
@@ -30,18 +30,56 @@
 			,customer_birth
 			,customer_gender
 			,customer_post
-			,customer_addr
+			,customer_addr	
 			,customer_phone
 			,customer_memo
 		FROM
 			customer_tb
 		WHERE
-			bs_code='bs001'
-		<where>
-		</where>
+				bs_code=#{scode}
+				
+		<if test="customerName neq null and customerName neq ''.toString()">
+			AND
+				customer_name like CONCAT('%',#{customerName},'%')
+		</if>
+		
+		<if test="customerGender neq null and customerGender neq ''.toString()">
+			AND
+				customer_gender = #{customerGender}
+		</if>
+		
+		<if test="customerPhone neq null and customerPhone neq ''.toString()">
+			AND
+				customer_phone like CONCAT('%',#{customerPhone},'%')
+		</if>
+		
+		<if test="customerMemo neq null and customerMemo neq ''.toString()">
+			AND
+				customer_memo like CONCAT('%',#{customerMemo},'%')
+		</if>
+		
+		<if test="customerBirth1 neq null and customerBirth1 neq ''.toString()">
+			AND
+				customer_birth >= #{customerBirth1}
+		</if>
+		
+		<if test="customerBirth2 neq null and customerBirth2 neq ''.toString()">
+			AND
+				customer_birth <![CDATA[<=]]> #{customerBirth2}
+		</if>
+		
+		<if test="customerSign1 neq null and customerSign1 neq ''.toString()">
+			AND
+				customer_sign >= #{customerSign1}
+		</if>
+		
+		<if test="customerSign2 neq null and customerSign2 neq ''.toString()">
+			AND
+				customer_sign <![CDATA[<=]]> #{customerSign2}
+		</if>
 	</select>
 	
-	<select id="getCustomerSelect" parameterType="com.cafe24.radev.vo.Customer" resultMap="CustomerResultMap">
+	<select id="getCustomerSelectOne" parameterType="com.cafe24.radev.vo.Customer" resultMap="CustomerResultMap">
 	  	SELECT 
 			customer_code
 			,bs_code
@@ -57,7 +95,7 @@
 		FROM
 			customer_tb
 		WHERE
-				bs_code='bs001'
+				bs_code=#{scode}
 			AND
 				customer_code=#{customerCode}
 	</select>
@@ -69,7 +107,7 @@
 			customer_tb
 		
 		WHERE
-				bs_code='bs001'
+				bs_code=#{scode}
 			AND 
 				customer_name=#{name}
 			AND 

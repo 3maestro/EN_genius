@@ -9,7 +9,6 @@
 	<script th:inline="javascript">
 			/*<![CDATA[*/
 				var customer = [[${customer}]];
-				console.log(customer);
 			/*]]>*/
 		</script>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -70,10 +69,10 @@
 						</label>
 						<div class="row">
 							<div class="col-lg-6">
-								<input class="form-control" type="text" name="customerPost" id="customerPost" placeholder="우편번호" readonly="readonly"><br>
+								<input class="form-control" type="text" name="customerPost" id="post" placeholder="우편번호" readonly="readonly"><br>
 							</div>
 							<div class="col-lg-6">
-								<input class="form-control btn-danger" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
+								<input class="form-control btn-danger post" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
 							</div>
 						</div>
 						<div class="row" id="">
