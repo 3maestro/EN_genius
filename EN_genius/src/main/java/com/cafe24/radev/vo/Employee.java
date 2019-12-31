@@ -17,9 +17,10 @@ public class Employee {
 	private String employeeGender;					//성별
 	private String employeeAddr;					//주소
 	private String addrDetail;						//상세주소
+	private String employeePost;					//우편번호
 	private String joinDate;						//입사일
 	private String resignationDate;					//퇴사일
-	private String eiWriter;							//작성자(사장님이름)
+	private String eiWriter;						//작성자(사장님이름)
 	private String eiDate;							//작성일
 	private String cCode;							//쿼리문에서 직책/부서 별칭
 	private DepartmentDuty departmentDuty;			//직책 vo
@@ -90,6 +91,12 @@ public class Employee {
 	public void setAddrDetail(String addrDetail) {
 		this.addrDetail = addrDetail;
 	}
+	public String getEmployeePost() {
+		return employeePost;
+	}
+	public void setEmployeePost(String employeePost) {
+		this.employeePost = employeePost;
+	}
 	public String getJoinDate() {
 		return joinDate;
 	}
@@ -137,9 +144,10 @@ public class Employee {
 		return "Employee [employeeCode=" + employeeCode + ", bsCode=" + bsCode + ", edCode=" + edCode + ", ddCode="
 				+ ddCode + ", employeePass=" + employeePass + ", employeeName=" + employeeName + ", employeeBirth="
 				+ employeeBirth + ", employeePhone=" + employeePhone + ", employeeGender=" + employeeGender
-				+ ", employeeAddr=" + employeeAddr + ", addrDetail=" + addrDetail + ", joinDate=" + joinDate
-				+ ", resignationDate=" + resignationDate + ", eiWriter=" + eiWriter + ", eiDate=" + eiDate + ", cCode="
-				+ cCode + ", departmentDuty=" + departmentDuty + ", employeeDepartment=" + employeeDepartment + "]";
+				+ ", employeeAddr=" + employeeAddr + ", addrDetail=" + addrDetail + ", employeePost=" + employeePost
+				+ ", joinDate=" + joinDate + ", resignationDate=" + resignationDate + ", eiWriter=" + eiWriter
+				+ ", eiDate=" + eiDate + ", cCode=" + cCode + ", departmentDuty=" + departmentDuty
+				+ ", employeeDepartment=" + employeeDepartment + "]";
 	}
 
 }

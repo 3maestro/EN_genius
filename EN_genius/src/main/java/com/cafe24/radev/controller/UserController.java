@@ -141,7 +141,6 @@ public class UserController {
 				session.setAttribute("SLEVEL", c.getBsLevel());
 				session.setAttribute("SID", c.getBossId());
 				session.setAttribute("SCODE", c.getBsCode());
-				session.setAttribute("SWRITER", c.getBsWriter());
 			}else if("bs001".equals(c.getBsWriter())){
 				model.addAttribute("lo", "관리자 로그인 창입니다");
 				return "login/login";
