@@ -8,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.WageService;
 import com.cafe24.radev.vo.WageManHour;
+import com.cafe24.radev.vo.WorkDecide;
 
 @Controller
 public class WageController {
@@ -42,8 +46,10 @@ public class WageController {
 		return "/wage/workManHour";
 	}
 	
-	@GetMapping("/work/workingNow")
-	public String workingNow() {
+	@PostMapping("/work/workingNow")
+	public String workingNow(WorkDecide workDecide) {
+		System.out.println("workingNow WageController 호출");
+		System.out.println(workDecide + " <-workDecide workingNow WageController.java");
 		return "/wage/workingNow";
 	}
 	
