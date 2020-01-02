@@ -165,6 +165,20 @@
 						})
 						
 							//$('#basicList').children().empty()
+<<<<<<< HEAD
+=======
+						$(document).on('click','#deleteBtn',(function(){
+							var deletePar= $(this).parent().parent()
+							var deleteVal = $(this).val()
+							console.log(deleteVal + "<asdfkjasdof")
+							deletePar.remove();
+							
+							//deletePar.removechild(deleteVal);
+							//deletePar.find()
+							//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
+							finalCheck.splice(data,1);
+						}))
+>>>>>>> refs/heads/jsh
  					})
  					
  					request.fail(function( jqXHR, textStatus ) {
