@@ -62,7 +62,7 @@ public class UserController {
 			System.out.println(r + "r 결과 값");
 			userService.addDocumentFile(bs_docu);
 		 
-		return "redirect:/index";
+		return "/login/login";
 	}
 	/**
 	 * 사업장 리스트

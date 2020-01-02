@@ -25,6 +25,7 @@ public class Employee {
 	private String cCode;							//쿼리문에서 직책/부서 별칭
 	private DepartmentDuty departmentDuty;			//직책 vo
 	private EmployeeDepartment employeeDepartment;	//부서vo
+	
 	public String getEmployeeCode() {
 		return employeeCode;
 	}
@@ -149,5 +150,6 @@ public class Employee {
 				+ ", eiDate=" + eiDate + ", cCode=" + cCode + ", departmentDuty=" + departmentDuty
 				+ ", employeeDepartment=" + employeeDepartment + "]";
 	}
+	
 
 }

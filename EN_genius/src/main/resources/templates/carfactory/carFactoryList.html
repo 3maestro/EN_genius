@@ -117,7 +117,8 @@
                           <th>사업장</th>
                           <th>연락처</th>
                           <th>승인여부</th>
-                          <th>첨부파일</th>
+                          <th>첨부</th>
+                          <th>상세</th>
                       </tr>
                   </thead>
                   <tbody th:each="c : ${carfactorylist}">
@@ -131,7 +132,8 @@
                         <td><span class="addr" th:text="${c.bsAddr}"></span></td>
                         <td><span class="tel" th:text="${c.bsTelephone}"></span></td>
                         <td><span class="check" th:text="${c.bsCheck}"></span></td>                       
-                        <td><button type="button" th:data-bsCode="${c.bsCode}" th:text="서류" name="bsCodePopupBtn" class="btn btn-outline-link"></button></td>
+                        <td><button type="button" th:data-bsCode="${c.bsCode}" th:text="서류" name="bsCodePopupBtn" class="btn btn-outline-link btn-sm"></button></td>
+                        <td><button type="button" th:text="상세" name="" class="btn btn-outline-link btn-sm"></button></td>
                     </tr>
                 </tbody>          
             </table>

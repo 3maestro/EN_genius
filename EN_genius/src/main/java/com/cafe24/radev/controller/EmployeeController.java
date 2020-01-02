@@ -28,7 +28,7 @@ public class EmployeeController {
 		employee.setBsCode((String)session.getAttribute("SCODE"));
 		employee.setEiWriter((String)session.getAttribute("SCODE"));
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
-		System.out.println(employee + " <-employee");
+		System.out.println(employee.getEmployeeGender());
 		employeeService.addEmployee(employee);
 		return "redirect:/employeeSelect";
 	}
