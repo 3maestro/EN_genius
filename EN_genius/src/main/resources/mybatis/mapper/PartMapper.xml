@@ -61,7 +61,9 @@
 	<!-- 부품한로우조회 ajax-->
 	<select id="partSelectForOrder" resultMap="partRM">
 		SELECT 
+			part_use_code,
 			part_number,
+			bs_code,
 			ck_big_code,
 			ck_mid_code,
 			part_use_name,
@@ -121,7 +123,8 @@
 			FROM
 				group_tb AS g
 			WHERE 
-			g.group_code LIKE #{select})AS gc
+			g.group_code LIKE #{select}
+			)AS gc
 	</select>
 	
 	<!-- 그룹코드생성 -->

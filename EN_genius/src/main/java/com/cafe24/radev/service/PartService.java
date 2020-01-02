@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.cafe24.radev.mapper.CategoryForCarMapper;
 import com.cafe24.radev.mapper.PartMapper;
+import com.cafe24.radev.mapper.UserMapper;
+import com.cafe24.radev.vo.CarFactory;
 import com.cafe24.radev.vo.FirstCategoryForCar;
 import com.cafe24.radev.vo.Part;
 import com.cafe24.radev.vo.PartGuide;
@@ -21,6 +23,8 @@ import com.cafe24.radev.vo.SecondCategoryForCar;
 public class PartService {
 	@Autowired private PartMapper partMapper;
 	@Autowired private CategoryForCarMapper categoryMapper;
+	@Autowired private UserMapper userMapper;
+	
 	//현제 날짜정보
 	SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 	Calendar time = Calendar.getInstance();
@@ -95,9 +99,12 @@ public class PartService {
 	public void partInsertPro(Part parts, HttpSession session) {
 		System.out.println("partInsertPro/Service");
 		System.out.println(nowDate+"<<현재시간/service");
-		String partWrite = (String)session.getAttribute("SID");
 		bsCode = (String)session.getAttribute("SCODE");
-		
+		String partWrite = (String)session.getAttribute("SID");
+		//직원코드 세션
+		if(partWrite == null) {
+			partWrite = (String)session.getAttribute("ECODE");
+		}
 		//현제날짜
 		String newCodeDate = nowDate.replace("-","").trim();
 		newCodeDate = newCodeDate.substring(2);
@@ -168,20 +175,40 @@ public class PartService {
 	 * 코드 검색후 자동생성
 	 * @return 생성시킬 코드값
 	 */
-	public String getGroup() {
+	public String getGroup(int a, HttpSession session) {
 		System.out.println("getGroup/service");
 		//날짜 코드화
 		String partUpdateDate = nowDate.replace("-", "").trim();
 		partUpdateDate = partUpdateDate.substring(2);
 		//검색코드
-		String select = "%part_"+partUpdateDate+"%";
+		String select = null;
+		bsCode = (String) session.getAttribute("SCODE");
+		if(a==0) {
+			//0일때 구매	
+			select = "%partBuy_";
+		}else if(a==1) {
+			//1일때 판매
+			select = "%partSell_";
+		}
+		select += bsCode+"_"+partUpdateDate+"%";
 		System.out.println(select+"<<<<검색조건");
 		String GroupCode = "";
 		String partCode = partMapper.getGroup(select);
 		System.out.println(partCode+"<1");
 		if(partCode == null) {
 			//없으면 1번 생성
-			GroupCode += "group_part_"+partUpdateDate+"_001";
+			GroupCode += "groupPart";
+			//0일때 구매
+			if(a==0) {
+				System.out.println("구매");
+				GroupCode += "Buy_";
+			}else if(a==1) {
+			//1일때 판매
+				System.out.println("판매");
+				GroupCode += "Sell_";
+			}
+			GroupCode += partUpdateDate;
+			GroupCode += "_001";
 		}else {
 			//값있으면 조회후+1 생성
 			String[] code = partCode.split("_");
@@ -205,15 +232,14 @@ public class PartService {
 		
 		return GroupCode;
 	}
-	
-		/**
-		 * 카트로이동시킬 부품정보/ajax
-		 * @param checks
-		 * @return
-		 */
+	/**
+	 * 카트로이동시킬 부품정보/ajax
+	 * @param checks
+	 * @return
+	 */
 	public List<Part> addCart(List<String> checks, HttpSession session) {
-		System.out.println(checks);
-		System.out.println(checks.size());
+		//System.out.println(checks);
+		//System.out.println(checks.size());
 		bsCode = (String) session.getAttribute("SCODE");
 		list = new ArrayList<Part>();
 		String checkValue = null;
@@ -224,8 +250,61 @@ public class PartService {
 		return list;
 	}
 	
+	/**
+	 * 기준데이터
+	 * @param partNumber
+	 */
 	public void partSelect(String partNumber) {
 		partMapper.getData();
+	}
+	
+	/**
+	 * 공업사리스트에서 세션값에 맞는 정보
+	 * @param session
+	 * @return
+	 */
+	public CarFactory factoryInfo(HttpSession session){
+		System.out.println("정보 서비스");
+		List<CarFactory> bsList = new ArrayList<CarFactory>();
+		bsList = userMapper.carFactoryList();
+		bsCode = (String)session.getAttribute("SCODE");
+		CarFactory factoryInfo = new CarFactory();
+		
+		int index=0;
+		for(int i=0; i<bsList.size(); i++) {
+			factoryInfo = bsList.get(i);
+			if(factoryInfo.getBsCode().equals(bsCode)) {
+				//System.out.println(i+"몇번째에 담김");
+				index = i;
+				break;
+			}
+			factoryInfo = bsList.get(index);
+		}
+		
+		factoryInfo.setBsRegistration(nowDate);
+		//System.out.println(factoryInfo);
+		return factoryInfo;
+	}
+	
+	public String getDocNo(int a, HttpSession session) {
+		String docNo = null;
+		
+		//groupPartBuy_200102_001
+		docNo = getGroup(a, session);
+		String index = docNo.substring((docNo.lastIndexOf("_")+1));
+		if(a==0) {
+			//구매 order 20200102 001
+			docNo = "order";
+		}else if(a==1) {
+			//견적 
+			docNo = "estimate";
+		}
+		docNo += nowDate.replace("-","");
+		docNo += index;
+		System.out.println(docNo);
+		
+		System.out.println(docNo+" : <문서코드값");
+		return docNo;
 	}
 	/*
 	 * Group group = new Group(); group.setGroupCode(GroupCode);

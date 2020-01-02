@@ -28,28 +28,29 @@
 			});
 		});
 	</script>
-	<form>
+	<!-- 부품 -->
+	<form th:action="@{/part/order}" method="post">
+		<input type="hidden" value="0" id="groupCode" name="groupCode">
 		<!-- 한줄 -->
 		<th:block th:if="${checkPartList == null}">
 			<!--부품목록에서 구매로갈경우-->
-			<input type="hidden" value="0" id="groupCode" name="groupCode">
 			<th:block th:if="${partRow != null}">
 				<table border="1" th:each=p:${partRow}>
 						<tr>
 							<td>부품번호</td>
-							<td><input type="text" th:value="${p.partNumber}"></td>
+							<td><input type="text" th:value="${p.partNumber}" name="partNumber"></td>
 						</tr>
 						<tr>
 							<td>부품명</td>
-							<td><input type="text" th:value="${p.partName}"></td>
+							<td><input type="text" th:value="${p.partName}" name="partName"></td>
 						</tr>
 						<tr>
 							<td>개수</td>
-							<td><input type="number"></td>
+							<td><input type="number" name="partMany"></td>
 						</tr>
 						<tr>
 							<td>가격</td>
-							<td><input type="number" th:value="${p.partPrice}"></td>
+							<td><input type="number" th:value="${p.partPrice}" name="partPrice"></td>
 						</tr>
 				</table>
 			</th:block>
@@ -96,11 +97,13 @@
 				</tr>
 			</table>
 		</th:block>
+	<button type="submit" class="btn btn-info">신청서출력</button>
 	</form>
-		<div>
-		</div>
-		<button type="button" class="btn-info">신청서출력</button>
-		<input type="hidden" value="" id="groupCode">		
-	
+	<!-- 부품업체 -->
+	<div>
+			
+	</div>
+	<input type="hidden" value="" id="groupCode">
+		
 	</th:block>
 </html>

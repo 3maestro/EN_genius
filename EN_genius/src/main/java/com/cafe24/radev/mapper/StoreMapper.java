@@ -17,7 +17,7 @@ public interface StoreMapper {
 	 * 거래처목록가져오기
 	 * @return
 	 */
-	List<Store> getStoreList();
+	List<Store> getStoreList(String bsCode);
 	/**
 	 * 거래처등록
 	 * @param store
