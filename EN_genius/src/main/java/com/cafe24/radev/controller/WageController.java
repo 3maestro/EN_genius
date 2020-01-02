@@ -2,6 +2,7 @@ package com.cafe24.radev.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class WageController {
 		System.out.println("workManHour WageController 호출");
 		String ccCode = (String)session.getAttribute("CCCODE");
 		System.out.println(ccCode + " <-ccCode 차량 조회 성공시 세션에 등록된 배기량 기준 코드");
-		int num = 1;
+//		int num = 1;
 		List<WageManHour> list = wageService.getWorkManHour(ccCode);
 //		for(int i=0; i<list.size(); i++) {
 //			if(i > 0) {
@@ -47,9 +48,23 @@ public class WageController {
 	}
 	
 	@PostMapping("/work/workingNow")
-	public String workingNow(WorkDecide workDecide) {
+	public String workingNow(HttpServletRequest request, Model model, WorkDecide workDecide) {
 		System.out.println("workingNow WageController 호출");
-		System.out.println(workDecide + " <-workDecide workingNow WageController.java");
+		
+		/*
+		 * String[] ccWageSmallCode = request.getParameterValues("ccWageSmallCode");
+		 * String[] wageSmallName = request.getParameterValues("wageSmallName");
+		 * String[] manHour = request.getParameterValues("manHour");
+		 * 
+		 * System.out.println(ccWageSmallCode + " <-ccWageSmallCode");
+		 * System.out.println(wageSmallName + " <-wageSmallName");
+		 * System.out.println(manHour + " <-manHour");
+		 */
+		
+		  System.out.println(workDecide +
+		  " <-workDecide workingNow WageController.java");
+		  model.addAttribute("workDecide", workDecide);
+		 
 		return "/wage/workingNow";
 	}
 	
