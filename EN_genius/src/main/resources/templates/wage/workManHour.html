@@ -8,8 +8,14 @@
 		<title>표준 작업 시간</title>      
 	</th:block>
 	
+	<th:block layout:fragment="customCss">
+		<style> form { display : inline ; } </style>
+	</th:block>
+
 	<th:block layout:fragment="customScript">
-		<script type="text/javascript">
+		<script type="text/javascript" th:inline="javascript">
+		/*<[CDATA[*/
+			var ccCode = [[${session.CCCODE}]]
 			var arrVal = [];
 			var checkObj;
 			var code;
@@ -22,7 +28,8 @@
 				var wageSmallName = [];
 				var manHour = [];
 				
-				//html += '<form name="wageDecide">'
+				//html += '<form name="wageDecide" th:action="@{/work/workingNow}" method="post">'
+				
 				for(var i=0; i < dataTabeList.length; i ++){
 					
 					var trObj = $(dataTabeList[i].nTr);	
@@ -42,6 +49,8 @@
 						html += '<th scope="row" class="codeNum"><input type="hidden" name="ccWageSmallCode" value="'+code+'">'+code+'</th>'
 						html += '<td><input type="hidden" name="wageSmallName" value="'+wageSmallName+'">'+wageSmallName+'</td>'
 						html += '<td><input type="hidden" name="manHour" value="'+manHour+'">'+manHour+'</td>'
+						html += '<td><input type="text" name="count" value="0" ></td>'
+						html += '<td><input type="hidden" name="ccCode" value="'+ccCode+'"></td>'
 // 						html += '<td><button type="button" class="deleteBtn">삭제</button></td>'
 						html += '</tr>';
 					}
@@ -49,6 +58,7 @@
 				//html += '</form>'
 				
 				wageBasket.html(html)
+				console.log(ccCode + " <-ccCode")
 				
 				/* $(document).on('click','.deleteBtn',(function(){
 					var deletePar= $(this).parent().parent()
@@ -82,8 +92,10 @@
 			$(document).ready(function(){
 				$('#periodBtn').click(function(){
 					console.log("확정")
+					
+					//var form = $('.form').serialize();
 					var form = $('form[name=wageDecide]').serialize();
-					console.log(form + " <-form")
+					//console.log(form + " <-form")
 // 					var request = $.ajax({
 // 						  url: "/work/workingNow",	//호출될 url
 // 						  method: "POST",
@@ -147,7 +159,7 @@
 			html += '</tr>';
 		}) 
 */
-			
+		/*]]>*/
 		</script>
 	</th:block>
 	
@@ -200,7 +212,7 @@
 				</div>
 				<div class="col-md-12">
                     <div class="card">
-					    <form name="wageDecide" th:action="@{/work/workingNow}" method="post">
+					    <form name="wageDecide" th:action="@{/work/workingNow}" method="post" class="form">
 	                        <div class="card-header">
 	                            <strong class="card-title">진행 작업 리스트</strong>
 	                            <button type="submit" style="float:right;" id="periodBtn" value="period">작업 확정</button>
@@ -212,15 +224,16 @@
 											<th scope="col">Code_No</th>
 											<th scope="col">진행 예정 작업 내용</th>
 											<th scope="col">표준 작업 시간</th>
-<!-- 										<th scope="col">삭제</th> -->
+											<th scope="col">수량</th>
+ 										<th scope="col">비고</th>
 										</tr>
 									</thead>
 									<tbody id="wageBasket">
-	
+
 									</tbody>
 								</table>
 							</div>
-						</form>
+						</form> 
 	                </div>
 	            </div>
 			</div>

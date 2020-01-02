@@ -1,5 +1,6 @@
 package com.cafe24.radev.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.WageService;
+import com.cafe24.radev.vo.NowWork;
 import com.cafe24.radev.vo.WageManHour;
 import com.cafe24.radev.vo.WorkDecide;
 
@@ -48,23 +50,47 @@ public class WageController {
 	}
 	
 	@PostMapping("/work/workingNow")
-	public String workingNow(HttpServletRequest request, Model model, WorkDecide workDecide) {
+	public String workingNow(Model model, WorkDecide workDecide) {
 		System.out.println("workingNow WageController 호출");
+		System.out.println(workDecide + " <-workDecide workingNow WageController.java");
 		
-		/*
-		 * String[] ccWageSmallCode = request.getParameterValues("ccWageSmallCode");
-		 * String[] wageSmallName = request.getParameterValues("wageSmallName");
-		 * String[] manHour = request.getParameterValues("manHour");
-		 * 
-		 * System.out.println(ccWageSmallCode + " <-ccWageSmallCode");
-		 * System.out.println(wageSmallName + " <-wageSmallName");
-		 * System.out.println(manHour + " <-manHour");
-		 */
-		
-		  System.out.println(workDecide +
-		  " <-workDecide workingNow WageController.java");
-		  model.addAttribute("workDecide", workDecide);
+		  List<String> workDecideList = workDecide.getCcWageSmallCode();
+		  
+		  //model.addAttribute("workDecide", workDecide);
 		 
+		/*
+		 * String ccWageSmallCode = workDecide.getCcWageSmallCode(); List<WorkDecide>
+		 * list = new ArrayList<WorkDecide>();
+		 */
+		NowWork nowWork = null;
+		List<NowWork> list = new ArrayList<NowWork>();
+		for(int i=0; i<workDecideList.size(); i++) {
+			String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
+			String wageSmallName = workDecide.getWageSmallName().get(i);
+			String manHour = workDecide.getManHour().get(i);
+			String ccCode = workDecide.getCcCode().get(i);
+			String stCount = workDecide.getCount().get(i);
+			int count = Integer.parseInt(stCount);
+			
+			System.out.println(ccWageSmallCode + " <-wageSmallCode");
+			System.out.println(wageSmallName + " <-wageSmallName");
+			System.out.println(manHour + " <-manHour");
+			System.out.println(ccCode + " <-ccCode");
+			System.out.println(count + " <-count");
+			
+			nowWork = new NowWork();
+			nowWork.setCcWageSmallCode(ccWageSmallCode);
+			nowWork.setWageSmallName(wageSmallName);
+			nowWork.setManHour(manHour);
+			nowWork.setCcCode(ccCode);
+			nowWork.setCount(count);
+			
+			list.add(nowWork);
+		}
+		
+		System.out.println(list + " <-list workingNow WageController.java");
+		wageService.getWorkingNow(list);
+		
 		return "/wage/workingNow";
 	}
 	

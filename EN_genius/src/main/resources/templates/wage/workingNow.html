@@ -1,51 +1,45 @@
 <!DOCTYPE html>
+<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/default}">
-
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      
 	<th:block layout:fragment="customTitle">
 		<title>현재 진행 작업</title>
 	</th:block>
 	
-	<th:block layout:fragment="contentFragment">
+	<!-- <th:block layout:fragment="contentFragment">
 		현재 진행 작업
-	</th:block>
+	</th:block> -->
 	
 	<th:block layout:fragment="contentFragment">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-md-12">
 			        <div class="card">
 			            <div class="card-header">
 			                <strong class="card-title">Basic Table</strong>
+			                <button type="submit" style="float:right;" id="periodBtn" value="period">견적 총액</button>
 			            </div>
 			            <div class="card-body">
 			                <table class="table">
 			                    <thead>
 			                        <tr>
-			                          <th scope="col">#</th>
-			                          <th scope="col">First</th>
-			                          <th scope="col">Last</th>
-			                          <th scope="col">Handle</th>
+			                          <th scope="col">Code_No</th>
+			                          <th scope="col">작업내용</th>
+			                          <th scope="col">표준작업시간</th>
+			                          <th scope="col">단가</th>
+			                          <th scope="col">수량</th>
+			                          <th scope="col">합계</th>
 			                      </tr>
-			                  </thead>
-			                  <tbody>
+			                 </thead>
+			                 <tbody>
 			                    <tr>
-			                        <th scope="row">1</th>
-			                        <td>Mark</td>
-			                        <td>Otto</td>
-			                        <td>@mdo</td>
-			                    </tr>
-			                    <tr>
-			                        <th scope="row">2</th>
-			                        <td>Jacob</td>
-			                        <td>Thornton</td>
-			                        <td>@fat</td>
-			                    </tr>
-			                    <tr>
-			                        <th scope="row">3</th>
-			                        <td>Larry</td>
-			                        <td>the Bird</td>
-			                        <td>@twitter</td>
+			                        <th scope="row"></th>
+			                        <td></td>
+			                        <td></td>
+			                        <td></td>
+			                        <td></td>
+			                        <td></td>
 			                    </tr>
 			                </tbody>
 			            </table>
