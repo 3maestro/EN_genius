@@ -21,7 +21,6 @@ public class PartController {
 	private PartService partService;
 	
 	
-	
 	@PostMapping(value = "/part/serchRecepCall", produces = "application/json")
 	public @ResponseBody String serchRecepCall(
 			@RequestParam(value = "serchRecep", defaultValue = "0", required = false) String serchRecep,HttpSession session) {
@@ -55,7 +54,6 @@ public class PartController {
 
 		model.addAttribute("partList", partService.getUsePartList(session));
 		
-		model.addAttribute("groupCode", partService.getGroup());
 		return "/part/partList";
 	};
 
@@ -134,7 +132,7 @@ public class PartController {
 
 		model.addAttribute("partRow", partService.partSelectForOrder(partNumber , session));
 
-		model.addAttribute("groupCode", partService.getGroup());
+		model.addAttribute("groupCode", partService.getGroup(0,session));
 
 		return "/part/partOrder";
 	};
@@ -152,7 +150,7 @@ public class PartController {
 		System.out.println(groupCode+"<코드값");
 		
 		model.addAttribute("checkPartList",partService.getPartGroupList(partCheck,groupCode, session));
-		model.addAttribute("groupCode", partService.getGroup());
+		model.addAttribute("groupCode", partService.getGroup(0,session));
 		
 		return "/part/partOrder";
 	}
@@ -171,7 +169,7 @@ public class PartController {
 		System.out.println(groupCode+"<코드값");
 		
 		model.addAttribute("checkPartList",partService.getPartGroupList(partCheck,groupCode, session));
-		model.addAttribute("groupCode", partService.getGroup());
+		model.addAttribute("groupCode", partService.getGroup(1,session));
 		
 		return "/part/partEstimate";
 	}
@@ -183,8 +181,8 @@ public class PartController {
 	 * @return
 	 */
 	@GetMapping("/part/partOrder")
-	public String partorder(Model model) {
-		model.addAttribute("groupCode", partService.getGroup());
+	public String partOrder(Model model,HttpSession session) {
+		model.addAttribute("groupCode", partService.getGroup(0,session));
 		return "/part/partOrder";
 	};
 	
@@ -194,9 +192,9 @@ public class PartController {
 	 * @return
 	 */
 	@GetMapping("/part/partListToEstimate")
-	public String setPartListToEstimate(Model model, @RequestParam(value = "partCheck") String partCheck) {
+	public String setPartListToEstimate(Model model, HttpSession session,@RequestParam(value = "partCheck") String partCheck) {
 		System.out.println(partCheck + "<<푸붐체크값");
-		model.addAttribute("groupCode", partService.getGroup());
+		model.addAttribute("groupCode", partService.getGroup(1,session));
 		
 		return "/part/partEstimate";
 	}
@@ -206,8 +204,8 @@ public class PartController {
 	 * @return
 	 */
 	@GetMapping("/part/partEstimate")
-	public String setPartEstimate() {
-		
+	public String setPartEstimate(Model model,HttpSession session) {
+		model.addAttribute("groupCode", partService.getGroup(1,session));
 		return "/part/partEstimate";
 	}
 
@@ -224,7 +222,7 @@ public class PartController {
 	}
 	
 	/**
-	 * 부품저장
+	 * 부품저장 ajax
 	 * @param checks
 	 * @return
 	 */
@@ -238,13 +236,71 @@ public class PartController {
 	};
 	/**
 	 * 부품영수증
-	 * 최종견적서
+	 * 
 	 * @return
 	 */
 	@GetMapping("/part/test")
 	public String test() {
 	
 		return"/part/test";
+	}
+	
+
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/part/order")
+	public String order(Model model, HttpSession session) {
+		System.out.println("사업장정보");
+		model.addAttribute("info", partService.factoryInfo(session));
+		
+		return"/part/documentByOrder";
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param session 
+	 * @return
+	 */
+	@PostMapping("/part/order")
+	public String order(Model model, HttpSession session ,Part part) {
+		System.out.println("발주서");
+		//부품정보
+		if(part != null) {
+			System.out.println(part.getPartName()+"1개");
+			String partNumber = part.getPartNumber();
+			String many= part.getPartMany();
+			System.out.println(many+"<<입력갯수");
+			part = partService.partSelectForOrder(partNumber, session);
+			part.setPartMany(many);
+			model.addAttribute("part", part );
+		}else{
+			//System.out.println(list.get(0).getPartName()+"그룹");
+			//model.addAttribute("part", partService.partSelectForOrder(partNumber, session));
+		}
+		//사업장정보
+		model.addAttribute("info", partService.factoryInfo(session));
+		//문서번호
+		//String docNo = partService.getGroup(0, session);
+		System.out.println("");
+		
+		model.addAttribute("docNo", partService.getDocNo(0, session));
+		
+		return"/part/documentByOrder";
+	}
+	
+	/**
+	 * 최종견적서
+	 * 
+	 * @return
+	 */
+	@GetMapping("/part/recipt")
+	public String recipt() {
+		
+		return"/part/totalRecitpDoc";
 	}
 	
 }

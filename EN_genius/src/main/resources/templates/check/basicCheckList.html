@@ -127,7 +127,7 @@
  						var smallCate = data.ckSmallContent;
    						var midCate = data.ckMidName;
    						var bigCate = data.ckBigName;
-						
+					 	
    						CateCheck.push(data);
 					   	if(finalCheck.indexOf(data) == -1 ) {
 					   		finalCheck.push(data);
@@ -144,14 +144,29 @@
 			 					html += '<td>'+ data.ckBigName +'</td>'
 			 					html += '<td>'+ data.ckMidName +'</td>'
 		 						html += '<td>'+ data.ckSmallContent +'</td>'
-		 						html += '<td><button type="button" id="deleteBtn" value="'+ data.ckSmallContent +'">삭제</button></td>'
+		 						html += '<td><button type="button" id="deleteBtn" value="'+data.ckSmallContent+'">삭제</button></td>'
 								html += '</tr>'
 								basicList.html(html)
 								//html = ''
 								//basicList.val('')
+							$(document).on('click','#deleteBtn',(function(){
+								var deletePar= $(this).parent().parent();
+								
+								var deleteVal = $(this).val()
+								console.log(deleteVal + "<asdfkjasdof")
+								deletePar.remove();
+								//html = '';
+								//basicList.html(html)
+								//deletePar.removechild(deleteVal);
+								//deletePar.find()
+								//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
+								finalCheck.splice(data,1);
+							}))
 						})
 						
 							//$('#basicList').children().empty()
+<<<<<<< HEAD
+=======
 						$(document).on('click','#deleteBtn',(function(){
 							var deletePar= $(this).parent().parent()
 							var deleteVal = $(this).val()
@@ -163,6 +178,7 @@
 							//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
 							finalCheck.splice(data,1);
 						}))
+>>>>>>> refs/heads/jsh
  					})
  					
  					request.fail(function( jqXHR, textStatus ) {

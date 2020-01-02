@@ -28,6 +28,10 @@ public class EmployeeService {
 		employeeMapper.modifyEmployee(employee);
 	}
 	
+	public void resignationEmployee(Employee employee) {
+		employeeMapper.resignationEmployee(employee);
+	}
+	
 	public void addEmployee(Employee employee) {
 		employee.setEmployeeAddr(employee.getEmployeeAddr() + employee.getAddrDetail());
 		employeeMapper.addEmployee(employee);
