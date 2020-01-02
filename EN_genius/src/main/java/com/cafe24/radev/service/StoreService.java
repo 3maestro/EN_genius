@@ -25,9 +25,11 @@ public class StoreService {
 	 * 거래처 리스트 호출
 	 * @return
 	 */
-	public List<Store> getStoreList(){
+	public List<Store> getStoreList(HttpSession session){
 		System.out.println("거래처목록/service");
-		return storemapper.getStoreList();
+		String bsCode = (String)session.getAttribute("SCODE");
+		System.out.println(bsCode);
+		return storemapper.getStoreList(bsCode);
 	}
 	/**
 	 * 거래처등록

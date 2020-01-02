@@ -14,73 +14,77 @@
 		/*<![CDATA[*/
 		var groupCode = /*[[ ${groupCode} ]]*/;
 		$(document).ready(function(){
-			
-			
-			var checkvalues = [];
 			console.log(groupCode+"그룹코드");
 			$('#groupCode').val(groupCode);
 		/*]]*/
-			
+			var checkvalues = [];
 			//체크박스클릭시 
 			$(document).on('click','input[name=partCheck]',function(){
 				//경고창 초기화
 				$('.card-body').find('h2').empty();
-				//$('#left-panel').attr('th:replace','/part/partCart :: partCart');
-				
 				var partCheck = $('input[name=partCheck]:checked');
 				var butBtn = $('#buyPartBtn');
 				var sellBtn = $('#sellPartBtn');
-				
-				console.log($(this).val());
-				
+				//console.log($(this).val());
+
 				$('#cartTable').attr('style','display:block');
+				
+				//$('#cartTable').find('#body').empty();
+				
 				//값이 두개이상일때
 				if(partCheck.length > 1){
 					butBtn.text('다중부품구매');
 					sellBtn.text('다중부품판매');
-					
 					// 다중버튼활성화후 포스트방식으로 호출
 					butBtn.click(function(){
 						$('[name=partListForm]').attr({action:'/part/partGroupToOrder',method:'post'});
 					});
-					//
 					sellBtn.click(function(){
 						$('[name=partListForm]').attr({action:'/part/partGroupToEstimate',method:'post'});
 					});
+					
 				}else if(partCheck.length == 1){
+					//체크값 하나
 					butBtn.text('부품구매');
 					sellBtn.text('부품판매');
 					butBtn.click(function(){
 						$('[name=partListForm]').attr({action:'/part/partListToOrder?'+partCheck ,method:'GET'});
 					});
 				}
+				//체크값이 true인것만 배열에
+				if($(this).prop('checked')){					
+					checkvalues.push($(this).val());
+					console.log(checkvalues);
+				}else{
+					var aa = checkvalues.indexOf($(this).val());
+					checkvalues.splice(aa);
+					console.log(checkvalues);
+				}
+				
 			});
 			//모든버튼클릭시
 			$('.btn-info').click(function(){
 				var partCheck = $('input[name=partCheck]:checked');
 				if(partCheck.length == 0){
 					$('.card-body').find('h2').empty();
-					$('.card-body').append('<h2>체크값을확인하여주세요</h2>');
+					$('.card-body').append('<h2 style="color:red;font-size: 52px;">체크값을확인하여주세요</h2>');
 				}else{
 					$('.btn-info').attr('type','submit');
 				};
 			});
 			//저장하기버튼클릭시
-			var partCheck = $('input[name=partCheck]:checked');
-			$('#cartAddBtn').click(function(){
-				checkvalues.push(partCheck.val());
-				checkvalues = $.unique(checkvalues);
-				console.log(checkvalues+"<<<<<ajax밸류");
-				//$('#test').text(checkvalues);
+			$(document).on('click','#cartAddBtn',function(){
+				var uniVal = $.unique(checkvalues);
+				console.log(uniVal+"<<<<<ajax밸류");
+				$('input[name=partCheck]:checked').prop('checked',false);
 				var request = $.ajax({
 					url: "/part/cartCall",
 					method: "POST",
-					data: { 'checkvalues' : checkvalues },
+					data: { 'checkvalues' : uniVal },
 					dataType: "json"
 				});
-				
 				request.done(function( data ) {
-					$('#cartTable').children().empty();
+					
 					console.log(data);
 
 					for(var i=0; i<data.length;i++){
@@ -88,11 +92,15 @@
 						var partNumber = part.partNumber;
 						var partName = part.partName;
 						console.log(partNumber);
-						$('#cartTable').append('<tr><td>'+[i+1]+'</td><td>'+partNumber+'</td><td>'+partName+'</td></tr>');
+						$('#body').append('<tr><td>'+[i+1]+'</td><td>'+partNumber+'</td><td>'+partName+'</td><td id="delBtnTd"><label><button type="button" class="btn btn-secondary" id="delBtn">제거</button></label></td></tr>');
 					}
+					checkvalues=[];
+					
+					
 				});
 				request.fail(function( jqXHR, textStatus ) {
 					//alert( "Request failed: " + textStatus );
+					checkvalues=[];
 				});
 			});
 		});
@@ -112,42 +120,46 @@
 								<table style="font-size: 12px;"id="part-data-table" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="bootstrap-data-table_info">
 									<thead>
 										<tr role="row">
-										<th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 64px;">파트번호</th>
-										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 92px;">대분류</th>
-										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 60px;">중분류</th>
-										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">제품명</th>
-										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">개수</th>
-										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">판매가격</th>
-										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">등록자</th>
-										<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">업데이트일자</th>
-									</tr>
+											<th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 64px;">파트번호</th>
+											<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 92px;">대분류</th>
+											<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 60px;">중분류</th>
+											<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">제품명</th>
+											<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">개수</th>
+											<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">판매가격</th>
+											<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">등록자</th>
+											<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">업데이트일자</th>
+										</tr>
 									</thead>
 									<tbody>
-									<tr th:each=p:${partList}>
-										<td><label><input type="checkbox" th:text="${p.partNumber}" th:partNumber="${p.partNumber}" th:value="${p.partNumber}" name="partCheck"></label></td>
-										<td th:text="${p.bigCate}" th:value="${p.bigCate}"></td>
-										<td th:text="${p.midCate}" th:value="${p.midCate}"></td>
-										<td th:text="${p.partName}" th:value="${p.partName}"></td>
-										<td th:text="${p.partMany}" th:value="${p.partMany}"></td>
-										<td th:text="${p.partPrice}" th:value="${p.partPrice}"></td>
-										<td th:text="${p.partWrite}" th:value="${p.partWrite}"></td>
-										<td th:text="${p.partUpdateDate}" th:value="${p.partUpdateDate}"></td>
-									</tr>
+										<tr th:each=p:${partList}>
+											<td><label><input type="checkbox" th:text="${p.partNumber}" th:partNumber="${p.partNumber}" th:value="${p.partNumber}" name="partCheck"></label></td>
+											<td th:text="${p.bigCate}" th:value="${p.bigCate}"></td>
+											<td th:text="${p.midCate}" th:value="${p.midCate}"></td>
+											<td th:text="${p.partName}" th:value="${p.partName}"></td>
+											<td th:text="${p.partMany}" th:value="${p.partMany}"></td>
+											<td th:text="${p.partPrice}" th:value="${p.partPrice}"></td>
+											<td th:text="${p.partWrite}" th:value="${p.partWrite}"></td>
+											<td th:text="${p.partUpdateDate}" th:value="${p.partUpdateDate}"></td>
+										</tr>
 									</tbody>
 								</table>
 								<input type="hidden"  id="groupCode" name="groupCode">
-								<button class="btn-info" type="button" id="sellPartBtn">부품판매</button>
-								<button class="btn-info" type="button" id="buyPartBtn">부품구매</button>
+								<button class="btn btn-info" type="button" id="sellPartBtn">부품판매</button>
+								<button class="btn btn-info" type="button" id="buyPartBtn">부품구매</button>
 							</form>
+							<div class="col-sm-2">
+								<div class="btn btn-info" id="cartAddBtn">저장하기</div>
 							</div>
-								<button class="btn-info" type="button" id="cartAddBtn">저장하기</button>
-							</th:block>
-							<th:block th:if="${partList == null}">
-								<h1>부품등록을해주세요</h1>
+							</div>
+								<th:block th:if="${partList == null}">
+									<h1>부품등록을해주세요</h1>
+								</th:block>
 							</th:block>
 						</div>
 					</div>
 				</div>
+			<th:block th:replace="/part/partCart :: partCart">
+			</th:block>
 			</div>
 		</div>
 	</div>
@@ -170,8 +182,5 @@
 			$('#bootstrap-data-table-export').DataTable();
 		});
 	</script> -->
-	</th:block>
-	<th:block th:replace="/part/partCart :: partCart">
-	
 	</th:block>
 </html>
