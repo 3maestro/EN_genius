@@ -19,10 +19,10 @@ public class StoreController {
 	 * @return
 	 */
 	@GetMapping("/storeList")
-	public String getStoreList(Model model) {
+	public String getStoreList(Model model,HttpSession session) {
 		System.out.println("storeList/controller");
 		
-		model.addAttribute("storeList", storeservice.getStoreList());
+		model.addAttribute("storeList", storeservice.getStoreList(session));
 		
 		return "/store/storeList";
 	}
