@@ -36,7 +36,6 @@ public class CarController {
 	  System.out.println(carUpList + "UpList 값 확인");
 	  model.addAttribute("carUpList", carService.getCarUpdateList(carUpList));
 	  System.out.println(carUpList + "<---aaaa");
-	  
 	  System.out.println("CarController 클래스 carUpdateList 메서드 실행");
 	  return "carregister/carUpdateList"; 
 	  }
@@ -104,23 +103,28 @@ public class CarController {
 			  @RequestParam(value = "vendorSm")String vendorSm){
 		  System.out.println("카모델!@@@@@@@@@@@@@@");
 		  System.out.println(carClassSm + " : 에이작스에서 넘어올때 모델");
-		  System.out.println(vendorSm + "에작에작");
-		  List<String> carClassList = carService.getCarModel(carClassSm);
+		  System.out.println(vendorSm + "에이작스에서 넘어올때 모델111");
+		  List<String> carClassList = carService.getCarModel(carClassSm, vendorSm);
 		  return carClassList;
 	  }
 	  
 	  @PostMapping("getCarClass")
-	  public @ResponseBody List<VoCarDetail> getDBCarClass(@RequestParam(value = "vendorSm")String vendorSm){
-		  System.out.println(vendorSm + " : 에이작스에서 넘어올때 벤더");
-		  List<VoCarDetail> vendorList = carService.getCarClass(vendorSm);
-		  System.out.println(vendorList + "adsasdasd222");
-		  return vendorList;
+	  public @ResponseBody List<VoCarDetail> getDBCarClass(@RequestParam(value = "vendorSm")String vendorSm,
+			  @RequestParam(value = "originCode")String originCode){
+		  System.out.println(vendorSm + " : 벤더 에이작스에서 넘어올때 벤더");
+		  System.out.println(originCode + " : 오리진 에이작스에서 넘어올때 벤더");
+		  
+		/*
+		 * List<VoCarDetail> vendorList = carService.getCarClass(vendorSm);
+		 * System.out.println(vendorList + "컨트롤러 클래스");
+		 */
+		  return null;
 	  }
 	  
 	  @PostMapping("getCarVendor")
-	  public @ResponseBody List<String> getDBCarVendor(@RequestParam(value = "originSm")String originSm){
-		  List<String> originList = carService.getCarVendor(originSm);
-		  System.out.println(originList + "adsasdasd");
+	  public @ResponseBody List<VoCarDetail> getDBCarVendor(@RequestParam(value = "originSm")String originSm){
+		  List<VoCarDetail> originList = carService.getCarVendor(originSm);
+		  System.out.println(originList + "컨트롤러 벤더");
 		  return originList;
 	  }
 }

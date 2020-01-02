@@ -155,9 +155,11 @@
 		 	vd.vendor_name = #{vendorSm}
 	</select>
 	
-	<select id="getCarVendor" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
+	<select id="getCarVendor" parameterType="String" resultMap="CarDetailMap">
 		SELECT
-			v.vendor_name AS vendorName
+			v.vendor_code,
+			v.origin_code,
+			v.vendor_name
 		FROM 
 			vendor_tb AS v
 		INNER JOIN 

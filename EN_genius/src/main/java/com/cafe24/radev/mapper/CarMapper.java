@@ -14,6 +14,8 @@ import com.cafe24.radev.vo.VoCarRegister;
 public interface CarMapper {
 	
 	
+	//가져갈 값이 1개일땐 리턴데이터 타입을 vo객체로 한다
+	//등록할때마다 값을 가져와야 하기 떄문에 vo의 매개변수를 입력해야 한다
 	
 	public List<VoCarFuel> getPowTrainSelect();
 	
@@ -60,7 +62,6 @@ public interface CarMapper {
 	 */
 	public List<VoCarOption> getOpGradeSelect();
 	
-	//등록할떄마다 값을 가져와야 하기 떄문에 vo의 매개변수를 입력해야 한다
 	/**
 	 * voCarDetail insert
 	 * @param voDetail
@@ -106,7 +107,6 @@ public interface CarMapper {
 	 */
 	public List<VoCarDetail> getCarList();
 	
-	//가져갈 값이 1개일땐 리턴데이터 타입을 vo객체로 한다
 	/**
 	 * 차량 상세리스트 메서드
 	 * @param carUpList
@@ -116,11 +116,11 @@ public interface CarMapper {
 
 	public List<VoCarDetail> getCarModelCode(String carModelSm);
 	
-	public List<VoCarDetail> getCarModel(String carModelSm);
+	public List<VoCarDetail> getCarModel(String carModelSm, String vendorSm);
 	
 	public List<VoCarDetail> getCarClass(String carClassSm); 
 
-
-	public List<VoCarDetail> getCarVendor(String vendorSm); 
+	public List<VoCarDetail> getCarVendor(String originSm); 
+	
 	
 }
