@@ -13,6 +13,7 @@
 			<result property="bossEmail" 		column="boss_email"/>
 			<result property="bsName"			column="bs_name"/>
 			<result property="bsNumber"			column="bs_num"/>
+			<result property="bsFaxNumber"		column="bs_faxnumber"/>
 			<result property="bsAddr"			column="bs_addr"/>
 			<result property="bsTelephone"		column="bs_telephone"/>
 			<result property="bsRegistration"	column="bs_registration"/>
@@ -44,6 +45,7 @@
 					boss_email,
 					bs_name,
 					bs_num,
+					bs_faxnumber,
 					bs_addr,
 					bs_telephone,
 					bs_registration,
@@ -57,6 +59,7 @@
 					#{bossEmail},
 					#{bsName},
 					#{bsNumber},
+					#{bsFaxNumber},
 					#{bsAddr},
 					#{bsTelephone},
 					#{bsRegistration},

@@ -28,7 +28,7 @@ public class EmployeeController {
 		employee.setBsCode((String)session.getAttribute("SCODE"));
 		employee.setEiWriter((String)session.getAttribute("SCODE"));
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
-		System.out.println(employee + " <-employee");
+		System.out.println(employee.getEmployeeGender());
 		employeeService.addEmployee(employee);
 		return "redirect:/employeeSelect";
 	}
@@ -39,9 +39,19 @@ public class EmployeeController {
 	 */
 	@PostMapping("/modifyE")			
 	public String modifyEmployee(Employee employee, HttpSession session) {
-		employee.setBsCode((String)session.getAttribute("SCODE"));
 		System.out.println("수정화면에서 받아온 값 ==>" + employee);
 		employeeService.modifyEmployee(employee);
+		return "redirect:/employeeSelect";
+	}
+	/**
+	 * 직원퇴사
+	 * @param employee
+	 * @return
+	 */
+	@PostMapping("/resignationE")
+	public String resignationEmployee(Employee employee) {
+		System.out.println("퇴사버튼클릭시==>" + employee);
+		employeeService.resignationEmployee(employee);
 		return "redirect:/employeeSelect";
 	}
 	/**
