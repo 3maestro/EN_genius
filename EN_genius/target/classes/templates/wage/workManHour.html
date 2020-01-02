@@ -12,17 +12,12 @@
 		<script type="text/javascript">
 			var arrVal = [];
 			var checkObj;
-			var code;
 			$(document).on('click','.manHourCheck',function(){
 				var wageBasket = $('#wageBasket')
 				var html = "";
 				var dataTabeList = window._autoDataTableObject.context[0].aoData;
 				
-				var ccWageSmallCode = [];
-				var wageSmallName = [];
-				var manHour = [];
-				
-				//html += '<form name="wageDecide">'
+				html += '<form name="wageDecide">'
 				for(var i=0; i < dataTabeList.length; i ++){
 					
 					var trObj = $(dataTabeList[i].nTr);	
@@ -32,79 +27,60 @@
 					if(checkObj.prop('checked')){
 						var wageSmallName = checkObj.attr('data-wageSmallName')
 						var manHour = checkObj.attr('data-manHour')
-						code = checkObj.attr('data-code')
-						//console.log(code + " <-체크된 코드")
+						var code = checkObj.attr('data-code')
+						console.log(code)
 						//var num = checkObj.attr('data-num')
 						/* console.log(wageSmallName + " <-wageSmallName")
 						console.log(manHour + " <-manHour")
 						console.log(num + " <-num") */
 						html += '<tr>'
-						html += '<th scope="row" class="codeNum"><input type="hidden" name="ccWageSmallCode" value="'+code+'">'+code+'</th>'
-						html += '<td><input type="hidden" name="wageSmallName" value="'+wageSmallName+'">'+wageSmallName+'</td>'
-						html += '<td><input type="hidden" name="manHour" value="'+manHour+'">'+manHour+'</td>'
-// 						html += '<td><button type="button" class="deleteBtn">삭제</button></td>'
+						html += '<th scope="row" class="codeNum" value="'+code+'">'+code+'</th>'
+						html += '<td value="'+wageSmallName+'">'+wageSmallName+'</td>'
+						html += '<td value="'+manHour+'">'+manHour+'</td>'
+						html += '<td><button type="button" class="deleteBtn">삭제</button></td>'
 						html += '</tr>';
 					}
 				}
-				//html += '</form>'
+				html += '</form>'
 				
 				wageBasket.html(html)
 				
-				/* $(document).on('click','.deleteBtn',(function(){
+				$(document).on('click','.deleteBtn',(function(){
 					var deletePar= $(this).parent().parent()
-					//console.log(deletePar + "<deletePar")
-					var deleteVal;
+					console.log(deletePar + "<deletePar")
+					var deleteVal = deletePar.find('th[class=codeNum]').val(0)
 					//var deleteVal = deletePar.find('th[class=codeNum]').val()
-					var deleteCheck = checkObj.prop('checked')
-					console.log(deleteCheck + ' <-deleteCheck')
-						deleteVal = deletePar.find('th[class=codeNum]').text()
-						console.log(deleteVal + "<asdfkjasdof")
-					
-					if(code == deleteVal){
-						//code.attr('checked',false)
-						$(this).attr('checked', false);
-					}
-					
-					deletePar.each(function(){
-						deletePar.empty();
-					})
-					
-					if(deleteCheck == false){
-						checkObj.attr('checked', false);
-						
-						//$('input[name=manHourCheck]').attr('checked', false);
-					}else{
-						alert('삭제 실패!!!!')
-					}
-				}))	 */
+					console.log(deleteVal + "<asdfkjasdof")
+					deletePar.empty();
+				}))	
 			});
 			
 			$(document).ready(function(){
 				$('#periodBtn').click(function(){
 					console.log("확정")
 					var form = $('form[name=wageDecide]').serialize();
-					console.log(form + " <-form")
-// 					var request = $.ajax({
-// 						  url: "/work/workingNow",	//호출될 url
-// 						  method: "POST",
-// 						  //최근 수리 내역 중 수리항목코드와 당시 수리 날짜
-// 						  data: form,//파라미터
-// 						  dataType: "json"		//응답 타입
-// 					});
+					var request = $.ajax({
+						  url: "/work/workingNow",	//호출될 url
+						  method: "POST",
+						  //최근 수리 내역 중 수리항목코드와 당시 수리 날짜
+						  data: form,//파라미터
+						  dataType: "json"		//응답 타입
+					});
 					
-// 					request.done(function( data ) {
+					request.done(function( data ) {
 						
-// 					})
+					})
 						
-// 					request.fail(function( jqXHR, textStatus ) {
-// 					  alert( "Request failed: " + textStatus );
-// 					});	 		
+					request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					});	 		
 				})				
 			})
 			
 // 				if(checkObj.prop('checked')){
 					
 // 				}
+				
 				
 				//deletePar.removechild(deleteVal);
 				//deletePar.find()
@@ -200,27 +176,25 @@
 				</div>
 				<div class="col-md-12">
                     <div class="card">
-					    <form name="wageDecide" th:action="@{/work/workingNow}" method="post">
-	                        <div class="card-header">
-	                            <strong class="card-title">진행 작업 리스트</strong>
-	                            <button type="submit" style="float:right;" id="periodBtn" value="period">작업 확정</button>
-	                        </div>
-	                        <div class="card-body">
-							    <table class="table table-bordered">
-							        <thead class="thead-dark">
-										<tr>
-											<th scope="col">Code_No</th>
-											<th scope="col">진행 예정 작업 내용</th>
-											<th scope="col">표준 작업 시간</th>
-<!-- 										<th scope="col">삭제</th> -->
-										</tr>
-									</thead>
-									<tbody id="wageBasket">
-	
-									</tbody>
-								</table>
-							</div>
-						</form>
+                        <div class="card-header">
+                            <strong class="card-title">진행 작업 리스트</strong>
+                            <button style="float:right;" id="periodBtn" value="period">작업 확정</button>
+                        </div>
+                        <div class="card-body">
+						    <table class="table table-bordered">
+						        <thead class="thead-dark">
+									<tr>
+										<th scope="col">Code_No</th>
+										<th scope="col">진행 예정 작업 내용</th>
+										<th scope="col">표준 작업 시간</th>
+										<th scope="col">삭제</th>
+									</tr>
+								</thead>
+								<tbody id="wageBasket">
+
+								</tbody>
+							</table>
+						</div>
 	                </div>
 	            </div>
 			</div>
