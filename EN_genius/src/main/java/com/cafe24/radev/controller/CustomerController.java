@@ -47,9 +47,11 @@ public class CustomerController {
 		if(sid==null) {
 			sid=ecode;
 		}
-		System.out.println(sid+scode);
+		customer.setBsCode(scode);
+		customer.setEiCode(sid);
 		System.out.println(customer);
 		customerService.getCustomerInsert(customer);
+		System.out.println("끝이다");
 		return "redirect:/customer/customerList";
 	}
 
@@ -62,8 +64,10 @@ public class CustomerController {
 			sid=ecode;
 		}
 		System.out.println(scode+"_"+customerCode);
+		customerCode=scode+"_"+customerCode;
+		System.out.println(customerCode);
 		model.addAttribute("title", "고객수정");
-		Customer customer = customerService.getCustomerSelectOne(scode+"_"+customerCode);
+		Customer customer = customerService.getCustomerSelectOne(customerCode);
 		System.out.println(customer);
 		model.addAttribute("customer", customer);
 		return "/customer/customerInfo";
@@ -92,13 +96,8 @@ public class CustomerController {
 	@PostMapping(value="/customerInsertAjax", produces = "text/plain")
 	@ResponseBody
 	public String getCustomerInsertAjax(@RequestParam(value="name") String name, @RequestParam(value="birth") String birth, @RequestParam(value="phone") String phone, HttpSession session) {
-		String sid		= (String)session.getAttribute("SID");
-		String ecode	= (String)session.getAttribute("ECODE");
 		String scode	= (String)session.getAttribute("SCODE");
-		if(sid==null) {
-			sid=ecode;
-		}
-		String code = customerService.getCustomerInsertAjax(name,birth,phone);
+		String code = customerService.getCustomerInsertAjax(name,birth,phone,scode);
 		return code;
 	}
 	

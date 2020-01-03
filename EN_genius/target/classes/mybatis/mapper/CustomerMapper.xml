@@ -95,9 +95,7 @@
 		FROM
 			customer_tb
 		WHERE
-				bs_code=#{scode}
-			AND
-				customer_code=#{customerCode}
+			customer_code=#{customerCode}
 	</select>
 	
 	<select id="getCustomerInsertAjax" resultType="String">
@@ -112,6 +110,8 @@
 				customer_name=#{name}
 			AND 
 				customer_birth=#{birth}
+			AND
+				customer_phone=#{phone}
 	</select>
 	
 	<insert id="getCustomerInsert" parameterType="com.cafe24.radev.vo.Customer">

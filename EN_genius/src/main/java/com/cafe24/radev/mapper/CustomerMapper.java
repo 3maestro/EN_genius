@@ -13,5 +13,5 @@ public interface CustomerMapper {
 	public void getCustomerInsert(Customer customer);
 	public Customer getCustomerSelectOne(String customerCode);
 	public void getCustomerUpdate(Customer customer);
-	public String getCustomerInsertAjax(String name, String birth, String phone);
+	public String getCustomerInsertAjax(String name, String birth, String phone, String scode);
 }

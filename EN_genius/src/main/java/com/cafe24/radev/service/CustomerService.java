@@ -1,5 +1,6 @@
 package com.cafe24.radev.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,36 +47,35 @@ public class CustomerService {
 	 * @return 없음
 	 */
 	public void getCustomerInsert(Customer customer) {
-		int t = customerMapper.getCustomerList().size()+1;
-		String bsCode = "bs001";
-		String eiCode = "emp002";
-		String customerCode = bsCode+"_customer"+String.format("%03d", t);
+		Map<String,String> search = new HashMap<String,String>();
+		search.put("scode", customer.getBsCode());
+		int t = customerMapper.getCustomerSelect(search).size()+1;
+		System.out.println(t);
+		String customerCode = customer.getBsCode()+"_customer"+String.format("%03d", t);
 		System.out.println(customerCode);
 		customer.setCustomerCode(customerCode);
-		customer.setBsCode(bsCode);
-		customer.setEiCode(eiCode);
 		customer.setCustomerMemo("-");
 		System.out.println(customer);
 		customerMapper.getCustomerInsert(customer);
+		System.out.println(22);
 	}
 	
 	/*****
 	 * 고객 등록유무를 조회하는 메소드
 	 * @return 고객코드
 	 */
-	public String getCustomerInsertAjax(String name, String birth, String phone) {
+	public String getCustomerInsertAjax(String name, String birth, String phone, String scode) {
 		System.out.println(name);
 		System.out.println(birth);
 		System.out.println(phone);
+		System.out.println(scode);
 		
-		String code = customerMapper.getCustomerInsertAjax(name,birth,phone);
-		
-		String bsCode = "bs001";
+		String code = customerMapper.getCustomerInsertAjax(name,birth,phone,scode);
 		
 		if(code == null || "".equals(code)) {
 			code = "미가입";
 		}else {
-			code=code.replace(bsCode+"_", "");
+			code=code.replace(scode+"_", "");
 		}
 		System.out.println(code);
 		return code;

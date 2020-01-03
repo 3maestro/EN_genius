@@ -18,12 +18,14 @@ $(document).ready(function() {
 	
 	$('.post').click(function(){
 		$('#post').val('');
+		$('#addr1').attr('class','col-lg-6')
 		$('#address').val('');
 		$('#addr2').css('display','block')
 	})
 	
 	$('#btnCloseLayer').click(function(){
 		if($('#address').val()==''){
+			$('#addr1').attr('class','col-lg-12')
 			$('#post').val(customer.customerPost)
 			$('#address').val(customer.customerAddr);
 			$('#addr2').css('display','none')
