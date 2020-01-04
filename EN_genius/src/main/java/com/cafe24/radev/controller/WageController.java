@@ -52,9 +52,16 @@ public class WageController {
 	@PostMapping("/work/workingNow")
 	public String workingNow(Model model, WorkDecide workDecide) {
 		System.out.println("workingNow WageController 호출");
-		System.out.println(workDecide + " <-workDecide workingNow WageController.java");
 		
-		  List<String> workDecideList = workDecide.getCcWageSmallCode();
+//		// 배기량별 공임 단가 구하기
+//		String ccCode = (String)session.getAttribute("CCCODE");
+//		System.out.println(ccCode + " <-ccCode workingNow WageController.java");
+//		int onePrice = wageService.getOnePrice(ccCode);
+//		System.out.println(onePrice + " <-onePrice workingNow WageController.java\"");
+//		System.out.println("workDecide workingNow WageController.java : " + workDecide);
+
+		// 반복문 반복 횟수 구하기
+		List<String> workDecideList = workDecide.getCcWageSmallCode();
 		  
 		  //model.addAttribute("workDecide", workDecide);
 		 
@@ -68,28 +75,30 @@ public class WageController {
 			String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
 			String wageSmallName = workDecide.getWageSmallName().get(i);
 			String manHour = workDecide.getManHour().get(i);
-			String ccCode = workDecide.getCcCode().get(i);
+			String ccStandardWage = workDecide.getCcStandardWage().get(i);
 			String stCount = workDecide.getCount().get(i);
+			int onePrice = Integer.parseInt(ccStandardWage);
 			int count = Integer.parseInt(stCount);
 			
 			System.out.println(ccWageSmallCode + " <-wageSmallCode");
 			System.out.println(wageSmallName + " <-wageSmallName");
 			System.out.println(manHour + " <-manHour");
-			System.out.println(ccCode + " <-ccCode");
+			System.out.println(onePrice + " <-onePrice");
 			System.out.println(count + " <-count");
 			
 			nowWork = new NowWork();
 			nowWork.setCcWageSmallCode(ccWageSmallCode);
 			nowWork.setWageSmallName(wageSmallName);
 			nowWork.setManHour(manHour);
-			nowWork.setCcCode(ccCode);
+			nowWork.setOnePrice(onePrice);
 			nowWork.setCount(count);
 			
 			list.add(nowWork);
 		}
 		
 		System.out.println(list + " <-list workingNow WageController.java");
-		wageService.getWorkingNow(list);
+		
+		wageService.getWorkingNow(workDecide);
 		
 		return "/wage/workingNow";
 	}

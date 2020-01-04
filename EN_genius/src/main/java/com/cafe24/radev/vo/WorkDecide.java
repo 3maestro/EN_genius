@@ -8,7 +8,7 @@ public class WorkDecide {
 	private List<String> ccWageSmallCode;
 	private List<String> wageSmallName;
 	private List<String> manHour;
-	private List<String> ccCode;
+	private List<String> ccStandardWage;
 	private List<String> count;
 	
 	public List<String> getCcWageSmallCode() {
@@ -29,11 +29,11 @@ public class WorkDecide {
 	public void setManHour(List<String> manHour) {
 		this.manHour = manHour;
 	}
-	public List<String> getCcCode() {
-		return ccCode;
+	public List<String> getCcStandardWage() {
+		return ccStandardWage;
 	}
-	public void setCcCode(List<String> ccCode) {
-		this.ccCode = ccCode;
+	public void setCcStandardWage(List<String> ccStandardWage) {
+		this.ccStandardWage = ccStandardWage;
 	}
 	public List<String> getCount() {
 		return count;
@@ -45,10 +45,7 @@ public class WorkDecide {
 	@Override
 	public String toString() {
 		return "WorkDecide [ccWageSmallCode=" + ccWageSmallCode + ", wageSmallName=" + wageSmallName + ", manHour="
-				+ manHour + ", ccCode=" + ccCode + ", count=" + count + "]";
+				+ manHour + ", ccStandardWage=" + ccStandardWage + ", count=" + count + "]";
 	}
-	
-	
-	
-	
+
 }

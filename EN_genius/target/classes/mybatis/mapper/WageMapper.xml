@@ -8,33 +8,45 @@
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
 	<select id="getWorkManHour" resultType="com.cafe24.radev.vo.WageManHour">
 		SELECT
-			mh.cc_wage_small_code as ccWageSmallCode,
-			mh.cc_wage_code as ccWageCode,
-			mh.wage_big_name as wageBigName,
-			mh.wage_mid_name as wageMidName,
-			mh.wage_small_name as wageSmallName,
-			mh.man_hour as manHour
+			totalWork.*,
+			ccWage.standard_wage AS ccStandardWage
 		FROM
-			work_man_hour_tb AS mh
-		INNER join
-			(
-			SELECT
-				MIDCATE.wage_mid_code,
-				MIDCATE.wage_big_code,
-				MIDCATE.wage_big_name,
-				MIDCATE.wage_mid_name
-			FROM
-				wage_midcate_tb AS MIDCATE
-			INNER JOIN
-				wage_bigcate_tb AS BIGCATE
-			ON
-				MIDCATE.wage_big_code = BIGCATE.wage_big_code 
-			) AS bm
+			cc_standard_wage_tb AS ccWage
+		INNER JOIN
+			(	
+				SELECT
+						mh.cc_wage_small_code as ccWageSmallCode,
+						mh.cc_wage_code as ccWageCode,
+						mh.wage_big_name as wageBigName,
+						mh.wage_mid_name as wageMidName,
+						mh.wage_small_name as wageSmallName,
+						mh.man_hour as manHour
+						
+					FROM
+						work_man_hour_tb AS mh
+					INNER join
+						(
+						SELECT
+							MIDCATE.wage_mid_code,
+							MIDCATE.wage_big_code,
+							MIDCATE.wage_big_name,
+							MIDCATE.wage_mid_name
+						FROM
+							wage_midcate_tb AS MIDCATE
+						INNER JOIN
+							wage_bigcate_tb AS BIGCATE
+						ON
+							MIDCATE.wage_big_code = BIGCATE.wage_big_code 
+						) AS bm
+					ON
+						mh.wage_mid_code = bm.wage_mid_code
+			) AS totalWork
 		ON
-			mh.wage_mid_code = bm.wage_mid_code 
-		WHERE 
-			mh.cc_wage_code = #{ccCode}
+			ccWage.cc_wage_code = totalWork.ccWageCode
+		WHERE
+			ccWage.cc_wage_code = #{ccCode}
 		ORDER BY
-			cc_wage_small_code
+			ccWageSmallCode
 	</select>
+	
 </mapper>

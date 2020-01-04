@@ -15,7 +15,7 @@
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
 		/*<[CDATA[*/
-			var ccCode = [[${session.CCCODE}]]
+			//var ccCode = [[${session.CCCODE}]]
 			var arrVal = [];
 			var checkObj;
 			var code;
@@ -27,6 +27,7 @@
 				var ccWageSmallCode = [];
 				var wageSmallName = [];
 				var manHour = [];
+				var ccStandardWage = [];
 				
 				//html += '<form name="wageDecide" th:action="@{/work/workingNow}" method="post">'
 				
@@ -37,20 +38,22 @@
 					checkObj = trObj.find('.manHourCheck');
 					
 					if(checkObj.prop('checked')){
+						var ccWageSmallCode = checkObj.attr('data-ccWageSmallCode')
 						var wageSmallName = checkObj.attr('data-wageSmallName')
 						var manHour = checkObj.attr('data-manHour')
-						code = checkObj.attr('data-code')
+						var ccStandardWage = checkObj.attr('data-ccStandardWage')
+						//code = checkObj.attr('data-code')
 						//console.log(code + " <-체크된 코드")
 						//var num = checkObj.attr('data-num')
 						/* console.log(wageSmallName + " <-wageSmallName")
 						console.log(manHour + " <-manHour")
 						console.log(num + " <-num") */
 						html += '<tr>'
-						html += '<th scope="row" class="codeNum"><input type="hidden" name="ccWageSmallCode" value="'+code+'">'+code+'</th>'
+						html += '<th scope="row" class="codeNum"><input type="hidden" name="ccWageSmallCode" value="'+ccWageSmallCode+'">'+ccWageSmallCode+'</th>'
 						html += '<td><input type="hidden" name="wageSmallName" value="'+wageSmallName+'">'+wageSmallName+'</td>'
 						html += '<td><input type="hidden" name="manHour" value="'+manHour+'">'+manHour+'</td>'
-						html += '<td><input type="text" name="count" value="0" ></td>'
-						html += '<td><input type="hidden" name="ccCode" value="'+ccCode+'"></td>'
+						html += '<td><input type="text" name="count" value="1" ></td>'
+						html += '<td><input type="hidden" name="ccStandardWage" value="'+ccStandardWage+'"></td>'
 // 						html += '<td><button type="button" class="deleteBtn">삭제</button></td>'
 						html += '</tr>';
 					}
@@ -200,7 +203,7 @@
 												<td th:text="${l.wageSmallName}" style="font-variant:normal;">0.8</td>
 												<td th:text="${l.manHour}" style="font-variant:normal;">1</td>
 												<td>
-													<input type="checkbox" name="manHourCheck" class="manHourCheck" th:data-code="${l.ccWageSmallCode}" th:data-wageSmallName="${l.wageSmallName}" th:data-manHour="${l.manHour}" th:value="${l.ccWageSmallCode}">
+													<input type="checkbox" name="manHourCheck" class="manHourCheck" th:data-ccWageSmallCode="${l.ccWageSmallCode}" th:data-wageSmallName="${l.wageSmallName}" th:data-manHour="${l.manHour}" th:data-ccStandardWage="${l.ccStandardWage}" th:value="${l.ccWageSmallCode}">
 												</td>
 											</tr>
 										</tbody>
@@ -225,7 +228,7 @@
 											<th scope="col">진행 예정 작업 내용</th>
 											<th scope="col">표준 작업 시간</th>
 											<th scope="col">수량</th>
- 										<th scope="col">비고</th>
+ 											<th scope="col">비고</th>
 										</tr>
 									</thead>
 									<tbody id="wageBasket">

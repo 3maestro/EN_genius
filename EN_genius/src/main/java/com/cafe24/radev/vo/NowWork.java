@@ -5,7 +5,8 @@ public class NowWork {
 	private String ccWageSmallCode;
 	private String wageSmallName;
 	private String manHour;
-	private String ccCode;
+//	private String ccCode;
+	private int onePrice;
 	private int count;
 	
 	public String getCcWageSmallCode() {
@@ -26,13 +27,18 @@ public class NowWork {
 	public void setManHour(String manHour) {
 		this.manHour = manHour;
 	}
-	public String getCcCode() {
-		return ccCode;
+//	public String getCcCode() {
+//		return ccCode;
+//	}
+//	public void setCcCode(String ccCode) {
+//		this.ccCode = ccCode;
+//	}
+	public int getOnePrice() {
+		return onePrice;
 	}
-	public void setCcCode(String ccCode) {
-		this.ccCode = ccCode;
+	public void setOnePrice(int onePrice) {
+		this.onePrice = onePrice;
 	}
-	
 	public int getCount() {
 		return count;
 	}
@@ -43,7 +49,7 @@ public class NowWork {
 	@Override
 	public String toString() {
 		return "NowWork [ccWageSmallCode=" + ccWageSmallCode + ", wageSmallName=" + wageSmallName + ", manHour="
-				+ manHour + ", ccCode=" + ccCode + ", count=" + count + "]";
+				+ manHour + ", onePrice=" + onePrice + ", count=" + count + "]";
 	}
-	
+
 }
