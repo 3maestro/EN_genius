@@ -33,19 +33,13 @@ public class CarController {
 	 */
 	  @GetMapping("carUpdateList") 
 	  public String getCarUpdateList(@RequestParam("carUpList") String carUpList, Model model) {
-	  System.out.println(carUpList + "UpList 값 확인");
 	  model.addAttribute("carUpList", carService.getCarUpdateList(carUpList));
-	  System.out.println(carUpList + "<---aaaa");
-	  System.out.println("CarController 클래스 carUpdateList 메서드 실행");
 	  return "carregister/carUpdateList"; 
 	  }
 	  
 	 
 	@PostMapping("carRegister")
 	public String carRegister(VoCarRegister voDetailInsert) {
-		System.out.println("CarController 클래스 carRegister 메서드 실행");
-		System.out.println(voDetailInsert + "차량등록 값 확인");
-
 		carService.getCarRegister(voDetailInsert);
 		return "redirect:carList";
 	}
@@ -55,7 +49,6 @@ public class CarController {
 	public String carRegister(Model CarSelect) {
 		// model에 키,값 형태로 올려준다.
 		//그룹화코드 잠시 건너뜀
-		System.out.println("CarController 클래스 VoCarDetail 메서드 실행");
 		CarSelect.addAttribute("powTrainSelect", carService.getPowTrainSelect());
 		CarSelect.addAttribute("driveWaySelect", carService.getDriveWaySelect());
 		CarSelect.addAttribute("trnsMielect", carService.getTrnsMiSelect());
@@ -80,9 +73,7 @@ public class CarController {
 	
 	  @GetMapping("/carList")
 	  public String carList(VoCarDetail voDetail, Model model) {
-	  System.out.println("CarController 클래스 carList 메서드 실행");
 	  List<VoCarDetail> CarList = carService.getCarList(); 
-	  System.out.println("값확인"+ CarList); model.addAttribute("voDetail", CarList); //어트리뷰트 : 어딘가에 등록이 되어있다 
 	  return "carregister/carList";
 	  
 	  }
@@ -97,15 +88,21 @@ public class CarController {
 	 * nameList; }
 	 */
 	 
+	  @PostMapping("getDBCarDatail")
+	  public @ResponseBody List<VoCarDetail> getDBCarDatail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
+			  @RequestParam(value = "carModelSmText")String carModelSmText){
+		  System.out.println("컨트롤94" + carModelSmVal + carModelSmText);
+		  List<VoCarDetail> carDetailList = carService.getDBCarDatail(carModelSmVal, carModelSmText);
+		  System.out.println("컨트롤96" + carDetailList);
+		return carDetailList;
+	  }
 	  
 	  @PostMapping("getCarModel")
-	  public @ResponseBody List<String> getDBCarModel(@RequestParam(value = "carClassSm")String carClassSm,
-			  @RequestParam(value = "vendorSm")String vendorSm){
-		  System.out.println("카모델!@@@@@@@@@@@@@@");
-		  System.out.println(carClassSm + " : 에이작스에서 넘어올때 모델");
-		  System.out.println(vendorSm + "에이작스에서 넘어올때 모델111");
-		  List<String> carClassList = carService.getCarModel(carClassSm, vendorSm);
-		  return carClassList;
+	  public @ResponseBody List<VoCarDetail> getDBCarModel(VoCarDetail voCarDetail){
+		  System.out.println("컨트롤 94 : "+ voCarDetail);
+		  List<VoCarDetail> carModelList = carService.getDBCarModel(voCarDetail);
+		  System.out.println("컨트롤96" + carModelList);
+		  return carModelList;
 	  }
 	  
 	  @PostMapping("getCarClass")
@@ -114,11 +111,11 @@ public class CarController {
 		  System.out.println(vendorSm + " : 벤더 에이작스에서 넘어올때 벤더");
 		  System.out.println(originCode + " : 오리진 에이작스에서 넘어올때 벤더");
 		  
-		/*
-		 * List<VoCarDetail> vendorList = carService.getCarClass(vendorSm);
-		 * System.out.println(vendorList + "컨트롤러 클래스");
-		 */
-		  return null;
+		
+		  List<VoCarDetail> vendorList = carService.getCarClass(originCode, vendorSm);
+		  System.out.println(vendorList + "컨트롤러 클래스");
+		 
+		  return vendorList;
 	  }
 	  
 	  @PostMapping("getCarVendor")

@@ -126,33 +126,36 @@
 		WHERE customer_car_info_code = #{carUpList};
 	</select>
 	
-		
+	<select id="getDBCarDatail" parameterType="String" resultMap="CarDetailMap">
+		SELECT
+			yc.*
+		FROM
+			year_car_tb AS yc
+		INNER JOIN 
+			car_model_tb AS cm
+		ON yc.car_model_code = cm.car_model_code
+		WHERE yc.car_model_code = #{carModelSmVal} AND yc.car_model_name = #{carModelSmText}
+	</select>	
 
 	<!-- 값을 [리턴받아] 사용할때 리절트 타입을 사용한다 -->
-	<select id="getCarModel" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
+	<select id="getDBCarModel" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
 		SELECT
-			* 
-		FROM 
-			car_model_tb AS cm
-		WHERE 
-			cm.vendor_code = #{vendorSm} 
-		AND 
-			cm.car_class_code = #{carClassSm}
-											GROUP BY cm.car_model_code
-		
+			cm.*
+		FROM
+			car_model_tb AS cm 
+		INNER JOIN 
+			car_class_tb AS cc
+			ON cm.car_class_code = cc.car_class_code
+			WHERE cm.origin_code = #{originCode} AND cm.vendor_code = #{vendorCode} AND cm.car_class_code = #{carClassCode}
 	</select>	
 	
 	<select id="getCarClass" parameterType="String" resultMap="CarDetailMap">
 		SELECT
-		*
-		FROM 
-			car_class_tb AS cc
-		INNER JOIN 
-			vendor_tb AS vd
-		ON 
-			vd.vendor_code = cc.vendor_code
-		WHERE 
-		 	vd.vendor_name = #{vendorSm}
+			*
+		FROM
+			car_class_tb AS cc INNER JOIN vendor_tb AS vd
+			ON cc.vendor_code = vd.vendor_code 
+			WHERE vd.origin_code = #{originCode} AND cc.vendor_code = #{vendorSm}
 	</select>
 	
 	<select id="getCarVendor" parameterType="String" resultMap="CarDetailMap">

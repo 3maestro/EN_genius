@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.radev.mapper.CarMapper;
 import com.cafe24.radev.vo.VoCarColor;
@@ -21,32 +22,26 @@ public class CarService {
 	@Autowired private CarMapper carMapper;
 	
 	public int getCarRegister(VoCarRegister voDetail) {
-		System.out.println("CarService 클래스 getDetailInsert 메서드 실행");
 		return carMapper.getCarRegister(voDetail);
 	}
 	
 	public List<VoCarFuel> getPowTrainSelect() {
-		System.out.println("CarService 클래스 getPowTrainSelect 메서드 실행");
 		return carMapper.getPowTrainSelect();
 	}
 	
 	public List<VoCarFuel> getDriveWaySelect() {
-		System.out.println("CarService 클래스 getDriveWaySelect 메서드 실행");
 		return carMapper.getDriveWaySelect();
 	}
 	
 	public List<VoCarFuel> getTrnsMiSelect() {
-		System.out.println("CarService 클래스 getTransMiSelect 메서드 실행");
 		return carMapper.getTrnsMiSelect();
 	}
 	
 	public List<VoCarFuel> getEngineSelect() {
-		System.out.println("CarService 클래스 getEngineSelect 메서드 실행");
 		return carMapper.getEngineSelect();
 	}
 	
 	public List<VoCarFuel> getFuelSelect() {
-		System.out.println("CarService 클래스 getFuelSelect 메서드 실행");
 		return carMapper.getFuelSelect();
 	}
 	
@@ -55,7 +50,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarColor> getMidColSelect(){
-		System.out.println("CarService 클래스 getMidColSelect 메서드 실행");
 		return carMapper.getMidColSelect();
 	}
 	
@@ -64,7 +58,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarColor> getBigColSelect(){
-		System.out.println("CarService 클래스 getBigColSelect 메서드 실행");
 		return carMapper.getBigColSelect();
 				
 	}
@@ -74,7 +67,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarOption> getCarOpChoiceSelect () {
-		System.out.println("CarService 클래스 getCarOpChoiceSelect 메서드 실행");
 		return carMapper.getCarOpChoiceSelect();
 	}
 	
@@ -83,7 +75,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarOption> getOpGradeSelect() {
-		System.out.println("CarService 클래스 getOpGradeSelect 메서드 실행");
 		return carMapper.getOpGradeSelect();
 	}
 	
@@ -98,7 +89,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarDetail> getYearCarSelect() { 
-		System.out.println("CarService 클래스 getYearCarSelect 메서드 실행");
 		return carMapper.getYearCarSelect(); 
 	}
 	 
@@ -108,7 +98,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarDetail> getCarModelSelect() {
-		System.out.println("CarService 클래스 getCarModelSelect 메서드 실행");
 		return carMapper.getCarModelSelect();
 	}
 	
@@ -117,7 +106,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarDetail> getCarClassSelect() {
-		System.out.println("CarService 클래스 getCarClassSelect 메서드 실행");
 		return carMapper.getCarClassSelect();
 	}
 	
@@ -126,7 +114,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarDetail> getCarVendorSelect() {
-		System.out.println("CarService 클래스 getCarVendorSelect 메서드 실행");
 		return carMapper.getCarVendorSelect();
 	}
 	
@@ -135,16 +122,12 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarDetail> getCarOriginSelect() {
-		System.out.println("CarService 클래스 getCarOriginSelect 메서드 실행");
 		return carMapper.getCarOriginSelect();
 	}
 	
 	//차량 상세 조회 메서드
 	public VoCarDetail getCarUpdateList(String carUpList) {
-	  System.out.println("CarService 클래스 getCarUpdateList 메서드 실행"); 
-	  System.out.println(carUpList + "서비스 상혁이형이 도와줌");
 	  VoCarDetail a = carMapper.getCarUpdateList(carUpList);
-	  System.out.println(a+ "<>-=---VoCarDetail");
 	  return a; 
 	  }
 	 
@@ -154,7 +137,6 @@ public class CarService {
 	 * @return
 	 */
 	public List<VoCarDetail> getCarList() {
-		System.out.println("CarService 클래스 getCarList 메서드 실행");
 	return carMapper.getCarList();
 	}
 	
@@ -185,34 +167,26 @@ public class CarService {
 	 * } return nameList; }
 	 */
 
-	
-	public List<String> getCarModel(String carClassSm, String vendorSm) {
-		List<String> carModelList = new ArrayList<String>();
-			System.out.println(carClassSm + " : 서비스");
-		List<VoCarDetail> classList = carMapper.getCarModel(carClassSm, vendorSm);
-			System.out.println(classList + " :모델 서비스 :" + carClassSm);
-		for(int i=0; i < classList.size(); i++) {
-				System.out.println(classList + "모델 서비스 for");
-			carModelList.add(classList.get(i).getCarModelName());
-		}
-		return carModelList;
+	public List<VoCarDetail> getDBCarDatail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
+			  @RequestParam(value = "carModelSmText")String carModelSmText) {
+				return carMapper.getDBCarDatail(carModelSmVal, carModelSmText);
+		
 	}
 	
-	public List<VoCarDetail> getCarClass(String vendorSm){
-		System.out.println("벤더 서비스");
-		List<String> carClssList = new ArrayList<String>();
-		List<VoCarDetail> vendorList = carMapper.getCarClass(vendorSm);
-		System.out.println(vendorList + "서비스 클래스 :" + vendorSm);
-
+	public List<VoCarDetail> getDBCarModel(VoCarDetail voCarDetail) {
+		return carMapper.getDBCarModel(voCarDetail);
+	}
+	
+	public List<VoCarDetail> getCarClass(String originCode, String vendorSm){
+		System.out.println(originCode + "국가 서비스");
+		System.out.println(vendorSm + "벤더 서비스");
+		List<VoCarDetail> vendorList = carMapper.getCarClass(originCode, vendorSm);
 		  
 	return vendorList;
 	}
 
 	public List<VoCarDetail> getCarVendor(String originSm){
-		//System.out.println("벤더 서비스");
-		System.out.println(originSm + ": 서비스로 온 값 국가");
 		List<VoCarDetail> originList = carMapper.getCarVendor(originSm);
-		System.out.println("서비스 벤더 : " + originList );
 	return originList;
 	}
 

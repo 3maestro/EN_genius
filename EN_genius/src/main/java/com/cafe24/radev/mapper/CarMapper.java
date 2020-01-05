@@ -3,6 +3,7 @@ package com.cafe24.radev.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.radev.vo.VoCarColor;
 import com.cafe24.radev.vo.VoCarDetail;
@@ -112,13 +113,15 @@ public interface CarMapper {
 	 * @param carUpList
 	 * @return
 	 */
+	
+	public List<VoCarDetail> getDBCarDatail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
+			  @RequestParam(value = "carModelSmText")String carModelSmText);
+	
 	public VoCarDetail getCarUpdateList(String carUpList);
-
-	public List<VoCarDetail> getCarModelCode(String carModelSm);
 	
-	public List<VoCarDetail> getCarModel(String carModelSm, String vendorSm);
+	public List<VoCarDetail> getDBCarModel(VoCarDetail voCarDetail);
 	
-	public List<VoCarDetail> getCarClass(String carClassSm); 
+	public List<VoCarDetail> getCarClass(String originCode, String vendorSm); 
 
 	public List<VoCarDetail> getCarVendor(String originSm); 
 	
