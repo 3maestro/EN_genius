@@ -48,5 +48,22 @@
 		ORDER BY
 			ccWageSmallCode
 	</select>
+
+	<insert id="insertWorkWage" parameterType="java.util.List">
+	    INSERT INTO now_work_wage_tb 
+	    	(
+	       		now_work_code, now_work_name, now_work_manhour, 
+	       		now_work_price, now_work_count, 
+	       		now_work_wage, nw_writer, nw_date 
+	       )
+	    VALUES
+	    <foreach collection="list" item="item" index="index" separator=", " >
+	        (
+	        	"${item.nowWorkCode}", "${item.wageSmallName}", 
+	        	"${item.manHour}", "${item.onePrice}",
+	        	"${item.count}", "${item.totalPrice}",1,now()
+	        )
+    	</foreach>
+	</insert>
 	
 </mapper>

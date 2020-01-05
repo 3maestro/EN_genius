@@ -1,7 +1,10 @@
 package com.cafe24.radev.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,33 +64,37 @@ public class WageController {
 //		System.out.println("workDecide workingNow WageController.java : " + workDecide);
 
 		// 반복문 반복 횟수 구하기
-		List<String> workDecideList = workDecide.getCcWageSmallCode();
+		List<String> workDecideList = workDecide.getWageSmallName();
 		  
 		  //model.addAttribute("workDecide", workDecide);
 		 
-		/*
+		/**
 		 * String ccWageSmallCode = workDecide.getCcWageSmallCode(); List<WorkDecide>
 		 * list = new ArrayList<WorkDecide>();
+		 */
+		/**
+		 * form으로 넘어온 데이터들을 각각 분해 하여 vo에 setting
 		 */
 		NowWork nowWork = null;
 		List<NowWork> list = new ArrayList<NowWork>();
 		for(int i=0; i<workDecideList.size(); i++) {
-			String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
+			//String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
 			String wageSmallName = workDecide.getWageSmallName().get(i);
-			String manHour = workDecide.getManHour().get(i);
+			String stManHour = workDecide.getManHour().get(i);
 			String ccStandardWage = workDecide.getCcStandardWage().get(i);
 			String stCount = workDecide.getCount().get(i);
+			double manHour = Double.parseDouble(stManHour);
 			int onePrice = Integer.parseInt(ccStandardWage);
 			int count = Integer.parseInt(stCount);
 			
-			System.out.println(ccWageSmallCode + " <-wageSmallCode");
-			System.out.println(wageSmallName + " <-wageSmallName");
-			System.out.println(manHour + " <-manHour");
-			System.out.println(onePrice + " <-onePrice");
-			System.out.println(count + " <-count");
+//			System.out.println(ccWageSmallCode + " <-wageSmallCode");
+//			System.out.println(wageSmallName + " <-wageSmallName");
+//			System.out.println(manHour + " <-manHour");
+//			System.out.println(onePrice + " <-onePrice");
+//			System.out.println(count + " <-count");
 			
 			nowWork = new NowWork();
-			nowWork.setCcWageSmallCode(ccWageSmallCode);
+			//nowWork.setCcWageSmallCode(ccWageSmallCode);
 			nowWork.setWageSmallName(wageSmallName);
 			nowWork.setManHour(manHour);
 			nowWork.setOnePrice(onePrice);
@@ -96,9 +103,54 @@ public class WageController {
 			list.add(nowWork);
 		}
 		
-		System.out.println(list + " <-list workingNow WageController.java");
+		System.out.println(list.size() + " <-list.size() workingNow WageController.java");
 		
-		wageService.getWorkingNow(workDecide);
+       
+
+		/**
+		 * setting된 vo객체를 활용하여 견적 구하기
+		 */
+		List<NowWork> totalList = new ArrayList<NowWork>();
+		//Map<String, Object> map = new HashMap<String, Object>();
+		//NowWork nowWork = null;
+		//String nowWorkCode = null;
+		for(int i=0; i<list.size(); i++) {
+			
+			 // 랜덤 고유키 생성
+	        UUID uuid = UUID.randomUUID();
+	        System.out.println(uuid);
+	 
+	        // 하이픈 제외
+	        String nowWorkCode = UUID.randomUUID().toString().replace("-", "");
+	        System.out.println(nowWorkCode);
+	        
+			System.out.println("list 내의 데이터 추출 반복문 실행");
+			nowWork = list.get(i);
+			System.out.println(nowWork + " <-nowWork workingNow WageController.java");
+			nowWork.setNowWorkCode(nowWorkCode);
+			// 견적 액 = 표준 정비 시간 *단가 *수량
+			int onePriceCount = nowWork.getOnePrice() * nowWork.getCount();
+			int totalPrice = (int) (onePriceCount * nowWork.getManHour());
+			System.out.println(totalPrice + " <-totalPrice 수량 * 단가 ");
+			nowWork.setTotalPrice(totalPrice);
+			System.out.println(nowWork + "견적액을 포함한 vo");
+			
+//			map.put("nowWorkCode", nowWork.getNowWorkCode());
+//			map.put("wageSmallName", nowWork.getWageSmallName());
+//			map.put("manHour", nowWork.getManHour());
+//			map.put("onePrice", nowWork.getOnePrice());
+//			map.put("count", nowWork.getCount());
+//			map.put("totalPrice", nowWork.getTotalPrice());
+			
+			totalList.add(nowWork);
+			System.out.println(totalList + " <-totalList 견적액을 포함한 list");
+		}
+		
+		//System.out.println("list workingNow WageController : " + list);
+		
+		//Map<String,Object> map = new HashMap<String, Object>();
+		
+		wageService.insertWorkWage(totalList);
 		
 		return "/wage/workingNow";
 	}

@@ -2,18 +2,20 @@ package com.cafe24.radev.vo;
 
 public class NowWork {
 
-	private String ccWageSmallCode;
-	private String wageSmallName;
-	private String manHour;
-//	private String ccCode;
-	private int onePrice;
-	private int count;
+//	private String ccWageSmallCode; 
+//	private String ccCode;		
+	private String nowWorkCode;		//현재 진행 각각의 작업 코드
+	private String wageSmallName;	//현재 진행 각각의 작업 이름
+	private double manHour;			//현재 진행 작업 각각의 표준 작업 시간
+	private int onePrice;			//해당 차량에 적합한 배기량별 단가
+	private int count;				//현재 진행 작업 각각의 수량
+	private int totalPrice;			//현재 진행 작업 각각의 견적 = 단가 * 수량 
 	
-	public String getCcWageSmallCode() {
-		return ccWageSmallCode;
+	public String getNowWorkCode() {
+		return nowWorkCode;
 	}
-	public void setCcWageSmallCode(String ccWageSmallCode) {
-		this.ccWageSmallCode = ccWageSmallCode;
+	public void setNowWorkCode(String nowWorkCode) {
+		this.nowWorkCode = nowWorkCode;
 	}
 	public String getWageSmallName() {
 		return wageSmallName;
@@ -21,10 +23,10 @@ public class NowWork {
 	public void setWageSmallName(String wageSmallName) {
 		this.wageSmallName = wageSmallName;
 	}
-	public String getManHour() {
+	public double getManHour() {
 		return manHour;
 	}
-	public void setManHour(String manHour) {
+	public void setManHour(double manHour) {
 		this.manHour = manHour;
 	}
 //	public String getCcCode() {
@@ -45,11 +47,17 @@ public class NowWork {
 	public void setCount(int count) {
 		this.count = count;
 	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	
 	@Override
 	public String toString() {
-		return "NowWork [ccWageSmallCode=" + ccWageSmallCode + ", wageSmallName=" + wageSmallName + ", manHour="
-				+ manHour + ", onePrice=" + onePrice + ", count=" + count + "]";
+		return "NowWork [nowWorkCode=" + nowWorkCode + ", wageSmallName=" + wageSmallName + ", manHour=" + manHour
+				+ ", onePrice=" + onePrice + ", count=" + count + ", totalPrice=" + totalPrice + "]";
 	}
 
 }

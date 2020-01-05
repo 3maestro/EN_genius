@@ -5,18 +5,18 @@ import java.util.List;
 
 public class WorkDecide {
 
-	private List<String> ccWageSmallCode;
+	//private List<String> ccWageSmallCode;
 	private List<String> wageSmallName;
 	private List<String> manHour;
 	private List<String> ccStandardWage;
 	private List<String> count;
 	
-	public List<String> getCcWageSmallCode() {
-		return ccWageSmallCode;
-	}
-	public void setCcWageSmallCode(List<String> ccWageSmallCode) {
-		this.ccWageSmallCode = ccWageSmallCode;
-	}
+//	public List<String> getCcWageSmallCode() {
+//		return ccWageSmallCode;
+//	}
+//	public void setCcWageSmallCode(List<String> ccWageSmallCode) {
+//		this.ccWageSmallCode = ccWageSmallCode;
+//	}
 	public List<String> getWageSmallName() {
 		return wageSmallName;
 	}
@@ -44,7 +44,7 @@ public class WorkDecide {
 	
 	@Override
 	public String toString() {
-		return "WorkDecide [ccWageSmallCode=" + ccWageSmallCode + ", wageSmallName=" + wageSmallName + ", manHour="
+		return "WorkDecide [wageSmallName=" + wageSmallName + ", manHour="
 				+ manHour + ", ccStandardWage=" + ccStandardWage + ", count=" + count + "]";
 	}
 
