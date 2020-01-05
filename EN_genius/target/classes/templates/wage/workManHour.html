@@ -19,6 +19,8 @@
 			var arrVal = [];
 			var checkObj;
 			var code;
+			var bsCode = [[${session.SCODE}]]
+			var workMan = [[${session.SNAME}]]
 			$(document).on('click','.manHourCheck',function(){
 				var wageBasket = $('#wageBasket')
 				var html = "";
@@ -48,12 +50,13 @@
 						/* console.log(wageSmallName + " <-wageSmallName")
 						console.log(manHour + " <-manHour")
 						console.log(num + " <-num") */
-						//<input type="hidden" name="ccWageSmallCode" value="'+ccWageSmallCode+'">
+						
 						html += '<tr>'
-						html += '<th scope="row" class="codeNum">'+ccWageSmallCode+'</th>'
+						html += '<th scope="row" class="codeNum"><input type="hidden" name="bsCode" value="'+bsCode+'">'+ccWageSmallCode+'</th>'
 						html += '<td><input type="hidden" name="wageSmallName" value="'+wageSmallName+'">'+wageSmallName+'</td>'
 						html += '<td><input type="hidden" name="manHour" value="'+manHour+'">'+manHour+'</td>'
 						html += '<td><input type="text" name="count" value="1" ></td>'
+						html += '<td><input type="hidden" name="workMan" value="'+workMan+'">'+workMan+'</td>'
 						html += '<td><input type="hidden" name="ccStandardWage" value="'+ccStandardWage+'"></td>'
 // 						html += '<td><button type="button" class="deleteBtn">삭제</button></td>'
 						html += '</tr>';
@@ -229,7 +232,8 @@
 											<th scope="col">진행 예정 작업 내용</th>
 											<th scope="col">표준 작업 시간</th>
 											<th scope="col">수량</th>
- 											<th scope="col">비고</th>
+											<th scope="col">비고</th>
+ 											<th scope="col">작업자</th>
 										</tr>
 									</thead>
 									<tbody id="wageBasket">

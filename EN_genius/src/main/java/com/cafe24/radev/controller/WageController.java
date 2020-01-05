@@ -79,14 +79,17 @@ public class WageController {
 		List<NowWork> list = new ArrayList<NowWork>();
 		for(int i=0; i<workDecideList.size(); i++) {
 			//String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
+			String bsCode = workDecide.getBsCode().get(i);
 			String wageSmallName = workDecide.getWageSmallName().get(i);
 			String stManHour = workDecide.getManHour().get(i);
 			String ccStandardWage = workDecide.getCcStandardWage().get(i);
 			String stCount = workDecide.getCount().get(i);
+			String workMan = workDecide.getWorkMan().get(i);
 			double manHour = Double.parseDouble(stManHour);
 			int onePrice = Integer.parseInt(ccStandardWage);
 			int count = Integer.parseInt(stCount);
-			
+			System.out.println(bsCode + " <-bsCode");
+			System.out.println(workMan + " <-workMan");
 //			System.out.println(ccWageSmallCode + " <-wageSmallCode");
 //			System.out.println(wageSmallName + " <-wageSmallName");
 //			System.out.println(manHour + " <-manHour");
@@ -99,6 +102,8 @@ public class WageController {
 			nowWork.setManHour(manHour);
 			nowWork.setOnePrice(onePrice);
 			nowWork.setCount(count);
+			nowWork.setWorkMan(workMan);
+			nowWork.setBsCode(bsCode);
 			
 			list.add(nowWork);
 		}
@@ -111,27 +116,33 @@ public class WageController {
 		 * setting된 vo객체를 활용하여 견적 구하기
 		 */
 		List<NowWork> totalList = new ArrayList<NowWork>();
-		//Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		//NowWork nowWork = null;
 		//String nowWorkCode = null;
+		List<String> pkList = new ArrayList<String>();
 		for(int i=0; i<list.size(); i++) {
+			System.out.println("list 내의 데이터 추출 반복문 실행");
 			
-			 // 랜덤 고유키 생성
-	        UUID uuid = UUID.randomUUID();
-	        System.out.println(uuid);
-	 
+			// 랜덤 고유키 생성
+//	        UUID uuid = UUID.randomUUID();
+//	        System.out.println(uuid);
+//	 
 	        // 하이픈 제외
 	        String nowWorkCode = UUID.randomUUID().toString().replace("-", "");
 	        System.out.println(nowWorkCode);
 	        
-			System.out.println("list 내의 데이터 추출 반복문 실행");
 			nowWork = list.get(i);
 			System.out.println(nowWork + " <-nowWork workingNow WageController.java");
+			
+			// 랜덤 고유키 setting
 			nowWork.setNowWorkCode(nowWorkCode);
+			
 			// 견적 액 = 표준 정비 시간 *단가 *수량
 			int onePriceCount = nowWork.getOnePrice() * nowWork.getCount();
 			int totalPrice = (int) (onePriceCount * nowWork.getManHour());
 			System.out.println(totalPrice + " <-totalPrice 수량 * 단가 ");
+			
+			// 견적액 setting
 			nowWork.setTotalPrice(totalPrice);
 			System.out.println(nowWork + "견적액을 포함한 vo");
 			
@@ -144,16 +155,32 @@ public class WageController {
 			
 			totalList.add(nowWork);
 			System.out.println(totalList + " <-totalList 견적액을 포함한 list");
+			
+			// insert된 데이터 값만 select하기 위한 기준값(pk)
+			pkList.add(nowWork.getNowWorkCode());
+			System.out.println(pkList + "<-pkListpkListpkList");
+			
+			map.put("pkList", pkList);
+			
 		}
 		
 		//System.out.println("list workingNow WageController : " + list);
 		
 		//Map<String,Object> map = new HashMap<String, Object>();
 		
-		wageService.insertWorkWage(totalList);
+		int result = wageService.insertWorkWage(totalList);
+		
+		if(result > 0) {
+			model.addAttribute("workList", wageService.workList(map));
+		}
 		
 		return "/wage/workingNow";
 	}
+	
+//	@GetMapping("t")
+//	public String a() {
+//		return "/work/workingNow";
+//	}
 	
 	@GetMapping("/work/wageEstimate")
 	public String wageEstimate() {

@@ -59,7 +59,8 @@ public class WageService implements WageMapper {
 		int result = wageMapper.insertWorkWage(totalList);
 		System.out.println(result + " <-결과");
 		
-		return 0;
+		
+		return result;
 	}
 
 //	@Override
@@ -68,5 +69,11 @@ public class WageService implements WageMapper {
 //		
 //	}
 
-
+	public List<NowWork> workList(Map<String,Object> map) {
+		System.out.println("workList WageService 호출");
+		//System.out.println(wageMapper.workList() + " <- 너뭐니?");
+		List<NowWork> nowWork = wageMapper.workList(map);
+		System.out.println(nowWork + " <-nowWorknowWork");
+		return nowWork;
+	}
 }

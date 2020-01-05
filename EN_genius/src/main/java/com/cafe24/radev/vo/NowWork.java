@@ -10,6 +10,8 @@ public class NowWork {
 	private int onePrice;			//해당 차량에 적합한 배기량별 단가
 	private int count;				//현재 진행 작업 각각의 수량
 	private int totalPrice;			//현재 진행 작업 각각의 견적 = 단가 * 수량 
+	private String workMan;		
+	private String bsCode;
 	
 	public String getNowWorkCode() {
 		return nowWorkCode;
@@ -29,12 +31,6 @@ public class NowWork {
 	public void setManHour(double manHour) {
 		this.manHour = manHour;
 	}
-//	public String getCcCode() {
-//		return ccCode;
-//	}
-//	public void setCcCode(String ccCode) {
-//		this.ccCode = ccCode;
-//	}
 	public int getOnePrice() {
 		return onePrice;
 	}
@@ -53,11 +49,24 @@ public class NowWork {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	public String getWorkMan() {
+		return workMan;
+	}
+	public void setWorkMan(String workMan) {
+		this.workMan = workMan;
+	}
+	public String getBsCode() {
+		return bsCode;
+	}
+	public void setBsCode(String bsCode) {
+		this.bsCode = bsCode;
+	}
 	
 	@Override
 	public String toString() {
 		return "NowWork [nowWorkCode=" + nowWorkCode + ", wageSmallName=" + wageSmallName + ", manHour=" + manHour
-				+ ", onePrice=" + onePrice + ", count=" + count + ", totalPrice=" + totalPrice + "]";
-	}
-
+				+ ", onePrice=" + onePrice + ", count=" + count + ", totalPrice=" + totalPrice + ", workMan=" + workMan
+				+ ", bsCode=" + bsCode + "]";
+	}		
+	
 }

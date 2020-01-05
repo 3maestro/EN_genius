@@ -24,22 +24,24 @@
 			                <table class="table">
 			                    <thead>
 			                        <tr>
-			                          <th scope="col">Code_No</th>
+			                          <th scope="col">business_code</th>
 			                          <th scope="col">작업내용</th>
 			                          <th scope="col">표준작업시간</th>
 			                          <th scope="col">단가</th>
 			                          <th scope="col">수량</th>
 			                          <th scope="col">합계</th>
+			                          <th scope="col">작업자</th>
 			                      </tr>
 			                 </thead>
 			                 <tbody>
-			                    <tr>
-			                        <th scope="row"></th>
-			                        <td></td>
-			                        <td></td>
-			                        <td></td>
-			                        <td></td>
-			                        <td></td>
+			                    <tr th:each="l : ${workList}">
+									<td th:text="${l.bsCode}">0.7</td>
+									<td th:text="${l.wageSmallName}">0.7</td>
+									<td th:text="${l.manHour}" style="font-variant:normal;">0.7</td>
+									<td th:text="${l.onePrice}" style="font-variant:normal;">0.7</td>
+									<td th:text="${l.count}" style="font-variant:normal;">0.8</td>
+									<td th:text="${l.totalPrice}" style="font-variant:normal;">1</td>
+									<td th:text="${l.workMan}" style="font-variant:normal;">1</td>
 			                    </tr>
 			                </tbody>
 			            </table>

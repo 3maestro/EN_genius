@@ -16,4 +16,5 @@ public interface WageMapper {
 	public int insertWorkWage(List<NowWork> totalList);
 	//public void insertWorkWage(Map<String, Object> map);
 	//public void insertWorkWage(Map<String,Object> map);
+	public List<NowWork> workList(Map<String,Object> map);
 }
