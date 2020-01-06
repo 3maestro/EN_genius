@@ -28,7 +28,6 @@ $(document).ready(function() {
 		var addr1 = document.getElementById('address').value;
 		var addr2 = document.getElementById('detailAddress').value;
 		
-		
 		if ($("#customerName").val() == '') {
 			alert('고객명을 입력해주세요.');
 			$("#customerName").focus();

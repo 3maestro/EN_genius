@@ -37,7 +37,6 @@
 			customer_tb
 		WHERE
 				bs_code=#{scode}
-				
 		<if test="customerName neq null and customerName neq ''.toString()">
 			AND
 				customer_name like CONCAT('%',#{customerName},'%')
@@ -77,6 +76,8 @@
 			AND
 				customer_sign <![CDATA[<=]]> #{customerSign2}
 		</if>
+		LIMIT
+			${limit}
 	</select>
 	
 	<select id="getCustomerSelectOne" parameterType="com.cafe24.radev.vo.Customer" resultMap="CustomerResultMap">

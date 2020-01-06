@@ -6,12 +6,14 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius [[${title}]]</title>
 	</th:block>
+	
 	<th:block layout:fragment="customScript">
 		<script th:inline="javascript">
-			
+		
 			$(document).ready(function(){
-				
-				list()
+				$('#limit').val();
+				$('#limit').val('10').prop('selected', true);
+				searchList()
 				
 				var date = new Date();
 				var year = ""+date.getFullYear()
@@ -21,7 +23,7 @@
 					month="0"+month
 				}
 				if(day.length==1){
-					day="0"+day
+					day="0"+day                 
 				}
 				var today = year+"-"+month+"-"+day
 				console.log(today)
@@ -42,12 +44,15 @@
 				})
 				
 				$('#select').click(function(){
-					list()
+					searchList()
 				})
 				
+				$('#limit').change(function(){
+					searchList()
+				})
 			})
 			
-			function list(){
+			function searchList(){
 				var sid		= /*[[${session.SID}]]*/
 				var ecode	= /*[[${session.ECODE}]]*/
 				var scode	= /*[[${session.SCODE}]]*/
@@ -61,6 +66,7 @@
 				search.customerBirth2 = $('#customerBirth2').val();
 				search.customerSign1 = $('#customerSign1').val();
 				search.customerSign2 = $('#customerSign2').val();
+				search.limit = $('#limit').val();
 				
 				if(sid!=null){
 					search.sid	= sid;
@@ -101,6 +107,10 @@
 					result+='</tr>';
 				});
 				$('tbody').html(result);
+			}
+			
+			function pagingBtn(data) {
+				
 			}
 		</script>
 	</th:block>
@@ -187,7 +197,7 @@
 					<div class="row">
 						<div class="form-group col-lg-2" style="text-align: center">
 							<label>
-								고객 가입일
+								고객 등록일
 							</label>
 						</div>
 						<div class="form-group col-lg-4">
@@ -201,16 +211,46 @@
 						</div>
 					</div>
 					<div class="select" style="text-align: center;">
-						<button class="col-3" id="select">
+						<button class="btn btn-success col-3" id="select">
 							검색
 						</button>
 					</div>
 				</div>
-				
+				<div>
+					<select id="limit">
+						<option value="3">
+							3개씩 보기
+						</option>
+						<option value="5">
+							5개씩 보기
+						</option>
+						<option value="10">
+							10개씩 보기
+						</option>
+						<option value="15">
+							15개씩 보기
+						</option>
+						<option value="20">
+							20개씩 보기
+						</option>
+						<option value="20">
+							30개씩 보기
+						</option>
+						<option value="20">
+							40개씩 보기
+						</option>
+						<option value="20">
+							50개씩 보기
+						</option>
+						<option value="20">
+							100개씩 보기
+						</option>
+					</select>
+				</div>
 				<table class="table">
 					<thead>
 						<tr>
-							<th scope="col" value="11">
+							<th scope="col">
 								고객코드
 							</th>
 							<th scope="col">
