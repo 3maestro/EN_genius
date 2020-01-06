@@ -24,7 +24,7 @@
 			                <table class="table">
 			                    <thead>
 			                        <tr>
-			                          <th scope="col">business_code</th>
+			                          <th scope="col">No.</th>
 			                          <th scope="col">작업내용</th>
 			                          <th scope="col">표준작업시간</th>
 			                          <th scope="col">단가</th>
@@ -34,8 +34,8 @@
 			                      </tr>
 			                 </thead>
 			                 <tbody>
-			                    <tr th:each="l : ${workList}">
-									<td th:text="${l.bsCode}">0.7</td>
+			                    <tr th:each="l,index : ${workList}">
+									<td th:text="${index.index}+1">0.7</td>
 									<td th:text="${l.wageSmallName}">0.7</td>
 									<td th:text="${l.manHour}" style="font-variant:normal;">0.7</td>
 									<td th:text="${l.onePrice}" style="font-variant:normal;">0.7</td>
