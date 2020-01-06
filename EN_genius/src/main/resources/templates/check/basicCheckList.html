@@ -26,6 +26,13 @@
 				var finalBigCate;
 				var finalMidCate;
 				
+				var bigCateGroup = {};
+				var midCateGroup = {};
+				var smallCateGroup = {};
+				
+				var bigCate = '';
+				var midCate = '';
+				var smallCate = '';
 				$('.bigCate').click(function(){
 					bigCate = $(this).val();
 					console.log(bigCate + " <-bigCate")
@@ -66,7 +73,7 @@
 	 		});	
 					
 				$(document).on('click','.midCate',(function(){
-					var midCate = $(this).val();
+					midCate = $(this).val();
 					console.log(midCate + " <-midCate")	
 
 					var request = $.ajax({
@@ -103,19 +110,22 @@
 				}))
 								
 				$(document).on('change','#bigCate',function(){
-					finalBigCate = $(this).val();		
+					bigCate = $(this).val();		
 					$('#smallCate').empty();
 				})
-					var smallCateCheck = [];
+// 					var smallCateCheck = [];
+					
 					var finalSmallCheck = [];
 					var CateCheck = [];
 					var finalCheck = [];
 				$(document).on('click','.smallCate',(function(){
 					var basicList = $('#basicList')
-					var smallCate = $(this).val();
+					smallCate = $(this).val();
+					console.log(bigCate + " <-bigCate")	
+					console.log(midCate + " <-midCate")	
 					console.log(smallCate + " <-smallCate")	
 
-			    	var request = $.ajax({
+					var request = $.ajax({
 						url: "/check/smallCheckList",	//호출될 url
 						method: "POST",
 						data: {"smallCate" : smallCate},//파라미터
@@ -127,21 +137,51 @@
  						var smallCate = data.ckSmallContent;
    						var midCate = data.ckMidName;
    						var bigCate = data.ckBigName;
-					 	
-   						CateCheck.push(data);
+   						
+						console.log(bigCate + " <-test") 	
+						console.log(midCate + " <-test") 	
+						console.log(smallCate + " <-test") 	
+						
+						for(var j=0; j<data.length; j++){
+							data.get(i)
+							console.log(data.get(i) + " <-data.get(i)")
+						}
+						
+						console.log(data + " <-as;dkfjasldkfjalskdjflaksjd")
+						for(var key in data){
+							console.log(key + " <----> " +data[key]);
+						}
+   						//CateCheck.push(data);
 					   	if(finalCheck.indexOf(data) == -1 ) {
 					   		finalCheck.push(data);
 					    	console.log(finalCheck + " <-finalCheck")
 					   	}
-					   	smallCateCheck.push(data);
+					    	console.log(data.ckBigName + " <-data[ckBigName]")
+					   	
+					   	//smallCateCheck.push(data);
 					   	if(finalSmallCheck.indexOf(data.ckSmallContent) == -1 ) finalSmallCheck.push(data.ckSmallContent);
 	
 					   	var j=1;
  						var html ='';
  						$.each(finalCheck,function(i, data){
-	 							html += '<tr>';
-	 							html += '<td>'+ (j++) +'</td>'
-			 					html += '<td>'+ data.ckBigName +'</td>'
+ 								
+//  								bigCateGroup = {index,data.ckBigName};
+//  								midCateGroup = {index,data.ckMidName};
+//  								smallCateGroup = {index,data.ckSmallContent};
+ 							
+//  								html += '<tr>';
+// 	 							html += '<td name="number">'+ (j++) +'</td>'
+// 			 					html += '<td>'+ bigCateGroup.index+'</td>'
+// 			 					html += '<td>'+ midCateGroup.index +'</td>'
+// 		 						html += '<td>'+ smallCateGroup.index +'</td>'
+// 		 						html += '<td><button type="button" id="deleteBtn" value="'+smallCateGroup.index+'">삭제</button></td>'
+// 								html += '</tr>'
+// 								basicList.html(html)
+								//html = ''
+								//basicList.val('')
+ 								html += '<tr>';
+	 							html += '<td name="number">'+ (j++) +'</td>'
+			 					html += '<td>'+ data.ckBigName+'</td>'
 			 					html += '<td>'+ data.ckMidName +'</td>'
 		 						html += '<td>'+ data.ckSmallContent +'</td>'
 		 						html += '<td><button type="button" id="deleteBtn" value="'+data.ckSmallContent+'">삭제</button></td>'
@@ -149,41 +189,40 @@
 								basicList.html(html)
 								//html = ''
 								//basicList.val('')
+						})
 							$(document).on('click','#deleteBtn',(function(){
 								var deletePar= $(this).parent().parent();
-								
+								var index = deletePar.find('[name=number]').text()
+								console.log(index+"<111111")
 								var deleteVal = $(this).val()
 								console.log(deleteVal + "<asdfkjasdof")
 								deletePar.remove();
+
 								//html = '';
 								//basicList.html(html)
 								//deletePar.removechild(deleteVal);
 								//deletePar.find()
 								//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
-								finalCheck.splice(data,1);
+ 								finalSmallCheck.splice(data.ckSmallContent);
 							}))
-						})
-						
-							//$('#basicList').children().empty()
-<<<<<<< HEAD
-=======
-						$(document).on('click','#deleteBtn',(function(){
-							var deletePar= $(this).parent().parent()
-							var deleteVal = $(this).val()
-							console.log(deleteVal + "<asdfkjasdof")
-							deletePar.remove();
-							
-							//deletePar.removechild(deleteVal);
-							//deletePar.find()
-							//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
-							finalCheck.splice(data,1);
-						}))
->>>>>>> refs/heads/jsh
- 					})
+// 							$('#deleteBtn').click(function(){
+// 								var deletePar= $(this).parent().parent();
+								
+// 								var deleteVal = $(this).val()
+// 								console.log(deleteVal + "<asdfkjasdof")
+// 								deletePar.remove();
+// 								//html = '';
+// 								//basicList.html(html)
+// 								//deletePar.removechild(deleteVal);
+// 								//deletePar.find()
+// 								//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
+// 								finalCheck.splice(data,1);
+// 							})
+  					})
  					
- 					request.fail(function( jqXHR, textStatus ) {
- 						  //alert( "Request failed: " + textStatus );
- 					});
+//  					request.fail(function( jqXHR, textStatus ) {
+//  						  //alert( "Request failed: " + textStatus );
+//  					});
 
 				}))
 				
