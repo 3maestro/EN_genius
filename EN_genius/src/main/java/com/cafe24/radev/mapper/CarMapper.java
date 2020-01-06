@@ -113,16 +113,39 @@ public interface CarMapper {
 	 * @param carUpList
 	 * @return
 	 */
-	
-	public List<VoCarDetail> getDBCarDatail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
-			  @RequestParam(value = "carModelSmText")String carModelSmText);
-	
 	public VoCarDetail getCarUpdateList(String carUpList);
 	
+	public List<VoCarDetail> getDBCarGrade(String yearCarSm);
+	
+	/**
+	 * 차량모델 선택시 상세차량 동적 셀렉트 박스.
+	 * @param carModelSmVal
+	 * @param carModelSmText
+	 * @return
+	 */
+	public List<VoCarDetail> getDBCarDetail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
+			  @RequestParam(value = "carModelSmText")String carModelSmText);
+	
+	/**
+	 * 차량종류 선택시 차량모델 동적 셀렉트 박스
+	 * @param voCarDetail
+	 * @return
+	 */
 	public List<VoCarDetail> getDBCarModel(VoCarDetail voCarDetail);
 	
+	/**
+	 * 벤더 선택시 차량종류 동적 셀렉트 박스
+	 * @param originCode
+	 * @param vendorSm
+	 * @return
+	 */
 	public List<VoCarDetail> getCarClass(String originCode, String vendorSm); 
 
+	/**
+	 * 국가선택시 벤더사 동적셀렉트 박스
+	 * @param originSm
+	 * @return
+	 */
 	public List<VoCarDetail> getCarVendor(String originSm); 
 	
 	

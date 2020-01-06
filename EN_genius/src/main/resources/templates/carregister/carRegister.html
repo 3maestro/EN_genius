@@ -67,7 +67,6 @@
 				}); 
 				
 			$(document).on('change','#carClassSm',function(){
-				console.log('aaaa')
 				var contents = '<option>선택해주세요</option>';
 				var carClassSm = $(this).val();
 				var originSmCode = $('#originSmCode').val();
@@ -103,7 +102,7 @@
 			console.log(carModelSmVal,carModelSmText)
 			
 			var request = $.ajax({
-				  url: "getDBCarDatail",
+				  url: "getDBCarDetail",
 				  method: "POST",
 				  data: { 'carModelSmVal' : carModelSmVal , 'carModelSmText' : carModelSmText },
 				  dataType: "json"
@@ -123,6 +122,32 @@
 				  alert( "Request failed: " + textStatus );
 				}); 
 		})
+		
+		$(document).on('change','#yearCarSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var yearCarSm = $(this).val();
+			$('#yearCarSmCode').val(yearCarSm);
+			console.log(yearCarSm)
+			
+			var request = $.ajax({
+				  url: "getDBCarGrade",
+				  method: "POST",
+				  data: { 'yearCarSm' : yearCarSm},
+				  dataType: "json"
+				});
+			
+			request.done(function(opGradeSm) {
+				console.log(opGradeSm);
+			for(var i = 0; i < opGradeSm.length; i++){
+				contents += '<option value = "'+opGradeSm[i].optionGradeCode+'">'+opGradeSm[i].optionGradeName+'</option>'
+				}	
+			$('#opGradeSm').html(contents);
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "????: " + textStatus );
+			}) 
+		})
 	})	
 
 </script>
@@ -134,6 +159,7 @@
 	<input type="hidden" id="carClassSmCode">
 	<input type="hidden" id="carModelSmCode">
 	<input type="hidden" id="yearCarSmCode">
+	<input type="hidden" id="opGradeSmCode">
 		<div class="card">
 			<div class="card-header"> 
 				<strong>차량 등록</strong> <small> 졸리다..</small>
@@ -178,12 +204,6 @@
 									</div>
 									<div>
 										<select name="selectSm2" id="vendorSm"	class="form-control-sm form-control">
-										<input type="hidden" id="carClassCode">
-											<!-- 벤더사  ajax 로 가져오기 -->
-											<!-- <option value="0">제작국가 먼저 선택해주세요</option> -->
-											<!-- <option th:value="${vendorSel.vendorCode}" th:each="vendorSel : ${vendorSelect}" th:text="${vendorSel.vendorName}"></option> -->
-											
-											
 										</select>
 									</div>
 								</td>
@@ -198,10 +218,6 @@
 									<div>
 										<select name="selectSm3" id="carClassSm"
 											class="form-control-sm form-control">
-											
-											<!-- <option value="0">차량 종류 선택</option>
-											<option th:each="carClassSel : ${carClassSelect}"
-												th:text="${carClassSel.carClassMain}">차량 종류 선택</option> -->
 										</select>
 									</div>
 								</td>
@@ -230,10 +246,6 @@
 										<label for="selectSm" class=" form-control-label">차량등급 선택</label>
 									</div> <select name="selectSm6" id="opGradeSm"
 									class="form-control-sm form-control">
-										<option value="0">차량 등급 선택</option>
-										<option th:each="opGradeSel : ${opGradeSelect}"
-											th:text="${opGradeSel.optionGradeName}">차량 등급 선택</option>
-
 								</select>
 									</div>
 								</td>
@@ -246,10 +258,7 @@
 									class="form-control-sm form-control">
 										<option th:each="opChoiceSel : ${opChoiceSelect}"
 											th:text="${opChoiceSel.choiceOptionName}"></option>
-
-
 								</select>
-									</div>
 								</td>
 								<td>
 
@@ -261,8 +270,7 @@
 										<option th:each="bigColSel : ${bigColSelect}"
 											th:text="${bigColSel.colorBigName}"></option>
 								</select>
-									</div>
-								<td>
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -274,7 +282,6 @@
 										<option th:each="midColSel : ${midColSelect}"
 											th:text="${midColSel.colorMidName}"></option>
 								</select>
-									</div>
 								</td>
 								<td>
 									<div class="col col-md-12">
@@ -284,9 +291,7 @@
 										<option value="0">차량 연료 선택</option>
 										<option th:each="fuelSel : ${fuelSelect}"
 											th:text="${fuelSel.fuelType}"></option>
-
 								</select>
-									</div>
 								<td>
 							</tr>
 							<tr>
@@ -299,7 +304,6 @@
 										<option th:each="engineSel : ${engineSelect}"
 											th:text="${engineSel.engineType}">차량 엔진 선택</option>
 								</select>
-									</div>
 								</td>
 								<td>
 									<div class="col col-md-12">

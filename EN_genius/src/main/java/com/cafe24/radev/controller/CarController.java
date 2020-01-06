@@ -78,30 +78,26 @@ public class CarController {
 	  
 	  }
 	 
-
-	/*
-	 * @PostMapping("/getModel") 
-	 * public @ResponseBody List<String>
-	 * getModel(@RequestParam(value = "selectVal")int selectVal){ List<String>
-	 * nameList = carService.getDBVendor(selectVal); //Map<String,List<String>> map
-	 * = new HashMap<String, List<String>>(); //map.put("carName", nameList); return
-	 * nameList; }
-	 */
+	  @PostMapping("getDBCarGrade")
+	  public @ResponseBody List<VoCarDetail> getDBCarGrade(@RequestParam(value = "yearCarSm")String yearCarSm) {
+		  System.out.println("컨트롤83" + yearCarSm);
+		  List<VoCarDetail> carGradeList = carService.getDBCarGrade(yearCarSm);
+		  System.out.println("컨트롤85" + carGradeList);
+		  return carGradeList;
+	  }
 	 
-	  @PostMapping("getDBCarDatail")
-	  public @ResponseBody List<VoCarDetail> getDBCarDatail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
+	  @PostMapping("getDBCarDetail")
+	  public @ResponseBody List<VoCarDetail> getDBCarDetail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
 			  @RequestParam(value = "carModelSmText")String carModelSmText){
 		  System.out.println("컨트롤94" + carModelSmVal + carModelSmText);
-		  List<VoCarDetail> carDetailList = carService.getDBCarDatail(carModelSmVal, carModelSmText);
+		  List<VoCarDetail> carDetailList = carService.getDBCarDetail(carModelSmVal, carModelSmText);
 		  System.out.println("컨트롤96" + carDetailList);
 		return carDetailList;
 	  }
 	  
 	  @PostMapping("getCarModel")
 	  public @ResponseBody List<VoCarDetail> getDBCarModel(VoCarDetail voCarDetail){
-		  System.out.println("컨트롤 94 : "+ voCarDetail);
 		  List<VoCarDetail> carModelList = carService.getDBCarModel(voCarDetail);
-		  System.out.println("컨트롤96" + carModelList);
 		  return carModelList;
 	  }
 	  

@@ -166,17 +166,39 @@ public class CarService {
 	 * System.out.println((i+1)+"번째 모델명 : "+list.get(i).getCarModelName()); 
 	 * } return nameList; }
 	 */
+	
+	public List<VoCarDetail> getDBCarGrade(String yearCarSm) {
+		System.out.println("서비스171" + yearCarSm);
+		return carMapper.getDBCarGrade(yearCarSm);
+	}
 
-	public List<VoCarDetail> getDBCarDatail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
+	/**
+	 * 차량모델 선택시 상세차량 동적 셀렉트 박스.
+	 * @param carModelSmVal
+	 * @param carModelSmText
+	 * @return
+	 */
+	public List<VoCarDetail> getDBCarDetail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
 			  @RequestParam(value = "carModelSmText")String carModelSmText) {
-				return carMapper.getDBCarDatail(carModelSmVal, carModelSmText);
+				return carMapper.getDBCarDetail(carModelSmVal, carModelSmText);
 		
 	}
 	
+	/**
+	 * 차량종류 선택시 차량모델 동적 셀렉트 박스
+	 * @param voCarDetail
+	 * @return
+	 */
 	public List<VoCarDetail> getDBCarModel(VoCarDetail voCarDetail) {
 		return carMapper.getDBCarModel(voCarDetail);
 	}
 	
+	/**
+	 * 벤더 선택시 차량종류 동적 셀렉트 박스
+	 * @param originCode
+	 * @param vendorSm
+	 * @return
+	 */
 	public List<VoCarDetail> getCarClass(String originCode, String vendorSm){
 		System.out.println(originCode + "국가 서비스");
 		System.out.println(vendorSm + "벤더 서비스");
@@ -185,6 +207,11 @@ public class CarService {
 	return vendorList;
 	}
 
+	/**
+	 * 국가선택시 벤더사 동적셀렉트 박스
+	 * @param originSm
+	 * @return
+	 */
 	public List<VoCarDetail> getCarVendor(String originSm){
 		List<VoCarDetail> originList = carMapper.getCarVendor(originSm);
 	return originList;

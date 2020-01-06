@@ -40,8 +40,11 @@
 		<result property="lastVisitDate" column="last_visit_date"/>
 		<result property="customerCarInfoWriter" column="customer_car_info_writer"/>
 		<result property="customerCarInfoDate" column="customer_car_info_date"/>
+		<result property="optionGradeCode" column="option_grade_code"/>
+		<result property="optionGradeName" column="option_grade_name"/>
 		
 	</resultMap>
+	
 	
 	
 		<!-- Datail insert -->
@@ -105,7 +108,8 @@
 	<select id="getCarOriginSelect" resultMap="CarDetailMap">
 		SELECT 
 			origin_code, origin_main
-	FROM origin_tb
+		FROM origin_tb
+		
 	</select>
 	
 	
@@ -126,7 +130,19 @@
 		WHERE customer_car_info_code = #{carUpList};
 	</select>
 	
-	<select id="getDBCarDatail" parameterType="String" resultMap="CarDetailMap">
+	<select id="getDBCarGrade" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
+			SELECT
+				og.*
+			FROM
+				option_grade_tb AS og
+			INNER JOIN 
+				year_car_tb AS yc
+			ON  
+				og.year_car_code = yc.year_car_code
+			WHERE og.year_car_code = #{yearCarSm}
+	</select>
+	
+	<select id="getDBCarDetail" parameterType="String" resultMap="CarDetailMap">
 		SELECT
 			yc.*
 		FROM
