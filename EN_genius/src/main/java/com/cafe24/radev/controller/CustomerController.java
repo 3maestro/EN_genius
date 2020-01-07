@@ -33,6 +33,13 @@ public class CustomerController {
 		return list;
 	}
 	
+	@GetMapping(value="/customerPage", produces = "text/plain")
+	@ResponseBody
+	public String getCustomerPage(@RequestParam Map<String,String> search) {
+		String page = customerService.getCustomerPage(search);
+		return page;
+	}
+	
 	@GetMapping("/customer/customerInsert")
 	public String getCustomerInsert(Model model) {
 		model.addAttribute("title", "고객등록");

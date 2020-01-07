@@ -10,6 +10,7 @@ import com.cafe24.radev.vo.Customer;
 @Mapper
 public interface CustomerMapper {
 	public List<Customer> getCustomerSelect(Map<String,String> search);
+	public String getCustomerPage(Map<String,String> search);
 	public void getCustomerInsert(Customer customer);
 	public Customer getCustomerSelectOne(String customerCode);
 	public void getCustomerUpdate(Customer customer);
