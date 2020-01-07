@@ -6,18 +6,22 @@
 		<resultMap type="com.cafe24.radev.vo.CarFactory" id="carFactoryResultMap">
 			<result property="bsCode" 			column="bs_code"/>
 			<result property="bsLevel" 			column="bs_level"/>
+			<result property="bsName"			column="bs_name"/>
 			<result property="bossId" 			column="boss_id"/>
 			<result property="bossPw"   		column="boss_pw"/>
 			<result property="bossName"  		column="boss_name"/>
-			<result property="bossPhonenum" 	column="boss_phonenum"/>
-			<result property="bossEmail" 		column="boss_email"/>
-			<result property="bsName"			column="bs_name"/>
 			<result property="bsNumber"			column="bs_num"/>
-			<result property="bsFaxNumber"		column="bs_faxnumber"/>
-			<result property="bsAddr"			column="bs_addr"/>
+			<result property="bsAddNum"			column="bs_addnum"/>
 			<result property="bsTelephone"		column="bs_telephone"/>
+			<result property="bsFaxNumber"		column="bs_faxnumber"/>
+			<result property="bossPhoneNum" 	column="boss_phonenum"/>
+			<result property="bossEmail" 		column="boss_email"/>
+			<result property="bsAddr"			column="bs_addr"/>
+			<result property="bsPost"			column="bs_post"/>
 			<result property="bsRegistration"	column="bs_registration"/>
 			<result property="bsWriter"			column="bs_writer"/>
+			<result property="bsDate"			column="bs_date"/>
+			<result property="bsCheckdate"		column="bs_checkdate"/>
 			<result property="bsCheck"			column="bs_check"/>
 		</resultMap>
 		<resultMap type="com.cafe24.radev.vo.ImageFile" id="imageFileResultMap">
@@ -45,8 +49,10 @@
 					boss_email,
 					bs_name,
 					bs_num,
+					bs_addnum,
 					bs_faxnumber,
 					bs_addr,
+					bs_post,
 					bs_telephone,
 					bs_registration,
 					bs_date
@@ -59,8 +65,10 @@
 					#{bossEmail},
 					#{bsName},
 					#{bsNumber},
+					#{bsAddNum},
 					#{bsFaxNumber},
 					#{bsAddr},
+					#{bsPost},
 					#{bsTelephone},
 					#{bsRegistration},
 					now())
@@ -112,6 +120,7 @@
 		<update id="approvalCheck" parameterType="hashMap">
 			UPDATE business_tb
 				SET bs_check = 'Y',
+					bs_checkdate = now(),
 					bs_writer = #{bsWriter}
 			WHERE 
 			<choose>

@@ -24,17 +24,17 @@ public class LoginInterceptor implements HandlerInterceptor {
     	
     	 System.out.println(request.getRequestURI() + " <<<<<<<<");
 		  if(session == null) { 
-		  System.out.println("세션 null*******************"); 
+			  System.out.println("세션 null*******************"); 
 			  try {
-		  response.sendRedirect("/loginForm"); 
-		  } catch (IOException e) {
-		  e.printStackTrace(); 
-		  } 
+				  response.sendRedirect("/loginForm"); 
+			  } catch (IOException e) {
+				  e.printStackTrace(); 
+			  } 
 			  return false; 
 		
 		  }else { 
 			  System.out.println("세션 null 아님*******************"); 
 			  return true; 
-			  }   	
+		  }   	
     }	
 }

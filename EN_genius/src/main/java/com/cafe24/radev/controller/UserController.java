@@ -52,7 +52,7 @@ public class UserController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@PostMapping("/carFactoryInsert") 
+	@PostMapping("/CarFactoryInsert") 
 	public String addCarFactory(CarFactory carFactory
 								,@RequestParam("bs_docu") MultipartFile bs_docu
 								){
