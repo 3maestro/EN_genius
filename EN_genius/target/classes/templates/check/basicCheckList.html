@@ -138,33 +138,33 @@
    						var midCate = data.ckMidName;
    						var bigCate = data.ckBigName;
    						
-						console.log(bigCate + " <-test") 	
-						console.log(midCate + " <-test") 	
-						console.log(smallCate + " <-test") 	
+// 						console.log(bigCate + " <-test") 	
+// 						console.log(midCate + " <-test") 	
+// 						console.log(smallCate + " <-test") 	
 						
-						for(var j=0; j<data.length; j++){
-							data.get(i)
-							console.log(data.get(i) + " <-data.get(i)")
-						}
-						
-						console.log(data + " <-as;dkfjasldkfjalskdjflaksjd")
-						for(var key in data){
-							console.log(key + " <----> " +data[key]);
-						}
+//						console.log(data + " <-as;dkfjasldkfjalskdjflaksjd")
+// 						for(var key in data){
+// 							console.log(key + " <----> " +data[key]);
+// 						}
    						//CateCheck.push(data);
 					   	if(finalCheck.indexOf(data) == -1 ) {
 					   		finalCheck.push(data);
 					    	console.log(finalCheck + " <-finalCheck")
 					   	}
-					    	console.log(data.ckBigName + " <-data[ckBigName]")
 					   	
 					   	//smallCateCheck.push(data);
 					   	if(finalSmallCheck.indexOf(data.ckSmallContent) == -1 ) finalSmallCheck.push(data.ckSmallContent);
-	
-					   	var j=1;
+						console.log(finalSmallCheck + " <-finalSmallCheck")
+					   	
+						var j=1;
  						var html ='';
+ 						let arry = finalCheck;
+ 						let result = new Set(arry)
+ 						console.log(result + " <-arry")
  						$.each(finalCheck,function(i, data){
  								
+ 							
+ 							
 //  								bigCateGroup = {index,data.ckBigName};
 //  								midCateGroup = {index,data.ckMidName};
 //  								smallCateGroup = {index,data.ckSmallContent};
@@ -180,30 +180,32 @@
 								//html = ''
 								//basicList.val('')
  								html += '<tr>';
-	 							html += '<td name="number">'+ (j++) +'</td>'
+	 							html += '<td>'+ (j++) +'</td>'
 			 					html += '<td>'+ data.ckBigName+'</td>'
 			 					html += '<td>'+ data.ckMidName +'</td>'
 		 						html += '<td>'+ data.ckSmallContent +'</td>'
-		 						html += '<td><button type="button" id="deleteBtn" value="'+data.ckSmallContent+'">삭제</button></td>'
+		 						html += '<td><button type="button" class="deleteBtn" value="'+data.ckSmallContent+'">삭제</button></td>'
 								html += '</tr>'
-								basicList.html(html)
 								//html = ''
 								//basicList.val('')
 						})
-							$(document).on('click','#deleteBtn',(function(){
+								basicList.html(html)
+							$(document).on('click','.deleteBtn',(function(){
 								var deletePar= $(this).parent().parent();
-								var index = deletePar.find('[name=number]').text()
-								console.log(index+"<111111")
 								var deleteVal = $(this).val()
 								console.log(deleteVal + "<asdfkjasdof")
-								deletePar.remove();
-
+								
+								for(var i=0; i<finalSmallCheck.length; i++){
+									if(finalSmallCheck[i] == smallCate){
+										deletePar.remove();
+										finalCheck.splice(data.ckSmallContent);
+									}
+								}
 								//html = '';
 								//basicList.html(html)
 								//deletePar.removechild(deleteVal);
 								//deletePar.find()
 								//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
- 								finalSmallCheck.splice(data.ckSmallContent);
 							}))
 // 							$('#deleteBtn').click(function(){
 // 								var deletePar= $(this).parent().parent();
