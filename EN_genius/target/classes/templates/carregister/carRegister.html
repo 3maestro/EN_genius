@@ -148,6 +148,31 @@
 			  alert( "????: " + textStatus );
 			}) 
 		})
+		
+		$(document).on('change','#opGradeSm',function(){
+			var opGradeSm = $(this).val();
+			$('#opGradeSmCode').val(opGradeSm);
+			console.log(opGradeSm)
+			
+			var request = $.ajax({
+				  url: "getDBCarfuel",
+				  method: "POST",
+				  data: { 'opGradeSm' : opGradeSm},
+				  dataType: "json"
+				});
+			
+			request.done(function(fuelSm) {
+				console.log(fuelSm);
+			for(var i = 0; i < fuelSm.length; i++){
+				contents += '<option value = "'+fuelSm[i].fuelCode+'">'+fuelSm[i].fuelType+'</option>'
+				}	
+			$('#fuelSm').html(contents);
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "!!!!: " + textStatus );
+			})
+		})
 	})	
 
 </script>

@@ -42,6 +42,8 @@
 		<result property="customerCarInfoDate" column="customer_car_info_date"/>
 		<result property="optionGradeCode" column="option_grade_code"/>
 		<result property="optionGradeName" column="option_grade_name"/>
+		<result property="fuelCode" column="fuel_code"/>
+		<result property="fuelType" column="fuel_type"/>
 		
 	</resultMap>
 	
@@ -141,6 +143,17 @@
 				og.year_car_code = yc.year_car_code
 			WHERE og.year_car_code = #{yearCarSm}
 	</select>
+	
+	<select id="getDBCarfuel" parameterType="String" resultMap="CarDetailMap">
+			SELECT
+				fu.*
+			FROM
+				fuel_tb AS fu
+			INNER JOIN 
+				option_grade_tb AS og
+			ON  
+				fu.option_grade_code = og.option_grade_code
+	</select>	
 	
 	<select id="getDBCarDetail" parameterType="String" resultMap="CarDetailMap">
 		SELECT

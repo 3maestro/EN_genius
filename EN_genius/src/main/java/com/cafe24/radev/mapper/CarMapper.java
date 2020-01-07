@@ -115,6 +115,8 @@ public interface CarMapper {
 	 */
 	public VoCarDetail getCarUpdateList(String carUpList);
 	
+	public List<VoCarDetail> getDBCarfuel(String opGradeSm);
+	
 	public List<VoCarDetail> getDBCarGrade(String yearCarSm);
 	
 	/**

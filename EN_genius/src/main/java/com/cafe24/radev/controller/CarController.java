@@ -75,14 +75,19 @@ public class CarController {
 	  public String carList(VoCarDetail voDetail, Model model) {
 	  List<VoCarDetail> CarList = carService.getCarList(); 
 	  return "carregister/carList";
+	  }
 	  
+	  @PostMapping("getDBCarfuel")
+	  public @ResponseBody List<VoCarDetail> getDBCarfuel(@RequestParam(value = "opGradeSm")String opGradeSm) {
+		  System.out.println("컨트롤82" + opGradeSm);
+		  List<VoCarDetail> carfuelList = carService.getDBCarfuel(opGradeSm);
+		return null;
+		  
 	  }
 	 
 	  @PostMapping("getDBCarGrade")
 	  public @ResponseBody List<VoCarDetail> getDBCarGrade(@RequestParam(value = "yearCarSm")String yearCarSm) {
-		  System.out.println("컨트롤83" + yearCarSm);
 		  List<VoCarDetail> carGradeList = carService.getDBCarGrade(yearCarSm);
-		  System.out.println("컨트롤85" + carGradeList);
 		  return carGradeList;
 	  }
 	 
