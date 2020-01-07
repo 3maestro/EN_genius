@@ -149,25 +149,35 @@ public class PartService {
 	}
 	
 	/**
-	 * 그룹코드생성,
-	 * 체크값정보 호출
+	 * 다중값
 	 * 
 	 * @param partCheck
-	 * @param groupCode
 	 */
-	public List<Part> getPartGroupList(String partCheck,String groupCode, HttpSession session) {
+	public List<Part> getPartGroupList(String partCheck,HttpSession session,String many) {
 		System.out.println(partCheck +"getPartGroup/service");
-		System.out.println(groupCode +"getPartGroup/service");
 		list = new ArrayList<Part>();
 		String checkValue = null;
+		String rowMany = null;
 		bsCode = (String) session.getAttribute("SCODE");
 		String[] partChecks =  partCheck.split(",");
-		for(int i=0 ;i<partChecks.length; i++) {
-			System.out.println(i+":"+partChecks[i]);
-			checkValue = partChecks[i];
-			list.add(partMapper.partSelectForOrder(checkValue, bsCode));
+		String[] manys=null;
+		if(many!=null) {
+			manys =  many.split(",");
 		}
-			System.out.println(list.toString()+"<담긴값");
+		
+		for(int i=0 ;i<partChecks.length; i++) {
+			//System.out.println(i+":"+partChecks[i]);
+			checkValue = partChecks[i];
+			Part part = partMapper.partSelectForOrder(checkValue, bsCode);
+			if(manys!= null && many != null) {
+				//현재수량
+				rowMany = manys[i];
+				//System.out.println(rowMany+": "+i);
+				part.setPartMany(rowMany);
+			}
+			list.add(part);
+		}
+		
 		return list;
 	}
 	
@@ -191,10 +201,10 @@ public class PartService {
 			select = "%partSell_";
 		}
 		select += bsCode+"_"+partUpdateDate+"%";
-		System.out.println(select+"<<<<검색조건");
+		//System.out.println(select+"<<<<검색조건");
 		String GroupCode = "";
 		String partCode = partMapper.getGroup(select);
-		System.out.println(partCode+"<1");
+		//System.out.println(partCode+"<1");
 		if(partCode == null) {
 			//없으면 1번 생성
 			GroupCode += "groupPart";
@@ -213,14 +223,14 @@ public class PartService {
 			//값있으면 조회후+1 생성
 			String[] code = partCode.split("_");
 			for(int i=0 ;i<code.length; i++) {
-				System.out.println(i+":"+code[i]);
+				//System.out.println(i+":"+code[i]);
 			}
 			//끝번호자동증가
 			int codeIndex = Integer.parseInt(code[3]);
 			codeIndex += 1;
 			String index = String.format("%03d", codeIndex);
-			System.out.println(codeIndex+"증가번호");
-			System.out.println(partCode+"<2");
+			//System.out.println(codeIndex+"증가번호");
+			//System.out.println(partCode+"<2");
 			//나눠났던 코드 합치기
 			GroupCode = code[0];
 			GroupCode += "_"+code[1];
@@ -228,7 +238,7 @@ public class PartService {
 			GroupCode += "_"+index;
 			System.out.println(GroupCode+"그룹코드 완성");
 		}
-		System.out.println(GroupCode);
+		//System.out.println(GroupCode);
 		
 		return GroupCode;
 	}
@@ -286,6 +296,12 @@ public class PartService {
 		return factoryInfo;
 	}
 	
+	/**
+	 * 문서번호추출
+	 * @param a
+	 * @param session
+	 * @return
+	 */
 	public String getDocNo(int a, HttpSession session) {
 		String docNo = null;
 		
@@ -301,9 +317,9 @@ public class PartService {
 		}
 		docNo += nowDate.replace("-","");
 		docNo += index;
-		System.out.println(docNo);
+		//System.out.println(docNo);
 		
-		System.out.println(docNo+" : <문서코드값");
+		//System.out.println(docNo+" : <문서코드값");
 		return docNo;
 	}
 	/*

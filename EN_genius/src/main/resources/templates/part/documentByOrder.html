@@ -1991,7 +1991,12 @@ rt
 	mso-char-type:none;}
 -->
 </style>
-
+<script type="text/javascript">
+/*<![CDATA[*/
+	//var store = /*[[ ${store} ]]*/
+	//console.log(store);
+/*]]*/
+</script>
 </head>
 
 <body>
@@ -2030,8 +2035,8 @@ rt
  <tr height=40 style='mso-height-source:userset;height:30.0pt'>
   <td colspan=2 height=40 class=xl6529231 style='border-right:.5pt solid black;
   height:30.0pt'>상호</td>
-  <td colspan=10 class=xl7029231 style='border-right:1.0pt solid black'>구입처 명</td>
-  <td colspan=2 class=xl9429231 style='border-right:.5pt solid black'>상호</td>
+  <td colspan=10 class=xl7029231 style='border-right:1.0pt solid black' th:text="${store.storeName}">구입처 명</td>
+  <td colspan=2 class=xl9429231 style='border-right:.5pt solid black' >상호</td>
   <td colspan=4 class=xl7129231 style="text-align: center;"th:text="${i.bsName}">공업사명</td>
   <td colspan=2 class=xl9529231 style='border-right:.5pt solid black'>대표자</td>
   <td colspan=4 class=xl7129231 style='border-right:1.0pt solid black; text-align: center;' th:text="${i.bossName}">공업사대표</td>
@@ -2040,21 +2045,21 @@ rt
   <td colspan=2 height=40 class=xl6729231 style='border-right:.5pt solid black;
   height:30.0pt'>주소</td>
   <td colspan=10 class=xl9129231 width=270 style='border-right:1.0pt solid black;
-  width:200pt'>구입처주소</td>
+  width:200pt;' th:text="${store.storeAddr}">구입처주소</td>
   <td colspan=2 class=xl7529231 width=54 style='border-right:.5pt solid black;
-  width:40pt'>등록<br>
+  width:40pt' >등록<br>
     번호</td>
   <td colspan=10 class=xl6429231 style='border-right:1.0pt solid black;text-align: center;' th:text="${i.bsNumber}">사업자등록번호</td>
  </tr>
  <tr height=40 style='mso-height-source:userset;height:30.0pt'>
   <td colspan=2 height=40 class=xl6729231 style='border-right:.5pt solid black;
   height:30.0pt'>Tel</td>
-  <td colspan=4 class=xl6429231>구입처번호</td>
+  <td colspan=4 class=xl6429231 style="text-align: center;" th:text="${store.storePhone}">구입처번호</td>
   <td colspan=2 class=xl6929231 style='border-right:.5pt solid black'>Fax</td>
-  <td colspan=4 class=xl6429231 style='border-right:1.0pt solid black'>구입처fax　</td>
+  <td colspan=4 class=xl6429231 style='border-right:1.0pt solid black;text-align: center;'th:text="${store.storeFax}">구입처fax</td>
   <td colspan=2 class=xl7629231 style='border-right:.5pt solid black'>주소</td>
   <td colspan=10 class=xl8529231 width=270 style='border-right:1.0pt solid black;
-  width:200pt; text-align: center;' th:text="${i.bsAddr}">구입처주소</td>
+  width:200pt; text-align: center;' th:text="${i.bsAddr}">공업사주소</td>
  </tr>
  <tr height=40 style='mso-height-source:userset;height:30.0pt'>
   <td colspan=2 height=40 class=xl8229231 style='border-right:.5pt solid black;
@@ -2071,7 +2076,7 @@ rt
   <td colspan=2 class=xl8929231 style='border-right:.5pt solid black'>Tel</td>
   <td colspan=4 class=xl8729231 style='text-align: center;' th:text="${i.bsTelephone}">공업사전화번호</td>
   <td colspan=2 class=xl9029231 style='border-right:.5pt solid black'>Fax</td>
-  <td colspan=4 class=xl8729231 style='border-right:1.0pt solid black'>공업사fax</td>
+  <td colspan=4 class=xl8729231 style='border-right:1.0pt solid black; text-align: center;' th:text="${i.bsFaxNumber}">공업사fax</td>
  </tr>
  <tr height=35 style='mso-height-source:userset;height:26.25pt'>
   <td colspan=11 height=35 class=xl11729231 style='border-right:.5pt solid black;
@@ -2082,14 +2087,25 @@ rt
   <td colspan=2 class=xl11529231 style='border-right:1.0pt solid black;
   border-left:none'>비고</td>
  </tr>
+ <th:block th:if="${part} != null">
  <tr height=35 style='mso-height-source:userset;height:26.25pt' th:each="p:${part}">
-  <td colspan=11 height=35 class=xl14829231 style='border-right:.5pt solid black;
+  <td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
   height:26.25pt' th:text=${p.partName}>품목　</td>
-  <td colspan=7 class=xl13929231 style='border-right:.5pt solid black;
+  <td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
   border-left:none' th:text="${p.partNumber}">품번　</td>
   <td colspan=4 class=xl7429231 style='border-left:none' th:text="${p.partMany}">수량　</td>
-  <td colspan=2 class=xl12229231 style='border-right:1.0pt solid black;
+  <td colspan=2 class=xl12029231 style='border-right:1.0pt solid black;
+  border-left:none'><!-- 비고 -->　</td>
+ </tr>
+ </th:block>
+ <tr height=35 style='mso-height-source:userset;height:26.25pt'>
+  <td colspan=11 height=35 class=xl14829231 style='border-right:.5pt solid black;
+  height:26.25pt'>　</td>
+  <td colspan=7 class=xl13929231 style='border-right:.5pt solid black;
   border-left:none'>　</td>
+  <td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+  <td colspan=2 class=xl12229231 style='border-right:1.0pt solid black;
+  border-left:none'><!-- 비고 -->　</td>
  </tr>
  <tr height=35 style='mso-height-source:userset;height:26.25pt'>
   <td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
@@ -2184,6 +2200,7 @@ rt
  </tr>
  <tr height=35 style='mso-height-source:userset;height:26.25pt'>
  </tr>
+ 
  <![if supportMisalignedColumns]>
  <tr height=0 style='display:none'>
   <td width=27 style='width:20pt'></td>
@@ -2213,6 +2230,7 @@ rt
  </tr>
  <![endif]>
 </table>
+<input type="button" value="print" onclick="window.print()">
 </div>
 </div>
 

@@ -27,7 +27,7 @@
 				console.log(value);
 				a=a+value
 			})	
-			$('#sumPriceBtn').text('총가격 : '+numberFormat(a));
+			$('#sumPrice').text('총가격 : '+numberFormat(a));
 			
 		/*]]*/
 			var list = $('[name=list]');
@@ -46,18 +46,9 @@
 					//console.log(value);
 					a=a+value
 				})	
- 				$('#sumPriceBtn').text('총가격 : '+numberFormat(a));
+ 				$('#sumPrice').text('총가격 : '+numberFormat(a));
 			});
-			//합산하기버튼
-			$('#sumPriceBtn').click(function(){
-				a=0;
-				$('[name=list]').each(function(){
-					var value = $(this).find('.price').text()*1;
-				//	console.log(value);
-					a=a+value
-				})	
- 				$(this).text('총가격 : '+numberFormat(a));
-			});
+			
 			//접수번호조회
 			$('#serchRecep').click(function(){
 				console.log('클릭');
@@ -79,80 +70,90 @@
 			});
 		});
 	</script>
-	<form>	
-		<!--  -->
-		<div>
-			<span id="carNum"></span>
-			<span id="serchRecep">접수번호조회하기</span>
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">판매 목록</strong>
+					</div>
+					<div class="card-body">
+						<form th:action="@{/part/reciptDoc}"method="post">	
+							<th:block th:if="${checkPartList == null}">
+							<!--메뉴에서 판매로갈경우-->
+							<th:block th:unless="${partRow != null}">
+								<table border="1" table>
+										<tr>
+											<td>부품번호</td>
+											<td><input type="text" name="partNumber"> </td>
+										</tr>
+										<tr>
+											<td>부품명</td>
+											<td><input type="text" name="partName"> </td>
+										</tr>
+										<tr>
+											<td>개수</td>
+											<td><input type="number" name="partMany"> </td>
+										</tr>
+										<tr>
+											<td>가격</td>
+											<td><input type="number" name="partPrice"> </td>
+										</tr>
+								</table>
+							</th:block>
+							</th:block>
+							<!-- 목록에서 판매으로 -->
+							<th:block th:if="${checkPartList} != null">
+								<table style="font-size: 12px;" class="table table-striped table-bordered" id="bootstrap-data-table" border="1">
+									<tr>
+										<td>파트번호</td>
+										<td>제품명</td>
+										<td>남은수량</td>
+										<td>개수</td>
+										<td>개당가격</td>
+										<td>총가격</td>
+									</tr>
+									<tr th:each=p:${checkPartList} name="list">
+										<td th:text="${p.partNumber}" th:value="${p.partNumber}"></td>
+										<td th:text="${p.partName}" th:value="${p.partName}"></td>
+										<td th:text="${p.partMany}"></td>
+										<td><input type="number" th:placeholder="'현재수량 : '+${p.partMany}" th:partNumber="${p.partNumber}" th:value="${p.partMany}" name=many></td>
+										<td th:text="${p.partPrice}" ></td>
+										<td th:text="${p.partPrice}*${p.partMany}" th:price="${p.partPrice}" class="price" th:name="${p.partNumber}"></td>
+									</tr>
+								</table>
+							</th:block>
+							<span id="sumPrice">총가격 : </span><br>
+							<button type="submit" class="btn-info">견적완료</button>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">접수현황
+							<span class="badge badge-secondary float-right mt-1">접수 수 : 2건</span>
+						</strong>
+					</div>
+					<div class="card-body">
+						<menu id="">
+							<li>
+								<label class="label-dark">
+									<input type="radio" value="12가1234" name="recitp">
+									<span>12가1234</span>
+								</label>
+								<label>
+									<input type="radio" value="45가6789" name="recitp">
+									<span>45가6789</span>
+								</label>
+							</li>
+						</menu>
+					</div>
+				</div>
+			</div>
 		</div>
-		<input type="hidden" value="" id="groupCode">
-		<!-- 한줄 -->
-		<th:block th:if="${checkPartList == null}">
-			<!--부품목록에서 구매로갈경우-->
-			<input type="hidden" value="0" id="groupCode" name="groupCode">
-			<th:block th:if="${partRow != null}">
-				<table border="1" th:each=p:${partRow}>
-						<tr>
-							<td>부품번호</td>
-							<td><input type="text" th:value="${p.partNumber}"></td>
-						</tr>
-						<tr>
-							<td>부품명</td>
-							<td><input type="text" th:value="${p.partName}"></td>
-						</tr>
-						<tr>
-							<td>개수</td>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<td>가격</td>
-							<td><input type="number" th:value="${p.partPrice}"></td>
-						</tr>
-				</table>
-			</th:block>
-			<!--메뉴에서 구매로갈경우-->
-			<th:block th:unless="${partRow != null}">
-				<table border="1">
-						<tr>
-							<td>부품번호</td>
-							<td><input type="text"></td>
-						</tr>
-						<tr>
-							<td>부품명</td>
-							<td><input type="text"></td>
-						</tr>
-						<tr>
-							<td>개수</td>
-							<td><input type="number"></td>
-						</tr>
-						<tr>
-							<td>가격</td>
-							<td><input type="number"></td>
-						</tr>
-				</table>
-			</th:block>
-		</th:block>
-		<!-- 두줄이상 -->
-		<th:block th:if="${checkPartList} != null">
-			<table style="font-size: 12px;" class="table table-striped table-bordered" id="bootstrap-data-table" border="1">
-				<tr>
-					<td>파트번호</td>
-					<td>제품명</td>
-					<td>개수</td>
-					<td>개당가격</td>
-					<td>총가격</td>
-				</tr>
-				<tr th:each=p:${checkPartList} name="list">
-					<td th:text="${p.partNumber}" th:value="${p.partNumber}"></td>
-					<td th:text="${p.partName}" th:value="${p.partName}"></td>
-					<td><input type="number" th:placeholder="'현재수량 : '+${p.partMany}" th:partNumber="${p.partNumber}" th:value="${p.partMany}" name=many></td>
-					<td th:text="${p.partPrice}" ></td>
-					<td th:text="${p.partPrice}*${p.partMany}" th:price="${p.partPrice}" class="price" th:name="${p.partNumber}"></td>
-				</tr>
-			</table>
-		</th:block>
-	</form>
-		<span id="sumPriceBtn">총가격 : </span><br>
-		<button type="button" class="btn-info">견적완료</button>
+	</div>
 	</th:block>
 </html>

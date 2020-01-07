@@ -29,6 +29,15 @@
 		WHERE
 			bs_code = #{bsCode}
 	</select>
+	<!-- 거래처 한줄조회 -->
+	<select id="getStoreRow" resultMap="storeRM" parameterType="String">
+		SELECT 
+			*
+		FROM
+			part_store_tb
+		WHERE
+			part_store_code = #{storeCode}
+	</select>
 	<!-- 코드검색 -->
 	<select id="getStoreCode" resultType="String" parameterType="String">
 		SELECT 
