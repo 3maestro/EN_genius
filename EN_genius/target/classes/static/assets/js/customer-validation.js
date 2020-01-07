@@ -7,7 +7,7 @@ $(document).ready(function() {
 	});
 
 	var phoneRegex = /^([0-9]{11})$/;
-	$(document).on('blur','#customerPhoneInput',function() {
+	$(document).on('change','#customerPhoneInput',function() {
 		if(!phoneRegex.test($("#customerPhoneInput").val())) {
 			alert('숫자 11자리를 입력해주세요.');
 			$("#customerPhoneInput").focus();
@@ -25,6 +25,8 @@ $(document).ready(function() {
 	
 	$('#Registration-submit').click(function(e) {
 		e.preventDefault();
+		var addr1 = document.getElementById('address').value;
+		var addr2 = document.getElementById('detailAddress').value;
 		
 		if ($("#customerName").val() == '') {
 			alert('고객명을 입력해주세요.');
@@ -42,15 +44,14 @@ $(document).ready(function() {
 			alert('고객연락처을 제대로 입력해주세요.');
 			$("#customerPhoneInput").focus();
 			return false;
-		}else if ($("#detailAddress").val() == '') {
+		}else if ($('#addr1').attr('class')!='col-lg-12' && $("#detailAddress").val() == '') {
+			console.log($('#addr1').attr('class'))
 			alert('주소를 입력해주세요.');
 			return false;
 		}else if(customer!=null){
 			console.log('하하하하')
 			$("<input type='hidden' name='customerCode' value='"+customer.customerCode+"'>").appendTo("form");
 			if($('#addr2').find("#detailAddress").length){
-				var addr1 = document.getElementById('address').value;
-				var addr2 = document.getElementById('detailAddress').value;
 				$("<input type='hidden' name='customerAddr' value='"+addr1+" "+addr2+"'>").appendTo("form");
 			}else{
 				$("<input type='hidden' name='customerAddr' value='"+customer.customerAddr+"'>").appendTo("form");
@@ -69,7 +70,7 @@ $(document).ready(function() {
 				console.log(data)
 				if(data=='미가입'){
 					$("<input type='hidden' name='customerAddr' value='"+addr1+" "+addr2+"'>").appendTo("form");
-					$('#form').attr('action','/customerInsert');
+					$('#form').attr('action','/customer/customerInsert');
 					$('#form').submit();
 				}else{
 					alert("이미 가입된 고객입니다.");

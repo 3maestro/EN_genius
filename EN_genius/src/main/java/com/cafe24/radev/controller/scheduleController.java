@@ -19,8 +19,6 @@ public class scheduleController {
 	@GetMapping("/schedule")
 	public String getMemberList(Model model) {
 		model.addAttribute("title", "일정");
-		List<Customer> list = customerService.getCustomerList();
-		model.addAttribute("customerList", list);
 		return "/schedule/schedule";
 	}
 }

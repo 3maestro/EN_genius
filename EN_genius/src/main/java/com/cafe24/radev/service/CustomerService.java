@@ -1,6 +1,8 @@
 package com.cafe24.radev.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,8 @@ public class CustomerService {
 	 * 고객 목록을 조회 하는 메소드
 	 * @return 리스트 타입
 	 */
-	public List<Customer> getCustomerList(){
-		List<Customer> list = customerMapper.getCustomerList();
+	public List<Customer> getCustomerSelect(Map<String,String> search){
+		List<Customer> list = customerMapper.getCustomerSelect(search);
 		for(int i=0;i<list.size();i++) {
 			Customer customer = new Customer();
 			customer = list.get(i);
@@ -35,8 +37,8 @@ public class CustomerService {
 	 * 고객정보를 수정하기 위해서 정보를 조회하는 메소드
 	 * @return 없음
 	 */
-	public Customer getCustomerSelect(String customerCode) {
-		Customer customer = customerMapper.getCustomerSelect(customerCode);
+	public Customer getCustomerSelectOne(String customerCode) {
+		Customer customer = customerMapper.getCustomerSelectOne(customerCode);
 		return customer;
 	}
 	
@@ -45,36 +47,35 @@ public class CustomerService {
 	 * @return 없음
 	 */
 	public void getCustomerInsert(Customer customer) {
-		int t = customerMapper.getCustomerList().size()+1;
-		String bsCode = "bs001";
-		String eiCode = "emp002";
-		String customerCode = bsCode+"_customer"+String.format("%03d", t);
+		Map<String,String> search = new HashMap<String,String>();
+		search.put("scode", customer.getBsCode());
+		int t = customerMapper.getCustomerSelect(search).size()+1;
+		System.out.println(t);
+		String customerCode = customer.getBsCode()+"_customer"+String.format("%03d", t);
 		System.out.println(customerCode);
 		customer.setCustomerCode(customerCode);
-		customer.setBsCode(bsCode);
-		customer.setEiCode(eiCode);
 		customer.setCustomerMemo("-");
 		System.out.println(customer);
 		customerMapper.getCustomerInsert(customer);
+		System.out.println(22);
 	}
 	
 	/*****
 	 * 고객 등록유무를 조회하는 메소드
 	 * @return 고객코드
 	 */
-	public String getCustomerInsertAjax(String name, String birth, String phone) {
+	public String getCustomerInsertAjax(String name, String birth, String phone, String scode) {
 		System.out.println(name);
 		System.out.println(birth);
 		System.out.println(phone);
+		System.out.println(scode);
 		
-		String code = customerMapper.getCustomerInsertAjax(name,birth,phone);
-		
-		String bsCode = "bs001";
+		String code = customerMapper.getCustomerInsertAjax(name,birth,phone,scode);
 		
 		if(code == null || "".equals(code)) {
 			code = "미가입";
 		}else {
-			code=code.replace(bsCode+"_", "");
+			code=code.replace(scode+"_", "");
 		}
 		System.out.println(code);
 		return code;

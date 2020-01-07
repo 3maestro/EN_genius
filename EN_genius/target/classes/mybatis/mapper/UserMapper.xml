@@ -112,7 +112,6 @@
 		<update id="approvalCheck" parameterType="hashMap">
 			UPDATE business_tb
 				SET bs_check = 'Y',
-					bs_checkdate= now(),
 					bs_writer = #{bsWriter}
 			WHERE 
 			<choose>

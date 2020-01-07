@@ -23,7 +23,6 @@ public class CarFactory {
 	private String bsTelephone;
 	private String bsRegistration;
 	private String bsWriter;
-	private String bsDate;
 	private String bsCheck;
 	public String getBsCode() {
 		return bsCode;
@@ -121,12 +120,6 @@ public class CarFactory {
 	public void setBsWriter(String bsWriter) {
 		this.bsWriter = bsWriter;
 	}
-	public String getBsDate() {
-		return bsDate;
-	}
-	public void setBsDate(String bsDate) {
-		this.bsDate = bsDate;
-	}
 	public String getBsCheck() {
 		return bsCheck;
 	}
@@ -139,8 +132,7 @@ public class CarFactory {
 				+ ", bossName=" + bossName + ", bossPhonenum=" + bossPhonenum + ", bossEmail=" + bossEmail
 				+ ", emailAddr=" + emailAddr + ", bsName=" + bsName + ", bsNumber=" + bsNumber + ", bsFaxNumber="
 				+ bsFaxNumber + ", bsAddr=" + bsAddr + ", addrDetail=" + addrDetail + ", bsTelephone=" + bsTelephone
-				+ ", bsRegistration=" + bsRegistration + ", bsWriter=" + bsWriter + ", bsDate=" + bsDate + ", bsCheck="
-				+ bsCheck + "]";
+				+ ", bsRegistration=" + bsRegistration + ", bsWriter=" + bsWriter + ", bsCheck=" + bsCheck + "]";
 	}
-
+	
 }
