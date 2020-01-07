@@ -133,7 +133,7 @@
                         <td><span class="tel" th:text="${c.bsTelephone}"></span></td>
                         <td><span class="check" th:text="${c.bsCheck}"></span></td>                       
                         <td><button type="button" th:data-bsCode="${c.bsCode}" th:text="서류" name="bsCodePopupBtn" class="btn btn-outline-link btn-sm"></button></td>
-                        <td><button type="button" th:text="상세" name="" class="btn btn-outline-link btn-sm"></button></td>
+                        <td><button type="button" th:text="상세" data-toggle="modal" data-target="#myModal" class="btn btn-outline-link btn-sm"></button>	</td>
                     </tr>
                 </tbody>          
             </table>
@@ -142,6 +142,112 @@
             </form>   
         </div>    
     </div>
+		</div>
+		<!-- Modal --><!-- fade 지우면 똑딱 뜨고 넣으면 소로록 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h3 class="modal-title" id="myModalLabel"></h3>
+		      </div>
+		      <div class="modal-body">
+			    <form method="post">				    
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsName" placeholder="사업장이름" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bossId" placeholder="아이디" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="password" name="bossPw" placeholder="비밀번호" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bossName" placeholder="이름" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bossPhonenum" placeholder="핸드폰번호" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsNumber" placeholder="사업장번호" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsFaxNumber" placeholder="팩스번호" class="form-control read">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsTelephone" placeholder="사업장연락처" class="form-control read">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsRegistration" placeholder="사업장등록일" class="form-control read">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsDate" placeholder="등록요청일" class="form-control read">
+				    </div>
+				    </div>
+					<div class="row">
+						<div class="col-lg-6">
+							<input class="form-control" type="text" id="post" name="bossEmail" placeholder="주소" readonly="readonly"><br>
+						</div>
+						<div class="col-lg-6">
+							<input class="form-control btn-danger post" type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<input class="form-control" type="text"	id="address" name="bossEmail" placeholder="주소" readonly="readonly"><br>
+						</div>
+						<div class="col detail">
+							<input class="form-control" type="text" id="detailAddress" name="emailAddr" placeholder="상세주소"><br>
+						</div>
+					</div>
+			 			    
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<select name="employeeGender" class="form-control add">
+				    		<option value="">성별</option>
+				    		<option value="남">남</option>
+				    		<option value="여">여</option>
+				   		</select>
+				   		<input name="employeeGender1" type="text" class="form-control modify read">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="tel" name="employeePhone" placeholder="핸드폰" class="form-control">
+				    </div>
+				    </div>
+				    <div class="form-group">
+					<div class="input-group">
+				    	<input type="date" name="joinDate" placeholder="입사일" class="form-control col read">
+				    	<input type="date" name="resignationDate" placeholder="퇴사일" class="form-control col modify read">
+					</div>
+				    </div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+			    </form>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 	</th:block>
 </html>
