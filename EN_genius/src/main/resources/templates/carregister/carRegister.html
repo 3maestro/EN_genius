@@ -239,27 +239,27 @@
 									</div> <select name="selectSm5" id="yearCarSm"
 									class="form-control-sm form-control">
 								</select>
-									</div>
 								</td>
 								<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">차량등급 선택</label>
-									</div> <select name="selectSm6" id="opGradeSm"
-									class="form-control-sm form-control">
+									</div> <select name="selectSm6" id="opGradeSm" class="form-control-sm form-control">
 								</select>
-									</div>
 								</td>
 							</tr>
 							<tr>
-								<td>
+							
+							<td>
 									<div class="col col-md-12">
-										<label for="selectSm" class=" form-control-label">차량선택옵션 선택</label>
-									</div> <select name="selectSm7" id="opChoiceSm"
+										<label for="selectSm" class=" form-control-label">연료종류</label>
+									</div> <select name="selectSm10" id="fuelSm"
 									class="form-control-sm form-control">
-										<option th:each="opChoiceSel : ${opChoiceSelect}"
-											th:text="${opChoiceSel.choiceOptionName}"></option>
+										<option value="0">차량 연료 선택</option>
+										<option th:each="fuelSel : ${fuelSelect}"
+											th:text="${fuelSel.fuelType}"></option>
 								</select>
 								</td>
+								
 								<td>
 
 									<div class="col col-md-12">
@@ -285,14 +285,13 @@
 								</td>
 								<td>
 									<div class="col col-md-12">
-										<label for="selectSm" class=" form-control-label">연료종류</label>
-									</div> <select name="selectSm10" id="fuelSm"
+										<label for="selectSm" class=" form-control-label">차량선택옵션 선택</label>
+									</div> <select name="selectSm7" id="opChoiceSm"
 									class="form-control-sm form-control">
-										<option value="0">차량 연료 선택</option>
-										<option th:each="fuelSel : ${fuelSelect}"
-											th:text="${fuelSel.fuelType}"></option>
+										<option th:each="opChoiceSel : ${opChoiceSelect}"
+											th:text="${opChoiceSel.choiceOptionName}"></option>
 								</select>
-								<td>
+								</td>
 							</tr>
 							<tr>
 								<td>
@@ -343,8 +342,8 @@
 						</table>
 
 					</div>
-
-
+					
+											
 					<div class="col col-6">
 						<div class="form-group">
 							<label for="postal-code" class=" form-control-label">생산 연식</label>
@@ -355,7 +354,7 @@
 					<div class="col col-6">
 						<div class="form-group">
 							<label for="postal-code" class=" form-control-label">생산 시작년도</label>
-							<input type="text" id="sellStartYear" placeholder="생산 시작년도"
+							<input type="text" id="sellStartYear" readonly="readonly"
 								class="form-control" name="sellStartYear">
 						</div>
 
