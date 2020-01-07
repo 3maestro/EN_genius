@@ -35,29 +35,7 @@
 					return false;
 				}
 			}); 
- 			
- 			$(document).on('click','#formCheck',function(){
-				console.log('click');
-				var bossId = $('[name=bossId]').val();
-				console.log(bossId);
-				
-				var request = $.ajax({
-					url: "/Adminlogin",
-					method: "POST",
-					data: { bossId : bossId },
-					dataType: "json"
-				});
-				
-				request.done(function( data ) {
-					console.log(data);
-						
-				});
-				request.fail(function( jqXHR, textStatus ) {
-					//alert( "Request failed: " + textStatus );
-					$('[name=bossId]').val('다시시도하세요');
-				});
-	 
-			});
+
 		});
 /*]]*/	 
 	</script>

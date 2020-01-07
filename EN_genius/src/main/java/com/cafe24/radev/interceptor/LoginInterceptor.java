@@ -1,0 +1,40 @@
+package com.cafe24.radev.interceptor;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+
+@Component
+public class LoginInterceptor implements HandlerInterceptor {
+      
+    @Override
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
+                             Object handler) {    	
+    	HttpSession session = request.getSession(false);
+    	
+    	 System.out.println(request.getRequestURI() + " <<<<<<<<");
+		  if(session == null) { 
+		  System.out.println("세션 null*******************"); 
+			  try {
+		  response.sendRedirect("/loginForm"); 
+		  } catch (IOException e) {
+		  e.printStackTrace(); 
+		  } 
+			  return false; 
+		
+		  }else { 
+			  System.out.println("세션 null 아님*******************"); 
+			  return true; 
+			  }   	
+    }	
+}
