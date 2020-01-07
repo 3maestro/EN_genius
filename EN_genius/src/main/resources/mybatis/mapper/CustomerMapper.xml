@@ -76,8 +76,11 @@
 			AND
 				customer_sign <![CDATA[<=]]> #{customerSign2}
 		</if>
-		LIMIT
-			${limit}
+		
+		<if test="limit neq null and limit neq ''.toString()">
+			LIMIT
+				${limit*page},${limit}
+		</if>
 	</select>
 	
 	<select id="getCustomerSelectOne" parameterType="com.cafe24.radev.vo.Customer" resultMap="CustomerResultMap">

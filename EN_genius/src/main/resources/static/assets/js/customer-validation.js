@@ -44,7 +44,8 @@ $(document).ready(function() {
 			alert('고객연락처을 제대로 입력해주세요.');
 			$("#customerPhoneInput").focus();
 			return false;
-		}else if ($("#detailAddress").val() == '') {
+		}else if ($('#addr1').attr('class')!='col-lg-12' && $("#detailAddress").val() == '') {
+			console.log($('#addr1').attr('class'))
 			alert('주소를 입력해주세요.');
 			return false;
 		}else if(customer!=null){

@@ -9,10 +9,33 @@
 	
 	<th:block layout:fragment="customScript">
 		<script th:inline="javascript">
-		
+			var sid		= /*[[${session.SID}]]*/;
+			var ecode	= /*[[${session.ECODE}]]*/;
+			var scode	= /*[[${session.SCODE}]]*/;
+			var search={};
+			search.customerName		= '';
+			search.customerGender	= '';
+			search.customerPhone	= '';
+			search.customerMemo		= '';		
+			search.customerBirth1	= '';
+			search.customerBirth2	= '';
+			search.customerSign1	= '';
+			search.customerSign2	= '';
+			search.paging 			= '';
+			search.page	 			= 0;
+			if(sid!=null){
+				search.sid	= sid;
+			}else{
+				search.sid	= ecode;
+			}
+			search.scode	= scode;
+
 			$(document).ready(function(){
+				search.paging = 'off';
 				$('#limit').val('10').prop('selected', true);
-				searchList()
+				search.limit = $('#limit').val();
+				console.log(search.paging)
+				searchList();
 				
 				var date = new Date();
 				var year = ""+date.getFullYear()
@@ -32,48 +55,65 @@
 				$('#customerSign1').attr('max',today)
 				$('#customerSign2').attr('max',today)
 				
+				$('#customerName').change(function(){
+					search.customerName = $('#customerName').val();
+				})
+				
+				$('[name=customerGender]').change(function(){
+					search.customerGender = $("input:radio[name='customerGender']:checked").val();
+				})
+				
+				$('#customerPhone').change(function(){
+					search.customerPhone = $('#customerPhone').val();
+				})
+				
+				$('#customerMemo').change(function(){
+					search.customerMemo = $('#customerMemo').val();		
+				})
+
 				$('#customerBirth1').change(function(){
+					search.customerBirth1 = $('#customerBirth1').val();
 					$('#customerBirth2').attr('min',$(this).val())
 				})
 				
-				$('#customerSign2').attr('max',today)
+				$('#customerBirth2').change(function(){
+					search.customerBirth2 = $('#customerBirth2').val();
+				})
 				
 				$('#customerSign1').change(function(){
+					search.customerSign1 = $('#customerSign1').val();
 					$('#customerSign2').attr('min',$(this).val())
+				})
+								
+				$('#customerSign2').change(function(){
+					search.customerSign2 = $('#customerSign2').val();
+				})
+				
+				$('#limit').change(function(){
+					search.page	= 0;
+					search.limit = $('#limit').val();
 				})
 				
 				$('#select').click(function(){
+					search.page	= 0;
 					searchList()
 				})
 				
 				$('#limit').change(function(){
+					search.page	= 0;
+					searchList()
+				})
+				
+				$(document).on('click','[name=page]',function(){
+					search.limit = $('#limit').val();
+					search.page	= $(this).val();
+					console.log(search)
+					console.log(search.page)
 					searchList()
 				})
 			})
 			
 			function searchList(){
-				var sid		= /*[[${session.SID}]]*/
-				var ecode	= /*[[${session.ECODE}]]*/
-				var scode	= /*[[${session.SCODE}]]*/
-				var search={};
-
-				search.customerName = $('#customerName').val();
-				search.customerGender = $("input:radio[name='customerGender']:checked").val();
-				search.customerPhone = $('#customerPhone').val();
-				search.customerMemo = $('#customerMemo').val();		
-				search.customerBirth1 = $('#customerBirth1').val();
-				search.customerBirth2 = $('#customerBirth2').val();
-				search.customerSign1 = $('#customerSign1').val();
-				search.customerSign2 = $('#customerSign2').val();
-				search.limit = $('#limit').val();
-				
-				if(sid!=null){
-					search.sid	= sid;
-				}else{
-					search.sid	= ecode;
-				}
-				search.scode	= scode;
-				
 				var request = $.ajax({
 					url : '/customerSelect',
 					method : "get",
@@ -82,7 +122,17 @@
 				});
 	
 				request.done(function(data){
-					table(data);
+					if(search.paging=='off')
+					{
+						table(data);
+						search.paging='on';
+						search.limit='';
+						searchList();
+					}else if(search.paging=='on'){
+						console.log(data.length);
+						pagingBtn(data.length)
+						search.paging='off';
+					}
 				});
 	
 				request.fail(function(jqXHR, textStatus) {
@@ -108,8 +158,15 @@
 				$('tbody').html(result);
 			}
 			
-			function pagingBtn(data) {
-				
+			function pagingBtn(page){
+				$('#paging').html('');
+				var btn = search.paging;
+				var view = $('#limit').val();
+				var paging = Math.ceil(page/view);
+				for(var i = 0; i < paging; i++){
+					$('#paging').append('<button name=page value="'+i+'">'+(i+1)+'</button>')
+				}
+				console.log(paging);
 			}
 		</script>
 	</th:block>
@@ -281,10 +338,8 @@
 					<tbody>
 					</tbody>
 				</table>
-				<div class="paging" style="text-align: center;">
-					<button>
-						tt
-					</button>
+				<div id="paging" style="text-align: center;">
+					
 				</div>
 			</div>
 		</div>
