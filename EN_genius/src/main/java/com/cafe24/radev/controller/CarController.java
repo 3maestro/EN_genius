@@ -81,7 +81,8 @@ public class CarController {
 	  public @ResponseBody List<VoCarDetail> getDBCarfuel(@RequestParam(value = "opGradeSm")String opGradeSm) {
 		  System.out.println("컨트롤82" + opGradeSm);
 		  List<VoCarDetail> carfuelList = carService.getDBCarfuel(opGradeSm);
-		return null;
+		  System.out.println("컨트롤84" + carfuelList);
+		return carfuelList;
 		  
 	  }
 	 

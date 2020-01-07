@@ -150,6 +150,7 @@
 		})
 		
 		$(document).on('change','#opGradeSm',function(){
+			var contents = '<option>선택해주세요</option>';
 			var opGradeSm = $(this).val();
 			$('#opGradeSmCode').val(opGradeSm);
 			console.log(opGradeSm)
@@ -279,21 +280,14 @@
 										<label for="selectSm" class=" form-control-label">연료종류</label>
 									</div> <select name="selectSm10" id="fuelSm"
 									class="form-control-sm form-control">
-										<option value="0">차량 연료 선택</option>
-										<option th:each="fuelSel : ${fuelSelect}"
-											th:text="${fuelSel.fuelType}"></option>
 								</select>
 								</td>
 								
 								<td>
-
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">차량컬러 대분류</label>
 									</div> <select name="selectSm8" id="bigColSm"
 									class="form-control-sm form-control">
-										<option value="0">차량 색상 선택</option>
-										<option th:each="bigColSel : ${bigColSelect}"
-											th:text="${bigColSel.colorBigName}"></option>
 								</select>
 								</td>
 							</tr>

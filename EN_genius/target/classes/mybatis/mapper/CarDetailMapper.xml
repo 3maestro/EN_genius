@@ -153,6 +153,7 @@
 				option_grade_tb AS og
 			ON  
 				fu.option_grade_code = og.option_grade_code
+			WHERE fu.option_grade_code = #{opGradeSm}
 	</select>	
 	
 	<select id="getDBCarDetail" parameterType="String" resultMap="CarDetailMap">
