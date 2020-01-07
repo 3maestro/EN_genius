@@ -8,33 +8,85 @@
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
 	<select id="getWorkManHour" resultType="com.cafe24.radev.vo.WageManHour">
 		SELECT
-			mh.cc_wage_small_code as ccWageSmallCode,
-			mh.cc_wage_code as ccWageCode,
-			mh.wage_big_name as wageBigName,
-			mh.wage_mid_name as wageMidName,
-			mh.wage_small_name as wageSmallName,
-			mh.man_hour as manHour
+			totalWork.*,
+			ccWage.standard_wage AS ccStandardWage
 		FROM
-			work_man_hour_tb AS mh
-		INNER join
-			(
-			SELECT
-				MIDCATE.wage_mid_code,
-				MIDCATE.wage_big_code,
-				MIDCATE.wage_big_name,
-				MIDCATE.wage_mid_name
-			FROM
-				wage_midcate_tb AS MIDCATE
-			INNER JOIN
-				wage_bigcate_tb AS BIGCATE
-			ON
-				MIDCATE.wage_big_code = BIGCATE.wage_big_code 
-			) AS bm
+			cc_standard_wage_tb AS ccWage
+		INNER JOIN
+			(	
+				SELECT
+						mh.cc_wage_small_code as ccWageSmallCode,
+						mh.cc_wage_code as ccWageCode,
+						mh.wage_big_name as wageBigName,
+						mh.wage_mid_name as wageMidName,
+						mh.wage_small_name as wageSmallName,
+						mh.man_hour as manHour
+						
+					FROM
+						work_man_hour_tb AS mh
+					INNER join
+						(
+						SELECT
+							MIDCATE.wage_mid_code,
+							MIDCATE.wage_big_code,
+							MIDCATE.wage_big_name,
+							MIDCATE.wage_mid_name
+						FROM
+							wage_midcate_tb AS MIDCATE
+						INNER JOIN
+							wage_bigcate_tb AS BIGCATE
+						ON
+							MIDCATE.wage_big_code = BIGCATE.wage_big_code 
+						) AS bm
+					ON
+						mh.wage_mid_code = bm.wage_mid_code
+			) AS totalWork
 		ON
-			mh.wage_mid_code = bm.wage_mid_code 
-		WHERE 
-			mh.cc_wage_code = #{ccCode}
+			ccWage.cc_wage_code = totalWork.ccWageCode
+		WHERE
+			ccWage.cc_wage_code = #{ccCode}
 		ORDER BY
-			cc_wage_small_code
+			ccWageSmallCode
 	</select>
+
+	<insert id="insertWorkWage" parameterType="java.util.List">
+	    INSERT INTO now_work_wage_tb 
+	    	(
+	       		now_work_code, now_work_name, now_work_manhour, 
+	       		now_work_price, now_work_count, 
+	       		now_work_wage, now_workman_name, nw_writer, nw_date 
+	       )
+	    VALUES
+	    <foreach collection="list" item="item" index="index" separator=", " >
+	        (
+	        	"${item.nowWorkCode}", "${item.wageSmallName}", 
+	        	"${item.manHour}", "${item.onePrice}",
+	        	"${item.count}", "${item.totalPrice}", "${item.workMan}", "${item.bsCode}", now()
+	        )
+    	</foreach>
+	</insert>
+	
+	<select id="workList" resultType="com.cafe24.radev.vo.NowWork" parameterType="java.util.HashMap">
+		SELECT
+			nowWork.now_work_code AS nowWorkCode,		
+			nowWork.now_work_name AS wageSmallName,
+			nowWork.now_work_manhour AS manHour,
+			nowWork.now_work_price AS onePrice,
+			nowWork.now_work_count AS count,
+			nowWork.now_work_wage AS totalPrice,
+			nowWork.now_workman_name AS workMan,
+			nowWork.nw_writer AS  bsCode
+		FROM
+			now_work_wage_tb AS nowWork
+		WHERE 
+			<choose>
+            <when test="pkList.size != 0">
+                nowWork.now_work_code IN
+                <foreach collection="pkList" item="item" index="index" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </when>
+        </choose>
+	</select>
+
 </mapper>
