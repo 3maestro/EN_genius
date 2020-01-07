@@ -22,17 +22,12 @@
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
-			$(document).ready(function(){	
-				var finalBigCate;
-				var finalMidCate;
-				
-				var bigCateGroup = {};
-				var midCateGroup = {};
-				var smallCateGroup = {};
-				
-				var bigCate = '';
-				var midCate = '';
-				var smallCate = '';
+			var bigCate;
+			var midCate;
+			var smallCate;
+			var dataArray = new Array();
+			
+			$(document).ready(function(){
 				$('.bigCate').click(function(){
 					bigCate = $(this).val();
 					console.log(bigCate + " <-bigCate")
@@ -45,15 +40,11 @@
 					});
 				
 					request.done(function( data ) {
-							console.log(data)
+						console.log(data)
 						if(data != null || data != "" || data != "undefined"){
 							var midCateCheck = $('#midCate')
-							console.log(midCateCheck)
 							for(var i=0; i<data.length; i++){
-								//var midCate = data[i];
-								data[i];
- 								//console.log(midCate + " <-midCate")
-									var html =''
+								var html =''
 								$.each(data,function(i, item){	
 									html += '"<option class = "midCate" value=';
 									html += data[i].ckMidName;
@@ -65,191 +56,105 @@
 							}		
 						}			
 					})
-					
-					request.fail(function( jqXHR, textStatus ) {
-					  //alert( "Request failed: " + textStatus );
-					});
 				})
 	 		});	
 					
-				$(document).on('click','.midCate',(function(){
-					midCate = $(this).val();
-					console.log(midCate + " <-midCate")	
+			$(document).on('click','.midCate',function(){
+				midCate = $(this).val();
+				console.log(midCate + " <-midCate")	
 
-					var request = $.ajax({
-						  url: "/check/midCheckList",	//호출될 url
-						  method: "POST",
-						  data: {"midCate" : midCate},//파라미터
-						  dataType: "json"		//응답 타입
-					});
+				var request = $.ajax({
+					  url: "/check/midCheckList",	//호출될 url
+					  method: "POST",
+					  data: {"midCate" : midCate},//파라미터
+					  dataType: "json"		//응답 타입
+				});
+			
+				request.done(function( data ) {
+					console.log(data)
+					if(data != null || data != "" || data != "undefined"){
+						var smallCateCheck = $('#smallCate')
+						for(var i=0; i<data.length; i++){
+							var html =''
+							$.each(data,function(i, item){	
+								html += '"<option class = "smallCate" value=';
+								html += data[i].ckSmallContent;
+								html += '>';
+								html += data[i].ckSmallContent;
+								html += '</option>"';
+								smallCateCheck.html(html)
+							})
+						}
+					}
+				})
+			})
+							
+			$(document).on('change','#bigCate',function(){
+				finalBigCate = $(this).val();
+				$('#smallCate').empty();
+			})
+			
+			$(document).on('click','.smallCate',function(){
+				smallCate = $(this).val();
+				console.log(smallCate + " <-smallCate")	
+
+		    	var request = $.ajax({
+					url: "/check/smallCheckList",	//호출될 url
+					method: "POST",
+					data: {"smallCate" : smallCate},//파라미터
+					dataType: "json"		//응답 타입
+				});
 				
-					request.done(function( data ) {
-						//console.log(data)
-						if(data != null || data != "" || data != "undefined"){
-							var smallCateCheck = $('#smallCate')
-							console.log(smallCateCheck)
-							for(var i=0; i<data.length; i++){
-								data[i];
- 								//console.log(smallCate + " <-smallCate")
-									var html =''
-								$.each(data,function(i, item){	
-									html += '"<option class = "smallCate" value=';
-									html += data[i].ckSmallContent;
-									html += '>';
-									html += data[i].ckSmallContent;
-									html += '</option>"';
-									smallCateCheck.html(html)
-								})
-							}
+				request.done(function( data ) {
+					var duplicate = 0;
+					var select = data.ckSmallContent;
+					$('[name=small]').each(function(index, item){
+						var duplicateCheck = $(this).text()
+						if(select==duplicateCheck){
+							duplicate=1;
 						}
 					})
-					
-					request.fail(function( jqXHR, textStatus ) {
-					  //alert( "Request failed: " + textStatus );
-					});
-				}))
-								
-				$(document).on('change','#bigCate',function(){
-					bigCate = $(this).val();		
-					$('#smallCate').empty();
+					if(duplicate==0){
+						dataArray.push(data)
+						console.log(dataArray)
+						ckList()
+						console.log($('[name=small]').length)
+					}else if(duplicate==1){
+						alert('중복')
+					}
 				})
-// 					var smallCateCheck = [];
-					
-					var finalSmallCheck = [];
-					var CateCheck = [];
-					var finalCheck = [];
-				$(document).on('click','.smallCate',(function(){
-					var basicList = $('#basicList')
-					smallCate = $(this).val();
-					console.log(bigCate + " <-bigCate")	
-					console.log(midCate + " <-midCate")	
-					console.log(smallCate + " <-smallCate")	
-
-					var request = $.ajax({
-						url: "/check/smallCheckList",	//호출될 url
-						method: "POST",
-						data: {"smallCate" : smallCate},//파라미터
-						dataType: "json"		//응답 타입
- 					});
-					
- 					request.done(function( data ) {
- 						// 하나의 행에 대한 데이터
- 						var smallCate = data.ckSmallContent;
-   						var midCate = data.ckMidName;
-   						var bigCate = data.ckBigName;
-   						
-// 						console.log(bigCate + " <-test") 	
-// 						console.log(midCate + " <-test") 	
-// 						console.log(smallCate + " <-test") 	
-						
-//						console.log(data + " <-as;dkfjasldkfjalskdjflaksjd")
-// 						for(var key in data){
-// 							console.log(key + " <----> " +data[key]);
-// 						}
-   						//CateCheck.push(data);
-					   	if(finalCheck.indexOf(data) == -1 ) {
-					   		finalCheck.push(data);
-					    	console.log(finalCheck + " <-finalCheck")
-					   	}
-					   	
-					   	//smallCateCheck.push(data);
-					   	if(finalSmallCheck.indexOf(data.ckSmallContent) == -1 ) finalSmallCheck.push(data.ckSmallContent);
-						console.log(finalSmallCheck + " <-finalSmallCheck")
-					   	
-						var j=1;
- 						var html ='';
- 						let arry = finalCheck;
- 						let result = new Set(arry)
- 						console.log(result + " <-arry")
- 						$.each(finalCheck,function(i, data){
- 								
- 							
- 							
-//  								bigCateGroup = {index,data.ckBigName};
-//  								midCateGroup = {index,data.ckMidName};
-//  								smallCateGroup = {index,data.ckSmallContent};
- 							
-//  								html += '<tr>';
-// 	 							html += '<td name="number">'+ (j++) +'</td>'
-// 			 					html += '<td>'+ bigCateGroup.index+'</td>'
-// 			 					html += '<td>'+ midCateGroup.index +'</td>'
-// 		 						html += '<td>'+ smallCateGroup.index +'</td>'
-// 		 						html += '<td><button type="button" id="deleteBtn" value="'+smallCateGroup.index+'">삭제</button></td>'
-// 								html += '</tr>'
-// 								basicList.html(html)
-								//html = ''
-								//basicList.val('')
- 								html += '<tr>';
-	 							html += '<td>'+ (j++) +'</td>'
-			 					html += '<td>'+ data.ckBigName+'</td>'
-			 					html += '<td>'+ data.ckMidName +'</td>'
-		 						html += '<td>'+ data.ckSmallContent +'</td>'
-		 						html += '<td><button type="button" class="deleteBtn" value="'+data.ckSmallContent+'">삭제</button></td>'
-								html += '</tr>'
-								//html = ''
-								//basicList.val('')
-						})
-								basicList.html(html)
-							$(document).on('click','.deleteBtn',(function(){
-								var deletePar= $(this).parent().parent();
-								var deleteVal = $(this).val()
-								console.log(deleteVal + "<asdfkjasdof")
-								
-								for(var i=0; i<finalSmallCheck.length; i++){
-									if(finalSmallCheck[i] == smallCate){
-										deletePar.remove();
-										finalCheck.splice(data.ckSmallContent);
-									}
-								}
-								//html = '';
-								//basicList.html(html)
-								//deletePar.removechild(deleteVal);
-								//deletePar.find()
-								//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
-							}))
-// 							$('#deleteBtn').click(function(){
-// 								var deletePar= $(this).parent().parent();
-								
-// 								var deleteVal = $(this).val()
-// 								console.log(deleteVal + "<asdfkjasdof")
-// 								deletePar.remove();
-// 								//html = '';
-// 								//basicList.html(html)
-// 								//deletePar.removechild(deleteVal);
-// 								//deletePar.find()
-// 								//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
-// 								finalCheck.splice(data,1);
-// 							})
-  					})
- 					
-//  					request.fail(function( jqXHR, textStatus ) {
-//  						  //alert( "Request failed: " + textStatus );
-//  					});
-
-				}))
-				
-				$(document).on('click','#basicBtn',(function(){
-					console.log(finalCheck + "버튼 클릭시")
-					if(finalCheck ==null || finalCheck == 'undefined' || finalCheck == ''){
-						alert('항목을 선택 하세요.')
-					}	
-					
-/* 					var request = $.ajax({
-						  url: "/small/smallCheckList",	//호출될 url
-						  method: "POST",
-						  data: {"finalCheck" : finalCheck[]},//파라미터
-						  dataType: "json"		//응답 타입
-					});
-				
-					request.done(function( data ) {
-						console.log(data);
-					})
-					
-					request.fail(function( jqXHR, textStatus ) {
-					  //alert( "Request failed: " + textStatus );
-					}); */
-					
-				}))	
+			})
+			
+			$(document).on('click','#deleteBtn',function(){
+				var deletePar= $(this).parents('tr');
+				var deleteIndex = deletePar.find('[name=index]').attr('index')
+				deletePar.remove();
+				dataArray.splice(deleteIndex,1);
+				ckList()
+			})
+			
+			$(document).on('click','#basicBtn',function(){
+				console.log(finalCheck + "버튼 클릭시")
+				if(finalCheck ==null || finalCheck == 'undefined' || finalCheck == ''){
+					alert('항목을 선택 하세요.')
+				}
+			})
+			
+			function ckList(){
+				var html ='';
+				var basicList = $('#basicList')
+				$.each(dataArray,function(i, dataArray){	
+					var j = i+1
+					html += '<tr>';
+					html += '<td name="index" index="'+i+'">'+j+'</td>'
+ 					html += '<td>'+ dataArray.ckBigName +'</td>'
+ 					html += '<td>'+ dataArray.ckMidName +'</td>'
+					html += '<td name="small">'+ dataArray.ckSmallContent +'</td>'
+					html += '<td><button type="button" id="deleteBtn" value="'+dataArray.ckSmallContent+'">삭제</button></td>'
+					html += '</tr>'
+				})
+				basicList.html(html)
+			}
 		/*]]>*/
 		</script>
 	</th:block>
@@ -329,14 +234,8 @@
 				            <th scope="col">삭제</th>
 				          </tr>
 				      </thead>
-				      <tbody id="basicList">
-				        <tr>
-				            <td></td>
-				            <td></td>
-				            <td></td>
-				            <td></td>
-				        </tr>
-				    </tbody>
+					<tbody id="basicList">
+					</tbody>
 				</table>
 		        </div>
 		    </div>
