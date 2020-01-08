@@ -44,6 +44,12 @@
 		<result property="optionGradeName" column="option_grade_name"/>
 		<result property="fuelCode" column="fuel_code"/>
 		<result property="fuelType" column="fuel_type"/>
+		<result property="feCode" column="fe_code"/>
+		<result property="engineType" column="engine_type"/>
+		<result property="colorBigCode" column="color_big_code"/>
+		<result property="colorBigName" column="color_big_Name"/>
+		<result property="colorMidCode" column="color_mid_code"/>
+		<result property="colorMidName" column="color_mid_name"/>
 		
 	</resultMap>
 	
@@ -132,6 +138,32 @@
 		WHERE customer_car_info_code = #{carUpList};
 	</select>
 	
+	<select id="getDBCarMidCate" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
+			SELECT 
+				cm.*	
+			FROM
+				color_midcate_tb cm
+			inner JOIN
+				color_bigcate_tb cb
+			ON
+				cb.color_big_code = cm.color_big_code
+			WHERE cb.color_big_code = #{bigColSm}
+
+	</select>
+	
+	<select id="getDBCarBigCate" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
+			SELECT 
+				cb.*
+			FROM
+				color_bigcate_tb AS cb
+			inner JOIN
+				car_model_tb AS cm
+			ON
+				cb.car_model_code = cm.car_model_code
+			WHERE 
+				cb.car_model_code = #{carModelSm}
+	</select>
+	
 	<select id="getDBCarGrade" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
 			SELECT
 				og.*
@@ -143,6 +175,18 @@
 				og.year_car_code = yc.year_car_code
 			WHERE og.year_car_code = #{yearCarSm}
 	</select>
+	
+	<select id="getDBCarEngin" parameterType="String" resultMap="CarDetailMap">
+			SELECT
+				fe.*
+			FROM
+				fuel_engine_tb AS fe
+			INNER JOIN 
+				fuel_tb AS fl
+			ON  
+				fe.fuel_code = fl.fuel_code
+			WHERE fe.fuel_code = #{engineSm}
+	</select>	
 	
 	<select id="getDBCarfuel" parameterType="String" resultMap="CarDetailMap">
 			SELECT

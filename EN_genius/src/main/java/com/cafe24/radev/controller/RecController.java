@@ -32,9 +32,7 @@ public class RecController {
 	@PostMapping("recList")
 	public String register(VoRecRegister vcreg) {
 		System.out.println("접수 등록");
-		
 		recService.getRecInsert(vcreg);
-		
 		return "redirect:recList";
 		
 	}
@@ -50,13 +48,9 @@ public class RecController {
 	
 	@GetMapping("recList")
 	public String recList(Model model) {
-			
 		List<VoRecRegister> recList = recService.getRecList();
-		
 		model.addAttribute("vorecreg", recList);
-			System.out.println(recList +"접수 리스트 값 확인");
-		
-		
+		System.out.println(recList +"접수 리스트 값 확인");
 		return "receptionregister/recList";
 	}
 	

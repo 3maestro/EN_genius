@@ -141,14 +141,21 @@ public class CarService {
 	}
 	
 	//받은 매개변수로 다른 메서드를 호출한다 이때 내가 받은 매개변수를 대입한다
-	/**
-	 * 차량 등록 메서드
-	 * @param vcreg
-	 * @return
-	 */
+	
+	public List<VoCarDetail> getDBCarMidCate (String bigColSm) {
+		return carMapper.getDBCarMidCate(bigColSm);
+	}
+	
+	public List<VoCarDetail> getDBCarBigCate(String carModelSm) {
+		return carMapper.getDBCarBigCate(carModelSm);
+	}
+	
+	public List<VoCarDetail> getDBCarEngin(String fuelSm) {
+		System.out.println("서비스" + fuelSm);
+		return carMapper.getDBCarEngin(fuelSm);
+	}
 	
 	public List<VoCarDetail> getDBCarfuel(String opGradeSm) {
-		System.out.println("서비스151" + opGradeSm);
 		return carMapper.getDBCarfuel(opGradeSm);
 	}
 	

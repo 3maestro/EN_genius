@@ -18,7 +18,6 @@ public class RecService {
 	}
 	
 	public int getRecInsert(VoRecRegister vcreg) {
-		
 		return recMapper.getRecInsert(vcreg);
 		
 	}

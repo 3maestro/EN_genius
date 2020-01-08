@@ -115,6 +115,12 @@ public interface CarMapper {
 	 */
 	public VoCarDetail getCarUpdateList(String carUpList);
 	
+	public List<VoCarDetail> getDBCarMidCate(String bigColSm);
+	
+	public List<VoCarDetail> getDBCarBigCate(String carModelSm);
+	
+	public List<VoCarDetail> getDBCarEngin(String fuelSm);
+	
 	public List<VoCarDetail> getDBCarfuel(String opGradeSm);
 	
 	public List<VoCarDetail> getDBCarGrade(String yearCarSm);

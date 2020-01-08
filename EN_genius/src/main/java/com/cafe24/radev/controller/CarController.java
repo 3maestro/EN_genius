@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafe24.radev.mapper.CarMapper;
 import com.cafe24.radev.service.CarService;
 import com.cafe24.radev.vo.VoCarDetail;
 import com.cafe24.radev.vo.VoCarRegister;
+import com.cafe24.radev.vo.VoRecRegister;
 
 @Controller
 public class CarController {
@@ -24,7 +26,6 @@ public class CarController {
 
 	@Autowired
 	private CarService carService;
-
 
 	/**
 	 * 차량 상세보기
@@ -77,11 +78,28 @@ public class CarController {
 	  return "carregister/carList";
 	  }
 	  
+	  @PostMapping("getDBCarMidCate")
+	  public @ResponseBody List<VoCarDetail> getDBCarMidCate(@RequestParam(value ="bigColSm")String bigColSm) {
+		  List<VoCarDetail> midColorList =carService.getDBCarMidCate(bigColSm);
+		  return midColorList;
+	  }
+	  
+	  @PostMapping("getDBCarBigCate")
+	  public @ResponseBody List<VoCarDetail> getDBCarBigCate(@RequestParam(value = "carModelSm")String carModelSm) {
+		  List<VoCarDetail> bigColorList = carService.getDBCarBigCate(carModelSm);
+		return bigColorList;
+	  }
+	  
+	  @PostMapping("getDBCarEngin")
+	  public @ResponseBody List<VoCarDetail> getDBCarEngin(@RequestParam(value = "fuelSm")String fuelSm) {
+		  List<VoCarDetail> carEnginList = carService.getDBCarEngin(fuelSm);
+		return carEnginList;
+	  }
+	  
+	  
 	  @PostMapping("getDBCarfuel")
 	  public @ResponseBody List<VoCarDetail> getDBCarfuel(@RequestParam(value = "opGradeSm")String opGradeSm) {
-		  System.out.println("컨트롤82" + opGradeSm);
 		  List<VoCarDetail> carfuelList = carService.getDBCarfuel(opGradeSm);
-		  System.out.println("컨트롤84" + carfuelList);
 		return carfuelList;
 		  
 	  }
@@ -95,9 +113,7 @@ public class CarController {
 	  @PostMapping("getDBCarDetail")
 	  public @ResponseBody List<VoCarDetail> getDBCarDetail(@RequestParam(value = "carModelSmVal")String carModelSmVal,
 			  @RequestParam(value = "carModelSmText")String carModelSmText){
-		  System.out.println("컨트롤94" + carModelSmVal + carModelSmText);
 		  List<VoCarDetail> carDetailList = carService.getDBCarDetail(carModelSmVal, carModelSmText);
-		  System.out.println("컨트롤96" + carDetailList);
 		return carDetailList;
 	  }
 	  
