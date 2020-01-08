@@ -61,7 +61,7 @@
 					#{bossId},
 					#{bossPw},
 					#{bossName},
-					#{bossPhonenum},
+					#{bossPhoneNum},
 					#{bossEmail},
 					#{bsName},
 					#{bsNumber},

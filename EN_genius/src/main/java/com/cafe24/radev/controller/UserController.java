@@ -74,6 +74,13 @@ public class UserController {
 		model.addAttribute("carfactorylist", userService.carFactoryList());
 		return "/carfactory/carFactoryList";
 	}
+
+	@GetMapping("/CarFactorySearch2")
+	public String carFactoryList2(Model model) {
+		userService.carFactoryList();
+		model.addAttribute("carfactorylist", userService.carFactoryList());
+		return "/carfactory/carFactoryList";
+	}
 	/**
 	 * 사업장 리스트 내 팝업으로 서류 이미지 띄우기
 	 * @param bsCode
