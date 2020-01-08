@@ -75,6 +75,7 @@ public class CarController {
 	  @GetMapping("/carList")
 	  public String carList(VoCarDetail voDetail, Model model) {
 	  List<VoCarDetail> CarList = carService.getCarList(); 
+	  model.addAttribute("voDetail", CarList);
 	  return "carregister/carList";
 	  }
 	  

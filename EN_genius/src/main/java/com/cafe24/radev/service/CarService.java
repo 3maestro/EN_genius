@@ -127,8 +127,8 @@ public class CarService {
 	
 	//차량 상세 조회 메서드
 	public VoCarDetail getCarUpdateList(String carUpList) {
-	  VoCarDetail a = carMapper.getCarUpdateList(carUpList);
-	  return a; 
+	  VoCarDetail updateList = carMapper.getCarUpdateList(carUpList);
+	  return updateList; 
 	  }
 	 
 	

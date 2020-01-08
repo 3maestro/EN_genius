@@ -263,6 +263,8 @@
 	<input type="hidden" id="yearCarSmCode">
 	<input type="hidden" id="opGradeSmCode">
 	<input type="hidden" id="fuelSmCode">
+		
+		
 		<div class="card">
 			<div class="card-header"> 
 				<strong>차량 등록</strong>
@@ -276,6 +278,10 @@
 					<div class="form-group">
 						<label for="vat" class=" form-control-label">고객 이름</label>
 						<input type="text" id="vat" placeholder="고객 이름" class="form-control" name="customerCode">
+					</div>
+					<div class="form-group">
+						<label for="vat" class=" form-control-label">고객 연락처</label>
+						<input type="text" id="vat" placeholder="고객 연락처" class="form-control" name="customerPhone">
 					</div>
 					<div class="form-group">
 						<label for="street" class=" form-control-label">차량 번호</label>
@@ -368,23 +374,15 @@
 									class="form-control-sm form-control">
 								</select>
 								</td>
-								
-							<td>
+								<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">컬러 상세</label>
 									</div> <select name="selectSm9" id="midColSm"
 									class="form-control-sm form-control">
-										<option value="0">상세 색상 선택</option>
-										<option th:each="midColSel : ${midColSelect}"
-											th:text="${midColSel.colorMidName}"></option>
 								</select>
 								</td>
-								
-								
-								
 							</tr>
 							<tr>
-								
 									<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">차량선택옵션 선택</label>
@@ -394,17 +392,9 @@
 											th:text="${opChoiceSel.choiceOptionName}"></option>
 								</select>
 								</td>
-								
-								
-								
-								
-								
 							</tr>
 						</table>
-
 					</div>
-					
-											
 					<div class="col col-6">
 						<div class="form-group">
 							<label for="postal-code" class=" form-control-label">생산 연식</label>
