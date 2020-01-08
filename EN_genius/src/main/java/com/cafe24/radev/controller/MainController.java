@@ -25,17 +25,22 @@ public class MainController {
 	public String main() {
 		return "/login/main";
 	}
-	 
+	
+	//@RequestParam(name = "recepNum", required = false)String recepNum,
 	//@RequestParam(value = "carCode", required = false)String carCode
 	@PostMapping("/main/carRefer")
 	public String carRefer(@RequestParam(name = "carNum", required = false)String carNum,
 			@RequestParam(name = "carCode", required = false)String carCode, HttpSession session) {
 		System.out.println("carRefer MainController 호출");
+//		System.out.println(recepNum + " <-recepNum 조회 하려는 접수 번호 정보");
 		System.out.println(carNum + " <-carNum 조회 하려는 차량 번호 정보");
 		System.out.println(carCode + " <-carCode 조회 하려는 차대 번호 정보");
 		CarRefer carRefer;
 		String carInfo = null;
 		//String re = null;
+//		if(recepNum != null && !("").equals(recepNum)) {
+//			carInfo = recepNum;
+//		} 
 		if(carNum != null && !("").equals(carNum)) {
 			carInfo = carNum;
 		}else if(carCode != null && !("").equals(carCode)) {
