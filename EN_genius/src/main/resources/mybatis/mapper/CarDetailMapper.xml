@@ -60,23 +60,24 @@
 		<!-- Datail insert -->
 	<insert id="getCarRegister" parameterType="com.cafe24.radev.vo.VoCarRegister">
 		INSERT INTO customer_car_reg_table
-	(customer_car_reg_code, bs_code, customer_code, 
-	customer_car_number, origin_code, vendor_code, 
-	car_class_code, car_model_code, year_car_code, 
-	option_grade_code, fuel_code, fe_code, color_big_code, 
-	color_mid_code,
-	car_registration_date, last_distance_driven, last_visit_date,
-	customer_car_reg_writer, customer_car_reg_date)
-	
-	VALUES ('', 'bs002', 
-	
-(SELECT 
-	customer_tb.customer_code
-FROM
-	customer_tb
-WHERE  
-	customer_tb.customer_name = '이고객' AND customer_tb.customer_phone = '010-1111-2227'), '', '', '', '', '', '', '', 
-	'', '', '', '', '', '15400', '', '', NOW())
+			(customer_car_reg_code, bs_code, customer_code, 
+			customer_car_number, origin_code, vendor_code, 
+			car_class_code, car_model_code, year_car_code, 
+			option_grade_code, fuel_code, fe_code, color_big_code, 
+			color_mid_code,
+			car_registration_date, last_distance_driven, last_visit_date,
+			customer_car_reg_writer, customer_car_reg_date)
+			
+			VALUES ('', 'bs002', 
+		
+		(SELECT 
+			customer_tb.customer_code
+		FROM
+			customer_tb
+		WHERE  
+			customer_tb.customer_name = '이고객' AND customer_tb.customer_phone = '010-1111-2227'), '', '', '', '', '', '', '', 
+			'', '', '', '', '', '15400','', '', NOW())
+
 
 	</insert>
 	
