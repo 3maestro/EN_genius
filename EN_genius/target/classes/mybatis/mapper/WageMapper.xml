@@ -52,14 +52,14 @@
 	<insert id="insertWorkWage" parameterType="java.util.List">
 	    INSERT INTO now_work_wage_tb 
 	    	(
-	       		now_work_code, now_work_name, now_work_manhour, 
-	       		now_work_price, now_work_count, 
+	       		now_work_code, reception_code, now_work_name, 
+	       		now_work_manhour, now_work_price, now_work_count, 
 	       		now_work_wage, now_workman_name, nw_writer, nw_date 
 	       )
 	    VALUES
 	    <foreach collection="list" item="item" index="index" separator=", " >
 	        (
-	        	"${item.nowWorkCode}", "${item.wageSmallName}", 
+	        	"${item.nowWorkCode}", "${item.recepNum}", "${item.wageSmallName}", 
 	        	"${item.manHour}", "${item.onePrice}",
 	        	"${item.count}", "${item.totalPrice}", "${item.workMan}", "${item.bsCode}", now()
 	        )
@@ -69,6 +69,7 @@
 	<select id="workList" resultType="com.cafe24.radev.vo.NowWork" parameterType="java.util.HashMap">
 		SELECT
 			nowWork.now_work_code AS nowWorkCode,		
+			nowWork.reception_code AS recepNum,		
 			nowWork.now_work_name AS wageSmallName,
 			nowWork.now_work_manhour AS manHour,
 			nowWork.now_work_price AS onePrice,
@@ -88,5 +89,22 @@
             </when>
         </choose>
 	</select>
-
+	
+	<select id="WorkCurrentList" resultType="com.cafe24.radev.vo.NowWork" parameterType="String">
+		SELECT
+			nowWork.now_work_code AS nowWorkCode,		
+			nowWork.reception_code AS recepNum,		
+			nowWork.now_work_name AS wageSmallName,
+			nowWork.now_work_manhour AS manHour,
+			nowWork.now_work_price AS onePrice,
+			nowWork.now_work_count AS count,
+			nowWork.now_work_wage AS totalPrice,
+			nowWork.now_workman_name AS workMan,
+			nowWork.nw_writer AS  bsCode
+		FROM
+			now_work_wage_tb AS nowWork
+		where 
+			nowWork.reception_code = #{recepNum}
+	</select>
+	
 </mapper>

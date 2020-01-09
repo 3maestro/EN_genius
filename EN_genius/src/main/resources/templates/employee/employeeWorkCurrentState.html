@@ -9,24 +9,69 @@
 	
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript">
+			/*<[CDATA[*/
 			$(document).ready(function(){
 				$('.empBtn').click(function(){
 					var empName = $(this).val();
 					console.log(empName + " <-empName");
 					
-					//ajax사용 필요
+					var request = $.ajax({
+						url: "/work/workCurrentState",
+						method: "POST",
+						data: {"recepNum" : "12345"},//파라미터
+						dataType: "json"		//응답 타입
+					})
 					
-					for(var i=1; i<11; i++){
-						var tr = $(this).parent().parent();
-						console.log(tr + " <-tr 뭐니?")
-						var td = tr.children().eq(i);
-						console.log(td + " <-td 뭐니?")
-						console.log(td.text() + " <-td.text() 뭐니?")
+					request.done(function( data ) {
+						console.log(data + " <-data currentList")
+						var manHour;
+						var j=0;
+						for(var i=0; i<data.length; i++){
+							var a = data[i].recepNum
+							manHour = data[i].manHour
+							console.log(a + " <-aaa")
+							console.log(manHour + " <-manHour")
+							
+// 							60/10=6 한칸당 6분 
+// 							1 = 60 , 0.1 = 6 -> 1칸
+// 							2.2 = 132분 -> 22칸
+// 							manHour * 10은 색칠 되어질 칸의 갯수
+								j = manHour * 10;
+							if(j != 0){
+								j+=j;
+							}
+							console.log(j + " <-jjj")
+							
+						}
+						for(var k=1; k<=j; k++){
+							var tr = $('.empBtn').parent().parent();
+	 						//console.log(tr + " <-tr 뭐니?");
+	 						var td = tr.children().eq(k);
+	 						//console.log(td + " <-td 뭐니?");
+	 						//console.log(td.text() + " <-td.text() 뭐니?");
+							
+	 						td.attr('style','background-color:red');
+						}
+					})
+				
+// 					request.fail(function( jqXHR, textStatus ) {
+// 						alert( "Request failed: " + textStatus );
+// 					});	 	
+					
+//					ajax사용 필요
+					
+// 					for(var i=1; i<11; i++){
+// 						var tr = $(this).parent().parent();
+// 						console.log(tr + " <-tr 뭐니?")
+// 						var td = tr.children().eq(i);
+// 						console.log(td + " <-td 뭐니?")
+// 						console.log(td.text() + " <-td.text() 뭐니?")
 						
-						td.attr('style','background-color:red')
-					}
+// 						td.attr('style','background-color:red')
+// 					}
 				})
 			})
+			/*]]>*/
 		</script>
 	</th:block>
 	
