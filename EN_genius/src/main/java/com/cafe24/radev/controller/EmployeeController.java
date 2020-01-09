@@ -69,14 +69,7 @@ public class EmployeeController {
 		System.out.println("========"+model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode)));
 		return "/employee/employeeList";
 	}
-	/**
-	 * 직원작업현황
-	 * @return
-	 */
-	@GetMapping("/workCurrentState")
-	public String WorkCurrentState() {
-		return "/employee/employeeWorkCurrentState";
-	}
+
 	/**
 	 * 직원별 통계
 	 * @return

@@ -1,6 +1,10 @@
 package com.cafe24.radev.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +21,16 @@ public class CustomerController {
 	@Autowired CustomerService customerService;
 	
 	@GetMapping("/customer/customerList")
-	public String getMemberList(Model model) {
+	public String getCustomerList(Model model) {
 		model.addAttribute("title", "고객목록");
-		List<Customer> list = customerService.getCustomerList();
-		model.addAttribute("customerList", list);
-		return "/customer/customerList";
+		return "customer/customerList";
+	}
+	
+	@GetMapping(value="/customerSelect", produces = "application/json")
+	@ResponseBody
+	public List<Customer> getCustomerSelect(@RequestParam Map<String,String> search) {
+		List<Customer> list = customerService.getCustomerSelect(search);
+		return list;
 	}
 	
 	@GetMapping("/customer/customerInsert")
@@ -31,22 +40,47 @@ public class CustomerController {
 	}
 	
 	@PostMapping("/customer/customerInsert")
-	public String getCustomerInsert(Model model, Customer customer) {
+	public String getCustomerInsert(Model model, Customer customer, HttpSession session) {
+		String sid		= (String)session.getAttribute("SID");
+		String ecode	= (String)session.getAttribute("ECODE");
+		String scode	= (String)session.getAttribute("SCODE");
+		if(sid==null) {
+			sid=ecode;
+		}
+		customer.setBsCode(scode);
+		customer.setEiCode(sid);
 		System.out.println(customer);
 		customerService.getCustomerInsert(customer);
+		System.out.println("끝이다");
 		return "redirect:/customer/customerList";
 	}
 
 	@GetMapping("/customer/customerUpdate")
-	public String getCustomerUpdate(Model model, @RequestParam(value="customerCode") String customerCode) {
+	public String getCustomerUpdate(Model model, @RequestParam(value="customerCode") String customerCode, HttpSession session) {
+		String sid		= (String)session.getAttribute("SID");
+		String ecode	= (String)session.getAttribute("ECODE");
+		String scode	= (String)session.getAttribute("SCODE");
+		if(sid==null) {
+			sid=ecode;
+		}
+		System.out.println(scode+"_"+customerCode);
+		customerCode=scode+"_"+customerCode;
+		System.out.println(customerCode);
 		model.addAttribute("title", "고객수정");
-		Customer customer = customerService.getCustomerSelect("bs001_"+customerCode);
+		Customer customer = customerService.getCustomerSelectOne(customerCode);
+		System.out.println(customer);
 		model.addAttribute("customer", customer);
 		return "/customer/customerInfo";
 	}
 	
-	@PostMapping("/customer/customerUpdate")
-	public String getCustomerUpdate(Customer customer) {
+	@PostMapping("/customerUpdate")
+	public String getCustomerUpdate(Customer customer, HttpSession session) {
+		String sid		= (String)session.getAttribute("SID");
+		String ecode	= (String)session.getAttribute("ECODE");
+		String scode	= (String)session.getAttribute("SCODE");
+		if(sid==null) {
+			sid=ecode;
+		}
 		System.out.println(customer);
 		customerService.getCustomerUpdate(customer);
 		return "redirect:/customer/customerList";
@@ -59,9 +93,11 @@ public class CustomerController {
 		return "/customer/customerX";
 	}
 	
-	@PostMapping(value="/customer/customerInsertAjax", produces = "application/json")
-	public @ResponseBody String getCustomerInsertAjax(@RequestParam(value="name") String name, @RequestParam(value="birth") String birth, @RequestParam(value="phone") String phone) {
-		String code = customerService.getCustomerInsertAjax(name,birth,phone);
+	@PostMapping(value="/customerInsertAjax", produces = "text/plain")
+	@ResponseBody
+	public String getCustomerInsertAjax(@RequestParam(value="name") String name, @RequestParam(value="birth") String birth, @RequestParam(value="phone") String phone, HttpSession session) {
+		String scode	= (String)session.getAttribute("SCODE");
+		String code = customerService.getCustomerInsertAjax(name,birth,phone,scode);
 		return code;
 	}
 	

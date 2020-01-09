@@ -4,9 +4,234 @@
 	layout:decorate="~{layout/default}">
 
 	<th:block layout:fragment="customTitle">
-		<title>EN_genius</title>
+		<title>직원 작업 현황</title>
 	</th:block>
-	<th:block layout:fragment="customContents">
-		직원작업현황
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript">
+			/*<[CDATA[*/
+			$(document).ready(function(){
+				$('.empBtn').click(function(){
+					var empName = $(this).val();
+					console.log(empName + " <-empName");
+					
+					var request = $.ajax({
+						url: "/work/workCurrentState",
+						method: "POST",
+						data: {"recepNum" : "12345"},//파라미터
+						dataType: "json"		//응답 타입
+					})
+					
+					request.done(function( data ) {
+						console.log(data + " <-data currentList")
+						var manHour;
+						var j=0;
+						for(var i=0; i<data.length; i++){
+							var a = data[i].recepNum
+							manHour = data[i].manHour
+							console.log(a + " <-aaa")
+							console.log(manHour + " <-manHour")
+							
+// 							60/10=6 한칸당 6분 
+// 							1 = 60 , 0.1 = 6 -> 1칸
+// 							2.2 = 132분 -> 22칸
+// 							manHour * 10은 색칠 되어질 칸의 갯수
+								j = manHour * 10;
+							if(j != 0){
+								j+=j;
+							}
+							console.log(j + " <-jjj")
+							
+						}
+						for(var k=1; k<=j; k++){
+							var tr = $('.empBtn').parent().parent();
+	 						//console.log(tr + " <-tr 뭐니?");
+	 						var td = tr.children().eq(k);
+	 						//console.log(td + " <-td 뭐니?");
+	 						//console.log(td.text() + " <-td.text() 뭐니?");
+							
+	 						td.attr('style','background-color:red');
+						}
+					})
+				
+// 					request.fail(function( jqXHR, textStatus ) {
+// 						alert( "Request failed: " + textStatus );
+// 					});	 	
+					
+//					ajax사용 필요
+					
+// 					for(var i=1; i<11; i++){
+// 						var tr = $(this).parent().parent();
+// 						console.log(tr + " <-tr 뭐니?")
+// 						var td = tr.children().eq(i);
+// 						console.log(td + " <-td 뭐니?")
+// 						console.log(td.text() + " <-td.text() 뭐니?")
+						
+// 						td.attr('style','background-color:red')
+// 					}
+				})
+			})
+			/*]]>*/
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="contentFragment">
+		<div class="content">
+			<div class="col-lg-12">
+				<div class="card">
+				    <div class="card-header">
+				        <strong class="card-title">Bordered Table</strong>
+				    </div>
+                    <div class="card-body">
+                        <p class="muted">To create a default progress bar, add a <code>.progress-bar-striped and .progress-bar-animated</code> class to a <code>&lt;div&gt;</code> element:</p>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+				    <div class="card-body">
+				    	<div class="col-lg-12">
+			                <div class="card">
+			                   <table class="table table-bordered">
+						            <thead>
+						                <tr>
+						               	 	<th scope="row" colspan="10">이름</th>
+						               	 	<th scope="row" colspan="10">01</th>
+						               	 	<th scope="row" colspan="10">02</th>
+						               	 	<th scope="row" colspan="10">03</th>
+						               	 	<th scope="row" colspan="10">04</th>
+											<th scope="row" colspan="10">05</th>
+											<th scope="row" colspan="10">06</th>
+											<th scope="row" colspan="10">07</th>
+											<th scope="row" colspan="10">08</th>
+											<th scope="row" colspan="10">09</th>
+											<th scope="row" colspan="10">10</th>
+		<!-- 									<th scope="row" colspan="4">11</th>
+											<th scope="row" colspan="4">12</th>
+											<th scope="row" colspan="4">13</th>
+											<th scope="row" colspan="4">14</th>
+											<th scope="row" colspan="4">15</th> --> 
+						                </tr>
+						            </thead>
+						            <tbody>
+						                <tr>
+						                    <th scope="row" colspan="10"><button type="button" class="empBtn" value="정상혁">정상혁</button></th>
+						                    <td>1</td>
+						                    <td>2</td>
+						                    <td>3</td>
+						                    <td>4</td>
+						                    <td>5</td>
+						                    <td>6</td>
+						                    <td>7</td>
+						                    <td>8</td>
+						                    <td>9</td>
+						                    <td>0</td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                    <td></td>
+						                </tr>
+						            </tbody>
+						        </table>
+			                </div>
+			            </div>
+				    </div>
+				</div>
+			</div>
+		</div>	
 	</th:block>
 </html>
