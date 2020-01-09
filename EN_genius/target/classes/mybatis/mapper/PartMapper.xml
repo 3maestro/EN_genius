@@ -6,7 +6,6 @@
   <!-- namespace속성은 인터페이스의 위치를 적는다. -->
 <mapper namespace="com.cafe24.radev.mapper.PartMapper">
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
-	
 	<!-- 부품vo -->
 	<resultMap type="com.cafe24.radev.vo.Part" id="partRM">
 		<result property="partCode" column="part_use_code"/>
@@ -135,5 +134,12 @@
 			(#{groupCode}, #{groupName}, #{groupWrite}, #{groupDate}, #{bsCode});
 	</insert>
 	
-	
+	<select id="getEsCode" parameterType="String" resultType="String">
+		SELECT
+			max(e.part_estimate_code)
+		FROM
+			part_estimate_tb AS e
+		WHERE
+			e.part_estimate_code LIKE #{select}
+	</select>
 </mapper>

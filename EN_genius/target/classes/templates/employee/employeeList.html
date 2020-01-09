@@ -66,8 +66,6 @@
 				
 				$("#resignationBtn").val(employeeName);
 				
-				$('#myModal1').modal('show');
-				
 				$('.post').click(function(){
 					$('[name=employeeAddr]').val('');
 					$('.detail').css('display','block')
@@ -136,7 +134,7 @@
 				                <tr>
 				                    <td class="avatar">
 				                        <div class="round-img">
-				                            <a href="#"><img class="rounded-circle" src="images/avatar/jic.jpg" alt=""></a>
+				                            <a href="#"><img class="rounded-circle" src="/images/avatar/jic.jpg" alt=""></a>
 				                        </div>
 				                    </td>
 				                    <td th:text="${I.employeeDepartment.dpName}"></td>
@@ -262,7 +260,7 @@
 		    </div>
 		  </div>
 		</div>
-	<script src="assets/js/addr.js"></script>
+	<script src="/assets/js/addr.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
 	</th:block>
 </html>

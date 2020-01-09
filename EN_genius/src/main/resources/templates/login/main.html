@@ -54,20 +54,32 @@
 	 			$('#carSearchBtn').click(function(){							
 	 		        
 //	 				&& 6 < carNum.length 
+//	 				var recepNum = $('input[name=recepNum]').val();
 	 				var carNum = $('input[name=carNum]').val();
 	 				var carCode = $('input[name=carCode]').val();
 	 				console.log(carNum.length + " <-carNum.length")
 	 				console.log(carCode + " <-carCode")
 	 				var car;
+// 	 				if(recepNum !='' && recepNum !='undefined' && recepNum != null){
+// 	 					if(recepNum.length > 5 && carNum =='' && carCode =='' ){
+// 	 					}else{
+// 	 						alert('접수 번호를 확인 하세요.')
+// 		 					$('input[name=recepNum]').val('')
+// 		 					$('input[name=carCode]').val('')
+// 		 					$('input[name=carCode]').val('')
+	 						
+// 	 					}
+// 	 				}else 
 	 				//차량번호에 값이 있다면
-	 				if(carNum != '' && carNum != 'undefined' && carNum != null){
+ 					if(carNum != '' && carNum != 'undefined' && carNum != null){
 	 					console.log(carNum + " <-carNum")
 	 					
 	 					if(carNum.length > 6 && carCode == ''){
 	 						//car = carNum;
 	 					}else{
 	 						alert('차량 번호를 확인 하세요.')
-		 					$('input[name=carNum]').val('')
+		 					//$('input[name=recepNum]').val('')
+		 					$('input[name=carCode]').val('')
 		 					$('input[name=carCode]').val('')
 	 					}
 	 					
@@ -78,7 +90,6 @@
 // 	 						$('input[name=carCode]').val('')
 // 		 				}
 
-
 	 				//차대번호에 값이 있으면
 	 				}else if(carCode != '' && carCode != 'undefined' && carCode != null){
 	 					console.log(carCode + " <-carCode")
@@ -87,14 +98,15 @@
 		 					//car = carCode;					
 	 					}else{
 	 						alert('차대 번호를 확인 하세요.')
-	 						$('input[name=carCode]').val('')
+		 					$('input[name=carCode]').val('')
 	 					}
 	 					
 	 				//둘다 값이 없으면
 	 				}else {
 	 					alert('차량 정보를 입력 하세요.')
-	 					$('input[name=carNum]').val('')
-	 					$('input[name=carCode]').val('')
+	 					$('input[name=recepNum]').val('')
+		 					$('input[name=carCode]').val('')
+		 					$('input[name=carCode]').val('')
 	 				}
 	 				
 	 				$('#search').submit();
@@ -117,10 +129,10 @@
 // 					});				
 				});
 	 			
-// 	 			$('#carResetBtn').click(function(){
-// 	 				$('input[name=carNum]').val('')
-// 					$('input[name=carCode]').val('')
-// 	 			})
+	 			$('#carResetBtn').click(function(){
+	 				$('input[name=carNum]').val('')
+					$('input[name=carCode]').val('')
+	 			})
 			});
 			
 // 			$(document).on.('click','carReferCancelBtn',function(){
