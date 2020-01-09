@@ -2,6 +2,8 @@ package com.cafe24.radev.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +49,8 @@ public class RecController {
 	
 	
 	@GetMapping("recList")
-	public String recList(Model model) {
-		List<VoRecRegister> recList = recService.getRecList();
+	public String recList(Model model,HttpSession session) {
+		List<VoRecRegister> recList = recService.getRecList(session);
 		model.addAttribute("vorecreg", recList);
 		System.out.println(recList +"접수 리스트 값 확인");
 		return "receptionregister/recList";

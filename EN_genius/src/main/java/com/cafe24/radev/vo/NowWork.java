@@ -5,6 +5,7 @@ public class NowWork {
 //	private String ccWageSmallCode; 
 //	private String ccCode;		
 	private String nowWorkCode;		//현재 진행 각각의 작업 코드
+	private String recepNum;		//현재 진행 각각의 작업 코드
 	private String wageSmallName;	//현재 진행 각각의 작업 이름
 	private double manHour;			//현재 진행 작업 각각의 표준 작업 시간
 	private int onePrice;			//해당 차량에 적합한 배기량별 단가
@@ -18,6 +19,12 @@ public class NowWork {
 	}
 	public void setNowWorkCode(String nowWorkCode) {
 		this.nowWorkCode = nowWorkCode;
+	}
+	public String getRecepNum() {
+		return recepNum;
+	}
+	public void setRecepNum(String recepNum) {
+		this.recepNum = recepNum;
 	}
 	public String getWageSmallName() {
 		return wageSmallName;
@@ -64,9 +71,27 @@ public class NowWork {
 	
 	@Override
 	public String toString() {
-		return "NowWork [nowWorkCode=" + nowWorkCode + ", wageSmallName=" + wageSmallName + ", manHour=" + manHour
-				+ ", onePrice=" + onePrice + ", count=" + count + ", totalPrice=" + totalPrice + ", workMan=" + workMan
-				+ ", bsCode=" + bsCode + "]";
-	}		
-	
+		StringBuilder builder = new StringBuilder();
+		builder.append("NowWork [nowWorkCode=");
+		builder.append(nowWorkCode);
+		builder.append(", recepNum=");
+		builder.append(recepNum);
+		builder.append(", wageSmallName=");
+		builder.append(wageSmallName);
+		builder.append(", manHour=");
+		builder.append(manHour);
+		builder.append(", onePrice=");
+		builder.append(onePrice);
+		builder.append(", count=");
+		builder.append(count);
+		builder.append(", totalPrice=");
+		builder.append(totalPrice);
+		builder.append(", workMan=");
+		builder.append(workMan);
+		builder.append(", bsCode=");
+		builder.append(bsCode);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

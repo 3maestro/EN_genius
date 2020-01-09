@@ -7,6 +7,7 @@ public class WorkDecide {
 
 	//private List<String> ccWageSmallCode;
 	private List<String> bsCode;
+	private List<String> receptionCode;
 	private List<String> wageSmallName;
 	private List<String> manHour;
 	private List<String> ccStandardWage;
@@ -25,6 +26,12 @@ public class WorkDecide {
 	}
 	public void setBsCode(List<String> bsCode) {
 		this.bsCode = bsCode;
+	}
+	public List<String> getReceptionCode() {
+		return receptionCode;
+	}
+	public void setReceptionCode(List<String> receptionCode) {
+		this.receptionCode = receptionCode;
 	}
 	public List<String> getWageSmallName() {
 		return wageSmallName;
@@ -59,8 +66,23 @@ public class WorkDecide {
 	
 	@Override
 	public String toString() {
-		return "WorkDecide [bsCode=" + bsCode + ", wageSmallName=" + wageSmallName + ", manHour=" + manHour
-				+ ", ccStandardWage=" + ccStandardWage + ", count=" + count + ", workMan=" + workMan + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("WorkDecide [bsCode=");
+		builder.append(bsCode);
+		builder.append(", receptionCode=");
+		builder.append(receptionCode);
+		builder.append(", wageSmallName=");
+		builder.append(wageSmallName);
+		builder.append(", manHour=");
+		builder.append(manHour);
+		builder.append(", ccStandardWage=");
+		builder.append(ccStandardWage);
+		builder.append(", count=");
+		builder.append(count);
+		builder.append(", workMan=");
+		builder.append(workMan);
+		builder.append("]");
+		return builder.toString();
 	}
-	
+
 }

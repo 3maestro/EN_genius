@@ -22,9 +22,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                              Object handler) {    	
     	HttpSession session = request.getSession(false);
     	
-    	 System.out.println(request.getRequestURI() + " <<<<<<<<");
+//    	 System.out.println(request.getRequestURI() + " <<<<<<<<");
 		  if(session == null) { 
-		  System.out.println("세션 null*******************"); 
+//		  System.out.println("세션 null*******************"); 
 			  try {
 		  response.sendRedirect("/loginForm"); 
 		  } catch (IOException e) {
@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			  return false; 
 		
 		  }else { 
-			  System.out.println("세션 null 아님*******************"); 
+//			  System.out.println("세션 null 아님*******************"); 
 			  return true; 
 			  }   	
     }	
