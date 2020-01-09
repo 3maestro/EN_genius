@@ -32,14 +32,14 @@
 		<result property="customerCarNumber" column="customer_car_number"/>
 		<result property="rcCode" column="rc_code"/>
 		<result property="carProductionYear" column="car_production_year"/>
-		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="customerCarRegCode" column="customer_car_reg_code"/>
 		<result property="bsCode" column="bs_code"/>
 		<result property="customerCode" column="customer_code"/>
 		<result property="carRegistrationDate" column="car_registration_date"/>
 		<result property="lastDistanceDriven" column="last_distance_driven"/>
 		<result property="lastVisitDate" column="last_visit_date"/>
-		<result property="customerCarInfoWriter" column="customer_car_info_writer"/>
-		<result property="customerCarInfoDate" column="customer_car_info_date"/>
+		<result property="customerCarRegWriter" column="customer_car_reg_writer"/>
+		<result property="customerCarRegDate" column="customer_car_reg_date"/>
 		<result property="optionGradeCode" column="option_grade_code"/>
 		<result property="optionGradeName" column="option_grade_name"/>
 		<result property="fuelCode" column="fuel_code"/>
@@ -50,6 +50,8 @@
 		<result property="colorBigName" column="color_big_Name"/>
 		<result property="colorMidCode" column="color_mid_code"/>
 		<result property="colorMidName" column="color_mid_name"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerPhone" column="customer_phone"/>
 		
 	</resultMap>
 	
@@ -58,35 +60,45 @@
 		<!-- Datail insert -->
 	<insert id="getCarRegister" parameterType="com.cafe24.radev.vo.VoCarRegister">
 		INSERT INTO customer_car_reg_table
-	(customer_car_info_code, bs_code, customer_code, 
+	(customer_car_reg_code, bs_code, customer_code, 
 	customer_car_number, origin_code, vendor_code, 
 	car_class_code, car_model_code, year_car_code, 
 	option_grade_code, fuel_code, fe_code, color_big_code, 
 	color_mid_code,
 	car_registration_date, last_distance_driven, last_visit_date,
-	customer_car_info_writer, customer_car_info_date)
+	customer_car_reg_writer, customer_car_reg_date)
 	
-	VALUES ('codetest1', 'bs002', 
+	VALUES ('', 'bs002', 
 	
 (SELECT 
 	customer_tb.customer_code
 FROM
 	customer_tb
 WHERE  
-	customer_tb.customer_name = '이고객' AND customer_tb.customer_phone = '010-1111-2227'), 'numtest', 'origintest', 'vendortest', 'classtest', 'modeltest', 'yeartest', 'ogtest', 
-	'futest', 'entest', 'colorbtest', 'colormtest', '2011-01-05', '15000', '2011-11-11', 'writest', NOW())
+	customer_tb.customer_name = '이고객' AND customer_tb.customer_phone = '010-1111-2227'), '', '', '', '', '', '', '', 
+	'', '', '', '', '', '15400', '', '', NOW())
 
 	</insert>
 	
 	
 	<select id="getCarList" resultMap="CarDetailMap">
-		SELECT
-			customer_car_info_code,bs_code,customer_code,customer_car_number
-			,vendor_code,rc_code,car_production_year,car_registration_date
-			,last_distance_driven,last_visit_date,customer_car_info_writer
-			,customer_car_info_date
-		FROM
-			customer_car_info_table
+		SELECT 
+			cc.customer_car_reg_code,
+			ct.customer_name,
+			cc.customer_car_number,
+			yc.car_model_detail,
+			cc.last_distance_driven,
+			cc.last_visit_date
+		FROM 
+			customer_car_reg_table AS cc 
+		INNER JOIN 
+			customer_tb AS ct
+		ON 
+			cc.customer_code = ct.customer_code
+		INNER JOIN 
+			year_car_tb AS yc
+		ON 
+			cc.year_car_code = yc.year_car_code
 	</select>
 	
 	
@@ -137,20 +149,20 @@ WHERE
 	
 	
 	<!-- 차량 상세 조회 쿼리 -->
-	<select id="getCarUpdateList" parameterType="String" resultType="com.cafe24.radev.vo.VoCarDetail">
-		SELECT 
-			customer_car_info_code AS customerCarInfoCode
-			,customer_code AS customerCode 
-			,customer_car_number AS customerCarNumber
-			,car_production_year AS carProductionYear
-			,customer_car_info_date AS customerCarInfoDate
-			,customer_car_info_writer AS customerCarInfoWriter
-			,last_visit_date AS lastVisitDate
-			,last_distance_driven AS lastDistanceDriven
-			,car_registration_date AS carRegistrationDate
+	<select id="getCarUpdateList" parameterType="String" resultMap="CarDetailMap">
+		SELECT
+			cc.customer_car_reg_code,ct.customer_name,ct.customer_phone,cc.customer_car_number
+			,cc.origin_code,cc.vendor_code,cc.car_class_code,cc.car_model_code
+			,cc.year_car_code,cc.option_grade_code,cc.fuel_code,cc.fe_code
+			,cc.color_big_code,cc.color_mid_code,cc.car_registration_date
+			,cc.last_distance_driven,cc.last_visit_date,cc.customer_car_reg_writer
+			,cc.customer_car_reg_date
 		FROM
-			customer_car_info_table
-		WHERE customer_car_info_code = #{carUpList};
+			customer_car_reg_table as cc
+		INNER JOIN 
+			customer_tb AS ct
+		ON cc.customer_code = ct.customer_code
+		WHERE cc.customer_car_reg_code = #{carUpList}
 	</select>
 	
 	<select id="getDBCarMidCate" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">

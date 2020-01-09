@@ -34,7 +34,9 @@ public class CarController {
 	 */
 	  @GetMapping("carUpdateList") 
 	  public String getCarUpdateList(@RequestParam("carUpList") String carUpList, Model model) {
+	  System.out.println("컨36" + carUpList);
 	  model.addAttribute("carUpList", carService.getCarUpdateList(carUpList));
+	  System.out.println("컨38" + carUpList);
 	  return "carregister/carUpdateList"; 
 	  }
 	  

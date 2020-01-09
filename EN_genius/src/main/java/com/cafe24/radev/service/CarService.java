@@ -127,6 +127,7 @@ public class CarService {
 	
 	//차량 상세 조회 메서드
 	public VoCarDetail getCarUpdateList(String carUpList) {
+		System.out.println("서비스" + carUpList);
 	  VoCarDetail updateList = carMapper.getCarUpdateList(carUpList);
 	  return updateList; 
 	  }
@@ -151,7 +152,6 @@ public class CarService {
 	}
 	
 	public List<VoCarDetail> getDBCarEngin(String fuelSm) {
-		System.out.println("서비스" + fuelSm);
 		return carMapper.getDBCarEngin(fuelSm);
 	}
 	
