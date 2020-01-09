@@ -134,5 +134,12 @@
 			(#{groupCode}, #{groupName}, #{groupWrite}, #{groupDate}, #{bsCode});
 	</insert>
 	
-	
+	<select id="getEsCode" parameterType="String" resultType="String">
+		SELECT
+			max(e.part_estimate_code)
+		FROM
+			part_estimate_tb AS e
+		WHERE
+			e.part_estimate_code LIKE #{select}
+	</select>
 </mapper>

@@ -61,6 +61,15 @@ public interface PartMapper {
 	 * @param bsCode
 	 * @return
 	 */
-	String leadCode(String bsCode,String select);
+	String getPartCode(String bsCode,String select);
 	
+	/**
+	 * 판매코드 최댓값
+	 * @param bsCode
+	 * @param select
+	 * @return
+	 */
+	String getEsCode(String bsCode,String select);
+	
+	void addEstimate();
 }

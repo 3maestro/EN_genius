@@ -16,6 +16,7 @@ import com.cafe24.radev.mapper.UserMapper;
 import com.cafe24.radev.vo.CarFactory;
 import com.cafe24.radev.vo.FirstCategoryForCar;
 import com.cafe24.radev.vo.Part;
+import com.cafe24.radev.vo.PartEsimate;
 import com.cafe24.radev.vo.PartGuide;
 import com.cafe24.radev.vo.SecondCategoryForCar;
 
@@ -29,10 +30,10 @@ public class PartService {
 	SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 	Calendar time = Calendar.getInstance();
 	String nowDate = format.format(time.getTime());
-	HttpSession session;
 	String bsCode /* = (String)session.getAttribute("SCODE") */;
 	List<Part> list = null;
-
+	String partWrite = null;
+	
 	/**
 	 * 부품전체목록조회
 	 * @return
@@ -41,6 +42,7 @@ public class PartService {
 		
 		return partMapper.getData();
 	}
+	
 	/**
 	 * 공업사별부품전체목록조회
 	 * @return
@@ -55,6 +57,7 @@ public class PartService {
 		}
 		return list;
 	}
+	
 	/**
 	 * 목록에서 리스트로 이동시 따라가는정보
 	 * 로우하나 조회
@@ -66,6 +69,7 @@ public class PartService {
 		bsCode=(String)session.getAttribute("SCODE");
 		return partMapper.partSelectForOrder(partNumber,bsCode);
 	}
+	
 	/**
 	 * 부품등록시 대분류선택을 위한 데이터조회 
 	 * @return
@@ -76,6 +80,7 @@ public class PartService {
 		
 		return categoryMapper.getFirstCateList();
 	}
+	
 	/**
 	 * 부품등록시 중분류선택을 위한 데이터조회(Ajax)
 	 * @return
@@ -92,6 +97,7 @@ public class PartService {
 		}
 		return sCateNameList;
 	}
+	
 	/**
 	 * 신규부품등록
 	 * @param parts
@@ -100,7 +106,7 @@ public class PartService {
 		System.out.println("partInsertPro/Service");
 		System.out.println(nowDate+"<<현재시간/service");
 		bsCode = (String)session.getAttribute("SCODE");
-		String partWrite = (String)session.getAttribute("SID");
+		partWrite = (String)session.getAttribute("SID");
 		//직원코드 세션
 		if(partWrite == null) {
 			partWrite = (String)session.getAttribute("ECODE");
@@ -109,7 +115,7 @@ public class PartService {
 		String newCodeDate = nowDate.replace("-","").trim();
 		newCodeDate = newCodeDate.substring(2);
 		String select = "%"+newCodeDate+"%";
-		String partCode = partMapper.leadCode(bsCode,select);
+		String partCode = partMapper.getPartCode(bsCode,select);
 		if(partCode == null) {
 			//없으면 1번 생성
 			partCode = "pa_"+bsCode+"_"+newCodeDate+"00001";
@@ -131,6 +137,7 @@ public class PartService {
 		
 		partMapper.partInsertPro(parts);
 	}
+	
 	/**
 	 * 부품수량업데이트
 	 */
@@ -155,6 +162,7 @@ public class PartService {
 	 */
 	public List<Part> getPartGroupList(String partCheck,HttpSession session,String many) {
 		System.out.println(partCheck +"getPartGroup/service");
+		
 		list = new ArrayList<Part>();
 		String checkValue = null;
 		String rowMany = null;
@@ -169,7 +177,7 @@ public class PartService {
 			//System.out.println(i+":"+partChecks[i]);
 			checkValue = partChecks[i];
 			Part part = partMapper.partSelectForOrder(checkValue, bsCode);
-			if(manys!= null && many != null) {
+			if(manys!= null && part!= null) {
 				//현재수량
 				rowMany = manys[i];
 				//System.out.println(rowMany+": "+i);
@@ -177,10 +185,23 @@ public class PartService {
 			}
 			list.add(part);
 		}
-		
+
 		return list;
 	}
 	
+	/**
+	 * 신규부품시 
+	 * @param part
+	 * @param session
+	 * @param many
+	 * @return
+	 */
+	public List<Part> getPartGroupList(Part part,HttpSession session,String many){
+		System.out.println(part.getPartName()+"<<<<<new");
+		list = new ArrayList<Part>();
+		list.add(part);
+		return list;
+	}
 	/**
 	 * 코드 검색후 자동생성
 	 * @return 생성시킬 코드값
@@ -322,13 +343,94 @@ public class PartService {
 		//System.out.println(docNo+" : <문서코드값");
 		return docNo;
 	}
-	/*
-	 * Group group = new Group(); group.setGroupCode(GroupCode);
-	 * group.setGroupName("부품"); group.setGroupWrite("");
-	 * group.setGroupDate(nowDate); group.setBsCode("");
-	 * 
-	 * 
-	 * return partMapper.makeGroupCode(group);
+	
+	
+	/**
+	 * 판매등록
+	 * @param partEs
+	 * @param session
+	 * @param gCode
 	 */
 	
+	public void estimatePro(PartEsimate partEs,HttpSession session,String gCode) { 
+		System.out.println("판매등록"); System.out.println(gCode);
+		bsCode = (String)session.getAttribute("SCODE"); 
+		partWrite =  (String)session.getAttribute("SNAME"); 
+		//판매코드 최댓값
+		String esCode="esti_";
+		esCode += bsCode+"_";
+		esCode += nowDate.replace("-","").substring(2); 
+		String select = "%"+esCode+"%";
+		String index = partMapper.getEsCode(bsCode, select); 
+		if(index!=null) {
+			index = index.substring(17); 
+			int i = (Integer.parseInt(index)+1); 
+			index = String.format("%03d", i);
+		}else {
+			index = "001";
+		} 
+		esCode += index;
+		//System.out.println(esCode); 
+		
+		int a =partEs.getPartNumber().indexOf(","); 
+		System.out.println(a+"::::"); 
+		int price;
+		int many;
+		int itex;
+		int tprice;
+		if(a == -1) {
+			price = Integer.parseInt(partEs.getPartPrice()); 
+			many =Integer.parseInt(partEs.getPartMany());
+			//부가세 
+			itex = (int)Math.round((price*many)*0.1); 
+			//공급가
+			tprice = (price*many)+itex;
+			partEs.setPartTex(itex); 
+			partEs.setPartToPrice(tprice);
+			partEs.setEsCode(esCode);
+			partEs.setBsCode(bsCode);
+			partEs.setGrCode(gCode);
+			partEs.setInnitDate(nowDate); 
+			partEs.setWriter(partWrite);
+		}else {
+			String aPrice[] = partEs.getPartPrice().split(",");
+			String aMany[] = partEs.getPartMany().split(",");
+			for(int i =0;i<aPrice.length;i++) {
+				String sPrice = aPrice[i];
+				String sMany = aMany[i];
+				System.out.println(sPrice);
+				System.out.println(sMany);
+				price = Integer.parseInt(sPrice); 
+				many =Integer.parseInt(sMany);
+				//부가세 
+				itex = (int)Math.round((price*many)*0.1); 
+				//공급가
+				tprice = (price*many)+itex;
+				//판매코드 최댓값
+				esCode += bsCode+"_";
+				esCode += nowDate.replace("-","").substring(2); 
+				select = "%"+esCode+"%";
+				index = partMapper.getEsCode(bsCode, select); 
+				if(index!=null) {
+					index = index.substring(17); 
+					i = (Integer.parseInt(index)+1); 
+					index = String.format("%03d", i);
+				}else {
+					index = "001";
+				} 
+				esCode += index;
+				
+				partEs.setPartTex(itex); 
+				partEs.setPartToPrice(tprice);
+				partEs.setEsCode(esCode);
+				partEs.setBsCode(bsCode);
+				partEs.setGrCode(gCode);
+				partEs.setInnitDate(nowDate);
+				partEs.setWriter(partWrite);
+				
+			}
+	  	}
+		System.out.println(partEs.toString());
+	}
+	 
 }

@@ -108,7 +108,7 @@
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card" id="card">
+				<div class="card">
 					<div class="card-header">
 						<strong class="card-title">부품목록</strong>
 					</div>
@@ -143,12 +143,12 @@
 										</tr>
 									</tbody>
 								</table>
+								<input type="hidden"  id="groupCode" name="groupCode">
 								<button class="btn btn-info" type="button" id="sellPartBtn">부품판매</button>
 								<button class="btn btn-info" type="button" id="buyPartBtn">부품구매</button>
 							</form>
 							<div class="col-sm-2">
 								<div class="btn btn-info" id="cartAddBtn">저장하기</div>
-								<input type="button" value="1" onclick="info_print()">
 							</div>
 							</div>
 								<th:block th:if="${partList == null}">
@@ -166,6 +166,21 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<!-- 
+	<script src="/assets/js/lib/data-table/datatables.min.js"></script>
+	<script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script src="/assets/js/lib/data-table/jszip.min.js"></script>
+	<script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script> 
+	-->
 	<script src="/assets/js/init/datatables-initPart.js"></script>
+	<!-- <script type="text/javascript">
+		$(document).ready(function(){
+			$('#bootstrap-data-table-export').DataTable();
+		});
+	</script> -->
 	</th:block>
 </html>

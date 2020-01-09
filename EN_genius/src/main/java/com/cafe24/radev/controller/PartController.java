@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.PartService;
+import com.cafe24.radev.service.RecService;
 import com.cafe24.radev.service.StoreService;
 import com.cafe24.radev.vo.Part;
+import com.cafe24.radev.vo.PartEsimate;
 
 @Controller
 public class PartController {
@@ -22,8 +24,10 @@ public class PartController {
 	private PartService partService;
 	@Autowired
 	private StoreService storeService;
+	@Autowired
+	private RecService recSevice;
 	
-	String many = null;
+	String many = "";
 	
 	/**
 	 * 접수번호찾기 ajax
@@ -131,7 +135,7 @@ public class PartController {
 	};
 	
 	/**
-	 * 부품정보를가지고 부품판매로이동
+	 * 부품정보를가지고 부품구매로이동
 	 * 0:구매 , 1:판매
 	 * @param model
 	 * @param partCheck
@@ -140,16 +144,8 @@ public class PartController {
 	@PostMapping("/part/partOrder")
 	public String getBuyPartGroup(Model model,@RequestParam(name = "partCheck", required = false) String partNumber,HttpSession session) {
 		System.out.println(partNumber+"<체크값들");
-		int test = partNumber.indexOf(",");
-		System.out.println(test+"<,길이");
+		partNumber.indexOf(",");
 		if(partNumber != null) {
-			if(test==-1) { 
-				System.out.println("1값");
-			
-			}else {
-				System.out.println("다중값<<<구매");
-			
-			}
 			model.addAttribute("checkPartList",partService.getPartGroupList(partNumber, session,many));
 			model.addAttribute("groupCode", partService.getGroup(0,session));
 		}
@@ -197,30 +193,6 @@ public class PartController {
 		
 		return partService.addCart(checks,session);
 	};
-	/**
-	 * 일반부품영수증
-	 * @return
-	 */
-	@GetMapping("/part/sellDoc")
-	public String sell(Model model, HttpSession session) {
-		System.out.println("영수증");
-		model.addAttribute("info", partService.factoryInfo(session));
-		model.addAttribute("docNo", partService.getDocNo(1, session));
-		return"/document/documentBySell";
-	}
-	
-	
-	@PostMapping("/part/sellDoc")
-	public String asell(Model model,
-			HttpSession session /* , @RequestParam(name = "check", required = false)String check */) {
-		System.out.println("영수증");
-		//System.out.println(check+">>체크값");
-		
-		
-		model.addAttribute("info", partService.factoryInfo(session));
-		model.addAttribute("docNo", partService.getDocNo(1, session));
-		return"/document/documentBySell";
-	}
 
 	/**
 	 * 일반구매
@@ -277,7 +249,8 @@ public class PartController {
 	}
 
 	/**
-	 * 목록에서 부품견적으로 이동
+	 * list에서
+	 * 부품견적으로 이동
 	 * @param model
 	 * @param partCheck
 	 * @param groupCode
@@ -287,20 +260,76 @@ public class PartController {
 	public String getSellPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,HttpSession session) {
 		System.out.println(partCheck+"<체크값들");
 		
-		model.addAttribute("checkPartList",partService.getPartGroupList(partCheck, session,many));
-		model.addAttribute("groupCode", partService.getGroup(1,session));
-		
+		//현제 접수목록
+		model.addAttribute("recNum",recSevice.getRecList(session));
+		model.addAttribute("recMany",recSevice.getRecList(session).size());
+		if(partCheck!=null) {
+			//부품정보
+			many=null;
+			model.addAttribute("checkPartList",partService.getPartGroupList(partCheck, session,many));
+		}
 		return "/part/partEstimate";
 	}
 	
 	/**
-	 * 부품견적으로이동
+	 * 부품견적문서
+	 * @param model
+	 * @param session
 	 * @return
 	 */
-	@GetMapping("/part/partEstimate")
-	public String setPartEstimate(Model model,HttpSession session) {
+	@PostMapping("/part/estimateDoc")
+	public String estimateDoc(Model model,HttpSession session,Part part) {
+		
+		//담당자
+		String emp = (String)session.getAttribute("SNAME");
+		model.addAttribute("emp", emp );
+		//부품정보
+		String partCheck = part.getPartNumber();
+		many = part.getPartMany();
+		List<Part> list = partService.getPartGroupList(partCheck, session, many);
+		Part sPart = list.get(0);
+		if(sPart==null) {
+			model.addAttribute("part", partService.getPartGroupList(part, session, many));
+		}
+		
+		model.addAttribute("part", list);
+		//그룹코드
 		model.addAttribute("groupCode", partService.getGroup(1,session));
-		return "/part/partEstimate";
+		//사업장정보
+		model.addAttribute("info", partService.factoryInfo(session));
+		//문서번호
+		model.addAttribute("docNo", partService.getDocNo(1, session));
+		
+		return "/document/documentByEstimate";
+	}
+	/**
+	 * main에서
+	 * 부품견적문서로이동
+	 * @return
+	 */
+	@GetMapping("/part/estimate")
+	public String estimateDoc(Model model,HttpSession session) {
+		//현제접수목록
+		model.addAttribute("recNum",recSevice.getRecList(session));
+		//그룹코드
+		model.addAttribute("groupCode", partService.getGroup(1,session));
+		//담당자
+		String emp = (String)session.getAttribute("SNAME");
+		model.addAttribute("emp", emp );
+		//사업장정보
+		model.addAttribute("info", partService.factoryInfo(session));
+		//문서번호
+		model.addAttribute("docNo", partService.getDocNo(1, session));
+		return "/document/documentByEstimateCustom";
+	}
+	
+	@PostMapping("/part/estimatePro")
+	public String estimatePro(PartEsimate partDoc,HttpSession session,@RequestParam(name="groupCode")String gCode) {
+		System.out.println(partDoc.toString());
+		
+		partService.estimatePro(partDoc, session, gCode);
+		
+		return "redirect:/part/partList";
 	}
 	
 	/**
@@ -317,16 +346,17 @@ public class PartController {
 		model.addAttribute("docNo", partService.getDocNo(0, session));
 		return"/document/doucmentByTotalRecitp";
 	}
-	
 	/**
-	 * 최종견적서 부품값가지고
+	 * 
+	 * 최종견적문서 
 	 * @param model
 	 * @param session
 	 * @return
 	 */
 	@PostMapping("/part/reciptDoc")
 	public String trecipt(Model model,HttpSession session) {
-		
+		//그룹코드
+		model.addAttribute("groupCode", partService.getGroup(1,session));
 		//사업장정보
 		model.addAttribute("info", partService.factoryInfo(session));
 		//문서번호
@@ -334,4 +364,16 @@ public class PartController {
 		return"/document/doucmentByTotalRecitp";
 	}
 	
+	@GetMapping("/part/test")
+	public String test(Model model,HttpSession session) {
+		model.addAttribute("list", partService.getUsePartList(session));
+		return"/part/partList2";
+	}
+	@PostMapping(value = "/part/test", produces = "application/json;charset=utf-8")
+	public @ResponseBody List<Part> getList(
+			HttpSession session) {
+		System.out.println("partCart/ajax호출/컨트롤러");
+		
+		return partService.getUsePartList(session);
+	};
 }
