@@ -23,43 +23,43 @@ public class EmployeeController {
 	 * 직원등록
 	 * @return
 	 */
-	@PostMapping("/addEmployee")
+	@PostMapping("/employee/addEmployee")
 	public String addEmployee(Employee employee, HttpSession session) {
 		employee.setBsCode((String)session.getAttribute("SCODE"));
 		employee.setEiWriter((String)session.getAttribute("SCODE"));
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
 		System.out.println(employee.getEmployeeGender());
 		employeeService.addEmployee(employee);
-		return "redirect:/employeeSelect";
+		return "redirect:/employee/employeeSelect";
 	}
 	/**
 	 * 직원수정
 	 * @param employeeCode
 	 * @return
 	 */
-	@PostMapping("/modifyE")			
+	@PostMapping("/employee/modifyE")			
 	public String modifyEmployee(Employee employee, HttpSession session) {
 		System.out.println("수정화면에서 받아온 값 ==>" + employee);
 		employeeService.modifyEmployee(employee);
-		return "redirect:/employeeSelect";
+		return "redirect:/employee/employeeSelect";
 	}
 	/**
 	 * 직원퇴사
 	 * @param employee
 	 * @return
 	 */
-	@PostMapping("/resignationE")
+	@PostMapping("/employee/resignationE")
 	public String resignationEmployee(Employee employee) {
 		System.out.println("퇴사버튼클릭시==>" + employee);
 		employeeService.resignationEmployee(employee);
-		return "redirect:/employeeSelect";
+		return "redirect:/employee/employeeSelect";
 	}
 	/**
 	 * 직원조회
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/employeeSelect")
+	@GetMapping("/employee/employeeSelect")
 	public String employeeList(Model model, HttpSession session) {
 		String bsCode = (String)session.getAttribute("SCODE");
 		System.out.println("사업장코드==>"+ bsCode);
@@ -70,18 +70,10 @@ public class EmployeeController {
 		return "/employee/employeeList";
 	}
 	/**
-	 * 직원작업현황
-	 * @return
-	 */
-	@GetMapping("/workCurrentState")
-	public String WorkCurrentState() {
-		return "/employee/employeeWorkCurrentState";
-	}
-	/**
 	 * 직원별 통계
 	 * @return
 	 */
-	@GetMapping("/statistics")
+	@GetMapping("/employee/statistics")
 	public String Statistics() {
 		return "/employee/employeeStatistics";
 	}

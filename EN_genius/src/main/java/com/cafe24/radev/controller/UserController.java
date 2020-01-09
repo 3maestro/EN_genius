@@ -1,29 +1,17 @@
 package com.cafe24.radev.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cafe24.radev.service.UserService;
 import com.cafe24.radev.vo.CarFactory;
@@ -40,7 +28,7 @@ public class UserController {
 	 * 회원가입 클릭시 사업장등록 폼으로 이동
 	 * @return
 	 */
-	@GetMapping("/CarFactoryInsert")
+	@GetMapping("/carfactory/CarFactoryInsert")
 	public String addCarFactory() {
 		return "/carfactory/carFactoryInsert";
 	}
@@ -52,7 +40,7 @@ public class UserController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@PostMapping("/CarFactoryInsert") 
+	@PostMapping("/carfactory/CarFactoryInsert") 
 	public String addCarFactory(CarFactory carFactory
 								,@RequestParam("bs_docu") MultipartFile bs_docu
 								){
@@ -62,31 +50,46 @@ public class UserController {
 			System.out.println(r + "r 결과 값");
 			userService.addDocumentFile(bs_docu);
 		 
-		return "/login/login";
+		return "redirect:/login/login";
 	}
 	/**
 	 * 사업장 리스트
 	 * @return
 	 */
-	@GetMapping("/CarFactorySearch")
+	@GetMapping("/carfactory/CarFactorySelect")
 	public String carFactoryList(Model model) {
 		userService.carFactoryList();
 		model.addAttribute("carfactorylist", userService.carFactoryList());
 		return "/carfactory/carFactoryList";
 	}
-
-	@GetMapping("/CarFactorySearch2")
-	public String carFactoryList2(Model model) {
-		userService.carFactoryList();
-		model.addAttribute("carfactorylist", userService.carFactoryList());
-		return "/carfactory/carFactoryList";
+	/**
+	 * 사업장 검색
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(value = "/carfactory/carFactorySearch", produces = "application/json")
+	public @ResponseBody List<CarFactory> carFactorySearch( @RequestParam(value="sk") String sk,
+									@RequestParam(value="sv") String sv,
+									Model model) {
+		System.out.println("====>"+sk);
+		System.out.println("====>"+sv);
+		List<CarFactory> carFactoryList = userService.carFactorySearch(sk,sv);
+		return carFactoryList;
 	}
+
+	@GetMapping("/carfactory/approvalSelect") 
+	public String approvalList(@RequestParam(value="approval")String approval, Model model){ 
+		System.out.println("--------------------->"+approval);
+		model.addAttribute("carfactorylist", userService.approvalList(approval));
+		return "/carfactory/carFactoryList"; 
+	}
+	 
 	/**
 	 * 사업장 리스트 내 팝업으로 서류 이미지 띄우기
 	 * @param bsCode
 	 * @return
 	 */
-	@PostMapping("/selectImage")
+	@PostMapping("/carfactory/selectImage")
 	public @ResponseBody String selectImage(@RequestParam(value = "bsCode") String bsCode) {
 		System.out.println("코드값" + bsCode);
 		System.out.println("====>" + userService.selectImage(bsCode));		
@@ -98,7 +101,7 @@ public class UserController {
 	 * @return
 	 */
 
-	  @PostMapping("/approvalCheck") 
+	  @PostMapping("/carfactory/approvalCheck") 
 	  public @ResponseBody String approvalCheck(@RequestParam(value="checkArray") List<String> checkArray, HttpSession session) { 		  
 		  System.out.println(checkArray);
 		  String bsWriter = (String)session.getAttribute("SCODE");
@@ -108,10 +111,13 @@ public class UserController {
 		  userService.approvalCheck(map); 
 		  return "";
 	  }
-	  
-	  @PostMapping("/approvalRefusal") 
-	  public @ResponseBody String approvalRefusal(@RequestParam(value="checkArray") List<String> checkArray) { 
-		  
+	  /**
+	   * 사업장 리스트에서 체크한 값들 승인거절
+	   * @param checkArray
+	   * @return
+	   */
+	  @PostMapping("/carfactory/approvalRefusal") 
+	  public @ResponseBody String approvalRefusal(@RequestParam(value="checkArray") List<String> checkArray) { 		  
 		  System.out.println(checkArray);
 		  userService.approvalRefusal(checkArray); 
 		  return "";
@@ -124,7 +130,7 @@ public class UserController {
 	   * 로그인폼 화면 이동
 	   * @return
 	   */
-	  @GetMapping("/loginForm")		
+	  @GetMapping("/login/loginForm")		
 	  public String loingForm() {
 		  return "/login/login";
 	  }
@@ -136,7 +142,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/Adminlogin")
+	@PostMapping("/login/Adminlogin")
 	public String adminLogin(CarFactory carFactory, HttpSession session, Model model) {
 		System.out.println(carFactory.toString());		
 		Map<String,Object> map = userService.adminLogin(carFactory);
@@ -150,7 +156,7 @@ public class UserController {
 				session.setAttribute("SCODE", c.getBsCode());
 			}else if("bs001".equals(c.getBsWriter())){
 				model.addAttribute("lo", "관리자 로그인 창입니다");
-				return "login/login";
+				return "/login/login";
 			}
 		}else {
 			model.addAttribute("lo", re);
@@ -166,7 +172,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@PostMapping("/Bosslogin")
+	@PostMapping("/login/Bosslogin")
 	public String bossLogin(CarFactory carFactory, HttpSession session, Model model) { 
 		System.out.println(carFactory.toString());				
 				
@@ -183,7 +189,7 @@ public class UserController {
 				session.setAttribute("SWRITER", c.getBsWriter());
 			}else if("관리자".equals(c.getBsWriter())){
 				model.addAttribute("lo", "사장님 로그인 창입니다");
-				return "login/login";
+				return "/login/login";
 			}
 		}else {
 			model.addAttribute("lo", re);
@@ -198,7 +204,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@PostMapping("/Employeelogin")
+	@PostMapping("/login/Employeelogin")
 	public String employeeLogin(Employee employee, HttpSession session, Model model) { 
 		System.out.println(employee.toString()+"<-----test");				
 		
@@ -223,7 +229,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/logout")
+	@GetMapping("/login/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";

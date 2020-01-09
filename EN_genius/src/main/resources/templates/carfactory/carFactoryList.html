@@ -51,17 +51,17 @@
 			
 			var checkArray = new Array();
 			
-			$('.search').click(function(){
-				$('#block234').css('display','block');
-				$('#block123').css('display','block');
-				$('#block234').animate({
+			$('#search').click(function(){
+				$('#sk').css('display','block');
+				$('#sv').css('display','block');
+				$('#sk').animate({
 			  	    width: "8%",
 			  	    opacity: 0.4,
 			  	    marginLeft: "0.2in",
 			  	    fontSize: "12px",
 			  	    borderWidth: "1px"
 			  	  }, 1500 );
-				$('#block123').animate({
+				$('#sv').animate({
 			  	    width: "15%",
 			  	    opacity: 0.4,
 			  	    marginLeft: "0.1in",
@@ -70,7 +70,7 @@
 			  	    borderWidth: "1px"
 			  	  }, 800 );
 				
-				$(this).css('display','none');
+				$('#search').css('display','none');
 				$('#afterSearch').css('display','block');
 			});
 			
@@ -81,21 +81,46 @@
 				console.log(sv);
 								
 				var request = $.ajax({
-					url: "/CarFactorySearch2",
+					url: "/carfactory/carFactorySearch",
 					method: "POST",
 					data : {'sk' : sk, 'sv' : sv }, 
-					dataType : "json"	
-				});
-				
-				request.done(function(data){
-					console.log(data);		
-		
-				});
-				request.fail(function(jqXHR, textStatus){
-					alert("첨부파일 출력 중 오류가 발생하였습니다.");			
-				});				
-			});
-			
+					dataType : "json",
+					success : function(data){
+						
+						var result='';
+						$.each(data, function(index, item){
+							result+='<tr>';
+							result+='<td class="a-center"><input type="checkbox" name="bsCode" class="bsCode" value="'+item.bsCod+'"></td>';
+							result+='<td><span>'+item.bsDate+'</span></td>';
+							result+='<td><span>'+item.bsName+'</span></td>';
+							result+='<td><span>'+item.bossName+'</span></td>';
+							result+='<td><span>'+item.bsAddr+'</span></td>';
+							result+='<td><span>'+item.bsTelephone+'</span></td>';
+							result+='<td><span>'+item.bsCheck+'</span></td>';
+							result+='<td><span data-bsCode="'+item.bsCode+'" name="bsCodePopupBtn" class="badge badge-info">서류</span></td>';
+							result+='<td><span data-toggle="modal" data-target="#myModal" class="badge badge-info bsDetail"'
+							result+='data-bsCode="'+item.bsCode+'"';
+							result+='data-bsName="'+item.bsName+'"';
+							result+='data-bossId="'+item.bossId+'"';
+							result+='data-bossPw="'+item.bossPw+'"';
+							result+='data-bossName="'+item.bossName+'"';
+							result+='data-bossPhoneNum="'+item.bossPhoneNum+'"';
+							result+='data-bossEmail="'+item.bossEmail+'"';
+							result+='data-bsNumber="'+item.bsNumber+'"';
+							result+='data-bsAddNum="'+item.bsAddNum+'"';
+                   			result+='data-bsFaxNumber="'+item.bsFaxNumber+'"';
+                   			result+='data-bsTelephone="'+item.bsTelephone+'"';
+                   			result+='data-bsRegistration="'+item.bsRegistration+'"';
+                   			result+='data-bsAddr="'+item.bsAddr+'"';
+                   			result+='data-bsPost="'+item.bsPost+'">상세</span></td>';           			
+							result+='</tr>';
+						});
+						$('tbody').remove();						
+						$('.table').append('<tbody></tbody>');						
+						$('tbody').html(result);						
+					}
+				});	
+			});		
 			
 			$('#check-all').click(function(){
 				var isCheck = $(this).is(':checked');
@@ -108,7 +133,7 @@
 				}
 			});
 			
-		  	$('#approval').click(function(){
+		  	$('.approval').click(function(){
 				
 				$('.bsCode').each(function(){
 					if($(this).is(':checked')){						
@@ -119,7 +144,7 @@
 				
 				var dataMap = {'checkArray' : checkArray}
 				var request = $.ajax({
-					url:"/approvalCheck",
+					url:"/carfactory/approvalCheck",
 					type: "POST",
 					traditional:true,
 					data : dataMap,
@@ -130,7 +155,7 @@
 							
 			}) 
 			
-		 	$('#Refusal').click(function(){
+		 	$('.refusal').click(function(){
 				
 		 		$('.bsCode').each(function(){
 					if($(this).is(':checked')){						
@@ -141,7 +166,7 @@
 				
 				var dataMap = {'checkArray' : checkArray}
 				var request = $.ajax({
-					url:"/approvalRefusal",
+					url:"/carfactory/approvalRefusal",
 					type: "POST",
 					traditional:true,
 					data : dataMap,
@@ -150,8 +175,17 @@
 					}
 				});	
 			})  
+		 	$('[name=approval]').click(function(){
+		 		var A = $(this).text();
+		 		console.log(A);
+				if( A=='승인' ){
+					location.href = '/carfactory/approvalSelect?approval=Y';
+				}else{
+					location.href = '/carfactory/approvalSelect?approval=-';
+				}
+			});	 
 			
-			$('[name=bsCodePopupBtn]').click(function(){				
+			$(document).on('click','[name=bsCodePopupBtn]',(function(){
 				var bsCode = $(this).attr('data-bsCode');
 
 				var width = 700
@@ -161,7 +195,7 @@
 				var popupY = (document.body.offsetHeight  / 2) - (height / 2);
 				
 				var request = $.ajax({
-					url:"/selectImage",
+					url:"/carfactory/selectImage",
 					method: "POST",
 					data : { 'bsCode' : bsCode }, 
 					dataType : "text"	
@@ -175,9 +209,9 @@
 				request.fail(function(jqXHR, textStatus){
 					alert("첨부파일 출력 중 오류가 발생하였습니다.");			
 				});				
-			});
+			}));
 		  	
-		  	$('.bsDetail').click(function(){
+		  	$(document).on('click','.bsDetail',(function(){
 				var bsCode = $(this).attr('data-bsCode');
 				var bsName = $(this).attr('data-bsName');
 				var bossId = $(this).attr('data-bossId');
@@ -206,7 +240,7 @@
 				$('[name=bsRegistration]').val(bsRegistration);
 				$('[name=bsAddr]').val(bsAddr);
 				$('[name=bsPost]').val(bsPost);
-			});
+			}));
 		});
 	</script>
 	</th:block>
@@ -216,15 +250,17 @@
         <div class="card">
             <div class="card-header" style="background-color: #17a2b8a6;">
                 <strong class="card-title" style="color: #f8f9fa; font-size: 20px;">사업장 리스트</strong>
-                <button class="search" style="float: right;">검색</button>
+                <button class="search" name="approval" style="float: right;">승인</button>
+                <button class="search" name="approval" style="float: right;">요청</button>
+                <button class="search" id="search" style="float: right;">검색</button>
                 <button class="search" id="afterSearch" style="float: right; display:none;" >검색</button>
-                <input type="text" id="block123" name="sv" style="float: right; display: none;"/>
-                <select id="block234" name="sk" style="display: none; float: right;">
+                <input type="text" id="sv" name="sv" style="float: right; display: none;"/>
+                <select id="sk" name="sk" style="display: none; float: right;">
                 	<option>::검색::</option>
                 	<option value="bs_name">사업장명</option>
-                	<option value="boss_id">아이디</option>
                 	<option value="boss_name">이름</option>
                 	<option value="bs_num">사업자번호</option>
+                	<option value="bs_faxnumber">팩스번호</option>
                 </select>
             </div>
             <div class="card-body">  
@@ -279,8 +315,8 @@
 	                    </tr>
 	                </tbody>          
 	            </table>
-	          	<hr><button type="button" class="btn btn-outline-primary" id="approval" style="float: right;">승인</button>
-	          	<button type="button" class="btn btn-outline-primary" id="Refusal" style="float: right;" >승인거부</button>
+	          	<hr><button type="button" class="btn btn-outline-primary approval" style="float: right;">승인</button>
+	          	<button type="button" class="btn btn-outline-primary refusal" style="float: right;" >승인거부</button>
 	            </form>   
 			</div>    
 		</div>

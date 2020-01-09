@@ -83,19 +83,19 @@
 			});
 			
 			$('#addBtn').click(function(){
-				$('form').attr('action','/addEmployee')
+				$('form').attr('action','/employee/addEmployee')
 				$('form').submit()
 			})
 			
 			$('#modifyBtn').click(function(){
-				$('form').attr('action','/modifyE')
+				$('form').attr('action','/employee/modifyE')
 				$('form').submit()
 			})
 			
 			$("#resignationBtn").on("click", function(){
 				var employeeName = $(this).val();
 			    if(confirm(employeeName+"님 퇴사 처리 진행 하시겠습니까?")){
-					$('form').attr('action','/resignationE')
+					$('form').attr('action','/employee/resignationE')
 					$('form').submit()
 			    }
 			})

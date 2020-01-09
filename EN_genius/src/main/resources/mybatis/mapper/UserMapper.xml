@@ -103,20 +103,34 @@
 			WHERE 
 				bs_writer NOT IN('관리자');
 		</select>
+		<select id="carFactorySearch" resultMap="carFactoryResultMap">
+			SELECT 
+				* 
+			from 
+				business_tb 
+			WHERE 
+				bs_writer
+			NOT IN
+				('관리자')
+			<if test="sv != null and sv neq ''.toString()">
+			AND	${sk} Like CONCAT('%',#{sv},'%');	
+			</if>
+		</select>
+		<select id="approvalList" resultMap="carFactoryResultMap">
+			SELECT 
+				* 
+			from 
+				business_tb 
+			WHERE 
+				bs_check = #{approval};
+		</select>				
 		<select id="selectImage" resultType="String">
 			SELECT 
 				image_file_name 
 			from 
 				image_file_tb 
 			WHERE bs_code= #{bsCode};
-		</select>
-		<select id="imageList" resultMap="imageFileResultMap">
-			SELECT 
-				* 
-			FROM 
-				 image_file_tb
-		</select>
-		
+		</select>		
 		<update id="approvalCheck" parameterType="hashMap">
 			UPDATE business_tb
 				SET bs_check = 'Y',

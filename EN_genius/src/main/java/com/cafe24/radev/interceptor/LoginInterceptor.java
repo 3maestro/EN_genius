@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		  if(session == null) { 
 			  System.out.println("세션 null*******************"); 
 			  try {
-				  response.sendRedirect("/loginForm"); 
+				  response.sendRedirect("/login/loginForm"); 
 			  } catch (IOException e) {
 				  e.printStackTrace(); 
 			  } 
