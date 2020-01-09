@@ -92,7 +92,6 @@ public class UserService {
 	public List<CarFactory> carFactorySearch(String sk, String sv){
 		System.out.println("==>"+sk);
 		List<CarFactory> list = userMapper.carFactorySearch(sk,sv);
-		System.out.println(list + " <-list");
 		return list;
 	}
 	

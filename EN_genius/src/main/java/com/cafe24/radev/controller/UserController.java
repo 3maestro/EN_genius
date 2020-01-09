@@ -68,7 +68,7 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping(value = "/carfactory/carFactorySearch", produces = "application/json")
-	public @ResponseBody List<CarFactory> carFactorySearch( @RequestParam(value="sk") String sk,
+	public @ResponseBody List<CarFactory> carFactorySearch(@RequestParam(value="sk") String sk,
 									@RequestParam(value="sv") String sv,
 									Model model) {
 		System.out.println("====>"+sk);
@@ -111,6 +111,7 @@ public class UserController {
 		  userService.approvalCheck(map); 
 		  return "";
 	  }
+	  
 	  /**
 	   * 사업장 리스트에서 체크한 값들 승인거절
 	   * @param checkArray

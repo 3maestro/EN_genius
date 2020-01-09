@@ -134,7 +134,7 @@
 		<update id="approvalCheck" parameterType="hashMap">
 			UPDATE business_tb
 				SET bs_check = 'Y',
-					bs_checkdate = now(),
+					bs_checkdate = DATE_FORMAT(NOW(),'%y-%m-%d'),
 					bs_writer = #{bsWriter}
 			WHERE 
 			<choose>
