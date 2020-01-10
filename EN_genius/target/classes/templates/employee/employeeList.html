@@ -66,8 +66,6 @@
 				
 				$("#resignationBtn").val(employeeName);
 				
-				$('#myModal1').modal('show');
-				
 				$('.post').click(function(){
 					$('[name=employeeAddr]').val('');
 					$('.detail').css('display','block')
@@ -83,19 +81,19 @@
 			});
 			
 			$('#addBtn').click(function(){
-				$('form').attr('action','/addEmployee')
+				$('form').attr('action','/employee/addEmployee')
 				$('form').submit()
 			})
 			
 			$('#modifyBtn').click(function(){
-				$('form').attr('action','/modifyE')
+				$('form').attr('action','/employee/modifyE')
 				$('form').submit()
 			})
 			
 			$("#resignationBtn").on("click", function(){
 				var employeeName = $(this).val();
 			    if(confirm(employeeName+"님 퇴사 처리 진행 하시겠습니까?")){
-					$('form').attr('action','/resignationE')
+					$('form').attr('action','/employee/resignationE')
 					$('form').submit()
 			    }
 			})
@@ -108,18 +106,12 @@
  	<th:block layout:fragment="contentFragment">
 		<div class="col-lg-12" th:fragment="listfragment">
 			<div class="card">
-				<div class="card-header">
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-12" th:fragment="listfragment">
-			<div class="card">
-				<div class="card-header">
+				<div class="card-header" style="background-color: #00c292;">
 					<strong class="card-title">직원리스트</strong>
-					<button type="button" id="add" th:text="등록" name="emInsertPopupBtn" data-toggle="modal" data-target="#myModal" style="float: right" class="btn btn-outline-link btn-sm"></button>			
+					<button type="button" id="add" th:text="등록" name="emInsertPopupBtn" data-toggle="modal" data-target="#myModal" style="float: right; background-color: #fff; color: #00c292;" class="btn btn-outline-link btn-sm"></button>			
 				</div>				    
 					<div class="table-stats order-table ov-h">
-						<table class="table ">
+						<table class="table">
 							<thead>
 								<tr>
 									<th>사진</th>
@@ -136,7 +128,7 @@
 				                <tr>
 				                    <td class="avatar">
 				                        <div class="round-img">
-				                            <a href="#"><img class="rounded-circle" src="images/avatar/jic.jpg" alt=""></a>
+				                            <a href="#"><img class="rounded-circle" src="/images/avatar/jic.jpg" alt=""></a>
 				                        </div>
 				                    </td>
 				                    <td th:text="${I.employeeDepartment.dpName}"></td>
@@ -262,7 +254,7 @@
 		    </div>
 		  </div>
 		</div>
-	<script src="assets/js/addr.js"></script>
+	<script src="/assets/js/addr.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
 	</th:block>
 </html>

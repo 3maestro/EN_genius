@@ -22,19 +22,19 @@ public class LoginInterceptor implements HandlerInterceptor {
                              Object handler) {    	
     	HttpSession session = request.getSession(false);
     	
-//    	 System.out.println(request.getRequestURI() + " <<<<<<<<");
 		  if(session == null) { 
-//		  System.out.println("세션 null*******************"); 
+
+			  System.out.println("세션이 만료되었거나 존재하지 않습니다."); 
 			  try {
-		  response.sendRedirect("/loginForm"); 
-		  } catch (IOException e) {
-		  e.printStackTrace(); 
-		  } 
+				  response.sendRedirect("/login/loginForm"); 
+			  } catch (IOException e) {
+				  e.printStackTrace(); 
+			  } 
 			  return false; 
 		
 		  }else { 
-//			  System.out.println("세션 null 아님*******************"); 
+			  System.out.println("==세션값있음=="); 
 			  return true; 
-			  }   	
+		  }   	
     }	
 }

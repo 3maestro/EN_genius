@@ -23,6 +23,8 @@ public interface EmployeeMapper {
 	
 	List<Employee> employeeList(String bsCode);
 	
+	Employee employeeMypage(String employeeCode);
+	
 	List<String> DepartmentDutySelect(String bsCode);
 	
 	Employee employeeLogin(Employee employee);

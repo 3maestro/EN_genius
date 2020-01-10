@@ -12,17 +12,21 @@ public class CarFactory {
 	private String bossId;
 	private String bossPw;
 	private String bossName;
-	private String bossPhonenum;
+	private String bossPhoneNum;
 	private String bossEmail;
 	private String emailAddr;
 	private String bsName;
 	private String bsNumber;
+	private String bsAddNum;
 	private String bsFaxNumber;
 	private String bsAddr;
 	private String addrDetail;
+	private String bsPost;
 	private String bsTelephone;
 	private String bsRegistration;
 	private String bsWriter;
+	private String bsDate;
+	private String bsCheckdate;
 	private String bsCheck;
 	public String getBsCode() {
 		return bsCode;
@@ -54,11 +58,11 @@ public class CarFactory {
 	public void setBossName(String bossName) {
 		this.bossName = bossName;
 	}
-	public String getBossPhonenum() {
-		return bossPhonenum;
+	public String getBossPhoneNum() {
+		return bossPhoneNum;
 	}
-	public void setBossPhonenum(String bossPhonenum) {
-		this.bossPhonenum = bossPhonenum;
+	public void setBossPhoneNum(String bossPhoneNum) {
+		this.bossPhoneNum = bossPhoneNum;
 	}
 	public String getBossEmail() {
 		return bossEmail;
@@ -84,6 +88,12 @@ public class CarFactory {
 	public void setBsNumber(String bsNumber) {
 		this.bsNumber = bsNumber;
 	}
+	public String getBsAddNum() {
+		return bsAddNum;
+	}
+	public void setBsAddNum(String bsAddNum) {
+		this.bsAddNum = bsAddNum;
+	}
 	public String getBsFaxNumber() {
 		return bsFaxNumber;
 	}
@@ -101,6 +111,12 @@ public class CarFactory {
 	}
 	public void setAddrDetail(String addrDetail) {
 		this.addrDetail = addrDetail;
+	}
+	public String getBsPost() {
+		return bsPost;
+	}
+	public void setBsPost(String bsPost) {
+		this.bsPost = bsPost;
 	}
 	public String getBsTelephone() {
 		return bsTelephone;
@@ -120,6 +136,18 @@ public class CarFactory {
 	public void setBsWriter(String bsWriter) {
 		this.bsWriter = bsWriter;
 	}
+	public String getBsDate() {
+		return bsDate;
+	}
+	public void setBsDate(String bsDate) {
+		this.bsDate = bsDate;
+	}
+	public String getBsCheckdate() {
+		return bsCheckdate;
+	}
+	public void setBsCheckdate(String bsCheckdate) {
+		this.bsCheckdate = bsCheckdate;
+	}
 	public String getBsCheck() {
 		return bsCheck;
 	}
@@ -129,10 +157,12 @@ public class CarFactory {
 	@Override
 	public String toString() {
 		return "CarFactory [bsCode=" + bsCode + ", bsLevel=" + bsLevel + ", bossId=" + bossId + ", bossPw=" + bossPw
-				+ ", bossName=" + bossName + ", bossPhonenum=" + bossPhonenum + ", bossEmail=" + bossEmail
-				+ ", emailAddr=" + emailAddr + ", bsName=" + bsName + ", bsNumber=" + bsNumber + ", bsFaxNumber="
-				+ bsFaxNumber + ", bsAddr=" + bsAddr + ", addrDetail=" + addrDetail + ", bsTelephone=" + bsTelephone
-				+ ", bsRegistration=" + bsRegistration + ", bsWriter=" + bsWriter + ", bsCheck=" + bsCheck + "]";
+				+ ", bossName=" + bossName + ", bossPhoneNum=" + bossPhoneNum + ", bossEmail=" + bossEmail
+				+ ", emailAddr=" + emailAddr + ", bsName=" + bsName + ", bsNumber=" + bsNumber + ", bsAddNum="
+				+ bsAddNum + ", bsFaxNumber=" + bsFaxNumber + ", bsAddr=" + bsAddr + ", addrDetail=" + addrDetail
+				+ ", bsPost=" + bsPost + ", bsTelephone=" + bsTelephone + ", bsRegistration=" + bsRegistration
+				+ ", bsWriter=" + bsWriter + ", bsDate=" + bsDate + ", bsCheckdate=" + bsCheckdate + ", bsCheck="
+				+ bsCheck + "]";
 	}
 	
 }

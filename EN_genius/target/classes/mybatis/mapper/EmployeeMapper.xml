@@ -110,6 +110,23 @@
 			WHERE 
 				A.bs_code= #{bsCode} AND resignation_date ='0000-00-00';
 		</select>
+		<select id="employeeMypage" resultMap="employeeResultMap">
+			SELECT
+				emp.*,ddt.duty_name
+			FROM
+				(
+					SELECT
+						*
+					FROM
+						employee_information_tb AS eit
+					WHERE
+						eit.ei_code = #{employeeCode}
+				)AS emp
+			INNER JOIN
+				department_duty_tb AS ddt
+			ON
+				ddt.dd_code = emp.dd_code;				
+		</select>
 		<select id="DepartmentDutySelect" resultMap="employeeResultMap">
 			SELECT
 				'부서' AS c_code, E.dp_name, E.ed_code
