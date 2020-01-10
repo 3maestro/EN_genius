@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius</title>
+	</th:block>
+		
+	<th:block layout:fragment="customScript">			
+	<script type="text/javascript">	 
+	</script>
+	</th:block>
+	
+ 	<th:block layout:fragment="contentFragment">
+	    <div class="row">
+	      <div class="col-lg-6" style="margin:0 auto;">
+	              <section class="card">
+	             <div class="card-body text-secondary" style="text-align: center; font-size: 20px;">My Page</div>
+	             </section>
+	    	</div>
+	    </div>
+		<div class="col-md-6" th:fragment="listfragment" style="margin:0 auto; line-height: 3;">
+        <aside class="profile-nav alt">
+			<section class="card">
+				<div class="card-header user-header alt bg-dark">
+					<div class="media">
+						<a href="#">
+							<img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;"  src="/images/avatar/jic.jpg">
+						</a>
+						<div class="media-body">
+							<h2 class="text-light display-6" th:text="${Employee.employeeName}"></h2>
+								<p style="font-size: 20px; line-height:2.3em" th:text="${Employee.departmentDuty.dutyName}"></p>
+						</div>
+					</div>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<a href="#"><i class="ti-user"></i>         내 정보</a>
+					</li>
+					<li class="list-group-item">
+						<a href="#"> <i class="fa fa-calendar"></i>           휴가 신청</a>
+					</li>
+					<li class="list-group-item">
+						<a href="#"> <i class="fa fa-bell-o"></i>          실적 확인</a>
+					</li>
+				</ul>
+			</section>
+		</aside>
+		</div>
+	</th:block>
+</html>

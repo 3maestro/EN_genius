@@ -89,6 +89,16 @@ public class UserService {
 		return userMapper.carFactoryList();
 	}
 	
+	public List<CarFactory> carFactorySearch(String sk, String sv){
+		System.out.println("==>"+sk);
+		List<CarFactory> list = userMapper.carFactorySearch(sk,sv);
+		return list;
+	}
+	
+	public List<CarFactory> approvalList(String approval){
+		return userMapper.approvalList(approval);
+	}
+	
 	public String selectImage(String bsCode) {
 		return userMapper.selectImage(bsCode);
 	}
