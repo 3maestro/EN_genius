@@ -65,7 +65,7 @@ public class PartController {
 	@GetMapping("/part/partList")
 	public String getPartList(Model model,HttpSession session) {
 		System.out.println("파트리스트/controller");
-
+		
 		model.addAttribute("partList", partService.getUsePartList(session));
 		
 		return "/part/partList";
@@ -174,9 +174,12 @@ public class PartController {
 	@GetMapping("/part/partUpdate")
 	public String partUpdate(Part part,HttpSession session) {
 		System.out.println("업데이트");
-		partService.partUpdateforMany(part,session);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println(part.getPartMany());
 		
-		return "redirect:/part/partUpdate";
+		partService.partUpdateforMany(part,session,"plus");
+		
+		return "redirect:/part/partList";
 	}
 
 	
@@ -320,16 +323,69 @@ public class PartController {
 		model.addAttribute("info", partService.factoryInfo(session));
 		//문서번호
 		model.addAttribute("docNo", partService.getDocNo(1, session));
-		return "/document/documentByEstimateCustom";
+		return "/document/documentByEstimate";
 	}
 	
+	/**
+	 * 판매등록
+	 * @param partDoc
+	 * @param session
+	 * @param gCode
+	 * @return
+	 */
 	@PostMapping("/part/estimatePro")
 	public String estimatePro(PartEsimate partDoc,HttpSession session,@RequestParam(name="groupCode")String gCode) {
-		System.out.println(partDoc.toString());
+		Part part = new Part();
 		
-		partService.estimatePro(partDoc, session, gCode);
+		//partService.addGrCode(gCode, session);
+		int s = partDoc.getPartNumber().indexOf(",");
+		if(s == -1) {
+			partService.estimatePro(partDoc, session, gCode);
+			//-수량업데이트
+			part.setPartNumber(partDoc.getPartNumber());
+			part.setPartMany(partDoc.getPartMany());
+			partService.partUpdateforMany(part, session,"minus");
+		}else{
+			System.out.println("두개!!!!!!");
+			System.out.println(partDoc.toString());
+			String aNum[] = partDoc.getPartNumber().split(",");
+			String aMany[] = partDoc.getPartMany().split(",");
+			String aPrice[] = partDoc.getPartPrice().split(",");
+			String aDec[] = partDoc.getEsDec().split(",");
+			
+			for(int i=0; i<aNum.length; i++) {
+				String num = aNum[i];
+				String many = aMany[i];
+				String price = aPrice[i];
+				String dec = aDec[i];
+				
+				partDoc.setPartNumber(num);
+				partDoc.setPartMany(many);
+				partDoc.setPartPrice(price);
+				partDoc.setEsDec(dec);
+				//System.out.println(partDoc.toString()+":"+i+"번째객체");
+				partService.estimatePro(partDoc, session, gCode);
+				part.setPartNumber(num);
+				part.setPartMany(many);
+				partService.partUpdateforMany(part, session,"minus");
+			}
+			
+		}
+		return "redirect:/part/pEstiList";
+	}
+	
+	/**
+	 * 판매목록
+	 */
+	@GetMapping("/part/estiList")
+	public String esList(Model model,HttpSession session) {
+		//전체보기
 		
-		return "redirect:/part/partList";
+		
+		//상세보기
+		
+		
+		return "/part/pEstiList";
 	}
 	
 	/**
@@ -364,11 +420,13 @@ public class PartController {
 		return"/document/doucmentByTotalRecitp";
 	}
 	
+	
 	@GetMapping("/part/test")
 	public String test(Model model,HttpSession session) {
 		model.addAttribute("list", partService.getUsePartList(session));
 		return"/part/partList2";
 	}
+	
 	@PostMapping(value = "/part/test", produces = "application/json;charset=utf-8")
 	public @ResponseBody List<Part> getList(
 			HttpSession session) {

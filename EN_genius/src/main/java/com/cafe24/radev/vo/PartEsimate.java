@@ -19,6 +19,9 @@ public class PartEsimate {
 		return esDec;
 	}
 	public void setEsDec(String esDec) {
+		if(esDec.equals("")) {
+			esDec = null;
+		}
 		this.esDec = esDec;
 	}
 	public String getEsCode() {

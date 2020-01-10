@@ -42,9 +42,13 @@ layout:decorate="~{layout/default}" >
 	input{
 		width: 100%;
 	}
+	input[name=esDec]{text-align: center;}
 	-->
 	</style>
 	<script type="text/javascript">
+		function numberFormat(inputNumber) {
+		   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		};	
 		$(document).ready(function(){
 			//날짜
 			var date = new Date();
@@ -60,25 +64,33 @@ layout:decorate="~{layout/default}" >
 			
 			//var tPrice=0;
 			//세액반올림후 계산
+			 var tSum = 0;
 			$('input[name=partTex]').each(function(index,item){
 				var texObj = $(this);
+				var tex = texObj.val();
 				var tPriceObj = $(this).parent().parent().parent().find('input[name=partToPrice]');
 				var price = tPriceObj.val();
-				var tex = texObj.val();
+				var priceObj = $(this).parent().parent().parent().find('input[name=partPrice]');
+				var sPrice = priceObj.val();
 				tex = Math.round(tex);
 				iPrice = parseInt(price);
 				tPrice=(iPrice+tex);
 				/* console.log(tex);
 				console.log(iPrice);
 				console.log(tPrice); */
+				console.log(sPrice);
 				//세액 반올림값
-				$(this).parent().text(tex);
+				$(this).parent().text(numberFormat(tex));
 				//공급가 수량*단가*세액
-				tPriceObj.parent().text(tPrice);
+				tPriceObj.parent().text(numberFormat(tPrice));
 				texObj.val(tex);
 				tPriceObj.val(tPrice);
+				//총합계
+				 tSum += tPrice;
+				 priceObj.text(numberFormat(sPrice));
 			});
 			
+			$('#docTotalPrice').text(numberFormat(tSum)+" 원");
 			
 			
 		});
@@ -86,7 +98,7 @@ layout:decorate="~{layout/default}" >
 	</head>
 	<div class="animated fadeIn">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header" style="background-color: black; color: white;">
 						<strong class="card-title" >견적서</strong>
@@ -206,10 +218,10 @@ layout:decorate="~{layout/default}" >
 											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">합계금액</span></p>
 										</td>
 										<td colspan="3" width="172" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:right;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">원&nbsp;&nbsp; </span></p>
+											<p class="HStyle0" style="text-align:right;"><span id="docTotalPrice">원&nbsp;&nbsp; </span></p>
 										</td>
 										<td colspan="3" width="319" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 1.1pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:left;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">(\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</span></p>
+											<p class="HStyle0" style="text-align:left;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;" id="docTotalPrice">(\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</span></p>
 										</td>
 									</tr>
 									<tr>
@@ -247,457 +259,228 @@ layout:decorate="~{layout/default}" >
 											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;" th:text="${p.partMany}"></span><input type="hidden" th:value="${p.partMany}" name="partMany"></p>
 										</td>
 										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;" th:text="${p.partPrice}"></span><input type="hidden" th:value="${p.partPrice}" name="partPrice"></p>
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;" th:text="${p.partPrice}"></span><span id="sPrice"></span><input type="hidden" th:value="${p.partPrice}" name="partPrice"></p>
 										</td>
 										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
 											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;" id="tPrice"></span><input type="hidden" th:value="(${p.partMany}*${p.partPrice})" name="partToPrice"></p>
 										</td>
 										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;" id="tex"></span><input type="hidden" th:value="(${p.partPrice}*0.1)" name="partTex"></p>
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;" id="tex"></span><input type="hidden" th:value="(${p.partPrice}*${p.partMany})*0.1" name="partTex"></p>
 										</td>
 										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec"></span></p>
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 								</th:block>
+								<th:block th:if="${part} == null">						
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
 									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="name"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partNumber"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="partMany"></span></p>
 										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partPrice"></span></p>
 										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partToPrice" value="0" readonly></span></p>
 										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="number" name="partTex" value="0" readonly></span></p>
 										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
+										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;">
+											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;"><input type="text" name="esDec" value="-"></span></p>
 										</td>
 									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
-									<tr>
-										<td width="148" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="57" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="114" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="99" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-										<td width="106" height="26" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
-										</td>
-									</tr>
+								</th:block>
 									<tr>
 										<td colspan="4" width="320" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
 											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">계</span></p>
@@ -712,6 +495,7 @@ layout:decorate="~{layout/default}" >
 											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">&nbsp;</span></p>
 										</td>
 									</tr>
+
 									<tr>
 										<td colspan="7" width="638" height="26" valign="middle" style="border-left:solid #000000 1.1pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
 											<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;새굴림&quot;;line-height:160%;">특 이 사 항</span></p>
