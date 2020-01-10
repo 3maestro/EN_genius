@@ -13,14 +13,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.PartService;
+import com.cafe24.radev.service.RecService;
+import com.cafe24.radev.service.StoreService;
 import com.cafe24.radev.vo.Part;
+import com.cafe24.radev.vo.PartEsimate;
 
 @Controller
 public class PartController {
 	@Autowired
 	private PartService partService;
+	@Autowired
+	private StoreService storeService;
+	@Autowired
+	private RecService recSevice;
 	
+	String many = "";
 	
+	/**
+	 * 접수번호찾기 ajax
+	 * @param serchRecep
+	 * @param session
+	 * @return
+	 */
 	@PostMapping(value = "/part/serchRecepCall", produces = "application/json")
 	public @ResponseBody String serchRecepCall(
 			@RequestParam(value = "serchRecep", defaultValue = "0", required = false) String serchRecep,HttpSession session) {
@@ -108,70 +122,35 @@ public class PartController {
 	/**
 	 * ajax로 대분류에맞는 중분류값 호출
 	 * 
-	 * @param fVal
+	 * @param fVal(firstValue)
 	 * @return
 	 */
 	@PostMapping(value = "/part/sCateCall", produces = "application/json")
 	public @ResponseBody List<String> sCateCall(
-			@RequestParam(value = "fVal", defaultValue = "engine", required = false) String firstVal) {
+			@RequestParam(value = "fVal", defaultValue = "0", required = false) String firstVal) {
 		System.out.println("카테고리ajax호출/컨트롤러");
 		System.out.println(firstVal + "<-paramr/ajax호출/컨트롤러");
 
 		return partService.selectSecondData(firstVal);
 	};
-
-	/**
-	 * 부품주문호출 파트번호하나로 한로우조회 1품목 리스트목록에서 주문으로 넘어갈때 list -> order
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/part/partListToOrder")
-	public String partSelectForOrder(Model model, @RequestParam(value = "partCheck") String partNumber, HttpSession session) {
-		System.out.println(partNumber + "<select for order/controller");
-
-		model.addAttribute("partRow", partService.partSelectForOrder(partNumber , session));
-
-		model.addAttribute("groupCode", partService.getGroup(0,session));
-
-		return "/part/partOrder";
-	};
 	
 	/**
-	 * 다중값을가지고 부품판매로이동
+	 * 부품정보를가지고 부품구매로이동
+	 * 0:구매 , 1:판매
 	 * @param model
 	 * @param partCheck
 	 * @return
 	 */
-	@PostMapping("/part/partGroupToOrder")
-	public String getBuyPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode,HttpSession session) {
-		System.out.println("뭉탱이데이터호출");
-		System.out.println(partCheck+"<체크값들");
-		System.out.println(groupCode+"<코드값");
-		
-		model.addAttribute("checkPartList",partService.getPartGroupList(partCheck,groupCode, session));
-		model.addAttribute("groupCode", partService.getGroup(0,session));
-		
+	@PostMapping("/part/partOrder")
+	public String getBuyPartGroup(Model model,@RequestParam(name = "partCheck", required = false) String partNumber,HttpSession session) {
+		System.out.println(partNumber+"<체크값들");
+		partNumber.indexOf(",");
+		if(partNumber != null) {
+			model.addAttribute("checkPartList",partService.getPartGroupList(partNumber, session,many));
+			model.addAttribute("groupCode", partService.getGroup(0,session));
+		}
+		model.addAttribute("store", storeService.getStoreList(session));
 		return "/part/partOrder";
-	}
-	
-	/**
-	 * 다중값을가지고 부품견적으로 이동
-	 * @param model
-	 * @param partCheck
-	 * @param groupCode
-	 * @return
-	 */
-	@PostMapping("/part/partGroupToEstimate")
-	public String getSellPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,@RequestParam(name="groupCode") String groupCode,HttpSession session) {
-		System.out.println("뭉탱이데이터호출");
-		System.out.println(partCheck+"<체크값들");
-		System.out.println(groupCode+"<코드값");
-		
-		model.addAttribute("checkPartList",partService.getPartGroupList(partCheck,groupCode, session));
-		model.addAttribute("groupCode", partService.getGroup(1,session));
-		
-		return "/part/partEstimate";
 	}
 
 	/**
@@ -182,33 +161,11 @@ public class PartController {
 	 */
 	@GetMapping("/part/partOrder")
 	public String partOrder(Model model,HttpSession session) {
+		model.addAttribute("store", storeService.getStoreList(session));
 		model.addAttribute("groupCode", partService.getGroup(0,session));
 		return "/part/partOrder";
 	};
 	
-	/**
-	 * 부품목록에서 부품견적 사용파트넘버가지고이동
-	 * 
-	 * @return
-	 */
-	@GetMapping("/part/partListToEstimate")
-	public String setPartListToEstimate(Model model, HttpSession session,@RequestParam(value = "partCheck") String partCheck) {
-		System.out.println(partCheck + "<<푸붐체크값");
-		model.addAttribute("groupCode", partService.getGroup(1,session));
-		
-		return "/part/partEstimate";
-	}
-
-	/**
-	 * 부품견적으로이동
-	 * @return
-	 */
-	@GetMapping("/part/partEstimate")
-	public String setPartEstimate(Model model,HttpSession session) {
-		model.addAttribute("groupCode", partService.getGroup(1,session));
-		return "/part/partEstimate";
-	}
-
 	/**
 	 * 부품수량업데이트 partInsert.html
 	 * @param part
@@ -218,8 +175,10 @@ public class PartController {
 	public String partUpdate(Part part,HttpSession session) {
 		System.out.println("업데이트");
 		partService.partUpdateforMany(part,session);
-		return "redirect:/part/partList";
+		
+		return "redirect:/part/partUpdate";
 	}
+
 	
 	/**
 	 * 부품저장 ajax
@@ -234,62 +193,143 @@ public class PartController {
 		
 		return partService.addCart(checks,session);
 	};
-	/**
-	 * 부품영수증
-	 * 
-	 * @return
-	 */
-	@GetMapping("/part/test")
-	public String test() {
-	
-		return"/part/test";
-	}
-	
 
 	/**
-	 * 
+	 * 일반구매
 	 * @param model
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/part/order")
+	@GetMapping("/part/orderDoc")
 	public String order(Model model, HttpSession session) {
-		System.out.println("사업장정보");
+		System.out.println("발주서");
 		model.addAttribute("info", partService.factoryInfo(session));
-		
-		return"/part/documentByOrder";
+		model.addAttribute("docNo", partService.getDocNo(0, session));
+		return"/document/documentByOrder";
 	}
+	
 	/**
-	 * 
+	 * 부품값가지고 발주서
 	 * @param model
 	 * @param session 
 	 * @return
 	 */
-	@PostMapping("/part/order")
-	public String order(Model model, HttpSession session ,Part part) {
+	@PostMapping("/part/orderDoc")
+	public String order(Model model, HttpSession session ,Part part, @RequestParam(name = "check", required = false)String check,
+			@RequestParam(name = "partMany", required = false)String many,@RequestParam(name="sCheck", required = true)String storeCode) {
 		System.out.println("발주서");
+		
+		//거래처정보
+		if(storeCode != null) {
+			System.out.println(storeCode+" : 거래처코드");
+			System.out.println("거래처정보");
+			model.addAttribute("store", storeService.getStoreRow(storeCode));
+		}
 		//부품정보
-		if(part != null) {
-			System.out.println(part.getPartName()+"1개");
+		many = part.getPartMany();
+		many = many.replace("0","");
+		//System.out.println(many+"<<입력갯수");
+		if(part != null && "".equals(part.getPartNumber())) {
+			System.out.println("단일값문서");
+			//System.out.println(part.getPartName()+"1개");
 			String partNumber = part.getPartNumber();
-			String many= part.getPartMany();
-			System.out.println(many+"<<입력갯수");
 			part = partService.partSelectForOrder(partNumber, session);
 			part.setPartMany(many);
 			model.addAttribute("part", part );
-		}else{
-			//System.out.println(list.get(0).getPartName()+"그룹");
-			//model.addAttribute("part", partService.partSelectForOrder(partNumber, session));
+		}else if(check != null) {
+			System.out.println("다중값문서");
+			model.addAttribute("part", partService.getPartGroupList(check,session,many));
 		}
 		//사업장정보
 		model.addAttribute("info", partService.factoryInfo(session));
 		//문서번호
-		//String docNo = partService.getGroup(0, session);
-		System.out.println("");
-		
 		model.addAttribute("docNo", partService.getDocNo(0, session));
+
+		return"/document/documentByOrder";
+	}
+
+	/**
+	 * list에서
+	 * 부품견적으로 이동
+	 * @param model
+	 * @param partCheck
+	 * @param groupCode
+	 * @return
+	 */
+	@PostMapping("/part/partEstimate")
+	public String getSellPartGroup(Model model,@RequestParam(name = "partCheck") String partCheck,HttpSession session) {
+		System.out.println(partCheck+"<체크값들");
 		
-		return"/part/documentByOrder";
+		//현제 접수목록
+		model.addAttribute("recNum",recSevice.getRecList(session));
+		model.addAttribute("recMany",recSevice.getRecList(session).size());
+		if(partCheck!=null) {
+			//부품정보
+			many=null;
+			model.addAttribute("checkPartList",partService.getPartGroupList(partCheck, session,many));
+		}
+		return "/part/partEstimate";
+	}
+	
+	/**
+	 * 부품견적문서
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/part/estimateDoc")
+	public String estimateDoc(Model model,HttpSession session,Part part) {
+		
+		//담당자
+		String emp = (String)session.getAttribute("SNAME");
+		model.addAttribute("emp", emp );
+		//부품정보
+		String partCheck = part.getPartNumber();
+		many = part.getPartMany();
+		List<Part> list = partService.getPartGroupList(partCheck, session, many);
+		Part sPart = list.get(0);
+		if(sPart==null) {
+			model.addAttribute("part", partService.getPartGroupList(part, session, many));
+		}
+		
+		model.addAttribute("part", list);
+		//그룹코드
+		model.addAttribute("groupCode", partService.getGroup(1,session));
+		//사업장정보
+		model.addAttribute("info", partService.factoryInfo(session));
+		//문서번호
+		model.addAttribute("docNo", partService.getDocNo(1, session));
+		
+		return "/document/documentByEstimate";
+	}
+	/**
+	 * main에서
+	 * 부품견적문서로이동
+	 * @return
+	 */
+	@GetMapping("/part/estimate")
+	public String estimateDoc(Model model,HttpSession session) {
+		//현제접수목록
+		model.addAttribute("recNum",recSevice.getRecList(session));
+		//그룹코드
+		model.addAttribute("groupCode", partService.getGroup(1,session));
+		//담당자
+		String emp = (String)session.getAttribute("SNAME");
+		model.addAttribute("emp", emp );
+		//사업장정보
+		model.addAttribute("info", partService.factoryInfo(session));
+		//문서번호
+		model.addAttribute("docNo", partService.getDocNo(1, session));
+		return "/document/documentByEstimateCustom";
+	}
+	
+	@PostMapping("/part/estimatePro")
+	public String estimatePro(PartEsimate partDoc,HttpSession session,@RequestParam(name="groupCode")String gCode) {
+		System.out.println(partDoc.toString());
+		
+		partService.estimatePro(partDoc, session, gCode);
+		
+		return "redirect:/part/partList";
 	}
 	
 	/**
@@ -297,10 +337,43 @@ public class PartController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/part/recipt")
-	public String recipt() {
+	@GetMapping("/part/reciptDoc")
+	public String recipt(Model model,HttpSession session) {
 		
-		return"/part/totalRecitpDoc";
+		//사업장정보
+		model.addAttribute("info", partService.factoryInfo(session));
+		//문서번호
+		model.addAttribute("docNo", partService.getDocNo(0, session));
+		return"/document/doucmentByTotalRecitp";
+	}
+	/**
+	 * 
+	 * 최종견적문서 
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/part/reciptDoc")
+	public String trecipt(Model model,HttpSession session) {
+		//그룹코드
+		model.addAttribute("groupCode", partService.getGroup(1,session));
+		//사업장정보
+		model.addAttribute("info", partService.factoryInfo(session));
+		//문서번호
+		model.addAttribute("docNo", partService.getDocNo(0, session));
+		return"/document/doucmentByTotalRecitp";
 	}
 	
+	@GetMapping("/part/test")
+	public String test(Model model,HttpSession session) {
+		model.addAttribute("list", partService.getUsePartList(session));
+		return"/part/partList2";
+	}
+	@PostMapping(value = "/part/test", produces = "application/json;charset=utf-8")
+	public @ResponseBody List<Part> getList(
+			HttpSession session) {
+		System.out.println("partCart/ajax호출/컨트롤러");
+		
+		return partService.getUsePartList(session);
+	};
 }

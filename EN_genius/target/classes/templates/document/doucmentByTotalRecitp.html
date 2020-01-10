@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/default}" 
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+	<th:block layout:fragment="customTitle">
+		<title>정비점검내역서</title>
+	</th:block>
+<th:block layout:fragment="contentFragment">
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 14">
+<link rel=File-List href="totalRecitpDoc.files/filelist.xml">
+<style id="자동차점검정비내역서_21545_Styles">
+<!--table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+.font521545
+	{color:windowtext;
+	font-size:8.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:돋움, monospace;
+	mso-font-charset:129;}
+
+.xl6521545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl6621545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:right;
+	vertical-align:middle;
+	border:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+
+.xl6921545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7021545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7121545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7221545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:none;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7321545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7421545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7521545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7621545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7721545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:none;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7821545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid windowtext;
+	border-right:none;
+	border-bottom:1.0pt solid windowtext;
+	border-left:1.0pt solid windowtext;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl7921545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid windowtext;
+	border-right:none;
+	border-bottom:1.0pt solid windowtext;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8021545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid windowtext;
+	border-right:1.0pt solid windowtext;
+	border-bottom:1.0pt solid windowtext;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8121545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid windowtext;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid windowtext;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8221545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid windowtext;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8321545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid windowtext;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8421545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:12.0pt;
+	font-weight:700;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8521545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:12.0pt;
+	font-weight:700;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8621545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:12.0pt;
+	font-weight:700;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8721545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:none;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8821545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl8921545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:1.0pt solid black;
+	border-bottom:none;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9021545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:windowtext;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:돋움, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9121545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:windowtext;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:돋움, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:middle;
+	border-top:none;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9221545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9321545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9421545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9521545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9621545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9721545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9821545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl9921545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid windowtext;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10021545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid windowtext;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10121545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:바탕, serif;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10221545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:none;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10321545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10421545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10521545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:11.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:1.0pt solid black;
+	border-bottom:1.0pt solid black;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10621545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:white;
+	font-size:1.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:justify;
+	vertical-align:middle;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10721545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:9.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:left;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:1.0pt solid;
+	border-left:1.0pt solid black;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10821545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:9.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:left;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:none;
+	border-bottom:none;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+.xl10921545
+	{padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:9.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:굴림, monospace;
+	mso-font-charset:129;
+	mso-number-format:General;
+	text-align:left;
+	vertical-align:middle;
+	border-top:1.0pt solid black;
+	border-right:1.0pt solid black;
+	border-bottom:none;
+	border-left:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	white-space:normal;}
+ruby
+	{ruby-align:left;}
+rt
+	{color:windowtext;
+	font-size:8.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:돋움, monospace;
+	mso-font-charset:129;
+	mso-char-type:none;}
+-->
+</style>
+</head>
+
+<body>
+<!--[if !excel]>　　<![endif]-->
+<!--다음 내용은 Microsoft Excel의 웹 페이지로 게시 마법사를 사용하여 작성되었습니다.-->
+<!--같은 내용의 항목이 다시 게시되면 DIV 태그 사이에 있는 내용이 변경됩니다.-->
+<!----------------------------->
+<!--Excel의 웹 페이지 마법사로 게시해서 나온 결과의 시작 -->
+<!----------------------------->
+
+<div id="totalRecitp" align=center x:publishsource="Excel">
+<div class="row">
+	<span class="col-sm-11" style="font-size: 8px; text-align: right;" th:text="${docNo}">문서번호: </span>
+</div>
+<table border=0 cellpadding=0 cellspacing=0 width=683 style='border-collapse:
+ collapse;table-layout:fixed;width:516pt'>
+ <col width=32 span=2 style='mso-width-source:userset;mso-width-alt:910;
+ width:24pt'>
+ <col width=42 style='mso-width-source:userset;mso-width-alt:1194;width:32pt'>
+ <col width=32 style='mso-width-source:userset;mso-width-alt:910;width:24pt'>
+ <col width=47 style='mso-width-source:userset;mso-width-alt:1336;width:35pt'>
+ <col width=41 span=3 style='mso-width-source:userset;mso-width-alt:1166;
+ width:31pt'>
+ <col width=40 style='mso-width-source:userset;mso-width-alt:1137;width:30pt'>
+ <col width=11 style='mso-width-source:userset;mso-width-alt:312;width:8pt'>
+ <col width=25 style='mso-width-source:userset;mso-width-alt:711;width:19pt'>
+ <col width=18 span=6 style='mso-width-source:userset;mso-width-alt:512;
+ width:14pt'>
+ <col width=43 span=2 style='mso-width-source:userset;mso-width-alt:1223;
+ width:32pt'>
+ <col width=36 style='mso-width-source:userset;mso-width-alt:1024;width:27pt'>
+ <col width=69 style='mso-width-source:userset;mso-width-alt:1962;width:52pt'>
+ <tr height=41 style='mso-height-source:userset;height:30.75pt'>
+  <td colspan=21 height=41 class=xl8421545 width=683 style='border-right:1.0pt solid black;
+  height:30.75pt;width:516pt'>자동차 점검.정비 내역서 <br></td>
+ </tr>
+ <tr height=39 style='mso-height-source:userset;height:29.25pt'>
+  <td colspan=2 height=39 class=xl7721545 width=64 style='border-right:1.0pt solid black;
+  height:29.25pt;width:48pt'>차량</td>
+  <td colspan=2 class=xl6921545 width=74 style='border-right:1.0pt solid black;
+  border-left:none;width:56pt'>등록번호</td>
+  <td colspan=4 class=xl6921545 width=170 style='border-right:1.0pt solid black;
+  border-left:none;width:128pt'>　</td>
+  <td colspan=4 class=xl6921545 width=94 style='border-right:1.0pt solid black;
+  border-left:none;width:71pt'>차명(차종)</td>
+  <td colspan=5 class=xl6921545 width=90 style='border-right:1.0pt solid black;
+  border-left:none;width:70pt'>　</td>
+  <td colspan=3 class=xl6921545 width=122 style='border-right:1.0pt solid black;
+  border-left:none;width:91pt'>주행거리&nbsp;</td>
+  <td class=xl6621545 width=69 style='border-top:none;border-left:none;
+  width:52pt'>km</td>
+ </tr>
+ <tr height=40 style='mso-height-source:userset;height:30.0pt'>
+  <td colspan=2 height=40 class=xl8821545 width=64 style='border-right:1.0pt solid black;
+  height:30.0pt;width:48pt'>소유자</td>
+  <td colspan=2 class=xl6921545 width=74 style='border-right:1.0pt solid black;
+  border-left:none;width:56pt'>소 유 자</td>
+  <td colspan=4 class=xl6921545 width=170 style='border-right:1.0pt solid black;
+  border-left:none;width:128pt'>　</td>
+  <td colspan=4 class=xl6921545 width=94 style='border-right:1.0pt solid black;
+  border-left:none;width:71pt'>주&nbsp;&nbsp;&nbsp;&nbsp; 소</td>
+  <td colspan=9 class=xl9221545 width=281 style='border-right:1.0pt solid black;
+  border-left:none;width:213pt' >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(tel:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  )</td>
+ </tr>
+ <tr height=40 style='mso-height-source:userset;height:30.0pt'>
+  <td colspan=2 height=40 class=xl9021545 width=64 style='border-right:1.0pt solid black;
+  height:30.0pt;width:48pt'>　</td>
+  <td colspan=2 class=xl6921545 width=74 style='border-right:1.0pt solid black;
+  border-left:none;width:56pt'>등록년월일</td>
+  <td colspan=4 class=xl6921545 width=170 style='border-right:1.0pt solid black;
+  border-left:none;width:128pt'>　</td>
+  <td colspan=7 class=xl6921545 width=148 style='border-right:1.0pt solid black;
+  border-left:none;width:113pt'>점검정비 의뢰일자</td>
+  <td colspan=6 class=xl7521545 width=227 style='border-right:1.0pt solid black;
+  border-left:none;width:171pt'>　</td>
+ </tr>
+ <tr height=40 style='mso-height-source:userset;height:30.0pt'>
+  <td colspan=2 height=40 class=xl7721545 width=64 style='border-right:1.0pt solid black;
+  height:30.0pt;width:48pt'>정비</td>
+  <td colspan=3 class=xl6921545 width=121 style='border-right:1.0pt solid black;
+  border-left:none;width:91pt'>사업자등록번호</td>
+  <td colspan=7 class=xl6921545 width=217 style='border-right:1.0pt solid black;
+  border-left:none;width:164pt;' th:text="${info.bsNumber}" >공업사등록번호</td>
+  <td colspan=6 class=xl6921545 width=133 style='border-right:1.0pt solid black;
+  border-left:none;width:102pt'>정비업등록번호</td>
+  <td colspan=3 class=xl7521545 width=148 style='border-right:1.0pt solid black;
+  border-left:none;width:111pt'>　</td>
+ </tr>
+ <tr height=40 style='mso-height-source:userset;height:30.0pt'>
+  <td colspan=2 height=40 class=xl8821545 width=64 style='border-right:1.0pt solid black;
+  height:30.0pt;width:48pt'>사업자</td>
+  <td colspan=3 class=xl6921545 width=121 style='border-right:1.0pt solid black;
+  border-left:none;width:91pt'>업체명(대표자)</td>
+  <td colspan=5 class=xl9621545 width=174 style='border-right:1.0pt solid black;
+  border-left:none;width:131pt' th:text="${info.bossName}">　</td>
+  <td colspan=2 class=xl6921545 width=43 style='border-right:1.0pt solid black;
+  border-left:none;width:33pt'>주&nbsp;소</td>
+  <td colspan=9 class=xl9221545 width=281 style='border-right:1.0pt solid black;
+  border-left:none;width:213pt'th:text="'('+${info.addrDetail}+')'+${info.bsAddr}">&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  )</td>
+ </tr>
+ <tr height=40 style='mso-height-source:userset;height:30.0pt'>
+  <td colspan=2 height=40 class=xl9021545 width=64 style='border-right:1.0pt solid black;
+  height:30.0pt;width:48pt'>　</td>
+  <td colspan=3 class=xl6921545 width=121 style='border-right:1.0pt solid black;
+  border-left:none;width:91pt'>점검정비완료일</td>
+  <td colspan=5 class=xl6921545 width=174 style='border-right:1.0pt solid black;
+  border-left:none;width:131pt'>　</td>
+  <td colspan=2 class=xl6921545 width=43 style='border-right:1.0pt solid black;
+  border-left:none;width:33pt'>출고일</td>
+  <td colspan=5 class=xl6921545 width=90 style='border-right:1.0pt solid black;
+  border-left:none;width:70pt' th:text="${info.bsRegistration}">　</td>
+  <td colspan=3 class=xl6921545 width=122 style='border-right:1.0pt solid black;
+  border-left:none;width:91pt'>정비책임자</td>
+  <td class=xl6621545 width=69 style='border-top:none;border-left:none;
+  width:52pt'>(인)</td>
+ </tr>
+ <tr height=35 style='mso-height-source:userset;height:26.25pt'>
+  <td colspan=3 height=35 class=xl6921545 width=106 style='border-right:1.0pt solid black;
+  height:26.25pt;width:80pt'>점검.정비 내역</td>
+  <td colspan=18 class=xl7521545 width=577 style='border-right:1.0pt solid black;
+  border-left:none;width:436pt'>　</td>
+ </tr>
+ <tr height=35 style='mso-height-source:userset;height:26.25pt'>
+  <td colspan=16 height=35 class=xl6921545 width=474 style='border-right:1.0pt solid black;
+  height:26.25pt;width:359pt'>작&nbsp; 업&nbsp; 내&nbsp;&nbsp; 용</td>
+  <td colspan=3 class=xl7821545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>작 업 자</td>
+  <td colspan=2 class=xl10021545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>공&nbsp;&nbsp; 임</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=16 height=28 class=xl6921545 width=474 style='border-right:1.0pt solid black;
+  height:21.0pt;width:359pt'>　</td>
+  <td colspan=3 class=xl10321545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=16 height=28 class=xl6921545 width=474 style='border-right:1.0pt solid black;
+  height:21.0pt;width:359pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=16 height=28 class=xl6921545 width=474 style='border-right:1.0pt solid black;
+  height:21.0pt;width:359pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=16 height=28 class=xl6921545 width=474 style='border-right:1.0pt solid black;
+  height:21.0pt;width:359pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=16 height=28 class=xl6921545 width=474 style='border-right:1.0pt solid black;
+  height:21.0pt;width:359pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7321545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=16 height=28 class=xl6921545 width=474 style='border-right:1.0pt solid black;
+  height:21.0pt;width:359pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7321545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=35 style='mso-height-source:userset;height:26.25pt'>
+  <td colspan=7 height=35 class=xl7721545 width=267 style='height:26.25pt;
+  width:201pt'>부<span style='mso-spacerun:yes'>    </span>품<span
+  style='mso-spacerun:yes'>    </span>명</td>
+  <td colspan=6 class=xl7821545 width=153 style='border-right:1.0pt solid black;
+  width:116pt'>부<span style='mso-spacerun:yes'>  </span>품<span
+  style='mso-spacerun:yes'>  </span>넘<span style='mso-spacerun:yes'>  </span>버</td>
+  <td colspan=3 class=xl7021545 width=54 style='border-right:1.0pt solid black;
+  width:42pt'>수량</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>구 입 처</td>
+  <td colspan=2 class=xl7321545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>가<span style='mso-spacerun:yes'>        </span>격</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=7 height=28 class=xl7821545 width=267 style='border-right:1.0pt solid black;
+  height:21.0pt;width:201pt'>　</td>
+  <td colspan=6 class=xl8121545 width=153 style='border-right:1.0pt solid black;
+  border-left:none;width:116pt'>　</td>
+  <td colspan=3 class=xl6921545 width=54 style='border-right:1.0pt solid black;
+  border-left:none;width:42pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=7 height=28 class=xl7821545 width=267 style='border-right:1.0pt solid black;
+  height:21.0pt;width:201pt'>　</td>
+  <td colspan=6 class=xl8121545 width=153 style='border-right:1.0pt solid black;
+  border-left:none;width:116pt'>　</td>
+  <td colspan=3 class=xl6921545 width=54 style='border-right:1.0pt solid black;
+  border-left:none;width:42pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=7 height=28 class=xl7821545 width=267 style='border-right:1.0pt solid black;
+  height:21.0pt;width:201pt'>　</td>
+  <td colspan=6 class=xl8121545 width=153 style='border-right:1.0pt solid black;
+  border-left:none;width:116pt'>　</td>
+  <td colspan=3 class=xl6921545 width=54 style='border-right:1.0pt solid black;
+  border-left:none;width:42pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=7 height=28 class=xl7821545 width=267 style='border-right:1.0pt solid black;
+  height:21.0pt;width:201pt'>　</td>
+  <td colspan=6 class=xl8121545 width=153 style='border-right:1.0pt solid black;
+  border-left:none;width:116pt'>　</td>
+  <td colspan=3 class=xl6921545 width=54 style='border-right:1.0pt solid black;
+  border-left:none;width:42pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=7 height=28 class=xl7821545 width=267 style='border-right:1.0pt solid black;
+  height:21.0pt;width:201pt'>　</td>
+  <td colspan=6 class=xl8121545 width=153 style='border-right:1.0pt solid black;
+  border-left:none;width:116pt'>　</td>
+  <td colspan=3 class=xl6921545 width=54 style='border-right:1.0pt solid black;
+  border-left:none;width:42pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=28 style='mso-height-source:userset;height:21.0pt'>
+  <td colspan=7 height=28 class=xl7821545 width=267 style='border-right:1.0pt solid black;
+  height:21.0pt;width:201pt'>　</td>
+  <td colspan=6 class=xl8121545 width=153 style='border-right:1.0pt solid black;
+  border-left:none;width:116pt'>　</td>
+  <td colspan=3 class=xl6921545 width=54 style='border-right:1.0pt solid black;
+  border-left:none;width:42pt'>　</td>
+  <td colspan=3 class=xl6921545 width=104 style='border-right:1.0pt solid black;
+  border-left:none;width:78pt'>　</td>
+  <td colspan=2 class=xl7521545 width=105 style='border-right:1.0pt solid black;
+  border-left:none;width:79pt'>　</td>
+ </tr>
+ <tr height=43 style='mso-height-source:userset;height:32.25pt'>
+  <td height=43 class=xl6521545 width=32 style='height:32.25pt;border-top:none;
+  width:24pt'>소 계</td>
+  <td colspan=5 class=xl6921545 width=194 style='border-right:1.0pt solid black;
+  border-left:none;width:146pt'>　</td>
+  <td class=xl6521545 width=41 style='border-top:none;border-left:none;
+  width:31pt'>VAT</td>
+  <td colspan=7 class=xl6921545 width=171 style='border-right:1.0pt solid black;
+  border-left:none;width:130pt'>　</td>
+  <td colspan=4 class=xl6921545 width=97 style='border-right:1.0pt solid black;
+  border-left:none;width:74pt'>합 계</td>
+  <td colspan=3 class=xl7521545 width=148 style='border-right:1.0pt solid black;
+  border-left:none;width:111pt'>　</td>
+ </tr>
+ <tr height=175 style='mso-height-source:userset;height:131.25pt'>
+  <td colspan=21 height=175 class=xl10721545 width=683 style='border-right:
+  1.0pt solid black;height:131.25pt;width:516pt'>ㅇ 정비업자가 점검정비의 잘못으로 다음구분에 따른
+  기간중 발생하는 고장등에 대하여는 무상점검.정비를 합니다(자동차 관리법 시행규칙 제134조1항2호)<br>
+    1. 차령1년미만 또는 주행거리 2만키로 이내의 자동차: 점검정비일로부터 90일이내<br>
+    2.&nbsp; “&nbsp; 3년미만&nbsp; ”&nbsp;&nbsp;&nbsp; 주행거리&nbsp; 6만키로&nbsp;&nbsp;
+  ”&nbsp;&nbsp; &nbsp;&nbsp; “&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;
+  ”&nbsp;&nbsp;&nbsp; “&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 60일이내<br>
+    3.&nbsp; “&nbsp; 5년미만&nbsp; ”&nbsp;&nbsp;&nbsp; 주행거리&nbsp; 10만키로&nbsp;
+  “&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ”&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;&nbsp;
+  “&nbsp;&nbsp;&nbsp; ‘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30일 이내<br>
+    ㅇ 본 내역서는 2부를 작성, 정비의뢰자에게 1부를 교부하고, 정비사업자는 1부를 1년간<br>
+    &nbsp;&nbsp;&nbsp; 보관하여야 합니다.<br>
+    ㅇ ‘부품의 구분’란에는 다음에 따라 기재하여야 합니다.<br>
+    1. 제작자가 공급하는 신부품:A&nbsp;&nbsp;&nbsp; 2. 기타 신부품: B&nbsp;&nbsp;&nbsp;&nbsp;
+  3. 중고재생품 : C<br>
+    참고:재생정비한 원동기를 부품으로 사용하엿을경우는별지 제92호 서식의 원동기<br>
+    재생정비 사실확인서를 첨부 하여야 합니다</td>
+ </tr>
+</table>
+
+</div>
+
+
+<!----------------------------->
+<!--Excel의 웹 페이지 마법사로 게시해서 나온 결과의 끝-->
+<!----------------------------->
+</body>
+</th:block>
+</html>
