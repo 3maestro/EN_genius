@@ -42,9 +42,9 @@ public class CarController {
 	  
 	 
 	@PostMapping("carRegister")
-	public String carRegister(VoCarRegister voDetailInsert) {
+	public String carRegister(VoCarDetail voDetailInsert) {
 		System.out.println("컨46" + voDetailInsert);
-		carService.getCarRegister(voDetailInsert);
+		//carService.getCarRegister(voDetailInsert);
 		return "redirect:carList";
 	}
 

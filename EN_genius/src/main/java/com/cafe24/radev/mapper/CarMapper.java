@@ -68,7 +68,7 @@ public interface CarMapper {
 	 * @param voDetail
 	 * @return
 	 */
-	public int getCarRegister(VoCarRegister voDetail);
+	public int getCarRegister(VoCarDetail voDetail);
 	
 	/**
 	 * 연도별 차량 메서드

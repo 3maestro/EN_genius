@@ -5,26 +5,37 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cafe24.radev.mapper.RecMapper">
 	<resultMap type="com.cafe24.radev.vo.VoRecRegister" id="RecRegisterMap">
-		
 		<result property="receptionCode" column="reception_code"/>
 		<result property="bsCode" column="bs_code"/>
 		<result property="customerCarInfoCode" column="customer_car_info_code"/>
 		<result property="repairClassCode" column="repair_class_code"/>
 		<result property="displaceMent" column="reception_writer"/>
 		<result property="receptionDate" column="reception_date"/>
-
+		<result property="repairClassName" column="repair_class_name"/>
+		<result property="receptionProgress" column="reception_progress"/>
 	</resultMap>
 
 	<select id="getRecList" resultMap="RecRegisterMap" parameterType="String">
 	SELECT 
-		reception_code, 
-		bs_code, 
-		customer_car_info_code, 
-		repair_class_code, 
-		reception_writer, 
-		reception_date
-	FROM reception_tb
-	WHERE bs_code=#{bsCode}
+		rc.reception_code, 
+		rc.bs_code, 
+		rc.customer_car_info_code, 
+		re.repair_class_name, 
+		rc.reception_writer, 
+		rc.reception_date,
+		rc.reception_progress
+	FROM reception_tb AS rc
+	INNER JOIN repair_class_tb AS re
+	ON re.repair_class_code = rc.repair_class_code
+	WHERE rc.bs_code = #{bsCode}
+	</select>
+	
+	<select id="getRecListCC" resultType="hashmap">
+		SELECT
+			repair_class_code as repairClassCode,
+			repair_class_name as repairClassName
+		FROM 
+			repair_class_tb
 	</select>
 
 	<insert id="getRecInsert" parameterType="com.cafe24.radev.vo.VoRecRegister">

@@ -7,8 +7,10 @@ public class VoRecRegister {
 	private String bsCode; //공업사 코드 
 	private String customerCarInfoCode; //차량정보등록코드
 	private String repairClassCode; //수리 구분 코드
+	private String repairClassName;
 	private String displaceMent; //접수자
 	private String receptionDate; //접수 일자
+	private String receptionProgress;
 	
 	public String getReceptionCode() {
 		return receptionCode;
@@ -34,6 +36,13 @@ public class VoRecRegister {
 	public void setRepairClassCode(String repairClassCode) {
 		this.repairClassCode = repairClassCode;
 	}
+	
+	public String getRepairClassName() {
+		return repairClassName;
+	}
+	public void setRepairClassName(String repairClassName) {
+		this.repairClassName = repairClassName;
+	}
 	public String getDisplaceMent() {
 		return displaceMent;
 	}
@@ -47,11 +56,18 @@ public class VoRecRegister {
 		this.receptionDate = receptionDate;
 	}
 	
+	public String getReceptionProgress() {
+		return receptionProgress;
+	}
+	public void setReceptionProgress(String receptionProgress) {
+		this.receptionProgress = receptionProgress;
+	}
 	@Override
 	public String toString() {
-		return "voRecRegister [receptionCode=" + receptionCode + ", bsCode=" + bsCode + ", customerCarInfoCode="
-				+ customerCarInfoCode + ", repairClassCode=" + repairClassCode + ", displaceMent=" + displaceMent
-				+ ", receptionDate=" + receptionDate + "]";
+		return "VoRecRegister [receptionCode=" + receptionCode + ", bsCode=" + bsCode + ", customerCarInfoCode="
+				+ customerCarInfoCode + ", repairClassCode=" + repairClassCode + ", repairClassName=" + repairClassName
+				+ ", displaceMent=" + displaceMent + ", receptionDate=" + receptionDate + ", receptionProgress="
+				+ receptionProgress + "]";
 	}
 	
 	

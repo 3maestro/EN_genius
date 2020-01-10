@@ -21,7 +21,7 @@ public class CarService {
 	
 	@Autowired private CarMapper carMapper;
 	
-	public int getCarRegister(VoCarRegister voDetail) {
+	public int getCarRegister(VoCarDetail voDetail) {
 		return carMapper.getCarRegister(voDetail);
 	}
 	

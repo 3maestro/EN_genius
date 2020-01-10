@@ -41,28 +41,25 @@ public class RecController {
 	
 	
 	@GetMapping("recRegister")
-	public String register(Model model) {
-		
+	public String register(VoRecRegister voRecRegister, Model model) {
+		model.addAttribute("voRecRegister", voRecRegister);
 		
 		return "receptionregister/recRegister";
 	}
 	
 	
 	@GetMapping("recList")
-	public String recList(Model model,HttpSession session) {
+	public String recList(Model model, HttpSession session) {
+		System.out.println("컨53");
 		List<VoRecRegister> recList = recService.getRecList(session);
+		System.out.println("@@@@@@@2222" + recList);
+		List<VoRecRegister> CC = recService.getRecListCC();
+		System.out.println("@@@@@@@" + CC);
 		model.addAttribute("vorecreg", recList);
+		model.addAttribute("CC", CC);
 		System.out.println(recList +"접수 리스트 값 확인");
 		return "receptionregister/recList";
 	}
 	
 	
-	/* 작업지시서 샘플 만드는 중
-	 * @GetMapping("dustmq") public String dustmq(Model model) {
-	 * 
-	 * 
-	 * 
-	 * 
-	 * return "receptionregister/dustmq"; }
-	 */
 }
