@@ -6,6 +6,20 @@
   <!-- namespace속성은 인터페이스의 위치를 적는다. -->
 <mapper namespace="com.cafe24.radev.mapper.WageMapper">
 	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
+	<select id="ccStandardWage" resultType="com.cafe24.radev.vo.CcWage">
+		SELECT
+			cc.cc_wage_code AS ccWageCode,
+			cc.capacity_num AS capacityNum,
+			cc.loadage AS loadage,
+			cc.min_cc AS minCc,
+			cc.max_cc AS maxCc,
+			cc.cc_terms AS ccTerms,
+			cc.standard_wage AS standardWage
+		FROM
+			cc_standard_wage_tb AS cc
+	</select>
+	
+	
 	<select id="getWorkManHour" resultType="com.cafe24.radev.vo.WageManHour">
 		SELECT
 			totalWork.*,

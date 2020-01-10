@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafe24.radev.service.EmployeeService;
 import com.cafe24.radev.service.WageService;
 import com.cafe24.radev.vo.NowWork;
 import com.cafe24.radev.vo.WageManHour;
@@ -26,9 +27,11 @@ import com.cafe24.radev.vo.WorkDecide;
 public class WageController {
 
 	@Autowired private WageService wageService;
+	@Autowired private EmployeeService employeeService;
 	
 	@GetMapping("/work/ccStandardWage")
-	public String standardWage() {
+	public String standardWage(Model model) {
+		model.addAttribute("ccWage", wageService.ccStandardWage());
 		return "/wage/ccStandardWage";
 	}
 	
@@ -186,11 +189,18 @@ public class WageController {
 //	}
 	
 	/**
-	 * 직원 작업 현황 화면
+	 * 직원작업현황
+	 * @param model
 	 * @return
 	 */
 	@GetMapping("/work/ViewCurrentState")
-	public String ViewCurrentState() {
+	public String employeeList(Model model, HttpSession session) {
+		String bsCode = (String)session.getAttribute("SCODE");
+		System.out.println("사업장코드==>"+ bsCode);
+		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
+		model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode));
+		System.out.println("========>"+model.addAttribute("employeeList", employeeService.employeeList(bsCode)));
+		System.out.println("========"+model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode)));
 		return "/employee/employeeWorkCurrentState";
 	}
 	
@@ -206,6 +216,7 @@ public class WageController {
 		
 		List<NowWork> workCurrentList = wageService.WorkCurrentList(recepNum);
 		
+		
 		return workCurrentList;
 	}
 	
@@ -213,5 +224,7 @@ public class WageController {
 	public String wageEstimate() {
 		return "/wage/wageEstimate";
 	}
+	
+
 	
 }

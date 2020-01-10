@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.radev.mapper.WageMapper;
+import com.cafe24.radev.vo.CcWage;
 import com.cafe24.radev.vo.NowWork;
 import com.cafe24.radev.vo.WageManHour;
 import com.cafe24.radev.vo.WorkDecide;
@@ -19,6 +20,11 @@ import com.cafe24.radev.vo.WorkDecide;
 public class WageService implements WageMapper {
 	
 	@Autowired private WageMapper wageMapper;
+	
+	public List<CcWage> ccStandardWage() {
+		System.out.println("ccStandardWage WageService호출");
+		return wageMapper.ccStandardWage();
+	}
 	
 	/**
 	 * 작업 목록과 표준작업시간과 배기량별 단가 
