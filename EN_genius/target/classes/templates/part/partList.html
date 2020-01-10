@@ -11,15 +11,12 @@
 	<th:block layout:fragment="contentFragment">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script type="text/javascript" th:inline="javascript">
-		/*<![CDATA[*/
-		var groupCode = /*[[ ${groupCode} ]]*/;
+			//var checkvalues = new Array();
 		$(document).ready(function(){
-			console.log(groupCode+"그룹코드");
-			$('#groupCode').val(groupCode);
-		/*]]*/
-			var checkvalues = [];
+			
 			//체크박스클릭시 
-			$(document).on('click','input[name=partCheck]',function(){
+			//$(document).on('click','input[name=partCheck]',function(){
+			$('input[name=partCheck]').click(function(){
 				//경고창 초기화
 				$('.card-body').find('h2').empty();
 				var partCheck = $('input[name=partCheck]:checked');
@@ -27,7 +24,7 @@
 				var sellBtn = $('#sellPartBtn');
 				//console.log($(this).val());
 
-				$('#cartTable').attr('style','display:block');
+				$('.checkingTable').attr('style','display:block');
 				
 				//$('#cartTable').find('#body').empty();
 				
@@ -38,9 +35,6 @@
 					// 다중버튼활성화후 포스트방식으로 호출
 					buyBtn.click(function(){
 						$('[name=partListForm]').attr({action:'/part/partOrder',method:'post'});
-					});
-					sellBtn.click(function(){
-						$('[name=partListForm]').attr({action:'/part/partEstimate',method:'post'});
 					});
 					
 				}else if(partCheck.length == 1){
@@ -60,6 +54,31 @@
 					checkvalues.splice(aa);
 					console.log(checkvalues);
 				}
+				/* //저장하기버튼클릭시
+				var uniVal = $.unique(checkvalues);
+				console.log(uniVal+"<<<<<ajax밸류");
+				$('input[name=partCheck]:checked').prop('checked',false);
+				var request = $.ajax({
+					url: "/part/cartCall",
+					method: "POST",
+					data: { 'checkvalues' : uniVal },
+					dataType: "json"
+				});
+				request.done(function( data ) {
+					//console.log(data);
+					for(var i=0; i<data.length;i++){
+						part = data[i];
+						var partNumber = part.partNumber;
+						var partName = part.partName;
+						console.log(partNumber);
+						$('#body').append('<tr><td>'+[i+1]+'</td><td>'+partNumber+'</td><td>'+partName+'</td><td id="delBtnTd"><label><button type="button" class="btn btn-secondary" id="delBtn">제거</button></label></td></tr>');
+					}
+					//checkvalues=[];
+				});
+				request.fail(function( jqXHR, textStatus ) {
+					//alert( "Request failed: " + textStatus );
+					checkvalues=[];
+				}); */
 				
 			});
 			//모든버튼클릭시
@@ -72,43 +91,12 @@
 					$('.btn-info').attr('type','submit');
 				};
 			});
-			//저장하기버튼클릭시
-			$(document).on('click','#cartAddBtn',function(){
-				var uniVal = $.unique(checkvalues);
-				console.log(uniVal+"<<<<<ajax밸류");
-				$('input[name=partCheck]:checked').prop('checked',false);
-				var request = $.ajax({
-					url: "/part/cartCall",
-					method: "POST",
-					data: { 'checkvalues' : uniVal },
-					dataType: "json"
-				});
-				request.done(function( data ) {
-					
-					console.log(data);
-
-					for(var i=0; i<data.length;i++){
-						part = data[i];
-						var partNumber = part.partNumber;
-						var partName = part.partName;
-						console.log(partNumber);
-						$('#body').append('<tr><td>'+[i+1]+'</td><td>'+partNumber+'</td><td>'+partName+'</td><td id="delBtnTd"><label><button type="button" class="btn btn-secondary" id="delBtn">제거</button></label></td></tr>');
-					}
-					checkvalues=[];
-					
-					
-				});
-				request.fail(function( jqXHR, textStatus ) {
-					//alert( "Request failed: " + textStatus );
-					checkvalues=[];
-				});
-			});
 		});
 		</script>
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card">
+				<div class="card" id="card">
 					<div class="card-header">
 						<strong class="card-title">부품목록</strong>
 					</div>
@@ -116,7 +104,7 @@
 						<div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
 							<th:block th:if="${partList != null}">
 							<div class="row">
-							<form th:action="@{/part/partEstimate}" method="post" name="partListForm" style="width: 100%">
+							<form th:action="@{/part/partEstimate}" method="post" name="partListForm" style="width: 80%">
 								<table style="font-size: 12px;"id="part-data-table" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="bootstrap-data-table_info">
 									<thead>
 										<tr role="row">
@@ -143,12 +131,23 @@
 										</tr>
 									</tbody>
 								</table>
-								<input type="hidden"  id="groupCode" name="groupCode">
 								<button class="btn btn-info" type="button" id="sellPartBtn">부품판매</button>
 								<button class="btn btn-info" type="button" id="buyPartBtn">부품구매</button>
 							</form>
 							<div class="col-sm-2">
-								<div class="btn btn-info" id="cartAddBtn">저장하기</div>
+								<table class="checkingTable" style="font-size: 10px;display: none; background-color: white; z-index: 9999;">
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>파트번호</th>
+											<th>제품명</th>
+											<th>제거</th>
+										</tr>
+									</thead>
+									<tbody id="body">
+									
+									</tbody>
+								</table>
 							</div>
 							</div>
 								<th:block th:if="${partList == null}">
@@ -158,29 +157,12 @@
 						</div>
 					</div>
 				</div>
-			<th:block th:replace="/part/partCart :: partCart">
-			</th:block>
 			</div>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-	<!-- 
-	<script src="/assets/js/lib/data-table/datatables.min.js"></script>
-	<script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-	<script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
-	<script src="/assets/js/lib/data-table/jszip.min.js"></script>
-	<script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
-	<script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
-	<script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
-	<script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script> 
-	-->
 	<script src="/assets/js/init/datatables-initPart.js"></script>
-	<!-- <script type="text/javascript">
-		$(document).ready(function(){
-			$('#bootstrap-data-table-export').DataTable();
-		});
-	</script> -->
 	</th:block>
 </html>
