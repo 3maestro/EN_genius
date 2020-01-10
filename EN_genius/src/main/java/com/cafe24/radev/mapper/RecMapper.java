@@ -16,7 +16,7 @@ public interface RecMapper {
 	 */
 	public List<VoRecRegister> getRecList(String bsCode);
 	
-		
+	public List<VoRecRegister> getRecListCC();
 	
 	/**
 	 * 접수 등록 맵퍼

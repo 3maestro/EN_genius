@@ -68,7 +68,7 @@ public interface CarMapper {
 	 * @param voDetail
 	 * @return
 	 */
-	public int getCarRegister(VoCarRegister voDetail);
+	public int getCarRegister(VoCarDetail voDetail);
 	
 	/**
 	 * 연도별 차량 메서드
@@ -114,6 +114,14 @@ public interface CarMapper {
 	 * @return
 	 */
 	public VoCarDetail getCarUpdateList(String carUpList);
+	
+	public List<VoCarDetail> getDBCarMidCate(String bigColSm);
+	
+	public List<VoCarDetail> getDBCarBigCate(String carModelSm);
+	
+	public List<VoCarDetail> getDBCarEngin(String fuelSm);
+	
+	public List<VoCarDetail> getDBCarfuel(String opGradeSm);
 	
 	public List<VoCarDetail> getDBCarGrade(String yearCarSm);
 	
