@@ -55,6 +55,7 @@ public class WageController {
 	@PostMapping("/work/workingNow")
 	public String workingNow(Model model, WorkDecide workDecide) {
 		System.out.println("workingNow WageController 호출");
+		System.out.println(workDecide + " <-workDecide workingNow WageController.java");
 		
 //		// 배기량별 공임 단가 구하기
 //		String ccCode = (String)session.getAttribute("CCCODE");
@@ -80,6 +81,7 @@ public class WageController {
 		for(int i=0; i<workDecideList.size(); i++) {
 			//String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
 			String bsCode = workDecide.getBsCode().get(i);
+			String recepNum = workDecide.getReceptionCode().get(i);
 			String wageSmallName = workDecide.getWageSmallName().get(i);
 			String stManHour = workDecide.getManHour().get(i);
 			String ccStandardWage = workDecide.getCcStandardWage().get(i);
@@ -98,6 +100,7 @@ public class WageController {
 			
 			nowWork = new NowWork();
 			//nowWork.setCcWageSmallCode(ccWageSmallCode);
+			nowWork.setRecepNum(recepNum);
 			nowWork.setWageSmallName(wageSmallName);
 			nowWork.setManHour(manHour);
 			nowWork.setOnePrice(onePrice);
@@ -181,6 +184,30 @@ public class WageController {
 //	public String a() {
 //		return "/work/workingNow";
 //	}
+	
+	/**
+	 * 직원 작업 현황 화면
+	 * @return
+	 */
+	@GetMapping("/work/ViewCurrentState")
+	public String ViewCurrentState() {
+		return "/employee/employeeWorkCurrentState";
+	}
+	
+	/**
+	 * 접수번호로작업리스트 가져오기
+	 * @return
+	 */
+	@PostMapping("/work/workCurrentState")
+	public @ResponseBody List<NowWork> WorkCurrentList(
+			@RequestParam(value = "recepNum", required = false) String recepNum) {
+		System.out.println("WorkCurrentList WageController호출");
+		System.out.println(recepNum + " <-recepNum 조회 하려는 접수 번호");
+		
+		List<NowWork> workCurrentList = wageService.WorkCurrentList(recepNum);
+		
+		return workCurrentList;
+	}
 	
 	@GetMapping("/work/wageEstimate")
 	public String wageEstimate() {

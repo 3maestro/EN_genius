@@ -15,17 +15,16 @@
 
 	</resultMap>
 
-	<select id="getRecList" resultMap="RecRegisterMap">
+	<select id="getRecList" resultMap="RecRegisterMap" parameterType="String">
 	SELECT 
-	
 		reception_code, 
 		bs_code, 
 		customer_car_info_code, 
 		repair_class_code, 
 		reception_writer, 
 		reception_date
-		
 	FROM reception_tb
+	WHERE bs_code=#{bsCode}
 	</select>
 
 	<insert id="getRecInsert" parameterType="com.cafe24.radev.vo.VoRecRegister">
