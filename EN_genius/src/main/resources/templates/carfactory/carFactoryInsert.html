@@ -12,7 +12,7 @@
 	<script type="text/javascript">
 
 		$(document).ready(function(){
-			 
+			
 			$('#formCheck').click(function(){
 			var bossIdCheck = $('input[name="bossId"]');
 			var bossPwCheck = $('input[name="bossPw"]');
@@ -27,99 +27,71 @@
 			var bsAddrCheck = $('input[name="bsAddr"]');
 			var addrDetailCheck = $('input[name="addrDetail"]');
 			var bsTelephoneCheck = $('input[name="bsTelephone"]');
-			var bsRegistrationCheck = $('input[name="bsRegistration"]');
+			var bsRegistrationCheck = $('input[name="bsRegistration"]');			
 			var bsDocuCheck = $('input[name="bs_docu"]');
-			
-
-				if(bossIdCheck.val() == ''){
-					alert('아이디를 입력하세요');
-					bossIdCheck.focus();
-					return false;
-				}else if(bossPwCheck.val() == ''){
-					alert('비밀번호를 입력하세요');
-					bossPwCheck.focus();
-					return false;
-				}else if(bossPwCheck.val() != bossPwCheck2.val()){
-					alert('비밀번호가 일치하지 않습니다');
-					bossPwCheck2.focus();
-					return false;
-				}else if(bossNameCheck.val() == ''){
-					alert('이름을 입력하세요');
-					bossNameCheck.focus();
-					return false;
-				}else if(bossPhoneNumCheck.val() == ''){
-					alert('휴대폰 번호를 입력하세요');
-					bossPhoneNumCheck.focus();
-					return false;
-				}else if(!regexp.test(PhoneNumCheck)){
-					alert("숫자만 입력하세요");
-					$(PhoneNumCheck).val(v.replace(regexp,''));
-				}else if(bossEmailCheck.val() == ''){
-					alert('이메일을 입력하세요');
-					bossEmailCheck.focus();
-					return false;
-				}else if(emailAddrCheck.val() == ''){
-					alert('메일 주소를 선택하세요');
-					emailAddrCheck.focus();
-					return false;
-				}else if(bsNameCheck.val() == ''){
-					alert('사업장명을 입력하세요');
-					bsNameCheck.focus();
-					return false;
-				}else if(bsNumCheck.val() == ''){
-					alert('사업자번호를 입력하세요');
-					bsNumCheck.focus();
-					return false;
-				}else if(bsAddNumCheck.val() == ''){
-					alert('정비업번호를 입력하세요');
-					bsAddNumCheck.focus();
-					return false;
-				}else if(bsAddrCheck.val() == ''){
-					alert('사업장 주소를 입력하세요');
-					bsAddrCheck.focus();
-					return false;
-				}else if(addrDetailCheck.val() == ''){
-					alert('상세 주소를 입력하세요');
-					addrDetailCheck.focus();
-					return false;
-				}else if(bsTelephoneCheck.val() == ''){
-					alert('사업장 연락처를 입력하세요');
-					bsTelephoneCheck.focus();
-					return false;
-				}else if(bsRegistrationCheck.val() == ''){
-					alert('사업장 등록일을 입력하세요');
-					bsRegistrationCheck.focus();
-					return false;
-				}else if(bsDocuCheck.val() == ''){
-					alert('사업장 서류를 첨부하세요');
-					bsDocuCheck.focus();
-					return false;
-				}
+			 	
+			if(bossIdCheck.val() == ''){
+				alert('아이디를 입력하세요');
+				bossIdCheck.focus();
+				return false;
+			}else if(bossPwCheck.val() == ''){
+				alert('비밀번호를 입력하세요');
+				bossPwCheck.focus();
+				return false;
+			}else if(bossPwCheck.val() != bossPwCheck2.val()){
+				alert('비밀번호가 일치하지 않습니다');
+				bossPwCheck2.focus();
+				return false;
+			}else if(bossNameCheck.val() == ''){
+				alert('이름을 입력하세요');
+				bossNameCheck.focus();
+				return false;
+			}else if(bossPhoneNumCheck.val() == ''){
+				alert('휴대폰 번호를 입력하세요');
+				bossPhoneNumCheck.focus();
+				return false;				
+			}else if(bossEmailCheck.val() == ''){
+				alert("이메일형식에 맞게 입력해주세요")
+				$(bossEmailCheck).focus();
+				return false;
+			}else if(emailAddrCheck.val() == ''){
+				alert('메일 주소를 선택하세요');
+				emailAddrCheck.focus();
+				return false;
+			}else if(bsNameCheck.val() == ''){
+				alert('사업장명을 입력하세요');
+				bsNameCheck.focus();
+				return false;
+			}else if(bsNumCheck.val() == ''){
+				alert('사업자번호를 입력하세요');
+				bsNumCheck.focus();
+				return false;
+			}else if(bsAddNumCheck.val() == ''){
+				alert('정비업번호를 입력하세요');
+				bsAddNumCheck.focus();
+				return false;
+			}else if(bsAddrCheck.val() == ''){
+				alert('사업장 주소를 입력하세요');
+				bsAddrCheck.focus();
+				return false;
+			}else if(addrDetailCheck.val() == ''){
+				alert('상세 주소를 입력하세요');
+				addrDetailCheck.focus();
+				return false;
+			}else if(bsTelephoneCheck.val() == ''){
+				alert('사업장 연락처를 입력하세요');
+				bsTelephoneCheck.focus();
+				return false;
+			}else if(bsRegistrationCheck.val() == ''){
+				alert('사업장 등록일을 입력하세요');
+				bsRegistrationCheck.focus();
+				return false;
+			}else if(!bsDocuCheck.val()){
+				alert('사업장 서류를 첨부하세요');
+				bsDocuCheck.focus();
+				return false;
+			}	
 			}); 
-				
-/* 			 var checkAjaxSetTimeout;
-			    $('#boss_id').keyup(function(){
-			        clearTimeout(checkAjaxSetTimeout);
-			        checkAjaxSetTimeout = setTimeout(function(){
-			        if( $('#boss_id').val().length > 10) {
-			            var bossId = $(this).val();
-			            
-			            var request = $.ajax({
-			                url : "/idCheckCall",
-			                method : "POST",
-			                data: { id : id },
-			                success : function(result) {
-			                    //console.log(result);
-			                    if (result == "ok") {
-			                        $("#result_id_msg").html("사용 가능한 아이디 입니다.");
-			                    } else {
-			                        $("#result_id_msg").html("사용 불가능한 아이디 입니다.");
-			                    }
-			                }
-			            });
-			            1000});
-			        }
-			    }); */
 		});	
 	</script>
 	</th:block>

@@ -1,5 +1,7 @@
 package com.cafe24.radev.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +67,30 @@ public class EmployeeController {
 		System.out.println("사업장코드==>"+ bsCode);
 		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
 		model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode));
-		System.out.println("========>"+model.addAttribute("employeeList", employeeService.employeeList(bsCode)));
-		System.out.println("========"+model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode)));
 		return "/employee/employeeList";
+	}
+	/**
+	 * 직원 마이페이지
+	 * @return
+	 */
+	@GetMapping("/employee/employeeMypage")
+	public String employeeMypage(Model model, HttpSession session){
+		String employeeCode = (String)session.getAttribute("ECODE");
+		employeeService.employeeMypage(employeeCode);
+		model.addAttribute("Employee", employeeService.employeeMypage(employeeCode));
+		return "/employee/employeeMypage";
+	}
+	
+	/**
+	 * 직원 마이페이지
+	 * @return
+	 */
+	@GetMapping("/employee/employeeDetail")
+	public String employeeDetail(Model model, HttpSession session){
+		String employeeCode = (String)session.getAttribute("ECODE");
+		employeeService.employeeMypage(employeeCode);
+		model.addAttribute("Employee", employeeService.employeeMypage(employeeCode));
+		return "/employee/employeeDetail";
 	}
 	/**
 	 * 직원별 통계

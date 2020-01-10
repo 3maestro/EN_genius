@@ -24,9 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     	
 		  if(session == null) { 
 
-			  System.out.println("세션 null*******************"); 
-
-
+			  System.out.println("세션이 만료되었거나 존재하지 않습니다."); 
 			  try {
 				  response.sendRedirect("/login/loginForm"); 
 			  } catch (IOException e) {
@@ -35,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			  return false; 
 		
 		  }else { 
-//			  System.out.println("세션 null 아님*******************"); 
+			  System.out.println("==세션값있음=="); 
 			  return true; 
 		  }   	
     }	

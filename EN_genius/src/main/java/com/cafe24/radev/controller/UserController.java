@@ -43,13 +43,18 @@ public class UserController {
 	@PostMapping("/carfactory/CarFactoryInsert") 
 	public String addCarFactory(CarFactory carFactory
 								,@RequestParam("bs_docu") MultipartFile bs_docu
+								,Model model
 								){
 			System.out.println("carFactory ==> " + carFactory.toString());
 			System.out.println("파일====>" + bs_docu);
-			int r = userService.addCarFactory(carFactory);
-			System.out.println(r + "r 결과 값");
-			userService.addDocumentFile(bs_docu);
-		 
+			if(bs_docu.equals(null)) {
+				String re = "파일이 첨부되지 않아 등록처리에 실패하였습니다."; 
+				model.addAttribute("lo", re);
+			}else {				
+				int r = userService.addCarFactory(carFactory);
+				System.out.println(r + "r 결과 값");
+				userService.addDocumentFile(bs_docu);
+			}
 		return "redirect:/login/login";
 	}
 	/**
