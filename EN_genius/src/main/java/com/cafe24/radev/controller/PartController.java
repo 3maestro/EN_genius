@@ -371,7 +371,7 @@ public class PartController {
 			}
 			
 		}
-		return "redirect:/part/pEstiList";
+		return "redirect:/part/partList";
 	}
 	
 	/**
@@ -387,6 +387,7 @@ public class PartController {
 		
 		return "/part/pEstiList";
 	}
+	
 	
 	/**
 	 * 최종견적서
