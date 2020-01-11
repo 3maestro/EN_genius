@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.RecService;
 import com.cafe24.radev.vo.VoRecRegister;
@@ -45,6 +46,15 @@ public class RecController {
 		model.addAttribute("voRecRegister", voRecRegister);
 		
 		return "receptionregister/recRegister";
+	}
+	
+	@PostMapping("getListAdd")
+	public @ResponseBody VoRecRegister getListAdd(HttpSession session) {
+		System.out.println("@#@##@#@##############");
+		String carinfo = "KMHEM42BPAC202445";
+		VoRecRegister voRecRegister = recService.getListAdd(carinfo);
+		System.out.println("컨56" + voRecRegister);
+		return voRecRegister;
 	}
 	
 	

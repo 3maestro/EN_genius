@@ -10,89 +10,40 @@
 	<th:block layout:fragment="customScript">			
 	<script type="text/javascript">	 
 		$(document).ready(function(){
-			$('#add').click(function(){
-				$('.modal-title').text('접수등록')
-				$('.add').css('display','block')
-				$('.modify').css('display','none')
-				$('.resignation').attr('readonly',false)				
-				$('[name=edCode]').val('').prop(':selected');
-				$('[name=ddCode]').val('').prop(':selected');
-				$('[name=employeeName]').val('');
-				$('[name=employeePass]').val('');
-				$('[name=employeeBirth]').val('');
-				$('[name=employeeAddr]').val('');
-				$('[name=employeePost]').val('');
-				$('[name=employeeGender]').val('');
-				$('[name=employeePhone]').val('');
-				$('[name=joinDate]').val('');
+			
+			$('#ListAddBtn').click(function(){
+				
+				var request = $.ajax({
+					  url: "getListAdd",
+					  method: "POST",
+					  data: { },
+					  dataType: "json"
+					});
+				
+					request.done(function(data) {
+					});
+					 
+					
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					});
+				
 			})
 			
-			$('.updateBtn').click(function(){
-				$('.modal-title').text('직원수정')
-				$('.add').css('display','none')
-				$('.modify').css('display','block')
-				$('.resignation').attr('readonly',true)
-				$('.detail').css('display','none')
-
-				var employeeCode = $(this).attr('data-employeeCode');
-				var edCode = $(this).attr('data-edCode');
-				var ddCode = $(this).attr('data-ddCode');
- 				var employeeName = $(this).attr('data-employeeName');
-				var employeePass = $(this).attr('data-employeePass');
-				var employeeBirth = $(this).attr('data-employeeBirth');
-				var employeeAddr = $(this).attr('data-employeeAddr');
-				var employeePost = $(this).attr('data-employeePost');
-				var employeeGender = $(this).attr('data-employeeGender');
-				var employeePhone = $(this).attr('data-employeePhone');
-				var joinDate = $(this).attr('data-joinDate');
-				var resignationDate = $(this).attr('data-resignationDate');
+			$('#recAddBtn').click(function(){
+				console.log('asdasd')
+				var customerCarInfoCode = $('#customerCarInfoCode').val();
+				var repairClassCode = $('#repairClassCode').val();
+				var recMemo = $('#recMemo').val();
 				
-				$('[name=edCode]').val(edCode).prop(':selected');
-				$('[name=ddCode]').val(ddCode).prop(':selected');
-				$('[name=employeeCode]').val(employeeCode);
-				$('[name=employeeName]').val(employeeName);
-				$('[name=employeePass]').val(employeePass);
-				$('[name=employeePass]').attr('readonly',true);
-				$('[name=employeeBirth]').val(employeeBirth);
-				$('[name=employeeBirth]').attr('readonly',true);
-				$('[name=employeeAddr]').val(employeeAddr);
-				$('[name=employeePost]').val(employeePost);
-				$('[name=employeeGender1]').val(employeeGender);
-				$('[name=employeeGender1]').attr('readonly',true);
-				$('[name=employeePhone]').val(employeePhone);
-				$('[name=joinDate]').val(joinDate);
-				$('[name=joinDate]').attr('readonly',true);
-				$('[name=resignationDate]').val(resignationDate);
+				recMemo = recMemo.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+				console.log(recMemo)
 				
-				$("#resignationBtn").val(employeeName);
-				
-				$('#myModal1').modal('show');
-				
-				$('.post').click(function(){
-					$('[name=employeeAddr]').val('');
-					$('.detail').css('display','block')
-				})
-				
-				$('#btnCloseLayer').click(function(){
-					if($('[name=employeeAddr]').val()==''){
-						$('[name=employeeAddr]').val(employeeAddr);
-						$('.detail').css('display','none')
-					}
-				})
-
-			});
-			
-			$('#addBtn').click(function(){
-				$('form').attr('action','/addEmployee')
-				$('form').submit()
 			})
+		})
 			
-			$('#modifyBtn').click(function(){
-				$('form').attr('action','/modifyE')
-				$('form').submit()
-			})
-		});
-			
+		
 	</script>
 	</th:block>
 	
@@ -107,7 +58,7 @@
 			<div class="card">
 				<div class="card-header">
 					<strong class="card-title">접수 리스트</strong>
-					<button type="button" id="add" th:text="등록" name="emInsertPopupBtn" data-toggle="modal" data-target="#myModal" style="float: right" class="btn btn-outline-link btn-sm"></button>			
+					<button type="button" id="ListAddBtn" th:text="접수등록" name="ListAddBtn" data-toggle="modal" data-target="#myModal" style="float: right" class="btn btn-outline-link btn-sm"></button>			
 				</div>				    
 				<div class="row">
                     <div class="col-lg-12">
@@ -276,7 +227,7 @@
             </div>
    
 		<!-- Modal --><!-- fade 지우면 똑딱 뜨고 넣으면 소로록 -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -287,49 +238,68 @@
 			    <form method="post">
 			    	<div class="form-group">
 				    <div class="input-group">
-		   				<select name="edCode" class="form-control" >
-				    		<option value="입고 구분">입고 구분</option>
+		   				<select id="repairClassCode" name="repairClassCode" class="form-control" >
+				    		<option value="0" th:text="${'입고구분'}">입고 구분</option>
 		   					<th:block th:each="CL : ${CC}">
 				    		<option  th:value="${CL.repairClassCode}" th:text="${CL.repairClassName}"></option>
 				    		</th:block>
 				   		</select>
 				    </div>
 				    </div>				    
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="hidden" name="employeeCode">
-				    	<input type="text" name="employeeName" placeholder="이름" class="form-control">
+				    <div>
+				    <div>
+				    	<input type="text" name="customerCarInfoCode" class="form-control">
 				    </div>
 				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="password" name="employeePass" placeholder="비밀번호" class="form-control">
-				    </div>
-				    </div>
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="date" name="employeeBirth" placeholder="생일" class="form-control read">
-				    </div>
-				    </div>
+				    <br>
+				    
+				    <div class="card border border-secondary">
+						<div class="card-header">
+						<table>
+							<tr style="width: 500px;">
+								<td style="width: 65%;">
+									<strong class="card-title">직원 이름 :</strong>
+								</td> 
+								<td>  
+									<strong class="card-title" cols="50" rows="10">직원 아이디 : </strong>
+								</td>
+							</tr>
+							
+							<tr style="width: 500px;">
+								<td style="width: 65%;">
+									<strong class="card-title" cols="50" rows="10">접수 시간 : </strong>
+								</td>
+							
+								</table>
+								<hr>
+								<table>
+							
+							<tr style="width: 500px;">
+								<td style="width: 65%;">
+									<strong class="card-title" cols="50" rows="10">직원 이름 :</strong>
+								</td> 
+								<td>  
+									<strong class="card-title" cols="50" rows="10">직원 아이디 : </strong>
+								</td>
+							</tr>
+							<tr style="width: 400px;">
+								<td style="width: 50%;">
+									<strong class="card-title" cols="50" rows="10">접수 시간 : </strong>
+								</td>
+							</tr>
+							</tr>
+						</table>
+						</div>
+						<textarea id="recMemo" cols="50" rows="10"></textarea>
+					</div>
+				   
 					<div id="layer">
 						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" onclick="closeDaumPostcode()" alt="닫기 버튼">
 					</div>			 			    
 				    
-				    <div class="form-group">
-				    <div class="input-group">
-				    	<input type="tel" name="employeePhone" placeholder="핸드폰" class="form-control">
-				    </div>
-				    </div>
-				    <div class="form-group">
-					<div class="input-group">
-				    	<input type="date" name="joinDate" placeholder="입사일" class="form-control col read">
-				    	<input type="date" name="resignationDate" placeholder="퇴사일" class="form-control col modify read">
-					</div>
-				    </div>
+				    
 					<div class="modal-footer">
-					  <button type="button" id="addBtn" class="btn btn-secondary btn-sm add">등록</button>
-					  <button type="button" id="modifyBtn" class="btn btn-secondary btn-sm modify">수정</button>
-					  <button type="button" id="resignationBtn" class="btn btn-secondary btn-sm resignation">퇴사</button>
+					  <button type="button" id="recAddBtn" class="btn btn-secondary btn-sm add">등록</button>
 					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 			    </form>
