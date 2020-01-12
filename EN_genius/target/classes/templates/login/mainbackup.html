@@ -46,27 +46,84 @@
 		<title>메인 화면</title>
 	</th:block>
 
-	<th:block layout:fragment="customScript">		
+	<th:block layout:fragment="customScript">
 		<script type="text/javascript">	 
+		/*<[CDATA[*/
+			
+//  			var CARCODE;
+// // 			var RECNUM;
+			
+// 			if(CARCODE != null || CARCODE != '' || CARCODE != 'undefined'){
+// 				CARCODE = [[${session.CARCODE}]];
+// 				console.log(CARCODE + " <-CARCODE");
+// 			}else{
+// 				CARCODE = '';
+// 			}
+// 			if(RECNUM == null || RECNUM == '' || RECNUM == 'undefined'){
+// 				RECNUM = '';
+// 			}else{
+// 				RECNUM = [[${session.RECNUM}]];
+// 				console.log(RECNUM + " <-RECNUM");
+// 			}
 			
 			$(document).ready(function(){
-	 			$('#carSearchBtn').click(function(){							
+				
+				$('#recSearchBtn').click(function(){
+					var recNum = $('input[name=recNum]').val();
+	 				console.log(recNum.length + " <-recNum.length")
+
+	 				//접수 번호에 값이 있다면
+					if(recNum != '' && recNum != 'undefined' && recNum != null){
+						console.log(recNum + " <-carNum")
+	 					
+	 					if(recNum.length == 6){
+	 						$('#recSearch').submit();
+	 					}else{
+	 						alert('접수 번호를 확인 하세요.')
+		 					$('input[name=recNum]').val('')
+					}
+
+	 				//접수 번호에 값이 없다면
+	 				}else {
+	 					alert('접수 번호를 입력 하세요.')
+	 					$('input[name=recepNum]').val('')
+	 				}
+				})
+	 			$('#recCleanBtn').click(function(){
+	 				$('input[name=recNum]').val('')
+	 			})
+	 			
+				$('#carSearchBtn').click(function(){							
 	 		        
 //	 				&& 6 < carNum.length 
+//	 				var recepNum = $('input[name=recepNum]').val();
 	 				var carNum = $('input[name=carNum]').val();
 	 				var carCode = $('input[name=carCode]').val();
 	 				console.log(carNum.length + " <-carNum.length")
 	 				console.log(carCode + " <-carCode")
 	 				var car;
+// 	 				if(recepNum !='' && recepNum !='undefined' && recepNum != null){
+// 	 					if(recepNum.length > 5 && carNum =='' && carCode =='' ){
+// 	 					}else{
+// 	 						alert('접수 번호를 확인 하세요.')
+// 		 					$('input[name=recepNum]').val('')
+// 		 					$('input[name=carCode]').val('')
+// 		 					$('input[name=carCode]').val('')
+	 						
+// 	 					}
+// 	 				}else 
 	 				//차량번호에 값이 있다면
-	 				if(carNum != '' && carNum != 'undefined' && carNum != null){
+ 					if(carNum != '' && carNum != 'undefined' && carNum != null){
 	 					console.log(carNum + " <-carNum")
 	 					
+	 						$('#carX').attr("style","display:block");
+	 		 				$('#carO').attr("style","display:block");
 	 					if(carNum.length > 6 && carCode == ''){
-	 						car = carNum;
+	 						//car = carNum;
 	 					}else{
 	 						alert('차량 번호를 확인 하세요.')
-		 					$('input[name=carNum]').val('')
+		 					//$('input[name=recepNum]').val('')
+		 					$('input[name=carCode]').val('')
 		 					$('input[name=carCode]').val('')
 	 					}
 	 					
@@ -77,66 +134,133 @@
 // 	 						$('input[name=carCode]').val('')
 // 		 				}
 
-
 	 				//차대번호에 값이 있으면
 	 				}else if(carCode != '' && carCode != 'undefined' && carCode != null){
 	 					console.log(carCode + " <-carCode")
-	 					
+						
+	 						$('#carX').attr("style","display:block");
+	 		 				$('#carO').attr("style","display:block");
 	 					if(carCode.length == 17 && carNum == ''){
-		 					car = carCode;					
+		 					//car = carCode;					
 	 					}else{
 	 						alert('차대 번호를 확인 하세요.')
-	 						$('input[name=carCode]').val('')
+		 					$('input[name=carCode]').val('')
 	 					}
 	 					
 	 				//둘다 값이 없으면
 	 				}else {
 	 					alert('차량 정보를 입력 하세요.')
-	 					$('input[name=carNum]').val('')
-	 					$('input[name=carCode]').val('')
+	 					$('input[name=recepNum]').val('')
+		 					$('input[name=carCode]').val('')
+		 					$('input[name=carCode]').val('')
 	 				}
-					
-	 				var request = $.ajax({
-						url:"/main/carRefer",
-						method: "POST",
-						data : {"car" : car},
-						dataType : "json"		
-					});
 	 				
-	 				request.done(function(data){
-						if(data != null || data != 'undefined' || data != ''){
-		 					console.log(data)
-						}
+	 				$('#search').submit();
+					
+// 	 				var request = $.ajax({
+// 						url:"/main/carRefer",
+// 						method: "POST",
+// 						data : {"car" : car},
+// 						dataType : "json"		
+// 					});
+	 				
+// 	 				request.done(function(data){
+// 						if(data != null || data != 'undefined' || data != ''){
+// 		 					console.log(data)
+// 						}
 							
-					});
-					request.fail(function(jqXHR, textStatus){
-						//alert("첨부파일 출력 중 오류가 발생하였습니다.");			
-					});				
+// 					});
+// 					request.fail(function(jqXHR, textStatus){
+// 						//alert("첨부파일 출력 중 오류가 발생하였습니다.");			
+// 					});				
 				});
 	 			
 	 			$('#carResetBtn').click(function(){
 	 				$('input[name=carNum]').val('')
 					$('input[name=carCode]').val('')
 	 			})
+// 				CARCODE = [[${session.CARCODE}]];
+// 				RECNUM = [[${session.RECNUM}]];
+	 			
+// 	 			else if([[${session.RECNUM}]] != null || [[${session.RECNUM}]] != '' || [[${session.RECNUM}]] != 'undefined'){
+// 	 				$('#recX').attr("style","display:block");
+// 	 				$('#recO').attr("style","display:block");
+// 	 			}
 			});
 			
-			
+// 			$(document).on.('click','carReferCancelBtn',function(){
 				
+// 			})
+			
+	 			$(document).on('click','#carChangeBtn',function(){
+	 				//$('#rec').attr("display","none");
+	 				$('#recX').attr("style","display:none");
+	 				$('#recO').attr("style","display:none");
+	 				$('#carX').attr("style","display:block");
+	 				$('#carO').attr("style","display:block");
+	 			})
+	 			$(document).on('click','#recChangeBtn',function(){
+	 				//$('#rec').attr("display","none");
+	 				$('#recX').attr("style","display:block");
+	 				$('#recO').attr("style","display:block");
+	 				$('#carX').attr("style","display:none");
+	 				$('#carO').attr("style","display:none");
+	 			})
+	 			
+	 	/*]]>*/
 		</script>
 	</th:block>
-	
 	<th:block layout:fragment="dashboardFragment">
-		<h1>아아아</h1>
+<!-- 		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1>아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block> -->
 	</th:block>
-	<th:block layout:fragment="dashboardFragmentOl">
+	<!-- <th:block layout:fragment="dashboardFragment" th:if="${session.CARCODE eq null}">
+		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1>아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block>
+	</th:block>
+	
+	<th:block layout:fragment="dashboardFragment" th:if="${session.CARCODE ne null}">
+		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1 th:text="${session.CARCODE}">아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block>
+	</th:block> -->
+	
+	<!-- <th:block layout:fragment="dashboardFragmentH1" th:if="${session.CARCODE ne null}">
+		<h1 th:text="${session.CARCODE}">1111</h1>
+	</th:block>
+	<th:block layout:fragment="dashboardFragmentOl" th:if="${session.CARCODE ne null}">
 		<ol class="breadcrumb text-right">
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li class="active">3</li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li class="active">3</li>
 		</ol>
-	</th:block>
+	</th:block> -->
+	
       
-	<th:block layout:fragment="customContents">
+	<th:block layout:fragment="contentFragment">
 		<div class="row">
 			<div class="col-sm-6 col-lg-3">
 			    <div class="card text-white bg-flat-color-1">
@@ -208,18 +332,52 @@
 			</div>
 		</div>
 		<!--/.col-->
-		
-		<!-- 차량 번호 조회 -->
-		<!-- 		
-		<div class="row" >
+<!-- 		th:if="${session.CARCODE eq null}" -->
+		<!-- 접수 번호 조회 -->
+		<div class="row" th:if="${session.RECNUM eq null}">
 			<div class="col-lg-2" ></div>
-			<div class="col-lg-8" align="center" th:if="${session.CARCODE eq null}">
-		        <div class="card">
+			<div class="col-lg-8" align="center" id="recX" style="display: block;">
+		        <div class="card" >
+		            <div class="card-header" style="background-color:orange;">
+		                <strong>접수 번호 조회</strong> 
+		            </div>
+		            <div class="card-body card-block">
+		                <form th:action="@{/rec/recSearch}" method="post" class="form-horizontal" id="recSearch">
+		                    <div class="row form-group">
+		                        <div class="col-md-2"></div>
+		                        <div class="col-md-8">
+		                        	<input type="text" id="recNum" name="recNum" maxlength="6" placeholder="접수 번호를 입력 하세요." class="form-control" >
+		                        </div>
+		                        <div class="col-md-2"></div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div style="background-color: silver; ">
+			                <button type="submit" class="btn btn-outline-secondary" id="recSearchBtn" style="margin-bottom: 10px; margin-top: 10px;" >
+			                    <i class="fa fa-dot-circle-o">조회 하기</i> 
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" id="recCleanBtn" style="margin-left: 10px;">
+			                    <i class="fa fa-ban">지우기</i>
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" id="carChangeBtn" style="margin-left: 10px;">
+			                    <i class="fa fa-car">차량조회</i>
+			                </button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-2" ></div>
+		</div>
+		<!-- /접수 번호 조회 -->
+		<!-- 차량 번호 조회 -->
+		<div class="row" th:if="${session.CARCODE eq null}" th:unless="${session.RECNUM ne null}">
+			<div class="col-lg-2" ></div>
+			<div class="col-lg-8" align="center" id="carX" style="display: none;">
+		        <div class="card" >
 		            <div class="card-header" style="background-color:orange;">
 		                <strong>고객 차량 정보 조회</strong> 
 		            </div>
 		            <div class="card-body card-block">
-		                <form action="#" method="post" class="form-horizontal">
+		                <form th:action="@{/main/carRefer}" method="post" class="form-horizontal" id="search">
 		                    <div class="row form-group">
 		                        <div class="col col-md-4">
 		                        	<label for="hf-email" class=" form-control-label">차량번호(7 or 8자리)</label>
@@ -239,24 +397,61 @@
 		                </form>
 		            </div>
 		            <div style="background-color: silver; ">
-			                <button type="submit" class="btn btn-outline-secondary" id="carSearchBtn" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
+			                <button type="submit" class="btn btn-outline-secondary" id="carSearchBtn" style="margin-bottom: 10px; margin-top: 10px; " >
 			                    <i class="fa fa-dot-circle-o">조회 하기</i> 
 			                </button>
 			                <button type="reset" class="btn btn-outline-secondary" id="carResetBtn" style="margin-left: 10px;">
 			                    <i class="fa fa-ban">지우기</i>
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" id="recChangeBtn" style="margin-left: 10px;">
+			                    <i class="fa fa-smile-o">접수조회</i>
 			                </button>
 		            </div>
 		        </div>
 		    </div>
 		    <div class="col-lg-2" ></div>
 		</div>
-	   -->
-	    <!-- /차량 번호 조회 --> 
+	    <!-- /차량 번호 조회 -->
 	    
-	    <!-- 차량 번호 성공 -->
-	    <div class="row" >
+	    <!-- 접수 번호 조회 성공 -->
+	    <div class="row" th:if="${session.RECNUM ne null}" th:unless="${session.CARCODE ne null}">
 			<div class="col-lg-2" ></div>
-			<div class="col-lg-8" align="center" >
+			<div class="col-lg-8" align="center" id="recO" style="display: block;">
+		        <div class="card">
+		            <div class="card-header" style="background-color:orange;">
+		                <strong>접수 번호 조회 성공</strong> 
+		            </div>
+		            <div class="card-body card-block">
+		                <form action="#" method="post" class="form-horizontal">
+		                    <div class="row form-group">
+		                        <div class="col col-md-4">
+		                        	<label for="hf-email" class=" form-control-label">검색 :</label>
+		                        </div>
+		                        <div class="col-12 col-md-8">
+		                        	<input type="text" id="totalSearch" name="totalSearch" maxlength="15" placeholder="검색어를 입력 하세요." class="form-control">
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div style="background-color: silver; ">
+			                <button type="submit" class="btn btn-outline-secondary" id="totalSearchBtn" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
+			                    <i class="fa fa-dot-circle-o">검색 하기</i> 
+			                </button>
+			                <button type="button" class="btn btn-outline-danger" id="recCancelBtn" style="margin-left: 10px;">
+				                <a th:href="@{/rec/reset}">리셋</a>
+			                    <i class="fa fa-ban"></i>
+			                </button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-2" ></div>
+		</div>
+	    <!-- /접수 번호 조회 성공 -->
+	    
+		<!--차량 번호 성공 -->
+	    <div class="row" th:if="${session.CARCODE ne null}">
+			<div class="col-lg-2" ></div>
+			<div class="col-lg-8" align="center" id="carO" style="display: none;">
 		        <div class="card">
 		            <div class="card-header" style="background-color:orange;">
 		                <strong>차량 조회 성공</strong> 
@@ -278,14 +473,15 @@
 			                    <i class="fa fa-dot-circle-o">검색 하기</i> 
 			                </button>
 			                <button type="button" class="btn btn-outline-danger" id="carReferCancelBtn" style="margin-left: 10px;">
-			                    <i class="fa fa-ban"><a th:href="@{/refer/reset}">리셋</a></i>
+				                <a th:href="@{/refer/reset}">리셋</a>
+			                    <i class="fa fa-ban"></i>
 			                </button>
 		            </div>
 		        </div>
 		    </div>
 		    <div class="col-lg-2" ></div>
 		</div>
-	    <!-- /차량 번호 성공 -->
+		<!-- /차량 번호 성공 -->
 		
 		<!-- chart -->
 		<div class="row">

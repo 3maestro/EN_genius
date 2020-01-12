@@ -55,7 +55,7 @@ public class WageController {
 		return "/wage/workManHour";
 	}
 	
-	@PostMapping("/work/workingNow")
+	@PostMapping("/work/insertWorking")
 	public String workingNow(Model model, WorkDecide workDecide) {
 		System.out.println("workingNow WageController 호출");
 		
@@ -184,13 +184,26 @@ public class WageController {
 				model.addAttribute("workList", wageService.workList(map));
 			}
 		}
-		return "/wage/workingNow";
+		return "/wage/workingList";
 	}
 	
-//	@GetMapping("t")
-//	public String a() {
-//		return "/work/workingNow";
-//	}
+	/**
+	 * 접수번호로작업리스트 가져오기
+	 * @return
+	 */	
+	@GetMapping("/work/WorkingNow")
+	public String Working(Model model, HttpSession session) {
+		System.out.println("Working  WageController 호출");
+		String recNum = (String)session.getAttribute("RECNUM");
+		System.out.println(recNum + " <-recNum Working  WageController.java");
+		
+		List<NowWork> list = wageService.getWorking(recNum);
+		//System.out.println("list Working  WageController : " + list);
+		
+		model.addAttribute("workList", list);
+		
+		return "/wage/workingNow";
+	}
 	
 	/**
 	 * 직원작업현황
@@ -209,24 +222,24 @@ public class WageController {
 	}
 	
 	/**
-	 * 접수번호로작업리스트 가져오기
+	 * 접수번호기준 작업 배
 	 * @return
 	 */
-	@PostMapping("/work/workCurrentState")
-	public @ResponseBody List<NowWork> WorkCurrentList(
-			@RequestParam(value = "recepNum", required = false) String recepNum) {
-		System.out.println("WorkCurrentList WageController호출");
-		System.out.println(recepNum + " <-recepNum 조회 하려는 접수 번호");
-		
-		List<NowWork> workCurrentList = wageService.WorkCurrentList(recepNum);
-		
-		
-		return workCurrentList;
-	}
+//	@PostMapping("/work/workCurrentState")
+//	public @ResponseBody List<NowWork> WorkCurrentList(
+//			@RequestParam(value = "recepNum", required = false) String recepNum) {
+//		System.out.println("WorkCurrentList WageController호출");
+//		System.out.println(recepNum + " <-recepNum 조회 하려는 접수 번호");
+//		
+//		List<NowWork> workCurrentList = wageService.WorkCurrentList(recepNum);
+//		
+//		
+//		return workCurrentList;
+//	}
 	
-	@GetMapping("/work/wageEstimate")
+	@GetMapping("/work/wageEstimateList")
 	public String wageEstimate() {
-		return "/wage/wageEstimate";
+		return "/wage/wageEstimateList";
 	}
 	
 

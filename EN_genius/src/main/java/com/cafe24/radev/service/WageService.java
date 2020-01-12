@@ -55,14 +55,27 @@ public class WageService implements WageMapper {
 		return nowWork;
 	}
 	
-	public List<NowWork> WorkCurrentList(String recepNum) {
-		System.out.println("WorkCurrentList WageService호출");
-		System.out.println(recepNum + " <-recepNum WorkCurrentList WageService.java");
+	public List<NowWork> getWorking(String recNum) {
+		System.out.println("getWorking WageService 호출");
+		System.out.println(recNum + " <-recNum getWorking WageService.java");
 		
-		List<NowWork> workCurrentList = wageMapper.WorkCurrentList(recepNum);
-		System.out.println("workCurrentList : " + workCurrentList);
+		List<NowWork> list = wageMapper.getWorking(recNum);
+		System.out.println("list getWorking WageService : " + list);
 		
-		return workCurrentList;
+		return list;
 	}
+	
+	/**
+	 * 접수번호기준 작업배정
+	 */
+//	public List<NowWork> WorkCurrentList(String recepNum) {
+//	System.out.println("WorkCurrentList WageService호출");
+//	System.out.println(recepNum + " <-recepNum WorkCurrentList WageService.java");
+//	
+//	List<NowWork> workCurrentList = wageMapper.WorkCurrentList(recepNum);
+//	System.out.println("workCurrentList : " + workCurrentList);
+//	
+//	return workCurrentList;
+//}
 	
 }

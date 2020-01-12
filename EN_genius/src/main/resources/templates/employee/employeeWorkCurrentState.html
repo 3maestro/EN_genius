@@ -20,6 +20,9 @@
 	<th:block layout:fragment="customScript">
 		<script type="text/javascript">
 			/*<[CDATA[*/
+				
+			var recepNum = [[${session.RECNUM}]];
+				
 			$(document).ready(function(){
 				$('.empBtn').click(function(){
 					var empName = $(this).val();
@@ -29,7 +32,7 @@
 						url: "/work/workCurrentState",
 						method: "POST",
 						//등록된 접수코드 세션값
-						data: {"recepNum" : "12345"},//파라미터
+						data: {"recepNum" : recepNum},//파라미터
 						dataType: "json"		//응답 타입
 					})
 					

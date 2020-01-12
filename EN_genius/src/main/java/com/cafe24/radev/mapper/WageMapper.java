@@ -18,5 +18,7 @@ public interface WageMapper {
 	
 	public List<NowWork> workList(Map<String,Object> map);
 	
-	public List<NowWork> WorkCurrentList(String recepNum);
+//	public List<NowWork> WorkCurrentList(String recepNum);
+	
+	public List<NowWork> getWorking(String recNum);
 }
