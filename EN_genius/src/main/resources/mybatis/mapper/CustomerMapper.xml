@@ -37,6 +37,7 @@
 			customer_tb
 		WHERE
 				bs_code=#{scode}
+				
 		<if test="customerName neq null and customerName neq ''.toString()">
 			AND
 				customer_name like CONCAT('%',#{customerName},'%')
@@ -76,12 +77,18 @@
 			AND
 				customer_sign <![CDATA[<=]]> #{customerSign2}
 		</if>
+
+		<if test="arrange neq null and arrange neq ''.toString()">
+			ORDER BY
+				${arrange} ${asc}
+		</if>
 		
 		<if test="limit neq null and limit neq ''.toString()">
 			LIMIT
 				${limit*page},${limit}
 		</if>
 	</select>
+	
 	<select id="getCustomerPage" resultType="String">
 	  	SELECT 
 			count(1)

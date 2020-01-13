@@ -21,7 +21,10 @@
 			search.customerBirth2	= '';
 			search.customerSign1	= '';
 			search.customerSign2	= '';
+			search.arrange			= '';
+			search.asc				= 'ASC';
 			search.page	 			= 0;
+			
 			if(sid!=null){
 				search.sid	= sid;
 			}else{
@@ -97,6 +100,8 @@
 				
 				$('#select').click(function(){
 					$('#limit').val('10').prop('selected', true);
+					search.asc = 'ASC';
+					search.arrange = '';
 					search.limit = $('#limit').val();
 					search.page	= 0;
 					searchList();
@@ -105,6 +110,23 @@
 				$(document).on('click','[name=page]',function(){
 					search.limit = $('#limit').val();
 					search.page	= $(this).val();
+					searchList();
+				})
+				
+				$(document).on('click','.arrange',function(){
+					var arrange = $(this).attr('name');
+					if(arrange == search.arrange){
+						if(search.asc == 'ASC'){
+							search.asc = 'DESC';
+						}else{
+							search.asc = 'ASC';
+						}
+					}else{
+						search.asc = 'ASC';
+						search.arrange = $(this).attr('name');
+					}
+					console.log(search.asc)
+					console.log(search.arrange)
 					searchList();
 				})
 			})
@@ -304,31 +326,31 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th scope="col">
+							<th class="arrange" name="customer_code">
 								고객코드
 							</th>
-							<th scope="col">
+							<th class="arrange" name="customer_name">
 								고객명
 							</th>
-							<th scope="col">
+							<th class="arrange" name="customer_birth">
 								고객생일
 							</th>
-							<th scope="col">
+							<th class="arrange" name="customer_gender">
 								고객성별
 							</th>
-							<th scope="col">
+							<th class="arrange" name="customer_addr">
 								고객주소
 							</th>
-							<th scope="col">
+							<th class="arrange" name="customer_phone">
 								고객연락처
 							</th>
-							<th scope="col">
+							<th class="arrange" name="customer_sign">
 								고객등록일
 							</th>
-							<th scope="col">
+							<th class="arrange" name="customer_memo">
 								고객메모
 							</th>
-							<th scope="col">
+							<th>
 								고객수정
 							</th>
 						</tr>
