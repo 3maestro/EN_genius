@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -218,7 +220,7 @@ public class WageController {
 		model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode));
 		System.out.println("========>"+model.addAttribute("employeeList", employeeService.employeeList(bsCode)));
 		System.out.println("========"+model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode)));
-		return "/employee/employeeWorkCurrentState";
+		return "/wage/employeeWorkCurrentState";
 	}
 	
 	/**
@@ -236,6 +238,15 @@ public class WageController {
 //		
 //		return workCurrentList;
 //	}
+	//@RequestParam(name = "empName", required = false)String empName
+	@GetMapping("/work/empAssign")
+	public void empAssign(@RequestParam(value = "empName", required = false)String empName, Model model) {
+		System.out.println("empAssign WageController 호출");
+		//String empName = (String)request.getAttribute("empName");
+		System.out.println(empName + " <-empName empAssign WageController.java");
+		
+		//return "/main/recSearchMain";
+	}
 	
 	@GetMapping("/work/wageEstimateList")
 	public String wageEstimate() {

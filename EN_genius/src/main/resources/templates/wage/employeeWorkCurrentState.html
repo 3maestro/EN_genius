@@ -21,27 +21,25 @@
 		<script type="text/javascript">
 			/*<[CDATA[*/
 				
-			var recepNum = [[${session.RECNUM}]];
+			
 				
 			$(document).ready(function(){
-				$('.empBtn').click(function(){
-					var empName = $(this).val();
-					console.log(empName + " <-empName");
+				
 					
-					var request = $.ajax({
-						url: "/work/workCurrentState",
-						method: "POST",
-						//등록된 접수코드 세션값
-						data: {"recepNum" : recepNum},//파라미터
-						dataType: "json"		//응답 타입
-					})
+// 					var request = $.ajax({
+// 						url: "/work/workCurrentState",
+// 						method: "POST",
+// 						//등록된 접수코드 세션값
+// 						data: {"recepNum" : recepNum},//파라미터
+// 						dataType: "json"		//응답 타입
+// 					})
 					
 					//접수번호 기준 진행 하려는 작업 리스트가 넘어 왔다
-					request.done(function( data ) {
-						console.log(data + " <-data currentList")
-						console.log(data.length + " <-dfjksdjf")
-						var manHour;
-						var j=0;
+// 					request.done(function( data ) {
+// 						console.log(data + " <-data currentList")
+// 						console.log(data.length + " <-dfjksdjf")
+// 						var manHour;
+// 						var j=0;
 // 						for(var i=0; i<data.length; i++){
 // 							var a = data[i].recepNum
 // 							manHour = data[i].manHour
@@ -68,11 +66,17 @@
 							
 // 	 						td.attr('style','background-color:red');
 // 						}
-					})
+//					})
 				
 // 					request.fail(function( jqXHR, textStatus ) {
 // 						alert( "Request failed: " + textStatus );
-// 					});	 	
+					var recepNum = '[[${session.RECNUM}]]';
+ 					$(document).on('click','.optionEmpName',function(){
+ 						console.log(recepNum + " <-recepNum")
+ 						var empName = $(this).val();
+						console.log(empName + " <-empName");
+						//$('form[name=form]').submit();
+ 					});	 	
 					
 //					ajax사용 필요
 					
@@ -85,7 +89,7 @@
 						
 // 						td.attr('style','background-color:red')
 // 					}
-				})
+//				})
 			})
 			/*]]>*/
 		</script>
@@ -284,13 +288,8 @@
 						                            			<div class="col-sm-1"></div>
 																<div class="col-sm-4">
 																	<h4 class="workState">작업자</h4>
-																	<select id="bigCate" multiple="multiple" class="form-control types">
-																		<option value="1" class="bigCate">박유천</option>
-																		<option value="2" class="bigCate">김준수</option>
-																		<option value="3" class="bigCate">우도환</option>		
-																		<option value="4" class="bigCate">최우식</option>		
-																		<option value="5" class="bigCate">도경수</option>		
-																		<option value="6" class="bigCate">남도일</option>		
+																	<select multiple="multiple" class="form-control types" name="empName">
+																		<option th:each="e : ${employeeList}" th:if="${e.employeeDepartment.dpName ne '사무실'}" class="optionEmpName"><a th:href="@{/work/empAssign(empName=${e.employeeCode})}">[[${e.employeeName}]]</a></option>
 																	</select>
 																</div>
 																<div class="col-sm-6">
