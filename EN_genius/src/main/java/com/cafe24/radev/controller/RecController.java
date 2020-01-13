@@ -1,5 +1,6 @@
 package com.cafe24.radev.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import com.cafe24.radev.vo.VoRecRegister;
 public class RecController {
 	
 	@Autowired private RecService recService;
+	
 	
 	@GetMapping("repHistory")
 	public String repHistory() {
@@ -43,6 +45,7 @@ public class RecController {
 	
 	@GetMapping("recRegister")
 	public String register(VoRecRegister voRecRegister, Model model) {
+		System.out.println("이게뭐지");
 		model.addAttribute("voRecRegister", voRecRegister);
 		
 		return "receptionregister/recRegister";
@@ -51,7 +54,7 @@ public class RecController {
 	@PostMapping("getListAdd")
 	public @ResponseBody VoRecRegister getListAdd(HttpSession session) {
 		System.out.println("@#@##@#@##############");
-		String carinfo = "KMHEM42BPAC202445";
+		String carinfo = "KMHEM42BPAC202444";
 		VoRecRegister voRecRegister = recService.getListAdd(carinfo);
 		System.out.println("컨56" + voRecRegister);
 		return voRecRegister;
@@ -60,11 +63,8 @@ public class RecController {
 	
 	@GetMapping("recList")
 	public String recList(Model model, HttpSession session) {
-		System.out.println("컨53");
 		List<VoRecRegister> recList = recService.getRecList(session);
-		System.out.println("@@@@@@@2222" + recList);
 		List<VoRecRegister> CC = recService.getRecListCC();
-		System.out.println("@@@@@@@" + CC);
 		model.addAttribute("vorecreg", recList);
 		model.addAttribute("CC", CC);
 		System.out.println(recList +"접수 리스트 값 확인");

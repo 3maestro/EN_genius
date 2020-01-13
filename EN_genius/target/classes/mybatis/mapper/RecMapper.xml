@@ -19,7 +19,7 @@
 		<result property="customerName" column="customer_name"/>
 		<result property="customerPhone" column="customer_phone"/>
 		<result property="carModelDetail" column="car_model_detail"/>
-		
+		<result property="receptionMemo" column="reception_memo"/>
 	</resultMap>
 	
 	<select id="getListAdd" parameterType="String" resultMap="RecRegisterMap">

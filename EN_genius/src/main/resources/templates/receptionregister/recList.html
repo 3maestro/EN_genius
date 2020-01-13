@@ -21,6 +21,7 @@
 					});
 				
 					request.done(function(data) {
+						console.log(data)
 					});
 					 
 					
@@ -63,7 +64,6 @@
 				<div class="row">
                     <div class="col-lg-12">
                         <div class="card">
-
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                     <li class="nav-item col">
                                         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">접수 대기</a>
@@ -95,7 +95,6 @@
 				            <tbody>
 				                <tr th:each="vorecreg0 : ${vorecreg}">
 				            	<th:block th:if="${vorecreg0.receptionProgress} == 0">
-				            	
 				                    <td th:text="${vorecreg0.receptionCode}"></td>
 				                    <td th:text="${vorecreg0.repairClassName}"></td>
 				                    <td th:text="${vorecreg0.customerCarInfoCode}"></td>
@@ -133,13 +132,11 @@
 				            </thead>
 				            <tbody>
 				                <tr th:each="vorecreg1 : ${vorecreg}">
-				                <tr th:each="vorecreg1 : ${vorecreg}">
 				            	<th:block th:if="${vorecreg1.receptionProgress} == 1">
 				                    <td th:text="${vorecreg1.receptionCode}"></td>
 				                    <td th:text="${vorecreg1.repairClassName}"></td>
-				                    <td th:text="${vorecreg1.customerCarInfoCode}"></td>
-				                    <td th:text="${vorecreg1.repairClassCode}"> </td>
 				                    <td th:text="${vorecreg1.displaceMent}"></td>
+				                    <td th:text="${vorecreg1.customerCarInfoCode}"></td>
 				                    <td th:text="${vorecreg1.receptionDate}"></td>
 				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
 				                    	data-toggle="modal" data-target="#mediumModal">접수내용</button></td>	
@@ -151,7 +148,6 @@
 				                    </td>
 			                    </th:block>
 			                    </tr>
-				                </tr>
 				            </tbody>
 						</table>
 					</div> <!-- /.table-stats -->
@@ -177,9 +173,8 @@
 				            	<th:block th:if="${vorecreg2.receptionProgress} == 2">
 				                    <td th:text="${vorecreg2.receptionCode}"></td>
 				                    <td th:text="${vorecreg2.repairClassName}"></td>
-				                    <td th:text="${vorecreg2.customerCarInfoCode}"></td>
-				                    <td th:text="${vorecreg2.repairClassCode}"> </td>
 				                    <td th:text="${vorecreg2.displaceMent}"></td>
+				                    <td th:text="${vorecreg2.customerCarInfoCode}"></td>
 				                    <td th:text="${vorecreg2.receptionDate}"></td>
 				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
 				                    	data-toggle="modal" data-target="#mediumModal">접수내용</button></td>	
@@ -256,15 +251,12 @@
 				    <div class="card border border-secondary">
 						<div class="card-header">
 						<table>
-							<tr style="width: 500px;">
+						<tr style="width: 500px;">
 								<td style="width: 65%;">
-									<strong class="card-title">직원 이름 :</strong>
-								</td> 
+									<strong class="card-title" cols="50" rows="10" th:value="${voRecRegister.empName}"> 직원 이름 : </strong>
 								<td>  
 									<strong class="card-title" cols="50" rows="10">직원 아이디 : </strong>
 								</td>
-							</tr>
-							
 							<tr style="width: 500px;">
 								<td style="width: 65%;">
 									<strong class="card-title" cols="50" rows="10">접수 시간 : </strong>
@@ -276,15 +268,15 @@
 							
 							<tr style="width: 500px;">
 								<td style="width: 65%;">
-									<strong class="card-title" cols="50" rows="10">직원 이름 :</strong>
+									<strong class="card-title" cols="50" rows="10">고객 이름 :</strong>
 								</td> 
 								<td>  
-									<strong class="card-title" cols="50" rows="10">직원 아이디 : </strong>
+									<strong class="card-title" cols="50" rows="10">고객 폰번호 : </strong>
 								</td>
 							</tr>
 							<tr style="width: 400px;">
 								<td style="width: 50%;">
-									<strong class="card-title" cols="50" rows="10">접수 시간 : </strong>
+									<strong class="card-title" cols="50" rows="10">고객차량 명 : </strong>
 								</td>
 							</tr>
 							</tr>

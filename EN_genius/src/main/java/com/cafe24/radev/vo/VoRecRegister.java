@@ -9,7 +9,7 @@ public class VoRecRegister {
 	private String customerCarInfoCode; //차량정보등록코드
 	private String repairClassCode; //수리 구분 코드
 	private String repairClassName; //수리 구분 이름
-	private String reception_memo; // 접수 내용
+	private String receptionMemo; // 접수 내용
 	private String displaceMent; //접수자
 	private String receptionDate; //접수 일자
 	private String receptionProgress; //접수 상태
@@ -17,6 +17,14 @@ public class VoRecRegister {
 	private String customerName; //고객 이름
 	private String customerPhone; //고객 번호
 	private String carModelDetail; //차량 상세
+	
+	
+	public String getReceptionMemo() {
+		return receptionMemo;
+	}
+	public void setReceptionMemo(String receptionMemo) {
+		this.receptionMemo = receptionMemo;
+	}
 	public String getSid() {
 		return sid;
 	}
@@ -58,12 +66,6 @@ public class VoRecRegister {
 	}
 	public void setRepairClassName(String repairClassName) {
 		this.repairClassName = repairClassName;
-	}
-	public String getReception_memo() {
-		return reception_memo;
-	}
-	public void setReception_memo(String reception_memo) {
-		this.reception_memo = reception_memo;
 	}
 	public String getDisplaceMent() {
 		return displaceMent;
@@ -111,7 +113,7 @@ public class VoRecRegister {
 	public String toString() {
 		return "VoRecRegister [sid=" + sid + ", scode=" + scode + ", receptionCode=" + receptionCode + ", bsCode="
 				+ bsCode + ", customerCarInfoCode=" + customerCarInfoCode + ", repairClassCode=" + repairClassCode
-				+ ", repairClassName=" + repairClassName + ", reception_memo=" + reception_memo + ", displaceMent="
+				+ ", repairClassName=" + repairClassName + ", receptionMemo=" + receptionMemo + ", displaceMent="
 				+ displaceMent + ", receptionDate=" + receptionDate + ", receptionProgress=" + receptionProgress
 				+ ", empName=" + empName + ", customerName=" + customerName + ", customerPhone=" + customerPhone
 				+ ", carModelDetail=" + carModelDetail + "]";
