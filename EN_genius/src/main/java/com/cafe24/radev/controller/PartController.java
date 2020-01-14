@@ -146,6 +146,7 @@ public class PartController {
 		System.out.println(partNumber+"<체크값들");
 		partNumber.indexOf(",");
 		if(partNumber != null) {
+			many=null;
 			model.addAttribute("checkPartList",partService.getPartGroupList(partNumber, session,many));
 			model.addAttribute("groupCode", partService.getGroup(0,session));
 		}
@@ -231,16 +232,16 @@ public class PartController {
 		//부품정보
 		many = part.getPartMany();
 		many = many.replace("0","");
-		//System.out.println(many+"<<입력갯수");
+		System.out.println(many+"<<입력갯수");
 		if(part != null && "".equals(part.getPartNumber())) {
-			System.out.println("단일값문서");
+			//System.out.println("단일값문서");
 			//System.out.println(part.getPartName()+"1개");
 			String partNumber = part.getPartNumber();
 			part = partService.partSelectForOrder(partNumber, session);
 			part.setPartMany(many);
 			model.addAttribute("part", part );
 		}else if(check != null) {
-			System.out.println("다중값문서");
+			//System.out.println("다중값문서");
 			model.addAttribute("part", partService.getPartGroupList(check,session,many));
 		}
 		//사업장정보
@@ -377,7 +378,7 @@ public class PartController {
 	/**
 	 * 판매목록
 	 */
-	@GetMapping("/part/estiList")
+	@GetMapping("/part/pEstiList")
 	public String esList(Model model,HttpSession session) {
 		//전체보기
 		

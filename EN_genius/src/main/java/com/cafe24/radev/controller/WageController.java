@@ -88,40 +88,46 @@ public class WageController {
 			 */
 			NowWork nowWork = null;
 			List<NowWork> list = new ArrayList<NowWork>();
-			for(int i=0; i<workDecideList.size(); i++) {
-				//String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
-				String bsCode = workDecide.getBsCode().get(i);
-				String recepNum = workDecide.getReceptionCode().get(i);
-				String wageSmallName = workDecide.getWageSmallName().get(i);
-				String stManHour = workDecide.getManHour().get(i);
-				String ccStandardWage = workDecide.getCcStandardWage().get(i);
-				String stCount = workDecide.getCount().get(i);
-				String workMan = workDecide.getWorkMan().get(i);
-				double manHour = Double.parseDouble(stManHour);
-				int onePrice = Integer.parseInt(ccStandardWage);
-				int count = Integer.parseInt(stCount);
-				System.out.println(bsCode + " <-bsCode");
-				System.out.println(workMan + " <-workMan");
-	//			System.out.println(ccWageSmallCode + " <-wageSmallCode");
-	//			System.out.println(wageSmallName + " <-wageSmallName");
-	//			System.out.println(manHour + " <-manHour");
-	//			System.out.println(onePrice + " <-onePrice");
-	//			System.out.println(count + " <-count");
+			
+			if(workDecideList == null || "".equals(workDecideList)) {
+				System.out.println(list.size() + " <-list.size() workingNow WageController.java");
+			}else{
+				for(int i=0; i<workDecideList.size(); i++) {
+					//String ccWageSmallCode = workDecide.getCcWageSmallCode().get(i);
+					String bsCode = workDecide.getBsCode().get(i);
+					String recepNum = workDecide.getReceptionCode().get(i);
+					String wageSmallName = workDecide.getWageSmallName().get(i);
+					String stManHour = workDecide.getManHour().get(i);
+					String ccStandardWage = workDecide.getCcStandardWage().get(i);
+					String stCount = workDecide.getCount().get(i);
+					String workMan = workDecide.getWorkMan().get(i);
+					double manHour = Double.parseDouble(stManHour);
+					int onePrice = Integer.parseInt(ccStandardWage);
+					int count = Integer.parseInt(stCount);
+					System.out.println(bsCode + " <-bsCode");
+					System.out.println(workMan + " <-workMan");
+					//			System.out.println(ccWageSmallCode + " <-wageSmallCode");
+					//			System.out.println(wageSmallName + " <-wageSmallName");
+					//			System.out.println(manHour + " <-manHour");
+					//			System.out.println(onePrice + " <-onePrice");
+					//			System.out.println(count + " <-count");
+					
+					nowWork = new NowWork();
+					//nowWork.setCcWageSmallCode(ccWageSmallCode);
+					nowWork.setRecepNum(recepNum);
+					nowWork.setWageSmallName(wageSmallName);
+					nowWork.setManHour(manHour);
+					nowWork.setOnePrice(onePrice);
+					nowWork.setCount(count);
+					nowWork.setWorkMan(workMan);
+					nowWork.setBsCode(bsCode);
+					
+					list.add(nowWork);
+				}
 				
-				nowWork = new NowWork();
-				//nowWork.setCcWageSmallCode(ccWageSmallCode);
-				nowWork.setRecepNum(recepNum);
-				nowWork.setWageSmallName(wageSmallName);
-				nowWork.setManHour(manHour);
-				nowWork.setOnePrice(onePrice);
-				nowWork.setCount(count);
-				nowWork.setWorkMan(workMan);
-				nowWork.setBsCode(bsCode);
-				
-				list.add(nowWork);
 			}
 			
-			System.out.println(list.size() + " <-list.size() workingNow WageController.java");
+			
 			
 	       
 	

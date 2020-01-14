@@ -24,6 +24,8 @@
 			var workMan = [[${session.SNAME}]]
 			var recNum = [[${session.RECNUM}]]
 			$(document).on('click','.manHourCheck',function(){
+				var click = $(this).is(':checked')
+				console.log(click + " <-click")
 				var wageBasket = $('#wageBasket')
 				var html = "";
 				var dataTabeList = window._autoDataTableObject.context[0].aoData;
@@ -59,12 +61,21 @@
 				
 				wageBasket.html(html)
 
+				if(click != true){
+				}else{
+					$('#workCard').attr("style", "display:block")
+				}
+				
 			});
 			
 			$(document).ready(function(){
 				$('#periodBtn').click(function(){
 					console.log("확정")
-					var form = $('form[name=wageDecide]').serialize();
+					var tbodyObj = $("#wageBasket").html()
+					if(tbodyObj != null || tbodyObj != '' || tbodyObj != 'undefined'){
+						
+						var form = $('form[name=wageDecide]').serialize();
+					}
 				})				
 			})
 			
@@ -119,8 +130,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12">
-                    <div class="card">
+				<div class="col-md-12" style="display: none" id="workCard">
+                    <div class="card" >
 					    <form name="wageDecide" th:action="@{/work/insertWorking}" method="post" class="form">
 	                        <div class="card-header">
 	                            <strong class="card-title">작업 예정 리스트</strong>
