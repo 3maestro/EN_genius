@@ -68,13 +68,13 @@
 				<tbody>
 			               
 					<tr th:each="CL : ${voDetail}">
-			            <td th:text="${CL.customerCarRegCode}"></td>
-			            <td th:text="${CL.customerName}"></td>
+			            <td th:text="${CL.customerCarInfoCode}"></td>
+			            <td th:text="${CL.customerCode}"></td>
 			            <td th:text="${CL.customerCarNumber}"></td>
-			            <td th:text="${CL.carModelDetail}"></td>
+			            <td th:text="${CL.rcCode}"></td>
 			            <td th:text="${CL.lastDistanceDriven}"></td>
 			            <td th:text="${CL.lastVisitDate}"></td>
-			            <td><a th:href="@{/carUpdateList(carUpList=${CL.customerCarRegCode})}">상세보기</a></td>          
+			            <td><a th:href="@{/carUpdateList(carUpList=${CL.customerCarInfoCode})}">상세보기</a></td>          
 			            <!-- <td><a th:href="@{dustmq}">삭제</a></td> -->                                        
 					</tr>
 				</tbody>
