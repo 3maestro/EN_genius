@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis맵퍼  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace속성은 인터페이스의 위치를 적는다. -->
+  
+  
+	<!-- 파라미터 타입은 내가 받을 타입을 설정한다 -->
+	<!-- 리절트타입은 내가 돌려줄타입을 (리턴타입)설정한다 -->
+<mapper namespace="com.cafe24.radev.mapper.CarMapper">
+	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
+	
+	<resultMap type="com.cafe24.radev.vo.VoCarDetail" id="CarDetailMap">
+		
+		<result property="originCode" column="origin_code"/>
+		<result property="originMain" column="origin_main"/>
+		<result property="vendorCode" column="vendor_code"/>
+		<result property="vendorName" column="vendor_name"/>
+		<result property="carClassCode" column="car_class_code"/>
+		<result property="carClassMain" column="car_class_main"/>
+		<result property="carModelCode" column="car_model_code"/>
+		<result property="carModelName" column="car_model_name"/>
+		<result property="cmWriter" column="cm_writer"/>
+		<result property="cmDate" column="cm_date"/>
+		<result property="yearCarCode" column="year_car_code"/>
+		<result property="carModelDetail" column="car_model_detail"/>
+		<result property="sellStartYear" column="sell_start_year"/>
+		<result property="sellEndYear" column="sell_end_year"/>
+		<result property="ycWriter" column="yc_writer"/>
+		<result property="ycDate" column="yc_date"/>
+		<result property="customerCarNumber" column="customer_car_number"/>
+		<result property="rcCode" column="rc_code"/>
+		<result property="carProductionYear" column="car_production_year"/>
+		<result property="customerCarRegCode" column="customer_car_reg_code"/>
+		<result property="bsCode" column="bs_code"/>
+		<result property="customerCode" column="customer_code"/>
+		<result property="carRegistrationDate" column="car_registration_date"/>
+		<result property="lastDistanceDriven" column="last_distance_driven"/>
+		<result property="lastVisitDate" column="last_visit_date"/>
+		<result property="customerCarRegWriter" column="customer_car_reg_writer"/>
+		<result property="customerCarRegDate" column="customer_car_reg_date"/>
+		<result property="optionGradeCode" column="option_grade_code"/>
+		<result property="optionGradeName" column="option_grade_name"/>
+		<result property="fuelCode" column="fuel_code"/>
+		<result property="fuelType" column="fuel_type"/>
+		<result property="feCode" column="fe_code"/>
+		<result property="engineType" column="engine_type"/>
+		<result property="colorBigCode" column="color_big_code"/>
+		<result property="colorBigName" column="color_big_Name"/>
+		<result property="colorMidCode" column="color_mid_code"/>
+		<result property="colorMidName" column="color_mid_name"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerPhone" column="customer_phone"/>
+	</resultMap>
+	
+	
+	
+		<!-- Datail insert -->
+	<insert id="getCarRegister" parameterType="com.cafe24.radev.vo.VoCarDetail">
+		INSERT INTO customer_car_reg_table
+			(customer_car_reg_code, bs_code, customer_code, 
+			customer_car_number, origin_code, vendor_code, 
+			car_class_code, car_model_code, year_car_code, 
+			option_grade_code, fuel_code, fe_code, color_big_code, 
+			color_mid_code, car_registration_date, last_visit_date,
+			last_distance_driven,customer_car_reg_writer, customer_car_reg_date)
+			
+			VALUES (#{customerCarRegCode}, #{scode}, 
+		
+		(SELECT 
+			customer_tb.customer_code
+		FROM
+			customer_tb
+		WHERE  
+			customer_tb.customer_name = #{customerName} AND customer_tb.customer_phone = #{customerPhone}), 
+			#{customerCarNumber}, #{originCode}, #{vendorCode}, 
+			#{carClassCode}, #{carModelCode}, #{yearCarCode},
+			 #{optionGradeCode}, #{fuelCode},#{feCode},#{colorBigCode}, #{colorMidCode}, #{carRegistrationDate}, #{lastDistanceDriven}, 
+			 #{lastVisitDate}, #{sid}, NOW())
+
+
+	</insert>
+	
+	<select id="customerNameSelect" resultType="String">
+		SELECT 
+			customer_tb.customer_phone
+		FROM
+			customer_tb
+		WHERE customer_tb.customer_name = #{customerName}
+	</select>
+	
+	
+	<select id="getCarList" resultMap="CarDetailMap">
+		SELECT 
+			cc.customer_car_reg_code,
+			ct.customer_name,
+			cc.customer_car_number,
+			yc.car_model_detail,
+			cc.last_distance_driven,
+			cc.last_visit_date
+		FROM 
+			customer_car_reg_table AS cc 
+		INNER JOIN 
+			customer_tb AS ct
+		ON 
+			cc.customer_code = ct.customer_code
+		INNER JOIN 
+			year_car_tb AS yc
+		ON 
+			cc.year_car_code = yc.year_car_code
+	</select>
+	
+	
+	<!-- 연도별 차량 모델 -->
+	<select id="getYearCarSelect" resultMap="CarDetailMap">
+		SELECT 
+			year_car_code,car_model_detail
+		FROM 
+			year_car_tb
+	</select>
+	
+	
+	<!-- 차량 모델 종류 -->
+	<select id="getCarModelSelect" resultMap="CarDetailMap">
+		SELECT 
+			car_model_code, car_model_name,
+			cm_writer,cm_date
+		FROM 
+			car_model_tb
+	</select>
+	
+	
+	<!-- 차량 종류 선택 -->
+	<select id="getCarClassSelect" resultMap="CarDetailMap">
+		SELECT 
+			car_class_code, car_class_main
+		FROM 
+			car_class_tb
+	 </select>
+	 
+	 
+	<!-- 제작회사 선택 -->
+	<select id="getCarVendorSelect" resultMap="CarDetailMap">
+		SELECT 
+			vendor_code, vendor_name
+		FROM 
+			vendor_tb
+	</select>
+	
+	
+	<!-- 차량 등록 국가 선택 쿼리 -->
+	<select id="getCarOriginSelect" resultMap="CarDetailMap">
+		SELECT 
+			origin_code, origin_main
+		FROM origin_tb
+		
+	</select>
+	
+	
+	<!-- 차량 상세 조회 쿼리 -->
+	<select id="getCarUpdateList" parameterType="String" resultMap="CarDetailMap">
+		SELECT
+			cc.customer_car_reg_code,ct.customer_name,ct.customer_phone,cc.customer_car_number
+			,cc.origin_code,cc.vendor_code,cc.car_class_code,cc.car_model_code
+			,cc.year_car_code,cc.option_grade_code,cc.fuel_code,cc.fe_code
+			,cc.color_big_code,cc.color_mid_code,cc.car_registration_date
+			,cc.last_distance_driven,cc.last_visit_date,cc.customer_car_reg_writer
+			,cc.customer_car_reg_date
+		FROM
+			customer_car_reg_table as cc
+		INNER JOIN 
+			customer_tb AS ct
+		ON cc.customer_code = ct.customer_code
+		WHERE cc.customer_car_reg_code = #{carUpList}
+	</select>
+	
+	<select id="getDBCarMidCate" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
+			SELECT 
+				cm.*	
+			FROM
+				color_midcate_tb cm
+			inner JOIN
+				color_bigcate_tb cb
+			ON
+				cb.color_big_code = cm.color_big_code
+			WHERE cb.color_big_code = #{bigColSm}
+
+	</select>
+	
+	<select id="getDBCarBigCate" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
+			SELECT 
+				cb.*
+			FROM
+				color_bigcate_tb AS cb
+			inner JOIN
+				car_model_tb AS cm
+			ON
+				cb.car_model_code = cm.car_model_code
+			WHERE 
+				cb.car_model_code = #{carModelSm}
+	</select>
+	
+	<select id="getDBCarGrade" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
+			SELECT
+				og.*
+			FROM
+				option_grade_tb AS og
+			INNER JOIN 
+				year_car_tb AS yc
+			ON  
+				og.year_car_code = yc.year_car_code
+			WHERE og.year_car_code = #{yearCarSm}
+	</select>
+	
+	<select id="getDBCarEngin" parameterType="String" resultMap="CarDetailMap">
+			SELECT
+				fe.*
+			FROM
+				fuel_engine_tb AS fe
+			INNER JOIN 
+				fuel_tb AS fl
+			ON  
+				fe.fuel_code = fl.fuel_code
+			WHERE fe.fuel_code = #{engineSm}
+	</select>	
+	
+	<select id="getDBCarfuel" parameterType="String" resultMap="CarDetailMap">
+			SELECT
+				fu.*
+			FROM
+				fuel_tb AS fu
+			INNER JOIN 
+				option_grade_tb AS og
+			ON  
+				fu.option_grade_code = og.option_grade_code
+			WHERE fu.option_grade_code = #{opGradeSm}
+	</select>	
+	
+	<select id="getDBCarDetail" parameterType="String" resultMap="CarDetailMap">
+		SELECT
+			yc.*
+		FROM
+			year_car_tb AS yc
+		INNER JOIN 
+			car_model_tb AS cm
+		ON yc.car_model_code = cm.car_model_code
+		WHERE yc.car_model_code = #{carModelSmVal} AND yc.car_model_name = #{carModelSmText}
+	</select>	
+
+	<!-- 값을 [리턴받아] 사용할때 리절트 타입을 사용한다 -->
+	<select id="getDBCarModel" parameterType="com.cafe24.radev.vo.VoCarDetail" resultMap="CarDetailMap">
+		SELECT
+			cm.*
+		FROM
+			car_model_tb AS cm 
+		INNER JOIN 
+			car_class_tb AS cc
+			ON cm.car_class_code = cc.car_class_code
+			WHERE cm.origin_code = #{originCode} AND cm.vendor_code = #{vendorCode} AND cm.car_class_code = #{carClassCode}
+	</select>	
+	
+	<select id="getCarClass" parameterType="String" resultMap="CarDetailMap">
+		SELECT
+			*
+		FROM
+			car_class_tb AS cc INNER JOIN vendor_tb AS vd
+			ON cc.vendor_code = vd.vendor_code 
+			WHERE vd.origin_code = #{originCode} AND cc.vendor_code = #{vendorSm}
+	</select>
+	
+	<select id="getCarVendor" parameterType="String" resultMap="CarDetailMap">
+		SELECT
+			v.vendor_code,
+			v.origin_code,
+			v.vendor_name
+		FROM 
+			vendor_tb AS v
+		INNER JOIN 
+			origin_tb AS o
+		ON 
+			v.origin_code = o.origin_code 
+		WHERE 
+		 	v.origin_code = #{originSm}
+
+	</select>
+	
+	
+	
+</mapper>

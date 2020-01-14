@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.cafe24.radev.mapper.EmployeeMapper">
+		<resultMap type="com.cafe24.radev.vo.Employee" id="employeeResultMap">
+			<result property="employeeCode" 			column="ei_code"/>
+			<result property="bsCode" 					column="bs_code"/>
+			<result property="edCode" 					column="ed_code"/>
+			<result property="ddCode"   				column="dd_code"/>
+			<result property="employeePass"  			column="emp_pass"/>
+			<result property="employeeName" 			column="emp_name"/>
+			<result property="employeeBirth" 			column="emp_birth"/>
+			<result property="employeePhone"			column="emp_phone"/>
+			<result property="employeeGender"			column="emp_gender"/>
+			<result property="employeeAddr"				column="emp_addr"/>
+			<result property="employeePost"				column="emp_post"/>
+			<result property="joinDate"					column="join_date"/>
+			<result property="resignationDate"  		column="resignation_date"/>
+			<result property="eiWriter"  				column="ei_writer"/>
+			<result property="eiDate"  					column="ei_date"/>
+			<result property="cCode"  					column="c_code"/>			
+			<collection property="departmentDuty" 		resultMap="DepartmentDutyResultMap"/>
+			<collection property="employeeDepartment" 	resultMap="EmployeeDepartmentResultMap"/>
+		</resultMap>
+		<resultMap type="com.cafe24.radev.vo.DepartmentDuty" id="DepartmentDutyResultMap">
+			<result property="ddCode" 					column="ed_code"/>
+			<result property="bsCode" 					column="bs_code"/>
+			<result property="dutyName" 				column="duty_name"/>
+			<result property="useCheck"   				column="use_check"/>
+		</resultMap>
+		<resultMap type="com.cafe24.radev.vo.EmployeeDepartment" id="EmployeeDepartmentResultMap">
+			<result property="edCode" 					column="ed_code"/>
+			<result property="bsCode" 					column="bs_code"/>
+			<result property="dpName" 					column="dp_name"/>
+			<result property="useCheck"   				column="use_check"/>
+		</resultMap>
+		<update id="modifyEmployee" parameterType="com.cafe24.radev.vo.Employee">
+			UPDATE 
+				employee_information_tb
+			SET
+				ed_code = #{edCode},
+				dd_code = #{ddCode},
+				emp_name = #{employeeName},
+				emp_phone = #{employeePhone},
+				emp_addr = #{employeeAddr},
+				emp_post = #{employeePost}
+			WHERE
+				ei_code = #{employeeCode};
+			 
+		</update>
+		<update id="resignationEmployee" parameterType="com.cafe24.radev.vo.Employee">
+			UPDATE
+				employee_information_tb
+			SET
+				resignation_date = NOW()
+			WHERE 
+				ei_code = #{employeeCode};
+		</update>
+		<insert id="addEmployee" parameterType="com.cafe24.radev.vo.Employee">
+			<selectKey keyProperty="employeeCode" resultType="String" order="BEFORE">			
+				SELECT 
+					CONCAT('emp',(SELECT LPAD(RIGHT(MAX(e.ei_code),3)+1,3,'0'))) as employeeCode
+				FROM employee_information_tb AS e
+			</selectKey>
+			INSERT INTO employee_information_tb (
+					ei_code,
+					bs_code,
+					ed_code,
+					dd_code,
+					emp_pass,
+					emp_name,
+					emp_birth,
+					emp_phone,
+					emp_gender,
+					emp_addr,
+					emp_post,
+					join_date,
+					ei_writer,
+					ei_date
+					)VALUES(
+					#{employeeCode},
+					#{bsCode},
+					#{edCode},
+					#{ddCode},
+					#{employeePass},
+					#{employeeName},
+					#{employeeBirth},
+					#{employeePhone},
+					#{employeeGender},
+					#{employeeAddr},
+					#{employeePost},
+					#{joinDate},
+					#{eiWriter},
+					now());
+		</insert>
+		<select id="employeeList" resultMap="employeeResultMap">
+			SELECT 
+				B.dp_name, C.duty_name, A.*
+			FROM 
+				employee_information_tb A
+			LEFT JOIN 
+				employee_department_tb B
+			ON 
+				A.ed_code = B.ed_code
+			LEFT JOIN 
+				department_duty_tb C
+			ON 
+				A.dd_code = C.dd_code
+			WHERE 
+				A.bs_code= #{bsCode} AND resignation_date ='0000-00-00';
+		</select>
+		<select id="employeeMypage" resultMap="employeeResultMap">
+			SELECT
+				emp.*,ddt.duty_name
+			FROM
+				(
+					SELECT
+						*
+					FROM
+						employee_information_tb AS eit
+					WHERE
+						eit.ei_code = #{employeeCode}
+				)AS emp
+			INNER JOIN
+				department_duty_tb AS ddt
+			ON
+				ddt.dd_code = emp.dd_code;				
+		</select>
+		<select id="DepartmentDutySelect" resultMap="employeeResultMap">
+			SELECT
+				'부서' AS c_code, E.dp_name, E.ed_code
+			FROM
+				employee_department_tb AS E
+			INNER JOIN
+				department_duty_tb AS D 
+			ON
+				E.bs_code = D.bs_code
+			WHERE 
+				E.use_check = 'Y'
+			AND 
+				E.bs_code = #{bsCode}
+			UNION			
+			SELECT
+				'직책' AS c_code, D.duty_name, D.dd_code
+			FROM
+				employee_department_tb AS E
+			INNER JOIN
+				department_duty_tb AS D 
+			ON
+				E.bs_code = D.bs_code
+			WHERE 
+				D.use_check = 'Y'
+			AND 
+				E.bs_code = #{bsCode};
+		</select>
+		<select id="employeeLogin" resultMap="employeeResultMap">
+			SELECT 
+				* 
+			FROM 
+				 employee_information_tb
+			WHERE ei_code= #{employeeCode} AND resignation_date='0000-00-00';
+		</select>
+	</mapper>

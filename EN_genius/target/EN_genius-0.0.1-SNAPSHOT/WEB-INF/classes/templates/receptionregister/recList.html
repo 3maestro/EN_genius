@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>접수목록</title>
+	</th:block>
+	
+	<th:block layout:fragment="customScript">			
+	<script type="text/javascript">	 
+		$(document).ready(function(){
+			
+			$('#ListAddBtn').click(function(){
+				
+				
+				var request = $.ajax({
+					  url: "getListAdd",
+					  method: "POST",
+					  data: { },
+					  dataType: "json"
+					});
+				
+					request.done(function(data) {
+						console.log(data)
+						$('#customerCarInfoCode').text(data.customerCarInfoCode)
+						$('#addEmName').text(data.empName);
+						$('#addEmDate').text(data.receptionDate);
+						$('#addCusName').text(data.customerName);
+						$('#addCusPhone').text(data.customerPhone);
+						$('#addCusCar').text(data.carModelDetail);
+						
+
+					});
+					 
+					
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					});
+				
+			})
+			
+			$('#recAddBtn').click(function(){
+				console.log('asdasd')
+				var customerCarInfoCode = $('#customerCarInfoCode').val();
+				var repairClassCode = $('#repairClassCode').val();
+				var recMemo = $('#recMemo').val();
+				
+				recMemo = recMemo.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+				console.log(recMemo)
+				
+			})
+		})
+			
+		
+	</script>
+	</th:block>
+	
+ 	<th:block layout:fragment="contentFragment">
+		<div class="col-lg-12" th:fragment="listfragment">
+			<div class="card">
+				<div class="card-header">
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-12" th:fragment="listfragment">
+			<div class="card">
+				<div class="card-header">
+					<strong class="card-title">접수 리스트</strong>
+					<button type="button" id="ListAddBtn" th:text="접수등록" name="ListAddBtn" data-toggle="modal" data-target="#myModal" style="float: right" class="btn btn-outline-link btn-sm"></button>			
+				</div>				    
+				<div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item col">
+                                        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">접수 대기</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">정비 중</a>
+                                    </li>
+                                    <li class="nav-item col">
+                                        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">출고 대기</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                        <div class="table-stats order-table ov-h">
+						<table class="table ">
+							<thead>
+								<tr>
+									<th style="text-align: center;">접수번호</th>
+									<th style="text-align: center;">입고구분</th>
+									<th style="text-align: center;">고객명</th>
+									<th style="text-align: center;">고객번호</th>
+									<th style="text-align: center;">차량명</th>
+									<th style="text-align: center;">상담내용</th>
+									<th style="text-align: center;">상태</th>
+									<th style="text-align: center;">수정</th>
+									
+								</tr>
+				            </thead>
+				            <tbody>
+				                <tr th:each="vorecreg0 : ${vorecreg}">
+				            	<th:block th:if="${vorecreg0.receptionProgress} == 0">
+				                    <td th:text="${vorecreg0.receptionCode}"></td>
+				                    <td th:text="${vorecreg0.repairClassName}"></td>
+				                    <td th:text="${vorecreg0.customerCarInfoCode}"></td>
+				                    <td th:text="${vorecreg0.displaceMent}"></td>
+				                    <td th:text="${vorecreg0.receptionDate}"></td>
+				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal" >접수내용</button></td>	
+				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal">정비 중</button></td>			                    <!-- </th:block> -->
+			                    	<td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal" style="margin-left: 10px;">수정</button></td>	
+				                    <td>
+				                    </td>
+			                   	</th:block>
+				                </tr>
+				            </tbody>
+						</table>
+					</div> <!-- /.table-stats -->
+                                     </div>
+                                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                        <div class="table-stats order-table ov-h">
+						<table class="table ">
+							<thead>
+								<tr>
+									<th style="text-align: center;">접수번호</th>
+									<th style="text-align: center;">입고구분</th>
+									<th style="text-align: center;">고객명</th>
+									<th style="text-align: center;">고객번호</th>
+									<th style="text-align: center;">차량명</th>
+									<th style="text-align: center;">상담내용</th>
+									<th style="text-align: center;">상태</th>
+									<th style="text-align: center;">수정</th>
+									
+								</tr>
+				            </thead>
+				            <tbody>
+				                <tr th:each="vorecreg1 : ${vorecreg}">
+				            	<th:block th:if="${vorecreg1.receptionProgress} == 1">
+				                    <td th:text="${vorecreg1.receptionCode}"></td>
+				                    <td th:text="${vorecreg1.repairClassName}"></td>
+				                    <td th:text="${vorecreg1.displaceMent}"></td>
+				                    <td th:text="${vorecreg1.customerCarInfoCode}"></td>
+				                    <td th:text="${vorecreg1.receptionDate}"></td>
+				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal">접수내용</button></td>	
+				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal">출고 대기</button></td>
+			                    	<td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal">수정</button></td>	
+				                    <td>
+				                    </td>
+			                    </th:block>
+			                    </tr>
+				            </tbody>
+						</table>
+					</div> <!-- /.table-stats -->
+                                    </div>
+                                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                        <div class="table-stats order-table ov-h">
+						<table class="table ">
+							<thead>
+								<tr>
+									<th style="text-align: center;">접수번호</th>
+									<th style="text-align: center;">입고구분</th>
+									<th style="text-align: center;">고객명</th>
+									<th style="text-align: center;">고객번호</th>
+									<th style="text-align: center;">차량명</th>
+									<th style="text-align: center;">상담내용</th>
+									<th style="text-align: center;">상태</th>
+									<th style="text-align: center;">수정</th>
+									
+								</tr>
+				            </thead>
+				            <tbody>
+				                <tr th:each="vorecreg2 : ${vorecreg}">
+				            	<th:block th:if="${vorecreg2.receptionProgress} == 2">
+				                    <td th:text="${vorecreg2.receptionCode}"></td>
+				                    <td th:text="${vorecreg2.repairClassName}"></td>
+				                    <td th:text="${vorecreg2.displaceMent}"></td>
+				                    <td th:text="${vorecreg2.customerCarInfoCode}"></td>
+				                    <td th:text="${vorecreg2.receptionDate}"></td>
+				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal">접수내용</button></td>	
+				                    <td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+				                    	data-toggle="modal" data-target="#mediumModal">출고 완료</button></td>
+			                    	<td><button type="button" id="qjxms1" class="btn btn-outline-primary btn-sm"  
+			                    	data-toggle="modal" data-target="#mediumModal">수정</button></td>	
+				                    <td>
+				                    </td>
+			                   </th:block>
+				                </tr>
+				            </tbody>
+						</table>
+					</div> <!-- /.table-stats -->
+                                    </div>
+                                </div>
+					
+				</div>
+			</div>
+  		  </div>
+ 	  </div>
+   	</div>
+   </div>
+   
+   <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumModalLabel">접수 내용</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                	타이어 빵꾸남
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   
+		<!-- Modal --><!-- fade 지우면 똑딱 뜨고 넣으면 소로록 -->
+		<div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h3 class="modal-title" id="myModalLabel"></h3>
+		      </div>
+		      <div class="modal-body">
+			    <form method="post">
+			    	<div class="form-group">
+				    <div class="input-group">
+		   				<select id="repairClassCode" name="repairClassCode" class="form-control" >
+				    		<option value="0" th:text="${'입고구분'}">입고 구분</option>
+		   					<th:block th:each="CL : ${CC}">
+				    		<option  th:value="${CL.repairClassCode}" th:text="${CL.repairClassName}"></option>
+				    		</th:block>
+				   		</select>
+				    </div>
+				    </div>				    
+				    <div>
+				    <div>
+				    	<input type="text" id="customerCarInfoCode" name="customerCarInfoCode" class="form-control">
+				    </div>
+				    </div>
+				    <br>
+				    
+				    <div class="card border border-secondary">
+						<div class="card-header">
+						<table>
+						<tr style="width: 500px;">
+								<td style="width: 65%;">
+									<div>직원 이름 : <span class="card-title" id="addEmName" cols="50" rows="10"></span></div>
+							<tr style="width: 500px;">
+								<td style="width: 65%;">
+									<div>접수 시간 : <span class="card-title" id="addEmDate" cols="50" rows="10"></span></div>
+								</td>
+							
+								</table>
+								<hr>
+								<table>
+							
+							<tr style="width: 500px;">
+								<td style="width: 35%;">
+									<div>고객 이름 : <span class="card-title" id="addCusName" cols="50" rows="10"></span></div>
+								</td> 
+								<td>  
+									<div>고객 폰번호 : <span class="card-title" id="addCusPhone" cols="50" rows="10"></span></div>
+								</td>
+							</tr>
+							<tr style="width: 500px;">
+								<td style="width: 35%;">
+									<div>고객 차량명 : <span class="card-title" id="addCusCar" cols="90" rows="30"></span></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+						<textarea id="recMemo" cols="50" rows="10"></textarea>
+					</div>
+				   
+					<div id="layer">
+						<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" onclick="closeDaumPostcode()" alt="닫기 버튼">
+					</div>			 			    
+				    
+				    
+					<div class="modal-footer">
+					  <button type="button" id="recAddBtn" class="btn btn-secondary btn-sm add">등록</button>
+					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+			    </form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<script src="assets/js/addr.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>  
+	</th:block>
+</html>

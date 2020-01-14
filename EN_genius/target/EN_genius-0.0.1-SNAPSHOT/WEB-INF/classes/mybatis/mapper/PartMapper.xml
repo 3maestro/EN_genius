@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis맵퍼  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace속성은 인터페이스의 위치를 적는다. -->
+<mapper namespace="com.cafe24.radev.mapper.PartMapper">
+	<!-- id : mapper 관련 메서드명 resultType : vo주소.vo명 -->
+	<!-- 부품vo -->
+	<resultMap type="com.cafe24.radev.vo.Part" id="partRM">
+		<result property="partCode" column="part_use_code"/>
+		<result property="partNumber" column="part_number"/>
+		<result property="bsCode" column="bs_code"/>
+		<result property="bigCate" column="ck_big_code"/>
+		<result property="midCate" column="ck_mid_code"/>
+		<result property="partName" column="part_use_name"/>
+		<result property="partMany" column="part_use_many"/>
+		<result property="partPrice" column="part_use_price"/>
+		<result property="partWrite" column="pu_writer"/>
+		<result property="partUpdateDate" column="pu_date"/>
+	</resultMap>
+
+	<!-- 파트가이드vo -->
+	<resultMap type="com.cafe24.radev.vo.PartGuide" id="guideRM">
+		<result property="PGuideNumber" column="part_number"/>
+		<result property="PGuideBig" column="ck_big_code"/>
+		<result property="PGuideMid" column="ck_mid_code"/>
+		<result property="PGuideName" column="part_name"/>
+		<result property="PGuideWriter" column="part_writer"/>
+		<result property="PGuideDate" column="part_date"/>
+	</resultMap>
+	
+	<!-- 견적vo -->
+	<resultMap type="com.cafe24.radev.vo.PartEsimate" id="PERM">
+		<result property="esCode" column="part_estimate_code"/>
+		<result property="bsCode" column="bs_code"/>
+		<result property="grCode" column="group_code"/>
+		<result property="docNo" column="document_num"/>
+		<result property="partNumber" column="part_number"/>
+		<result property="partMany" column="part_estimate_many"/>
+		<result property="partPrice" column="part_estimate_price"/>
+		<result property="partTex" column="part_esatimate_tex"/>
+		<result property="partToPrice" column="part_estimate_totalprice"/>
+		<result property="esDec" column="part_estimate_dec"/>
+		<result property="writer" column="pe_writer"/>
+		<result property="innitDate" column="pe_date"/>
+	</resultMap>
+	
+	<!-- 부품리스트 -->
+	<select id="getPartList" resultMap="partRM" parameterType="String">
+		SELECT 
+			part_use_code,
+			part_number,
+			ck_big_code,
+			ck_mid_code,
+			part_use_name,
+			part_use_many,
+			part_use_price,
+			pu_writer,
+			pu_date
+		FROM
+			part_use_tb
+		WHERE
+			bs_code=#{bsCode}
+	</select>
+	
+	<!-- 부품한로우조회 ajax-->
+	<select id="partSelectForOrder" resultMap="partRM">
+		SELECT 
+			part_use_code,
+			part_number,
+			bs_code,
+			ck_big_code,
+			ck_mid_code,
+			part_use_name,
+			part_use_many,
+			part_use_price,
+			pu_writer,
+			pu_date
+		FROM
+			part_use_tb
+		WHERE
+			part_number=#{partNumber} AND bs_code=#{bsCode}
+	</select>
+	<!-- 부품코드 -->
+	<select id="getPartCode" resultType="String">
+		SELECT
+			MAX(part_use_code)
+		FROM
+			part_use_tb
+		WHERE
+			bs_code = #{bsCode} AND part_use_code LIKE #{select}
+	</select>
+
+	<!-- 전체 파트 조회 부품테이블-->
+	<select id="getData" resultMap="guideRM">
+		SElect
+			*
+		from
+			part_tb
+	</select>
+	
+	<!-- 부품등록 -->
+	<insert id="partInsertPro" parameterType="com.cafe24.radev.vo.Part">
+		insert into part_use_tb
+			(part_use_code,part_number,bs_code,ck_big_code,ck_mid_code,part_use_name,part_use_many,part_use_price,pu_writer,pu_date)
+		values
+			(#{partCode},#{partNumber},#{bsCode},#{bigCate},#{midCate},#{partName},#{partMany},#{partPrice},#{partWrite},#{partUpdateDate})
+	</insert>
+	
+	<!-- 부품수량업데이트 -->
+	<update id="partUpdateforMany" parameterType="hashMap">
+		UPDATE 
+			part_use_tb
+		SET
+			part_use_many = part_use_many 
+			<if test="com != null">
+				- #{part.partMany},
+			</if>
+			<if test="com == null">
+				+ #{part.partMany},
+			</if>
+				
+				
+			pu_date=#{part.partUpdateDate}
+		WHERE
+			part_number=#{part.partNumber} AND bs_code=#{part.bsCode};
+	</update>
+	
+	
+	<!-- 그룹코드조회 -->
+	<select id="getGroup" resultType="String" parameterType="String">
+		SELECT
+			MAX(gc.group_code) as group_code,group_name
+		FROM
+				(SELECT
+				g.group_code,g.group_name
+			FROM
+				group_tb AS g
+			WHERE 
+			g.group_code LIKE #{select}
+			)AS gc
+	</select>
+	
+	<!-- 그룹코드생성 -->
+	<insert id="addgroupCode" parameterType="String">
+		INSERT INTO 
+			group_tb (`group_code`, `group_name`, `gr_writer`, `gr_date`, `bs_code`) 
+		VALUES 
+			(#{gCode}, #{gName}, #{writer}, now(), #{bsCode});
+	</insert>
+	
+	<!-- 판매등록 -->
+	<insert id="addEstimate" parameterType="com.cafe24.radev.vo.PartEsimate">
+		INSERT INTO 
+		part_estimate_tb 
+			(part_estimate_code,bs_code,group_code,document_num,part_number,part_estimate_many,part_estimate_price,part_esatimate_tex,part_estimate_totalprice,part_estimate_dec,pe_writer,pe_date) 
+		VALUES 
+			(#{esCode},#{bsCode},#{grCode},#{docNo},#{partNumber},#{partMany},#{partPrice},#{partTex},#{partToPrice},
+			#{esDec},#{writer},now());
+	</insert>
+	
+	<!-- 판매코드값	-->
+	<select id="getEsCode" parameterType="String" resultType="String">
+		SELECT
+			max(e.part_estimate_code)
+		FROM
+			part_estimate_tb AS e
+		WHERE
+			e.part_estimate_code LIKE #{select}
+	</select>
+	
+	
+	
+</mapper>

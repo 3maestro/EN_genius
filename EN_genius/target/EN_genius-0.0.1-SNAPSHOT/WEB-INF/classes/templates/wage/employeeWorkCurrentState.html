@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>직원 작업 현황</title>
+	</th:block>
+	
+	<th:block layout:fragment="customCss">
+		<style>
+			.types{
+				height: 250px !important;
+				font-size: 18px;
+			}
+			.workState{text-align: center; background: menu;}
+		</style>
+	</th:block>
+	
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript">
+			/*<[CDATA[*/
+				
+			
+				
+			$(document).ready(function(){
+				
+					
+// 					var request = $.ajax({
+// 						url: "/work/workCurrentState",
+// 						method: "POST",
+// 						//등록된 접수코드 세션값
+// 						data: {"recepNum" : recepNum},//파라미터
+// 						dataType: "json"		//응답 타입
+// 					})
+					
+					//접수번호 기준 진행 하려는 작업 리스트가 넘어 왔다
+// 					request.done(function( data ) {
+// 						console.log(data + " <-data currentList")
+// 						console.log(data.length + " <-dfjksdjf")
+// 						var manHour;
+// 						var j=0;
+// 						for(var i=0; i<data.length; i++){
+// 							var a = data[i].recepNum
+// 							manHour = data[i].manHour
+// 							console.log(a + " <-aaa")
+// 							console.log(manHour + " <-manHour")
+							
+// // 							60/10=6 한칸당 6분 
+// // 							1 = 60 , 0.1 = 6 -> 1칸
+// // 							2.2 = 132분 -> 22칸
+// // 							manHour * 10은 색칠 되어질 칸의 갯수
+// 								j = manHour * 10;
+// // 							if(j != 0){
+// // 								j+=j;
+// // 							}
+// 							console.log(j + " <-jjj")
+							
+// 						}
+// 						for(var k=1; k<=j; k++){
+// 							var tr = $('.empBtn').parent().parent();
+// 	 						//console.log(tr + " <-tr 뭐니?");
+// 	 						var td = tr.children().eq(k);
+// 	 						//console.log(td + " <-td 뭐니?");
+// 	 						//console.log(td.text() + " <-td.text() 뭐니?");
+							
+// 	 						td.attr('style','background-color:red');
+// 						}
+//					})
+				
+// 					request.fail(function( jqXHR, textStatus ) {
+// 						alert( "Request failed: " + textStatus );
+					var recepNum = '[[${session.RECNUM}]]';
+ 					$(document).on('click','.optionEmpName',function(){
+ 						console.log(recepNum + " <-recepNum")
+ 						var empName = $(this).val();
+						console.log(empName + " <-empName");
+						
+						var request = $.ajax({
+	 						url: "/work/empAssign",
+	 						method: "POST",
+	 						//등록된 접수코드 세션값
+	 						data: {"recepNum" : recepNum},//파라미터
+	 						dataType: "json"		//응답 타입
+	 					})
+						
+	 					request.done(function( data ){
+	 						console.log(data + " <-data");
+	 					})
+ 					});	 	
+					
+//					ajax사용 필요
+					
+// 					for(var i=1; i<11; i++){
+// 						var tr = $(this).parent().parent();
+// 						console.log(tr + " <-tr 뭐니?")
+// 						var td = tr.children().eq(i);
+// 						console.log(td + " <-td 뭐니?")
+// 						console.log(td.text() + " <-td.text() 뭐니?")
+						
+// 						td.attr('style','background-color:red')
+// 					}
+//				})
+			})
+			/*]]>*/
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="contentFragment">
+		<div class="content">
+			<div class="col-lg-12">
+				<div class="card">
+				    <div class="card-header">
+				        <strong class="card-title">작업 현황</strong>
+				    </div>
+                    <!-- <div class="card-body">
+                        <p class="muted">To create a default progress bar, add a <code>.progress-bar-striped and .progress-bar-animated</code> class to a <code>&lt;div&gt;</code> element:</p>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div> -->
+	
+                    <div class="card-body">
+						<table class="table table-bordered">
+				            <thead>
+				                <tr>
+				               	 	<th scope="row" colspan="10">이름</th>
+				               	 	<th scope="row" colspan="10">09:00 ~ 10:00</th>
+				               	 	<th scope="row" colspan="10">10:00 ~ 11:00</th>
+				               	 	<th scope="row" colspan="10">11:00 ~ 12:00</th>
+				               	 	<th scope="row" colspan="10">12:00 ~ 13:00</th>
+									<th scope="row" colspan="10">13:00 ~ 14:00</th>
+									<th scope="row" colspan="10">14:00 ~ 15:00</th>
+									<th scope="row" colspan="10">15:00 ~ 16:00</th>
+									<th scope="row" colspan="10">16:00 ~ 17:00</th>
+									<th scope="row" colspan="10">17:00 ~ 18:00</th>
+									<th scope="row" colspan="10">18:00 ~ 19:00</th>
+				                </tr>
+				            </thead>
+				            <tbody>
+				                <tr th:each="e : ${employeeList}" th:if="${e.employeeDepartment.dpName ne '사무실'}">
+				                    <th scope="row" colspan="10">
+				                    	<button type="button" class="btn btn-primary mb-1 empBtn" data-toggle="modal" data-target="#largeModal" th:value="${e.employeeName}">[[${e.employeeName}]]</button>
+				                    </th>
+				                    <td>1</td>
+				                    <td>2</td>
+				                    <td>3</td>
+				                    <td>4</td>
+				                    <td>5</td>
+				                    <td>6</td>
+				                    <td>7</td>
+				                    <td>8</td>
+				                    <td>9</td>
+				                    <td>0</td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                    <td></td>
+				                </tr>
+				            </tbody>
+				        </table>
+			            <div class="modal fade show" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" style="display: none;" aria-hidden="true">
+			                <div class="modal-dialog modal-lg" role="document">
+			                    <div class="modal-content">
+			                        <div class="modal-header">
+			                            <h5 class="modal-title" id="largeModalLabel">진행 작업
+			                            	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                                	<span aria-hidden="true">×</span>
+			                            	</button> 
+			                            </h5>
+			                        </div>
+			                        <div class="modal-body">
+										<div class="col-sm-12">
+               								<div class="card-body card-block">
+			                                    <div class="default-tab">
+			                                        <nav>
+			                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+			                                                <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">작업배정</a>
+			                                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">작업상태</a>
+			                                                <a class="nav-item nav-link active show" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="true">Contact</a>
+			                                            </div>
+			                                        </nav>
+		                                            <!-- tabs -->
+			                                        <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+			                                            <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><br>
+			                                            	<form action="#" method="post" class="form-horizontal">
+						                                        <div class="input-group">
+						                                            <!-- <BUTTON TYPE="BUTTON" DATA-TOGGLE="DROPDOWN" ARIA-HASPOPUP="TRUE" ARIA-EXPANDED="FALSE" CLASS="DROPDOWN-TOGGLE BTN BTN-PRIMARY">DROPDOWN</BUTTON>
+						                                            <DIV TABINDEX="-1" ARIA-HIDDEN="TRUE" ROLE="MENU" CLASS="DROPDOWN-MENU" X-PLACEMENT="BOTTOM-START" STYLE="POSITION: ABSOLUTE; WILL-CHANGE: TRANSFORM; TOP: 0PX; LEFT: 0PX; TRANSFORM: TRANSLATE3D(0PX, 38PX, 0PX);">
+				                                                        <BUTTON TYPE="BUTTON" TABINDEX="0" CLASS="DROPDOWN-ITEM">작업자</BUTTON>
+				                                                        <BUTTON TYPE="BUTTON" TABINDEX="0" CLASS="DROPDOWN-ITEM">작업내용</BUTTON>
+				                                                        <BUTTON TYPE="BUTTON" TABINDEX="0" CLASS="DROPDOWN-ITEM">작업시간</BUTTON>
+				                                                        <BUTTON TYPE="BUTTON" TABINDEX="0" CLASS="DROPDOWN-ITEM">날짜</BUTTON>
+				                                                    </DIV> -->
+						                                            <input type="text" id="input1-group2" name="input1-group2" placeholder="search" class="form-control">
+						                                            <div class="input-group-btn">
+						                                                <button class="btn btn-primary" type="submit">
+						                                                    <i class="fa fa-search"></i> Search
+						                                                </button>
+						                                            </div>
+						                                        </div>
+					                            			</form><br>
+					                            		<!-- 	<a th:href="@{/work/empAssign?(empName=${e.employeeCode})}">123</a> -->
+					                            			<div class="row">
+						                            			<div class="col-sm-1"></div>
+																<div class="col-sm-4">
+																	<h4 class="workState">작업자</h4>
+																	<select multiple="multiple" class="form-control types" name="empName">
+																		<option th:each="e : ${employeeList}" th:if="${e.employeeDepartment.dpName ne '사무실'}" class="optionEmpName" th:value="${e.employeeCode}">[[${e.employeeName}]]</option>
+																	</select>
+																</div>
+																<div class="col-sm-6">
+																	<h4 class="workState">작업내용</h4>
+																	<select id="midCate" multiple="multiple" class="form-control types">
+																		<option></option>	
+																	</select>
+																</div>
+																<div class="col-sm-1"></div>
+					                            			</div>
+		                                            	</div>
+			                                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+			                                            	<!-- 다른 조건 -->
+			                                            </div>
+			                                            <div class="tab-pane fade active show" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+			                                            	<!-- 다른 조건 -->	
+			                                            </div>
+			                                        </div>
+		                                            <!-- /tabs -->
+			                                    </div>
+	                                		</div>
+           								</div>
+									</div>				                    
+			                        <div class="modal-footer">
+			                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			                            <button type="button" class="btn btn-primary">Confirm</button>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>		
+					</div>
+				</div>
+			</div>
+		</div>	
+	</th:block>
+</html>

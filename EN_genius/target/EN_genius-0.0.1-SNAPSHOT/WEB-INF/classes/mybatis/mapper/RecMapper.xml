@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cafe24.radev.mapper.RecMapper">
+	<resultMap type="com.cafe24.radev.vo.VoRecRegister" id="RecRegisterMap">
+		<result property="receptionCode" column="reception_code"/>
+		<result property="bsCode" column="bs_code"/>
+		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="repairClassCode" column="repair_class_code"/>
+		<result property="displaceMent" column="reception_writer"/>
+		<result property="receptionDate" column="reception_date"/>
+		<result property="repairClassName" column="repair_class_name"/>
+		<result property="receptionProgress" column="reception_progress"/>
+		<result property="sId" column="s_id"/>
+		<result property="sCode" column="s_code"/>
+		<result property="empName" column="emp_name"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerPhone" column="customer_phone"/>
+		<result property="carModelDetail" column="car_model_detail"/>
+		<result property="receptionMemo" column="reception_memo"/>
+	</resultMap>
+	
+	<select id="getListAdd" parameterType="String" resultMap="RecRegisterMap">
+		SELECT
+			re.customer_car_info_code,
+			re.bs_code,
+			em.emp_name,
+			re.reception_date,
+			cu.customer_name,
+			cu.customer_phone,
+			yc.car_model_detail
+		FROM
+			reception_tb AS re
+		INNER JOIN
+			customer_tb cu
+		ON 
+			re.ei_code = cu.ei_code
+		INNER JOIN
+			employee_information_tb AS em
+		ON 
+			re.ei_code = em.ei_code,
+		 	car_model_tb AS cm
+		INNER JOIN
+			year_car_tb AS yc
+		ON
+			cm.car_model_code = yc.car_model_code
+			WHERE re.customer_car_info_code = 'KMHEM42BPAC202444'
+		GROUP BY re.customer_car_info_code
+
+		
+	</select>
+
+	<select id="getRecList" resultMap="RecRegisterMap" parameterType="String">
+			SELECT 
+				rc.reception_code, 
+				rc.bs_code, 
+				rc.customer_car_info_code, 
+				rc.ei_code,
+				re.repair_class_name, 
+				rc.reception_writer, 
+				rc.reception_date,
+				rc.reception_progress
+			FROM reception_tb AS rc
+			INNER JOIN repair_class_tb AS re
+			ON re.repair_class_code = rc.repair_class_code
+			WHERE rc.bs_code = #{bsCode}
+	</select>
+	
+	<select id="getRecSearch" resultMap="RecRegisterMap" parameterType="String">
+		SELECT
+				rec.*,
+				cusCarInfo.cc_wage_code as ccCode,
+				emp.ed_code,
+				emp.emp_name
+		from
+			(
+				SELECT 
+					rc.reception_code, 
+					rc.bs_code, 
+					rc.customer_car_info_code, 
+					rc.ei_code,
+					re.repair_class_name, 
+					rc.reception_writer, 
+					rc.reception_date,
+					rc.reception_progress
+				FROM reception_tb AS rc
+				INNER JOIN repair_class_tb AS re
+				ON re.repair_class_code = rc.repair_class_code
+				WHERE rc.bs_code = 'bs002'
+			) AS rec
+		INNER JOIN
+			employee_information_tb AS emp
+		ON
+			emp.ei_code = rec.ei_code
+		INNER JOIN
+			customer_car_info_table AS cusCarInfo
+		ON
+			cusCarInfo.customer_car_info_code = rec.customer_car_info_code
+		WHERE
+			rec.reception_code 
+		like 
+			CONCAT('%',#{recNum},'%')
+	</select>
+	
+	<select id="getRecListCC" resultType="hashmap">
+		SELECT
+			repair_class_code as repairClassCode,
+			repair_class_name as repairClassName
+		FROM 
+			repair_class_tb
+	</select>
+
+	<insert id="getRecInsert" parameterType="com.cafe24.radev.vo.VoRecRegister">
+		INSERT INTO 
+		reception_tb 
+		
+		(reception_code,
+		 bs_code,
+		 customer_car_info_code, 
+		 repair_class_code, 
+		 reception_writer, 
+		 reception_date)
+	VALUES (${receptionCode},
+			${bsCode}, 
+			${customerCarInfoCode}, 
+			${repairClassCode}, 
+			${displaceMent}, 
+			NOW())
+	
+	</insert>
+</mapper>

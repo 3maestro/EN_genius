@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title>EN_genius</title>
+</th:block>
+<script type="text/javascript"></script>
+<th:block layout:fragment="contentFragment">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	/* 	var test = 
+		console.log(test);
+		$('#testVal').val(test); */
+	</script>
+<style>
+	#nav-tabContent {
+	padding-top: 0px;
+	}
+</style>
+
+
+	<div class="card-body">
+		<div class="custom-tab">
+			<nav>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<a class="nav-item nav-link active show" id="custom-nav-home-tab"
+						data-toggle="tab" href="#custom-nav-home" role="tab"
+						aria-controls="custom-nav-home" aria-selected="true">차량 상세보기</a> <a
+						class="nav-item nav-link" id="custom-nav-profile-tab"
+						data-toggle="tab" href="#custom-nav-profile" role="tab"
+						aria-controls="custom-nav-profile" aria-selected="false">과거정비이력</a>
+				</div>
+			</nav>
+				<div class="tab-pane fade active show" id="custom-nav-home" style="padding: 0px; margin: 0px;"
+					role="tabpanel" aria-labelledby="custom-nav-home-tab">
+					
+					
+					
+					<div class="col col-md-12" style="padding: 0px; margin: 0px;">
+		<div class="card" style="padding: 0px; margin: 0px;">
+			<div class="card-header"><strong>[[${carUpList.customerName}]]</strong>
+				<small> 님의 차량정보</small>
+			</div>
+				<div class="card-body card-block">
+					<form th:action="@{repHistory}" method="Post">
+						<div class="form-group">
+							<label for="company" class=" form-control-label">차대번호</label>
+							<span id="company"  class="form-control" name="customerCarInfoCode1">[[${carUpList.customerCarRegCode}]]</span>
+						</div>
+					<div class="form-group">
+						<label for="vat" class=" form-control-label">고객 이름</label>
+						<span id="vat" class="form-control" name="customerCode1">[[${carUpList.customerName}]]</span>
+					</div>
+					<div class="form-group">
+						<label for="street" class=" form-control-label">고객 연락처</label>
+						<span id="street" class="form-control">[[${carUpList.customerPhone}]]</span>
+					</div>
+					<div class="form-group">
+						<label for="street" class=" form-control-label">차량 번호</label>
+						<span id="street" class="form-control">[[${carUpList.customerCarNumber}]]</span>
+					</div>
+				<div class="row form-group" style="padding: 15px;">
+<table>     
+            
+	<tr>
+		<td>
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">제조 국가</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.originCode}]]</span>
+					</div>
+                </div>
+		</td>
+		<td>
+				<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">벤더사</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.vendorCode}]]</span>
+					</div>
+                </div>
+		</td>
+	</tr>
+	<tr>
+		<td> 	
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">차량 종류</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.carClassCode}]]</span>
+					</div>
+                </div>
+		</td>
+		<td>
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">차량 모델</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.carModelCode}]]</span>
+					</div>
+                </div>
+		</td>
+	</tr>    
+	<tr>
+		<td>
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">상세모델</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.yearCarCode}]]</span>
+					</div>
+                </div>
+		</td>
+		<td>
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">차량 등급</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.optionGradeCode}]]</span>
+					</div>
+                </div>
+		</td>
+	</tr>
+	<tr>
+		<td>			
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">차량 연료</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.fuelCode}]]</span>
+					</div>
+                </div>
+		</td>
+		<td>
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">차량 엔진</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.feCode}]]</span>
+					</div>
+                </div>
+		<td>
+	</tr>
+	<tr>
+		<td>     	
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">차량 대분류 컬러</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.colorBigCode}]]</span>
+					</div>
+                </div>
+		</td>
+		<td>
+			<div class="col-mb-12">
+                	<div class="col-mb-6" >
+						<label for="street" class=" form-control-labe11l">차량 상세 컬러</label>
+						<span id="street" class="form-control" style="text-align: center;">[[${carUpList.colorMidCode}]]</span>
+					</div>
+                </div>
+		<td>
+	</tr>
+</table>    
+		</div>
+			<div class="col col-6" style="padding-left: 0px;">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">생산 시작년도</label>
+					<span id="postal-code" class="form-control">[[${carUpList.sellStartYear}]]</span>
+				</div>
+			</div>
+			<div class="col col-6" style="padding-left: 0px;">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">생산 종료년도</label>
+					<span id="postal-code" class="form-control">[[${carUpList.sellEndYear}]]</span>
+				</div>
+			</div>
+			<div class="col col-6" style="padding-left: 0px;">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">자동차 등록일</label>
+					<span id="postal-code" class="form-control">[[${carUpList.carRegistrationDate}]]</span>
+				</div>
+			</div>
+			<div class="col col-6" style="padding-left: 0px;">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">마지막 방문시 주행거리</label>
+					<span id="postal-code" class="form-control">[[${carUpList.lastDistanceDriven}]]</span>
+				</div>
+			</div>
+			<div class="col col-6" style="padding-left: 0px;">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">마지막 방문일</label>
+					<span id="postal-code" class="form-control">[[${carUpList.lastVisitDate}]]</span>
+				</div>
+			</div>
+			<div class="col col-6" style="padding-left: 0px;">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">작성자</label>
+					<span id="postal-code" class="form-control">[[${carUpList.customerCarInfoWriter}]]</span>
+				</div>
+			</div>
+			<div class="col col-6" style="padding-left: 0px;">
+				<div class="form-group">
+					<label for="postal-code" class=" form-control-label">작성일자</label>
+					<span id="postal-code" class="form-control">[[${carUpList.customerCarInfoDate}]]</span>
+				</div>
+			</div>
+				    <!-- <button type="submit" class="btn btn-outline-success" id="askBtn">과거 정비 이력 보기</button> -->
+					<!-- <button type="button" th:href="${carList}">리스트로 돌아가기</button> -->
+					<a th:href="carList" class="btn btn-primary" id="carBtn">리스트로 돌아가기</a>
+			</form>
+				</div>
+		</div>
+	</div>
+					
+					
+					
+					
+					
+					
+					
+					</div>
+				<div class="tab-pane fade" id="custom-nav-profile" role="tabpanel"
+					aria-labelledby="custom-nav-profile-tab">2</div>
+			
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+</th:block>
+</html>

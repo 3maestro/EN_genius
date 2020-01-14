@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+<th:block layout:fragment="customTitle">
+	<title>EN_genius</title>
+</th:block>
+<th:block layout:fragment="contentFragment">
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$('#customerNameBtn').click(function(){
+			var customerName = $('#customerName').val();
+			console.log(customerName)
+			
+			var request = $.ajax({
+				  url: "customerNameSelect",
+				  method: "POST",
+				  data: { 'customerName' : customerName },
+				  dataType: "json"
+				});
+			
+				request.done(function(data) {
+					var cusNameList = "";
+					for(var i = 0; i < data.length; i++){
+						cusNameList += '<option value = "'+data[i]+'">'+data[i]+'</option>'
+					}
+					console.log(cusNameList)
+					$('#customerPhone').html(cusNameList)
+				});
+				 
+				
+				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});
+			
+			
+		})
+		$('#originSm').change(function(){
+			var contents = '<option>선택해주세요</option>';
+			var originSm = $(this).val();
+			$('#originSmCode').val(originSm);
+			console.log(originSm);
+			
+			var request = $.ajax({
+				  url: "getCarVendor",
+				  method: "POST",
+				  data: { 'originSm' : originSm },
+				  dataType: "json"
+				});
+			
+				request.done(function(vendorSm) {
+					for(var i = 0; i < vendorSm.length; i++){
+						contents += '<option value = "'+vendorSm[i].vendorCode+'">'+vendorSm[i].vendorName+'</option>'
+					}
+					$('#vendorSm').html(contents)
+				});
+				 
+				
+				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});
+		})
+
+		$(document).on('change','#vendorSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var vendorSm = $(this).val();
+			var originCode = $('#originSmCode').val();
+			$('#vendorSmCode').val(vendorSm);
+			
+			
+			var request = $.ajax({
+				  url: "getCarClass",
+				  method: "POST",
+				  data: { 'vendorSm' : vendorSm , 'originCode' : originCode },
+				  dataType: "json"
+				});
+			
+				request.done(function(carClassSm) {
+					console.log(carClassSm);
+				for(var i = 0; i < carClassSm.length; i++){
+					contents += '<option value = "'+carClassSm[i].carClassCode+'">'+carClassSm[i].carClassMain+'</option>'
+					}
+					$('#carClassSm').html(contents)
+				});
+				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				}); 
+				
+			$(document).on('change','#carClassSm',function(){
+				var contents = '<option>선택해주세요</option>';
+				var carClassSm = $(this).val();
+				var originSmCode = $('#originSmCode').val();
+				var vendorSmCode = $('#vendorSmCode').val();
+				$('#carClassSmCode').val(carClassSm);
+				console.log(carClassSmCode)
+				
+				var request = $.ajax({
+					  url: "getCarModel",
+					  method: "POST",
+					  data: { 'vendorCode' : vendorSmCode , 'originCode' : originCode ,'carClassCode' : carClassSm },
+					  dataType: "json"
+					});
+				
+					request.done(function(carModelSm) {
+						console.log(carModelSm);
+					for(var i = 0; i < carModelSm.length; i++){
+						contents += '<option value = "'+carModelSm[i].carModelCode+'">'+carModelSm[i].carModelName+'</option>'
+						}
+						$('#carModelSm').html(contents)
+					});
+					
+					request.fail(function( jqXHR, textStatus ) {
+					  alert( "Request failed: " + textStatus );
+					}); 
+			})
+		})
+		
+		$(document).on('change','#carModelSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var carModelSmVal = $(this).val();
+			var carModelSmText = $("#carModelSm option:checked").text();
+			console.log(carModelSmVal,carModelSmText)
+			
+			var request = $.ajax({
+				  url: "getDBCarDetail",
+				  method: "POST",
+				  data: { 'carModelSmVal' : carModelSmVal , 'carModelSmText' : carModelSmText },
+				  dataType: "json"
+				});
+			
+				request.done(function(yearCarSm) {
+					console.log(yearCarSm);
+				for(var i = 0; i < yearCarSm.length; i++){
+					contents += '<option value = "'+yearCarSm[i].yearCarCode+'">'+yearCarSm[i].carModelDetail+'</option>'
+					$('#sellStartYear').val(yearCarSm[i].sellStartYear);
+					$('#sellEndYear').val(yearCarSm[i].sellEndYear);
+					}
+					$('#yearCarSm').html(contents);
+				});
+				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				}); 
+		})
+		
+		$(document).on('change','#yearCarSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var yearCarSm = $(this).val();
+			$('#yearCarSmCode').val(yearCarSm);
+			console.log(yearCarSm)
+			console.log(yearCarSmCode)
+			
+			var request = $.ajax({
+				  url: "getDBCarGrade",
+				  method: "POST",
+				  data: { 'yearCarSm' : yearCarSm},
+				  dataType: "json"
+				});
+			
+			request.done(function(opGradeSm) {
+				console.log(opGradeSm);
+			for(var i = 0; i < opGradeSm.length; i++){
+				contents += '<option value = "'+opGradeSm[i].optionGradeCode+'">'+opGradeSm[i].optionGradeName+'</option>'
+				}	
+			$('#opGradeSm').html(contents);
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "????: " + textStatus );
+			}) 
+		})
+		
+		$(document).on('change','#opGradeSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var opGradeSm = $(this).val();
+			$('#opGradeSmCode').val(opGradeSm);
+			
+			var request = $.ajax({
+				  url: "getDBCarfuel",
+				  method: "POST",
+				  data: { 'opGradeSm' : opGradeSm},
+				  dataType: "json"
+				});
+			
+			request.done(function(fuelSm) {
+				console.log(fuelSm);
+			for(var i = 0; i < fuelSm.length; i++){
+				contents += '<option value = "'+fuelSm[i].fuelCode+'">'+fuelSm[i].fuelType+'</option>'
+				}	
+			$('#fuelSm').html(contents);
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "연료: " + textStatus );
+			})
+		})
+		
+		$(document).on('change','#fuelSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var fuelSm = $(this).val();
+			$('#fuelSmCode').val(fuelSm);
+			console.log(fuelSm)
+			
+			var request = $.ajax({
+				  url: "getDBCarEngin",
+				  method: "POST",
+				  data: { 'fuelSm' : fuelSm},
+				  dataType: "json"
+				});
+			
+			request.done(function(engineSm) {
+				console.log(engineSm);
+			for(var i = 0; i < engineSm.length; i++){
+				contents += '<option value = "'+engineSm[i].feCode+'">'+engineSm[i].engineType+'</option>'
+				}	
+			$('#engineSm').html(contents);
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "!!!!: " + textStatus );
+			})
+		})
+		
+		$(document).on('change','#carModelSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var carModelSm = $(this).val();
+			$('#carModelSmCode').val(carModelSm);
+			console.log(carModelSm)
+			
+			var request = $.ajax({
+				  url: "getDBCarBigCate",
+				  method: "POST",
+				  data: { 'carModelSm' : carModelSm},
+				  dataType: "json"
+				});
+			
+			request.done(function(bigColSm) {
+				console.log(engineSm);
+			for(var i = 0; i < bigColSm.length; i++){
+				contents += '<option value = "'+bigColSm[i].colorBigCode+'">'+bigColSm[i].colorBigName+'</option>'
+				}	
+			$('#bigColSm').html(contents);
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "!!!!: " + textStatus );
+			})
+		})
+		
+		$(document).on('change','#bigColSm',function(){
+			var contents = '<option>선택해주세요</option>';
+			var bigColSm = $(this).val();
+			console.log(carModelSm)
+			
+			var request = $.ajax({
+				  url: "getDBCarMidCate",
+				  method: "POST",
+				  data: { 'bigColSm' : bigColSm},
+				  dataType: "json"
+				});
+			
+			request.done(function(midColSm) {
+			for(var i = 0; i < midColSm.length; i++){
+				contents += '<option value = "'+midColSm[i].colorMidCode+'">'+midColSm[i].colorMidName+'</option>'
+				}	
+			$('#midColSm').html(contents);
+			});
+			
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "!!!!: " + textStatus );
+			})
+		})
+	})	
+
+</script>
+
+
+	<div class="col col-md-9">
+	<input type="hidden" id="originSmCode">
+	<input type="hidden" id="vendorSmCode">
+	<input type="hidden" id="carClassSmCode">
+	<input type="hidden" id="carModelSmCode">
+	<input type="hidden" id="yearCarSmCode">
+	<input type="hidden" id="opGradeSmCode">
+	<input type="hidden" id="fuelSmCode">
+		
+		
+		<div class="card">
+			<div class="card-header"> 
+				<strong>차량 등록</strong>
+			</div>
+			<div class="card-body card-block">
+				<form th:action="@{carRegister}" method="Post">
+					<div class="form-group">
+						차대번호
+						<input type="text" id="company" placeholder="차대번호" class="form-control" name="customerCarRegCode">
+					</div>
+					<div class="form-group">
+						<button type="button" id="customerNameBtn" class="btn btn-primary">고객 조회</button>
+						<input type="text" id="customerName" placeholder="고객 이름" class="form-control" name="customerName">
+					</div>
+					<div class="form-group">
+						고객 연락처
+						<select id="customerPhone" name="customerPhone" class="form-control-sm form-control">
+						<option>고객 이름을 먼저 조회 해주세요</option>
+						</select>
+					</div>
+					<div class="form-group">
+						차량 번호
+						<input type="text" id="street" placeholder="차량 번호" class="form-control" name="customerCarNumber">
+					</div>
+					
+					
+					<div class="row form-group">
+						<table>
+							<tr>
+								<td>
+									<div class="col col-md-12">
+										<label for="originselectSm" class=" form-control-label">국가선택</label>
+									</div>
+									<div>
+										<select name=originCode id="originSm" class="form-control-sm form-control">
+											<option value="0">제작국가 선택</option>
+											<option th:value="${originSel.originCode}" th:each="originSel : ${originSelect}" th:text="${originSel.originMain}"></option>
+										</select>
+									</div>
+								</td>
+								
+								<td>
+									<div class="col col-md-12">
+										<label for="vendorSm" class=" form-control-label">벤더사선택</label>
+									</div>
+									<div>
+										<select name="vendorCode" id="vendorSm"	class="form-control-sm form-control"></select>
+									</div>
+								</td>
+							</tr>
+
+
+							<tr>
+								<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">차량종류</label>
+									</div>
+									<div>
+										<select name="carClassCode" id="carClassSm" class="form-control-sm form-control"></select>
+									</div>
+								</td>
+								<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">차량모델</label>
+									</div>
+									<div>
+										<select name="carModelCode" id="carModelSm" class="form-control-sm form-control"></select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">상세모델 선택</label>
+									</div> 
+										<select name="yearCarCode" id="yearCarSm" class="form-control-sm form-control"> </select>
+								</td>
+								<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">등급 선택</label>
+									</div> 
+										<select name="optionGradeCode" id="opGradeSm" class="form-control-sm form-control"></select>
+								</td>
+							</tr>
+							<tr>
+							
+							<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">연료종류</label>
+									</div> 
+										<select name="fuelCode" id="fuelSm" class="form-control-sm form-control"></select>
+								</td>
+								
+								<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">엔진 종류</label>
+									</div> 
+									<select name="feCode" id="engineSm" class="form-control-sm form-control"></select>
+								</td>
+							</tr>
+							
+							</tr>
+							<tr>
+							
+							<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">차량컬러 대분류</label>
+									</div> <select name="colorBigCode" id="bigColSm"
+									class="form-control-sm form-control">
+								</select>
+								</td>
+								<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">컬러 상세</label>
+									</div> <select name="colorMidCode" id="midColSm"
+									class="form-control-sm form-control">
+								</select>
+								</td>
+							</tr>
+							<tr>
+									<td>
+									<div class="col col-md-12">
+										<label for="selectSm" class=" form-control-label">차량선택옵션 선택</label>
+									</div> <select name="choiceOptionCode" id="opChoiceSm"
+									class="form-control-sm form-control">
+										<option th:each="opChoiceSel : ${opChoiceSelect}"
+											th:text="${opChoiceSel.choiceOptionName}"></option>
+								</select>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col col-6">
+						<div class="form-group">
+							생산 시작년도
+							<input type="text" id="sellStartYear" readonly="readonly"
+								class="form-control" name="sellStartYear">
+						</div>
+
+					</div>
+					<div class="col col-6">
+						<div class="form-group">
+							생산 종료년도
+							<input type="text" id="sellEndYear" readonly="readonly"
+								class="form-control" name="sellEndYear">
+						</div>
+					</div>
+					<div class="col col-6">
+						<div class="form-group">
+							자동차 등록일
+							<input type="text" id="postal-code" placeholder="자동차 등록일"
+								class="form-control" name="carRegistrationDate">
+						</div>
+					</div>
+					<div class="col col-6">
+						<div class="form-group">
+							마지막 방문시 주행거리
+							<input type="text" id="postal-code"
+								placeholder="마지막 방문시 주행거리" class="form-control"
+								name="lastDistanceDriven">
+						</div>
+					</div>
+					<div class="col col-6">
+						<div class="form-group">
+							마지막 방문일
+							<input type="text" id="postal-code" placeholder="마지막 방문일"
+								class="form-control" name="lastVisitDate">
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary" name="carBtn">차량 등록</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/tdymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius [[${title}]]</title>
+	</th:block>
+	<th:block layout:fragment="customCss">
+		<style>
+			table
+			{
+				font-size: 15px;
+			}
+		</style>
+	</th:block>
+	<th:block layout:fragment="customScript">
+		<script th:inline="javascript">
+			var sid		= /*[[${session.SID}]]*/;
+			var ecode	= /*[[${session.ECODE}]]*/;
+			var scode	= /*[[${session.SCODE}]]*/;
+			var search={};
+			search.customerName		= '';
+			search.customerGender	= '';
+			search.customerPhone	= '';
+			search.customerMemo		= '';		
+			search.customerBirth1	= '';
+			search.customerBirth2	= '';
+			search.customerSign1	= '';
+			search.customerSign2	= '';
+			search.arrange			= 'customer_code';
+			search.asc				= 'ASC';
+			search.page	 			= 0;
+			
+			if(sid!=null){
+				search.sid	= sid;
+			}else{
+				search.sid	= ecode;
+			}
+			search.scode	= scode;
+
+			$(document).ready(function(){
+				$('#limit').val('10').prop('selected', true);
+				search.limit = $('#limit').val();
+				searchList();
+				
+				var date = new Date();
+				var year = ""+date.getFullYear();
+				var month = ""+date.getMonth()+1;
+				var day = ""+date.getDate();
+				
+				if(month.length==1){
+					month="0"+month;
+				}
+				
+				if(day.length==1){
+					day="0"+day;
+				}
+				
+				var today = year+"-"+month+"-"+day;
+				
+				$('#customerBirth1').attr('max',today);
+				$('#customerBirth2').attr('max',today);
+				$('#customerSign1').attr('max',today);
+				$('#customerSign2').attr('max',today);
+				
+				$('#customerName').change(function(){
+					search.customerName = $('#customerName').val();
+				})
+				
+				$('[name=customerGender]').change(function(){
+					search.customerGender = $("input:radio[name='customerGender']:checked").val();
+				})
+				
+				$('#customerPhone').change(function(){
+					search.customerPhone = $('#customerPhone').val();
+				})
+				
+				$('#customerMemo').change(function(){
+					search.customerMemo = $('#customerMemo').val();		
+				})
+
+				$('#customerBirth1').change(function(){
+					search.customerBirth1 = $('#customerBirth1').val();
+					$('#customerBirth2').attr('min',$(this).val());
+				})
+				
+				$('#customerBirth2').change(function(){
+					search.customerBirth2 = $('#customerBirth2').val();
+				})
+				
+				$('#customerSign1').change(function(){
+					search.customerSign1 = $('#customerSign1').val();
+					$('#customerSign2').attr('min',$(this).val());
+				})
+								
+				$('#customerSign2').change(function(){
+					search.customerSign2 = $('#customerSign2').val();
+				})
+				
+				$('#limit').change(function(){
+					search.asc = 'ASC';
+					search.arrange = 'customer_code';
+					$('th').attr('class','sorting')
+					$('[name=customer_code]').attr('class','sorting_asc')
+					search.page	= 0;
+					search.limit = $('#limit').val();
+					searchList();
+				})
+				
+				$('#select').click(function(){
+					$('#limit').val('10').prop('selected', true);
+					$('th').attr('class','sorting')
+					$('[name=customer_code]').attr('class','sorting_asc')
+					search.asc = 'ASC';
+					search.arrange = 'customer_code';
+					search.limit = $('#limit').val();
+					search.page	= 0;
+					searchList();
+				})
+					
+				$(document).on('click','[name=page]',function(){
+					search.limit = $('#limit').val();
+					search.page	= $(this).val();
+					searchList();
+				})
+				
+				$(document).on('click','th',function(){
+					var arrange = $(this).attr('name');
+					if(arrange == search.arrange){
+						if(search.asc == 'ASC'){
+							$('th').attr('class','sorting')
+							$(this).attr('class','sorting_desc')
+							search.asc = 'DESC';
+							search.page	= 0;
+							searchList();
+						}else{
+							$('th').attr('class','sorting')
+							$(this).attr('class','sorting_asc')
+							search.asc = 'ASC';
+							search.page	= 0;
+							searchList();
+						}
+					}else{
+						$('th').attr('class','sorting')
+						$(this).attr('class','sorting_asc')
+						search.asc = 'ASC';
+						search.arrange = $(this).attr('name');
+						search.page	= 0;
+						searchList();
+					}
+					searchList();
+				})
+			})
+			
+			function searchList(){
+				var request = $.ajax({
+					url : '/customerSelect',
+					method : "get",
+					data : search,
+					dataType : "json"
+				});
+	
+				request.done(function(data){
+					table(data);
+					pagingBtn();
+				});
+	
+				request.fail(function(jqXHR, textStatus) {
+					alert("검색 실패!");
+				})
+			}
+			
+			function table(data) {
+				var result='';
+				$.each(data, function (i, l) {
+					result+='<tr>';
+					result+='<td>'+l.customerCode+'</td>';
+					result+='<td>'+l.customerName+'</td>';
+					result+='<td>'+l.customerBirth+'</td>';
+					result+='<td>'+l.customerGender+'</td>';
+					result+='<td>'+l.customerAddr+'</td>';
+					result+='<td>'+l.customerPhone+'</td>';
+					result+='<td>'+l.customerSign+'</td>';
+					result+='<td>'+l.customerMemo+'</td>';
+					result+='<td><a href="/customer/customerUpdate?customerCode='+l.customerCode+'">정보수정</a></td>';
+					result+='</tr>';
+				});
+				$('tbody').html(result);
+			}
+			
+			function pagingBtn(){
+				var request = $.ajax({
+					url : '/customerPage',
+					method : "get",
+					data : search,
+					dataType : "text"
+				});
+	
+				request.done(function(data){
+					$('#paging').html('');
+					var view = $('#limit').val();
+					var paging = Math.ceil(data/view);
+					for(var i = 0; i < paging; i++){
+						$('#paging').append('<button name=page value="'+i+'">'+(i+1)+'</button>');
+					}
+				});
+	
+				request.fail(function(jqXHR, textStatus) {
+					alert("검색 실패!");
+				})
+			}
+		</script>
+	</th:block>
+	<th:block layout:fragment="contentFragment">
+
+		<div class="card">
+			<div class="card-header">
+				<strong class="card-title">
+					[[${title}]]
+				</strong>
+			</div>
+			<div class="card-body">
+				<div class="select">
+					<div class="row">
+						<div class="form-group col-lg-2" style="text-align: center">
+							<label>
+								고객 명
+							</label>
+						</div>
+						<div class="form-group col-lg-4">
+							<input type="text" id="customerName" name="customerName" class="form-control" placeholder="고객 명" value="">
+						</div>
+						<div class="form-group col-lg-2" style="text-align: center">
+							<label>
+								고객 성별
+							</label>
+						</div>
+						<div class="form-group col-lg-4">
+							<div class="form-control">
+								<div class="row" style="text-align: center">
+									<div style="width: 34%">
+										<label>
+											<input type="radio" name="customerGender" value="" checked="true" style="margin-left : 15px;">전체
+										</label>
+									</div>
+									<div style="width: 33%">
+										<label>
+											<input type="radio" name="customerGender" value="남">남
+										</label>
+									</div>
+									<div style="width: 33%">
+										<label>
+											<input type="radio" name="customerGender" value="여">여
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-lg-2" style="text-align: center">
+							<label>
+								고객 메모
+							</label>
+						</div>
+						<div class="form-group col-lg-4">
+							<input type="text" id="customerMemo" name="customerMemo" class="form-control" placeholder="고객 메모">
+						</div>
+						<div class="form-group col-lg-2" style="text-align: center">
+							<label>
+								고객 연락처
+							</label>
+						</div>
+						<div class="form-group col-lg-4">
+							<input type="text" id="customerPhone" name="customerPhone" class="form-control" placeholder="고객 연락처">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-lg-2" style="text-align: center">
+							<label>
+								고객 생일
+							</label>
+						</div>
+						<div class="form-group col-lg-4">
+							<input type="date" id="customerBirth1" name="customerBirth1" class="form-control">
+						</div>
+						<div class="form-group col-lg-2" style="text-align: center">
+							~
+						</div>
+						<div class="form-group col-lg-4">
+							<input type="date" id="customerBirth2" name="customerBirth2" class="form-control">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-lg-2" style="text-align: center">
+							<label>
+								고객 등록일
+							</label>
+						</div>
+						<div class="form-group col-lg-4">
+							<input type="date" id="customerSign1" name="customerSign1" class="form-control">
+						</div>
+						<div class="form-group col-lg-2" style="text-align: center">
+							~
+						</div>
+						<div class="form-group col-lg-4">
+							<input type="date" id="customerSign2" name="customerSign2" class="form-control">
+						</div>
+					</div>
+					<div class="select" style="text-align: center;">
+						<button class="btn btn-success col-3" id="select">
+							검색
+						</button>
+					</div>
+				</div>
+				<div>
+					<span id="pageText">
+					</span>
+				</div>
+				<div>
+					<select id="limit">
+						<option value="3">
+							3개씩 보기
+						</option>
+						<option value="5">
+							5개씩 보기
+						</option>
+						<option value="10">
+							10개씩 보기
+						</option>
+						<option value="15">
+							15개씩 보기
+						</option>
+						<option value="20">
+							20개씩 보기
+						</option>
+						<option value="20">
+							30개씩 보기
+						</option>
+						<option value="20">
+							40개씩 보기
+						</option>
+						<option value="20">
+							50개씩 보기
+						</option>
+						<option value="20">
+							100개씩 보기
+						</option>
+					</select>
+				</div>
+				<table id="bootstrap-data-table" class="table table-striped table-bordered dataTable no-footer" aria-describedby="bootstrap-data-table_info">
+					<thead>
+						<tr>
+							<th class="sorting_asc" name="customer_code">
+								고객코드
+							</th>
+							<th class="sorting" name="customer_name">
+								고객명
+							</th>
+							<th class="sorting" name="customer_birth">
+								고객생일
+							</th>
+							<th class="sorting" name="customer_gender">
+								고객성별
+							</th>
+							<th class="sorting" name="customer_addr">
+								고객주소
+							</th>
+							<th class="sorting" name="customer_phone">
+								고객연락처
+							</th>
+							<th class="sorting" name="customer_sign">
+								고객등록일
+							</th>
+							<th class="sorting" name="customer_memo">
+								고객메모
+							</th>
+							<th class="sorting">
+								고객수정
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				<div id="paging" style="text-align: center;">
+					
+				</div>
+			</div>
+		</div>
+		
+	</th:block>
+</html>
+
