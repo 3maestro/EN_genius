@@ -12,6 +12,8 @@ public class Customer {
 	private String customerAddr;
 	private String customerPhone;
 	private String customerMemo;
+	private VoCarDetail voCarDetail;
+	private VoRecRegister voRecRegister;
 	
 	public String getCustomerCode() {
 		return customerCode;
@@ -90,12 +92,26 @@ public class Customer {
 		this.customerMemo = customerMemo;
 	}
 	
+	public VoRecRegister getVoRecRegister() {
+		return voRecRegister;
+	}
+	public void setVoRecRegister(VoRecRegister voRecRegister) {
+		this.voRecRegister = voRecRegister;
+	}
+	
+	public VoCarDetail getVoCarDetail() {
+		return voCarDetail;
+	}
+	public void VoCarDetail(VoCarDetail voCarDetail) {
+		this.voCarDetail = voCarDetail;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [customerCode=" + customerCode + ", bsCode=" + bsCode + ", eiCode=" + eiCode
 				+ ", customerSign=" + customerSign + ", customerName=" + customerName + ", customerBirth="
 				+ customerBirth + ", customerGender=" + customerGender + ", customerPost=" + customerPost
 				+ ", customerAddr=" + customerAddr + ", customerPhone=" + customerPhone + ", customerMemo="
-				+ customerMemo + "]";
+				+ customerMemo + ", voRecRegister=" + voRecRegister + ", voCarDetail=" + voCarDetail + "]";
 	}
 }

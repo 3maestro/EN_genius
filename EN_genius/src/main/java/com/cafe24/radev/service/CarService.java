@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.mapper.CarMapper;
 import com.cafe24.radev.vo.VoCarColor;
@@ -21,7 +22,13 @@ public class CarService {
 	
 	@Autowired private CarMapper carMapper;
 	
+	public List<String> customerNameSelect (@RequestParam (value = "customerName")String customerName) {
+		return carMapper.customerNameSelect(customerName);
+		  
+	  }
+	
 	public int getCarRegister(VoCarDetail voDetail) {
+		System.out.println("섭3스" + voDetail);
 		return carMapper.getCarRegister(voDetail);
 	}
 	
@@ -59,7 +66,6 @@ public class CarService {
 	 */
 	public List<VoCarColor> getBigColSelect(){
 		return carMapper.getBigColSelect();
-				
 	}
 		
 	/**

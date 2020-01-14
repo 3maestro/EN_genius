@@ -13,6 +13,34 @@
 	<script type="text/javascript">
 	
 	$(document).ready(function(){
+		$('#customerNameBtn').click(function(){
+			var customerName = $('#customerName').val();
+			console.log(customerName)
+			
+			var request = $.ajax({
+				  url: "customerNameSelect",
+				  method: "POST",
+				  data: { 'customerName' : customerName },
+				  dataType: "json"
+				});
+			
+				request.done(function(data) {
+					var cusNameList = "";
+					for(var i = 0; i < data.length; i++){
+						cusNameList += '<option value = "'+data[i]+'">'+data[i]+'</option>'
+					}
+					console.log(cusNameList)
+					$('#customerPhone').html(cusNameList)
+				});
+				 
+				
+				
+				request.fail(function( jqXHR, textStatus ) {
+				  alert( "Request failed: " + textStatus );
+				});
+			
+			
+		})
 		$('#originSm').change(function(){
 			var contents = '<option>선택해주세요</option>';
 			var originSm = $(this).val();
@@ -272,19 +300,21 @@
 			<div class="card-body card-block">
 				<form th:action="@{carRegister}" method="Post">
 					<div class="form-group">
-						<label for="company" class=" form-control-label">차대번호</label>
+						차대번호
 						<input type="text" id="company" placeholder="차대번호" class="form-control" name="customerCarRegCode">
 					</div>
 					<div class="form-group">
-						<label for="vat" class=" form-control-label">고객 이름</label>
-						<input type="text" id="vat" placeholder="고객 이름" class="form-control" name="customerCode">
+						<button type="button" id="customerNameBtn" class="btn btn-primary">고객 조회</button>
+						<input type="text" id="customerName" placeholder="고객 이름" class="form-control" name="customerName">
 					</div>
 					<div class="form-group">
-						<label for="vat" class=" form-control-label">고객 연락처</label>
-						<input type="text" id="vat" placeholder="고객 연락처" class="form-control" name="customerPhone">
+						고객 연락처
+						<select id="customerPhone" name="customerPhone" class="form-control-sm form-control">
+						<option>고객 이름을 먼저 조회 해주세요</option>
+						</select>
 					</div>
 					<div class="form-group">
-						<label for="street" class=" form-control-label">차량 번호</label>
+						차량 번호
 						<input type="text" id="street" placeholder="차량 번호" class="form-control" name="customerCarNumber">
 					</div>
 					
@@ -297,7 +327,7 @@
 										<label for="originselectSm" class=" form-control-label">국가선택</label>
 									</div>
 									<div>
-										<select name="selectSm" id="originSm" class="form-control-sm form-control">
+										<select name=originCode id="originSm" class="form-control-sm form-control">
 											<option value="0">제작국가 선택</option>
 											<option th:value="${originSel.originCode}" th:each="originSel : ${originSelect}" th:text="${originSel.originMain}"></option>
 										</select>
@@ -306,10 +336,10 @@
 								
 								<td>
 									<div class="col col-md-12">
-										<label for="selectSm" class=" form-control-label">벤더사선택</label>
+										<label for="vendorSm" class=" form-control-label">벤더사선택</label>
 									</div>
 									<div>
-										<select name="selectSm2" id="vendorSm"	class="form-control-sm form-control"></select>
+										<select name="vendorCode" id="vendorSm"	class="form-control-sm form-control"></select>
 									</div>
 								</td>
 							</tr>
@@ -321,7 +351,7 @@
 										<label for="selectSm" class=" form-control-label">차량종류</label>
 									</div>
 									<div>
-										<select name="selectSm3" id="carClassSm" class="form-control-sm form-control"></select>
+										<select name="carClassCode" id="carClassSm" class="form-control-sm form-control"></select>
 									</div>
 								</td>
 								<td>
@@ -329,7 +359,7 @@
 										<label for="selectSm" class=" form-control-label">차량모델</label>
 									</div>
 									<div>
-										<select name="carModelSm" id="carModelSm" class="form-control-sm form-control"></select>
+										<select name="carModelCode" id="carModelSm" class="form-control-sm form-control"></select>
 									</div>
 								</td>
 							</tr>
@@ -338,13 +368,13 @@
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">상세모델 선택</label>
 									</div> 
-										<select name="selectSm5" id="yearCarSm" class="form-control-sm form-control"> </select>
+										<select name="yearCarCode" id="yearCarSm" class="form-control-sm form-control"> </select>
 								</td>
 								<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">등급 선택</label>
 									</div> 
-										<select name="selectSm6" id="opGradeSm" class="form-control-sm form-control"></select>
+										<select name="optionGradeCode" id="opGradeSm" class="form-control-sm form-control"></select>
 								</td>
 							</tr>
 							<tr>
@@ -353,14 +383,14 @@
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">연료종류</label>
 									</div> 
-										<select name="selectSm10" id="fuelSm" class="form-control-sm form-control"></select>
+										<select name="fuelCode" id="fuelSm" class="form-control-sm form-control"></select>
 								</td>
 								
 								<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">엔진 종류</label>
 									</div> 
-									<select name="selectSm11" id="engineSm" class="form-control-sm form-control"></select>
+									<select name="feCode" id="engineSm" class="form-control-sm form-control"></select>
 								</td>
 							</tr>
 							
@@ -370,14 +400,14 @@
 							<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">차량컬러 대분류</label>
-									</div> <select name="selectSm8" id="bigColSm"
+									</div> <select name="colorBigCode" id="bigColSm"
 									class="form-control-sm form-control">
 								</select>
 								</td>
 								<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">컬러 상세</label>
-									</div> <select name="selectSm9" id="midColSm"
+									</div> <select name="colorMidCode" id="midColSm"
 									class="form-control-sm form-control">
 								</select>
 								</td>
@@ -386,7 +416,7 @@
 									<td>
 									<div class="col col-md-12">
 										<label for="selectSm" class=" form-control-label">차량선택옵션 선택</label>
-									</div> <select name="selectSm7" id="opChoiceSm"
+									</div> <select name="choiceOptionCode" id="opChoiceSm"
 									class="form-control-sm form-control">
 										<option th:each="opChoiceSel : ${opChoiceSelect}"
 											th:text="${opChoiceSel.choiceOptionName}"></option>
@@ -397,7 +427,7 @@
 					</div>
 					<div class="col col-6">
 						<div class="form-group">
-							<label for="postal-code" class=" form-control-label">생산 시작년도</label>
+							생산 시작년도
 							<input type="text" id="sellStartYear" readonly="readonly"
 								class="form-control" name="sellStartYear">
 						</div>
@@ -405,21 +435,21 @@
 					</div>
 					<div class="col col-6">
 						<div class="form-group">
-							<label for="postal-code" class=" form-control-label">생산 종료년도</label>
+							생산 종료년도
 							<input type="text" id="sellEndYear" readonly="readonly"
 								class="form-control" name="sellEndYear">
 						</div>
 					</div>
 					<div class="col col-6">
 						<div class="form-group">
-							<label for="postal-code" class=" form-control-label">자동차 등록일</label>
+							자동차 등록일
 							<input type="text" id="postal-code" placeholder="자동차 등록일"
 								class="form-control" name="carRegistrationDate">
 						</div>
 					</div>
 					<div class="col col-6">
 						<div class="form-group">
-							<label for="postal-code" class=" form-control-label">마지막 방문시 주행거리</label>
+							마지막 방문시 주행거리
 							<input type="text" id="postal-code"
 								placeholder="마지막 방문시 주행거리" class="form-control"
 								name="lastDistanceDriven">
@@ -427,7 +457,7 @@
 					</div>
 					<div class="col col-6">
 						<div class="form-group">
-							<label for="postal-code" class=" form-control-label">마지막 방문일</label>
+							마지막 방문일
 							<input type="text" id="postal-code" placeholder="마지막 방문일"
 								class="form-control" name="lastVisitDate">
 						</div>
