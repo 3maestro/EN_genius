@@ -35,47 +35,17 @@
 							</a>
 						</li>
 						<li>
+							<i class="fa fa-puzzle-piece">
+							</i>
+							<a th:href="@{/event/eventX}">
+								이벤트관리
+							</a>
+						</li>
+						<li>
 							<i class="fa fa-bars">
 							</i>
-							<a th:href="@{/customer/customerX}">
+							<a th:href="@{/customer/customerVisit}">
 								!방문내역
-							</a>
-						</li>
-						<li>
-							<i class="fa fa-puzzle-piece">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!이벤트 달력
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="menu-item-has-children dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="menu-icon fa fa-cogs">
-						</i>
-						!SMS
-					</a>
-					<ul class="sub-menu children dropdown-menu">
-						<li>
-							<i class="fa fa-puzzle-piece">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!SMS 예약어 관리
-							</a>
-						</li>
-						<li>
-							<i class="fa fa-id-badge">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!SMS 발송
-							</a>
-						</li>
-						<li>
-							<i class="fa fa-bars">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!SMS 발송내역
 							</a>
 						</li>
 					</ul>
@@ -86,16 +56,14 @@
                     
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>!직원관리</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a th:href="@{/employee/employeeSelect}">!직원 조회</a></li>
-                            <li><i class="fa fa-table"></i><a th:href="@{/employee/workCurrentState}">!직원 작업현황</a></li>
-                            <li><i class="fa fa-table"></i><a th:href="@{/employee/statistics}">!직원별 통계</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/employeeSelect}">!직원 조회</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/statistics}">!직원별 통계</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>#접수관리</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="#">#예약 등록</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/recRegister}">!접수 등록</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a th:href="@{/recList}">!접수 리스트</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a th:href="@{/repHistory}">!과거 정비 이력</a></li>
                         </ul>
@@ -126,8 +94,8 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-fort-awesome"></i><a th:href="@{/work/ccStandardWage}">!배기량별 공임 단가표</a></li>
                             <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/work/workManHour}">!표준 작업 시간</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/work/workingNow}">!진행 중인 작업</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/work/wageEstimate}">!공임 견적</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/work/WorkingNow}">!진행 중인 작업</a></li>
+                            <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/work/wageEstimateList}">!공임 견적</a></li>
                           
                         </ul>
                     </li>
@@ -138,6 +106,7 @@
                             <li><a href="/part/partInsert">!부품등록</a></li>
                             <li><a href="/part/partOrder">!부품구매</a></li>
                             <li><a href="/part/estimate">!부품견적</a></li>
+                            <li><a href="/part/pEstiList">!부품견적목록</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -151,7 +120,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a th:href="@{/login/loginForm}" th:if="${session.SID eq null}">!Login</a></li>
+                            <li><i class="menu-icon fa fa-sign-in"></i><a th:href="@{/loginForm}" th:if="${session.SID eq null}">!Login</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -175,7 +144,7 @@
                 	<li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>!사업장관리</a>
                     	<ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a th:href="@{/carfactory/CarFactorySelect}">!사업장 조회</a></li>
+                            <li><i class="fa fa-table"></i><a th:href="@{/CarFactorySearch}">!사업장 조회</a></li>
                     	</ul>
                 	</li>
             	</ul>

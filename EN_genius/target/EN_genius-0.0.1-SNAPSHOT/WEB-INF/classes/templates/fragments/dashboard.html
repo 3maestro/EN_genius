@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<div class="breadcrumbs" th:fragment="dashboardFragment" th:if="${session.CARCODE eq null}">
+	    <div class="breadcrumbs-inner" >
+	        <div class="row m-0">
+	            <div class="col-sm-10">
+	                <div class="page-header float-left">
+	                    <div class="page-title">
+	                    	<th:block layout:fragment="dashboardFragmentH1" >
+	                    		<h1>조회 된 정보가 없습니다</h1>
+	                    	</th:block>
+	                    	<!-- <th:block layout:fragment="dashboardFragmentH1" >
+	                    	</th:block> -->
+	                        <!-- 대쉬보드 이름 
+	                        	<h1>Dashboard</h1>
+	                        -->
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-sm-2">
+	                <div class="page-header float-right">
+	                    <div class="page-title">
+	                        <th:block layout:fragment="dashboardFragmentOl"></th:block>
+	                        <!--대쉬보드 리스트
+		                        <ol class="breadcrumb text-right">
+		                            <li><a href="#">Dashboard</a></li>
+		                            <li><a href="#">UI Elements</a></li>
+		                            <li class="active">Buttons</li>
+		                        </ol>
+	                         -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="breadcrumbs" th:fragment="dashboardFragment" th:if="${session.CARCODE ne null}">
+	    <div class="breadcrumbs-inner" >
+	        <div class="row m-0">
+	            <div class="col-sm-10">
+	                <div class="page-header float-left">
+	                    <div class="page-title">
+	                    	<th:block layout:fragment="dashboardFragmentH1" >
+	                    		<h1 style="font-style: inherit;">차량 번호 : [[${session.CARNUM}]] ｜  모델명 : [[${session.CARNAME}]] ｜   고객명 : [[${session.CUSNAME}]] ｜  핸드폰 : [[${session.CUSPHONE}]]</h1>
+	                    	</th:block>
+	                    	<!-- <th:block layout:fragment="dashboardFragmentH1" >
+	                    	</th:block> -->
+	                        <!-- 대쉬보드 이름 
+	                        	<h1>Dashboard</h1>
+	                        -->
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-sm-2">
+	                <div class="page-header float-right">
+	                    <div class="page-title">
+	                        <th:block layout:fragment="dashboardFragmentOl"></th:block>
+	                        <!--대쉬보드 리스트
+		                        <ol class="breadcrumb text-right">
+		                            <li><a href="#">Dashboard</a></li>
+		                            <li><a href="#">UI Elements</a></li>
+		                            <li class="active">Buttons</li>
+		                        </ol>
+	                         -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</html>
+
+
+
+
+	

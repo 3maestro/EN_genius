@@ -2,6 +2,8 @@ package com.cafe24.radev.vo;
 
 public class VoCarDetail {
 
+	private String sid;
+	private String scode;
 	private String originCode; // 국산/수입구분코드(PK)
 	private String originMain; // 국산/수입여부
 	private String vendorCode; // vendor_code(PK)
@@ -74,6 +76,20 @@ public class VoCarDetail {
 	private String colorMidName; // 외장색중분류명
 	private String cmdWriter; // 외장색 중분류 작성자
 	private String cmdDate; // 외장색 중분류 작성일자
+	
+	
+	public String getSid() {
+		return sid;
+	}
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+	public String getScode() {
+		return scode;
+	}
+	public void setScode(String scode) {
+		this.scode = scode;
+	}
 	public String getOriginCode() {
 		return originCode;
 	}
@@ -485,28 +501,29 @@ public class VoCarDetail {
 	}
 	@Override
 	public String toString() {
-		return "VoCarDetail [originCode=" + originCode + ", originMain=" + originMain + ", vendorCode=" + vendorCode
-				+ ", vendorName=" + vendorName + ", carClassCode=" + carClassCode + ", carClassMain=" + carClassMain
-				+ ", carModelCode=" + carModelCode + ", carModelName=" + carModelName + ", cmWriter=" + cmWriter
-				+ ", cmDate=" + cmDate + ", yearCarCode=" + yearCarCode + ", carModelDetail=" + carModelDetail
-				+ ", sellStartYear=" + sellStartYear + ", sellEndYear=" + sellEndYear + ", ycWriter=" + ycWriter
-				+ ", ycDate=" + ycDate + ", customerCarNumber=" + customerCarNumber + ", rcCode=" + rcCode + ", bsCode="
-				+ bsCode + ", customerCode=" + customerCode + ", customerPhone=" + customerPhone + ", customerName="
-				+ customerName + ", carProductionYear=" + carProductionYear + ", carRegistrationDate="
-				+ carRegistrationDate + ", lastDistanceDriven=" + lastDistanceDriven + ", lastVisitDate="
-				+ lastVisitDate + ", customerCarRegWriter=" + customerCarRegWriter + ", customerCarRegDate="
-				+ customerCarRegDate + ", customerCarRegCode=" + customerCarRegCode + ", optionGradeCode="
-				+ optionGradeCode + ", optionGradeName=" + optionGradeName + ", ogWriter=" + ogWriter + ", ogDate="
-				+ ogDate + ", choiceOptionCode=" + choiceOptionCode + ", choiceOptionName=" + choiceOptionName
-				+ ", coWriter=" + coWriter + ", coDate=" + coDate + ", lastOptionCode=" + lastOptionCode + ", loWriter="
-				+ loWriter + ", loDate=" + loDate + ", fuelCode=" + fuelCode + ", fuelType=" + fuelType
-				+ ", fuelWriter=" + fuelWriter + ", fuelDate=" + fuelDate + ", feCode=" + feCode + ", engineType="
-				+ engineType + ", feWriter=" + feWriter + ", feDate=" + feDate + ", tmCode=" + tmCode + ", tmType="
-				+ tmType + ", tmWriter=" + tmWriter + ", tmDate=" + tmDate + ", dwCode=" + dwCode + ", dwType=" + dwType
-				+ ", dwWriter=" + dwWriter + ", dwDate=" + dwDate + ", ptCode=" + ptCode + ", engineForm=" + engineForm
-				+ ", ptWriter=" + ptWriter + ", ptDate=" + ptDate + ", colorBigCode=" + colorBigCode + ", colorBigName="
-				+ colorBigName + ", cbWriter=" + cbWriter + ", cbDate=" + cbDate + ", colorMidCode=" + colorMidCode
-				+ ", colorMidName=" + colorMidName + ", cmdWriter=" + cmdWriter + ", cmdDate=" + cmdDate + "]";
+		return "VoCarDetail [sid=" + sid + ", scode=" + scode + ", originCode=" + originCode + ", originMain="
+				+ originMain + ", vendorCode=" + vendorCode + ", vendorName=" + vendorName + ", carClassCode="
+				+ carClassCode + ", carClassMain=" + carClassMain + ", carModelCode=" + carModelCode + ", carModelName="
+				+ carModelName + ", cmWriter=" + cmWriter + ", cmDate=" + cmDate + ", yearCarCode=" + yearCarCode
+				+ ", carModelDetail=" + carModelDetail + ", sellStartYear=" + sellStartYear + ", sellEndYear="
+				+ sellEndYear + ", ycWriter=" + ycWriter + ", ycDate=" + ycDate + ", customerCarNumber="
+				+ customerCarNumber + ", rcCode=" + rcCode + ", bsCode=" + bsCode + ", customerCode=" + customerCode
+				+ ", customerPhone=" + customerPhone + ", customerName=" + customerName + ", carProductionYear="
+				+ carProductionYear + ", carRegistrationDate=" + carRegistrationDate + ", lastDistanceDriven="
+				+ lastDistanceDriven + ", lastVisitDate=" + lastVisitDate + ", customerCarRegWriter="
+				+ customerCarRegWriter + ", customerCarRegDate=" + customerCarRegDate + ", customerCarRegCode="
+				+ customerCarRegCode + ", optionGradeCode=" + optionGradeCode + ", optionGradeName=" + optionGradeName
+				+ ", ogWriter=" + ogWriter + ", ogDate=" + ogDate + ", choiceOptionCode=" + choiceOptionCode
+				+ ", choiceOptionName=" + choiceOptionName + ", coWriter=" + coWriter + ", coDate=" + coDate
+				+ ", lastOptionCode=" + lastOptionCode + ", loWriter=" + loWriter + ", loDate=" + loDate + ", fuelCode="
+				+ fuelCode + ", fuelType=" + fuelType + ", fuelWriter=" + fuelWriter + ", fuelDate=" + fuelDate
+				+ ", feCode=" + feCode + ", engineType=" + engineType + ", feWriter=" + feWriter + ", feDate=" + feDate
+				+ ", tmCode=" + tmCode + ", tmType=" + tmType + ", tmWriter=" + tmWriter + ", tmDate=" + tmDate
+				+ ", dwCode=" + dwCode + ", dwType=" + dwType + ", dwWriter=" + dwWriter + ", dwDate=" + dwDate
+				+ ", ptCode=" + ptCode + ", engineForm=" + engineForm + ", ptWriter=" + ptWriter + ", ptDate=" + ptDate
+				+ ", colorBigCode=" + colorBigCode + ", colorBigName=" + colorBigName + ", cbWriter=" + cbWriter
+				+ ", cbDate=" + cbDate + ", colorMidCode=" + colorMidCode + ", colorMidName=" + colorMidName
+				+ ", cmdWriter=" + cmdWriter + ", cmdDate=" + cmdDate + "]";
 	}
 	
 }

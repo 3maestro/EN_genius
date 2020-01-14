@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius</title>
+	</th:block>
+	<th:block layout:fragment="customScript">	
+	<style>
+		button.search{
+		  background:#36d2ea2e;
+		  color:#fff;
+		  border:none;
+		  position:relative;
+		  height:40px;
+		  font-size:14px;
+		  padding:0 1em;
+		  cursor:pointer;
+		  transition:800ms ease all;
+		  outline:none;
+		}
+		button.search:hover{
+		  background:#fff;
+		  color:#1AAB8A;
+		}
+		button.search:before,button:after{
+		  content:'';
+		  position:absolute;
+		  top:0;
+		  right:0;
+		  height:2px;
+		  width:0;
+		  background: #1AAB8A;
+		  transition:400ms ease all;
+		}
+		button.search:after{
+		  right:inherit;
+		  top:inherit;
+		  left:0;
+		  bottom:0;
+		}
+		button.search:hover:before,button:hover:after{
+		  width:100%;
+		  transition:800ms ease all;
+		}
+	</style>
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			
+			var checkArray = new Array();
+			
+			$('#search').click(function(){
+				$('#sk').css('display','block');
+				$('#sv').css('display','block');
+				$('#sk').animate({
+			  	    width: "8%",
+			  	    opacity: 0.4,
+			  	    marginLeft: "0.2in",
+			  	    fontSize: "12px",
+			  	    borderWidth: "1px"
+			  	  }, 1500 );
+				$('#sv').animate({
+			  	    width: "15%",
+			  	    opacity: 0.4,
+			  	    marginLeft: "0.1in",
+			  	    marginRight: "0.1in",
+			  	    fontSize: "12px",
+			  	    borderWidth: "1px"
+			  	  }, 800 );
+				
+				$('#search').css('display','none');
+				$('#afterSearch').css('display','block');
+			});
+			
+			$(document).on('click','#afterSearch',function(){
+				var sk = $('[name=sk]').val();
+				var sv = $('[name=sv]').val();
+				console.log(sk);
+				console.log(sv);
+								
+				var request = $.ajax({
+					url: "/carfactory/carFactorySearch",
+					method: "POST",
+					data : {'sk' : sk, 'sv' : sv }, 
+					dataType : "json",
+					success : function(data){
+						
+						var result='';
+						$.each(data, function(index, item){
+							result+='<tr>';
+							result+='<td class="a-center"><input type="checkbox" name="bsCode" class="bsCode" value="'+item.bsCod+'"></td>';
+							result+='<td><span>'+item.bsDate+'</span></td>';
+							result+='<td><span>'+item.bsName+'</span></td>';
+							result+='<td><span>'+item.bossName+'</span></td>';
+							result+='<td><span>'+item.bsAddr+'</span></td>';
+							result+='<td><span>'+item.bsTelephone+'</span></td>';
+							result+='<td><span>'+item.bsCheck+'</span></td>';
+							result+='<td><span data-bsCode="'+item.bsCode+'" name="bsCodePopupBtn" class="badge badge-info">서류</span></td>';
+							result+='<td><span data-toggle="modal" data-target="#myModal" class="badge badge-info bsDetail"'
+							result+='data-bsCode="'+item.bsCode+'"';
+							result+='data-bsName="'+item.bsName+'"';
+							result+='data-bossId="'+item.bossId+'"';
+							result+='data-bossPw="'+item.bossPw+'"';
+							result+='data-bossName="'+item.bossName+'"';
+							result+='data-bossPhoneNum="'+item.bossPhoneNum+'"';
+							result+='data-bossEmail="'+item.bossEmail+'"';
+							result+='data-bsNumber="'+item.bsNumber+'"';
+							result+='data-bsAddNum="'+item.bsAddNum+'"';
+                   			result+='data-bsFaxNumber="'+item.bsFaxNumber+'"';
+                   			result+='data-bsTelephone="'+item.bsTelephone+'"';
+                   			result+='data-bsRegistration="'+item.bsRegistration+'"';
+                   			result+='data-bsAddr="'+item.bsAddr+'"';
+                   			result+='data-bsPost="'+item.bsPost+'">상세</span></td>';           			
+							result+='</tr>';
+						});
+						$('tbody').remove();						
+						$('.table').append('<tbody></tbody>');						
+						$('tbody').html(result);						
+					}
+				});	
+			});		
+			
+			$('#check-all').click(function(){
+				var isCheck = $(this).is(':checked');
+				var checklist = $('input:checkbox[name="bsCode"]');
+				console.log(isCheck);				
+				if(isCheck){
+					checklist.prop('checked',true);
+				}else{
+					checklist.prop('checked',false);
+				}
+			});
+			
+		  	$('.approval').click(function(){
+				
+				$('.bsCode').each(function(){
+					if($(this).is(':checked')){						
+						checkArray.push($(this).val());	
+					}					
+				});
+				console.log(checkArray)
+				
+				var dataMap = {'checkArray' : checkArray}
+				var request = $.ajax({
+					url:"/carfactory/approvalCheck",
+					type: "POST",
+					traditional:true,
+					data : dataMap,
+					success : function(data){
+						location.href = '/carfactory/CarFactorySelect';
+					}
+				});
+							
+			}) 
+			
+		 	$('.refusal').click(function(){
+				
+		 		$('.bsCode').each(function(){
+					if($(this).is(':checked')){						
+						checkArray.push($(this).val());	
+					}					
+				});
+				console.log(checkArray)
+				
+				var dataMap = {'checkArray' : checkArray}
+				var request = $.ajax({
+					url:"/carfactory/approvalRefusal",
+					type: "POST",
+					traditional:true,
+					data : dataMap,
+					success : function(data){
+						location.href = '/carfactory/CarFactorySelect';
+					}
+				});	
+			})  
+		 	$('[name=approval]').click(function(){
+		 		var A = $(this).text();
+		 		console.log(A);
+				if( A=='승인' ){
+					location.href = '/carfactory/approvalSelect?approval=Y';
+				}else{
+					location.href = '/carfactory/approvalSelect?approval=-';
+				}
+			});	 
+			
+			$(document).on('click','[name=bsCodePopupBtn]',(function(){
+				var bsCode = $(this).attr('data-bsCode');
+
+				var width = 700
+				var height = 900
+				
+				var popupX = (document.body.offsetWidth / 2) - (width / 2);
+				var popupY = (document.body.offsetHeight  / 2) - (height / 2);
+				
+				var request = $.ajax({
+					url:"/carfactory/selectImage",
+					method: "POST",
+					data : { 'bsCode' : bsCode }, 
+					dataType : "text"	
+				});
+				
+				request.done(function(data){
+					console.log(data);		
+					window.open('/file-upload/'+data , 'Image' , 'status=no, width='+width+'px, height='+height+'px, left='+ popupX + ', top='+ popupY +', resizable=1');
+		
+				});
+				request.fail(function(jqXHR, textStatus){
+					alert("첨부파일 출력 중 오류가 발생하였습니다.");			
+				});				
+			}));
+		  	
+		  	$(document).on('click','.bsDetail',(function(){
+				var bsCode = $(this).attr('data-bsCode');
+				var bsName = $(this).attr('data-bsName');
+				var bossId = $(this).attr('data-bossId');
+				var bossPw = $(this).attr('data-bossPw');
+ 				var bossName = $(this).attr('data-bossName');
+				var bossPhoneNum = $(this).attr('data-bossPhoneNum');
+				var bossEmail = $(this).attr('data-bossEmail');
+				var bsNumber = $(this).attr('data-bsNumber');
+				var bsAddNum = $(this).attr('data-bsAddNum');
+				var bsFaxNumber = $(this).attr('data-bsFaxNumber');
+				var bsTelephone = $(this).attr('data-bsTelephone');
+				var bsRegistration = $(this).attr('data-bsRegistration');
+				var bsAddr = $(this).attr('data-bsAddr');
+				var bsPost = $(this).attr('data-bsPost');
+				
+				$('[name=bsName]').val(bsName);
+				$('[name=bossId]').val(bossId);
+				$('[name=bossPw]').val(bossPw);
+				$('[name=bossName]').val(bossName);
+				$('[name=bossPhoneNum]').val(bossPhoneNum);
+				$('[name=bossEmail]').val(bossEmail);
+				$('[name=bsNumber]').val(bsNumber);
+				$('[name=bsAddNum]').val(bsAddNum);
+				$('[name=bsFaxNumber]').val(bsFaxNumber);
+				$('[name=bsTelephone]').val(bsTelephone);
+				$('[name=bsRegistration]').val(bsRegistration);
+				$('[name=bsAddr]').val(bsAddr);
+				$('[name=bsPost]').val(bsPost);
+			}));
+		});
+	</script>
+	</th:block>
+	
+	<th:block layout:fragment="contentFragment">
+		<div class="col-lg-12">
+        <div class="card">
+            <div class="card-header" style="background-color: #17a2b8a6;">
+                <strong class="card-title" style="color: #f8f9fa; font-size: 20px;">사업장 리스트</strong>
+                <button class="search" name="approval" style="float: right;">승인</button>
+                <button class="search" name="approval" style="float: right;">요청</button>
+                <button class="search" id="search" style="float: right;">검색</button>
+                <button class="search" id="afterSearch" style="float: right; display:none;" >검색</button>
+                <input type="text" id="sv" name="sv" style="float: right; display: none;"/>
+                <select id="sk" name="sk" style="display: none; float: right;">
+                	<option>::검색::</option>
+                	<option value="bs_name">사업장명</option>
+                	<option value="boss_name">이름</option>
+                	<option value="bs_num">사업자번호</option>
+                	<option value="bs_faxnumber">팩스번호</option>
+                </select>
+            </div>
+            <div class="card-body">  
+	            <form>
+	                <table class="table">
+	                    <thead>
+	                        <tr>
+	                          <th>
+	                          	<input type="checkbox" id="check-all">
+	                          </th>
+	                          <!-- <th>#</th> -->
+	                          <th>요청일자</th>
+	                          <th>사업장명</th>
+	                          <th>사업주</th>
+	                          <th>사업장</th>
+	                          <th>연락처</th>
+	                          <th>승인여부</th>
+	                          <th>첨부</th>
+	                          <th>상세</th>
+	                      </tr>
+	                  </thead>
+	                  <tbody th:each="c : ${carfactorylist}">
+	                    <tr>
+	                        <td class="a-center">
+	                          <input type="checkbox" name="bsCode" class="bsCode" th:value="${c.bsCode}">
+	                        </td>
+	                        <!-- <th scope="row">1</th> -->
+	                        <td><span class="bsDate" th:text="${c.bsDate}"></span></td>
+	                        <td><span class="bsName" th:text="${c.bsName}"></span></td>
+	                        <td><span class="bossName" th:text="${c.bossName}"></span></td>
+	                        <td><span class="bsAddr" th:text="${c.bsAddr}"></span></td>
+	                        <td><span class="bsTelephone" th:text="${c.bsTelephone}"></span></td>
+	                        <td><span class="bsCheck" th:text="${c.bsCheck}"></span></td>                       
+	                        <td><span th:data-bsCode="${c.bsCode}" th:text="서류" name="bsCodePopupBtn" class="badge badge-info"></span></td>
+	                        <td><span th:text="상세" data-toggle="modal" data-target="#myModal" class="badge badge-info bsDetail"
+	                        			th:data-bsCode="${c.bsCode}"
+	                        			th:data-bsName="${c.bsName}"
+	                        			th:data-bossId="${c.bossId}"
+	                        			th:data-bossPw="${c.bossPw}"
+	                        			th:data-bossName="${c.bossName}"
+	                        			th:data-bossPhoneNum="${c.bossPhoneNum}"
+	                        			th:data-bossEmail="${c.bossEmail}"
+	                        			th:data-bsNumber="${c.bsNumber}"
+	                        			th:data-bsAddNum="${c.bsAddNum}"
+	                        			th:data-bsFaxNumber="${c.bsFaxNumber}"
+	                        			th:data-bsTelephone="${c.bsTelephone}"
+	                        			th:data-bsRegistration="${c.bsRegistration}"
+	                        			th:data-bsAddr="${c.bsAddr}"
+	                        			th:data-bsPost="${c.bsPost}">
+	                        	</span>
+	                        </td>
+	                    </tr>
+	                </tbody>          
+	            </table>
+	          	<hr><button type="button" class="btn btn-outline-primary approval" style="float: right;">승인</button>
+	          	<button type="button" class="btn btn-outline-primary refusal" style="float: right;" >승인거부</button>
+	            </form>   
+			</div>    
+		</div>
+		</div>
+		<!-- Modal --><!-- fade 지우면 똑딱 뜨고 넣으면 소로록 -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h3 class="modal-title" id="myModalLabel">사업장 상세정보</h3>
+		      </div>
+		      <div class="modal-body">	   
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsName" placeholder="사업장이름" class="form-control" readonly="readonly">
+				    	<input type="text" name="bossName" placeholder="이름" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bossId" placeholder="아이디" class="form-control" readonly="readonly">
+				    	<input type="password" name="bossPw" placeholder="비밀번호" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="tel" name="bossPhoneNum" placeholder="연락처" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bossEmail" placeholder="이메일" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsNumber" placeholder="사업장번호" class="form-control" readonly="readonly">
+				    	<input type="text" name="bsAddNum" placeholder="정비업번호" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsFaxNumber" placeholder="팩스번호" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsTelephone" placeholder="사업장연락처" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsRegistration" placeholder="사업장등록일" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+				    <div class="form-group">
+				    <div class="input-group">
+				    	<input type="text" name="bsAddr" placeholder="주소" class="form-control" readonly="readonly">
+				    	<input type="text" name="bsPost" placeholder="우편번호" class="form-control" readonly="readonly">
+				    </div>
+				    </div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</th:block>
+</html>

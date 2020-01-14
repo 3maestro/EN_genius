@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>EN_genius</title>
+	</th:block>
+	<th:block layout:fragment="contentFragment">
+		<div class="col-lg-12" th:fragment="listfragment">
+			<div class="card">
+				<div class="card-header">
+					<h4>Pie Chart</h4>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-2">
+							<span class="pie" data-peity='{ "fill": ["#13dafe", "#f2f2f2"]}'>1/4</span>
+						</div>
+						<div class="col-lg-2">
+							<span class="pie" data-peity='{ "fill": ["#6164C1", "#f2f2f2"]}'>236/360</span>
+						</div>
+						<div class="col-lg-2">
+							<span class="pie" data-peity='{ "fill": ["#F96262", "#f2f2f2"]}'>0.45/1.561</span>
+				        </div>
+				    	<div class="col-lg-2">
+				    		<span class="pie" data-peity='{ "fill": ["#99D683", "#f2f2f2"]}'>1,4</span>
+				  		</div>
+				      	<div class="col-lg-2">
+				    		<span class="pie" data-peity='{ "fill": ["#FFCA4A", "#f2f2f2"]}'>366,100</span>
+				     	</div>
+				   		<div class="col-lg-2">
+				     		<span class="pie" data-peity='{ "fill": ["#4C5667", "#f2f2f2"]}'>0.52,1.041</span>
+				    	</div>
+			  		</div>
+			    </div>
+		    </div>		      
+		</div>
+	</th:block>
+</html>

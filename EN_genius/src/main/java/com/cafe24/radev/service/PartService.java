@@ -189,11 +189,13 @@ public class PartService {
 			//System.out.println(i+":"+partChecks[i]);
 			checkValue = partChecks[i];
 			Part part = partMapper.partSelectForOrder(checkValue, bsCode);
-			if(manys!= null && part!= null) {
+			if(manys!= null) {
 				//현재수량
-				rowMany = manys[i];
-				//System.out.println(rowMany+": "+i);
-				part.setPartMany(rowMany);
+				if(manys.length > 0) {
+					rowMany = manys[i];
+					//System.out.println(rowMany+": "+i);
+					part.setPartMany(rowMany);
+				}
 			}
 			list.add(part);
 		}

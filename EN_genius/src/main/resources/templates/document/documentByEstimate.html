@@ -173,7 +173,7 @@ layout:decorate="~{layout/default}" >
 										<p class="HStyle0" style="text-align:center;"><span style="font-size:9.0pt;font-family:&quot;굴림&quot;;line-height:160%;">소재지</span></p>
 									</td>
 									<td colspan="8" width="264" height="35" valign="middle" style="border-left:solid #000000 0.4pt;border-right:solid #000000 1.1pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt">
-										<p class="HStyle0" style="text-align:left;"><span style="font-size:9.0pt;font-family:&quot;굴림&quot;;line-height:160%;"  th:text="'('+${info.addrDetail}+')&nbsp;&nbsp;'+${info.bsAddr}">&nbsp;</span></p>
+										<p class="HStyle0" style="text-align:left;"><span style="font-size:9.0pt;font-family:&quot;굴림&quot;;line-height:160%;"  th:text="'('+${info.bsPost}+')&nbsp;&nbsp;'+${info.bsAddr}">&nbsp;</span></p>
 									</td>
 								</tr>
 								<tr>
@@ -510,6 +510,7 @@ layout:decorate="~{layout/default}" >
 							</table>
 						</div>
 						<input type="hidden" th:value="${groupCode}" name="groupCode">
+						<input type="hidden" th:value="${docNo}" name="docNo">
 						<button class="btn btn-warning" type="submit" name="sellBtn">확인</button>
 						</form>
 						</div>
