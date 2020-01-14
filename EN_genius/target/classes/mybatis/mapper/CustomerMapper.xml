@@ -18,6 +18,8 @@
 		<result property="customerAddr"		column="customer_addr"/>
 		<result property="customerPhone"	column="customer_phone"/>
 		<result property="customerMemo"		column="customer_memo"/>
+		<collection property="voCarDetail" resultMap="DetailMap"/>
+		<collection property="voRecRegister" resultMap="RegistertMap"/>
 	</resultMap>
 	
 	<select id="getCustomerSelect" resultMap="CustomerResultMap">
@@ -33,6 +35,65 @@
 			,customer_addr	
 			,customer_phone
 			,customer_memo
+		FROM
+			customer_tb
+		WHERE
+				bs_code=#{scode}
+				
+		<if test="customerName neq null and customerName neq ''.toString()">
+			AND
+				customer_name like CONCAT('%',#{customerName},'%')
+		</if>
+		
+		<if test="customerGender neq null and customerGender neq ''.toString()">
+			AND
+				customer_gender = #{customerGender}
+		</if>
+		
+		<if test="customerPhone neq null and customerPhone neq ''.toString()">
+			AND
+				customer_phone like CONCAT('%',#{customerPhone},'%')
+		</if>
+		
+		<if test="customerMemo neq null and customerMemo neq ''.toString()">
+			AND
+				customer_memo like CONCAT('%',#{customerMemo},'%')
+		</if>
+		
+		<if test="customerBirth1 neq null and customerBirth1 neq ''.toString()">
+			AND
+				customer_birth >= #{customerBirth1}
+		</if>
+		
+		<if test="customerBirth2 neq null and customerBirth2 neq ''.toString()">
+			AND
+				customer_birth <![CDATA[<=]]> #{customerBirth2}
+		</if>
+		
+		<if test="customerSign1 neq null and customerSign1 neq ''.toString()">
+			AND
+				customer_sign >= #{customerSign1}
+		</if>
+		
+		<if test="customerSign2 neq null and customerSign2 neq ''.toString()">
+			AND
+				customer_sign <![CDATA[<=]]> #{customerSign2}
+		</if>
+
+		<if test="arrange neq null and arrange neq ''.toString()">
+			ORDER BY
+				${arrange} ${asc}
+		</if>
+		
+		<if test="limit neq null and limit neq ''.toString()">
+			LIMIT
+				${limit*page},${limit}
+		</if>
+	</select>
+	
+	<select id="getCustomerPage" resultType="String">
+	  	SELECT 
+			count(1)
 		FROM
 			customer_tb
 		WHERE
@@ -75,11 +136,6 @@
 		<if test="customerSign2 neq null and customerSign2 neq ''.toString()">
 			AND
 				customer_sign <![CDATA[<=]]> #{customerSign2}
-		</if>
-		
-		<if test="limit neq null and limit neq ''.toString()">
-			LIMIT
-				${limit*page},${limit}
 		</if>
 	</select>
 	
@@ -147,5 +203,18 @@
 		WHERE 
 			customer_code=#{customerCode}
 	</update>
+
+	<resultMap type="com.cafe24.radev.vo.VoCarDetail" id="DetailMap">
+		<result property="customerCarNumber" column="customer_car_number"/>
+	</resultMap>
+
+	<resultMap type="com.cafe24.radev.vo.VoRecRegister" id="RegistertMap">
+		<result property="receptionCode" column="reception_code"/>
+		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="repairClassName" column="repair_class_name"/>
+		<result property="receptionMemo" column="reception_memo"/>
+		<result property="displaceMent" column="ei_code"/>
+		<result property="receptionDate" column="reception_date"/>
+	</resultMap>
 
 </mapper>

@@ -13,7 +13,44 @@
 		<result property="receptionDate" column="reception_date"/>
 		<result property="repairClassName" column="repair_class_name"/>
 		<result property="receptionProgress" column="reception_progress"/>
+		<result property="sId" column="s_id"/>
+		<result property="sCode" column="s_code"/>
+		<result property="empName" column="emp_name"/>
+		<result property="customerName" column="customer_name"/>
+		<result property="customerPhone" column="customer_phone"/>
+		<result property="carModelDetail" column="car_model_detail"/>
+		<result property="receptionMemo" column="reception_memo"/>
 	</resultMap>
+	
+	<select id="getListAdd" parameterType="String" resultMap="RecRegisterMap">
+		SELECT
+			re.customer_car_info_code,
+			re.bs_code,
+			em.emp_name,
+			re.reception_date,
+			cu.customer_name,
+			cu.customer_phone,
+			yc.car_model_detail
+		FROM
+			reception_tb AS re
+		INNER JOIN
+			customer_tb cu
+		ON 
+			re.ei_code = cu.ei_code
+		INNER JOIN
+			employee_information_tb AS em
+		ON 
+			re.ei_code = em.ei_code,
+		 	car_model_tb AS cm
+		INNER JOIN
+			year_car_tb AS yc
+		ON
+			cm.car_model_code = yc.car_model_code
+			WHERE re.customer_car_info_code = 'KMHEM42BPAC202444'
+		GROUP BY re.customer_car_info_code
+
+		
+	</select>
 
 	<select id="getRecList" resultMap="RecRegisterMap" parameterType="String">
 			SELECT 
