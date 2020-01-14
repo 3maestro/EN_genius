@@ -13,6 +13,7 @@
 			
 			$('#ListAddBtn').click(function(){
 				
+				
 				var request = $.ajax({
 					  url: "getListAdd",
 					  method: "POST",
@@ -22,6 +23,14 @@
 				
 					request.done(function(data) {
 						console.log(data)
+						$('#customerCarInfoCode').text(data.customerCarInfoCode)
+						$('#addEmName').text(data.empName);
+						$('#addEmDate').text(data.receptionDate);
+						$('#addCusName').text(data.customerName);
+						$('#addCusPhone').text(data.customerPhone);
+						$('#addCusCar').text(data.carModelDetail);
+						
+
 					});
 					 
 					
@@ -243,7 +252,7 @@
 				    </div>				    
 				    <div>
 				    <div>
-				    	<input type="text" name="customerCarInfoCode" class="form-control">
+				    	<input type="text" id="customerCarInfoCode" name="customerCarInfoCode" class="form-control">
 				    </div>
 				    </div>
 				    <br>
@@ -253,13 +262,10 @@
 						<table>
 						<tr style="width: 500px;">
 								<td style="width: 65%;">
-									<strong class="card-title" cols="50" rows="10" th:value="${voRecRegister.empName}"> 직원 이름 : </strong>
-								<td>  
-									<strong class="card-title" cols="50" rows="10">직원 아이디 : </strong>
-								</td>
+									<div>직원 이름 : <span class="card-title" id="addEmName" cols="50" rows="10"></span></div>
 							<tr style="width: 500px;">
 								<td style="width: 65%;">
-									<strong class="card-title" cols="50" rows="10">접수 시간 : </strong>
+									<div>접수 시간 : <span class="card-title" id="addEmDate" cols="50" rows="10"></span></div>
 								</td>
 							
 								</table>
@@ -267,18 +273,17 @@
 								<table>
 							
 							<tr style="width: 500px;">
-								<td style="width: 65%;">
-									<strong class="card-title" cols="50" rows="10">고객 이름 :</strong>
+								<td style="width: 35%;">
+									<div>고객 이름 : <span class="card-title" id="addCusName" cols="50" rows="10"></span></div>
 								</td> 
 								<td>  
-									<strong class="card-title" cols="50" rows="10">고객 폰번호 : </strong>
+									<div>고객 폰번호 : <span class="card-title" id="addCusPhone" cols="50" rows="10"></span></div>
 								</td>
 							</tr>
-							<tr style="width: 400px;">
-								<td style="width: 50%;">
-									<strong class="card-title" cols="50" rows="10">고객차량 명 : </strong>
+							<tr style="width: 500px;">
+								<td style="width: 35%;">
+									<div>고객 차량명 : <span class="card-title" id="addCusCar" cols="90" rows="30"></span></div>
 								</td>
-							</tr>
 							</tr>
 						</table>
 						</div>
