@@ -14,7 +14,7 @@
             datasets: [
                 {
                     label: "요일별 판매건수",
-                    data: [ monday , 50, 65, 20, 56, 2, ],
+                    data: [ monday , 50, 75, 100, 56, 55, 60 ],
                     borderColor: "rgba(0, 194, 146, 0.9)",
                     borderWidth: "0",
                     backgroundColor: "rgba(0, 194, 146, 0.5)"

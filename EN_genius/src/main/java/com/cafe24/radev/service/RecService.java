@@ -33,6 +33,18 @@ public class RecService {
 		}
 		return list;
 	}
+	
+	public VoRecRegister getRecSearch(String bsCode, String recNum ) {
+		//String bsCode=(String)session.getAttribute("SCODE"); 
+		
+		//정비사업소별 리스트값
+//		List<VoRecRegister> list = new ArrayList<VoRecRegister>();
+//		list = ;
+//		System.out.println("서비스" + list);
+		
+		return recMapper.getRecSearch(bsCode, recNum);
+	}
+	
 	public List<VoRecRegister> getRecListCC() {
 		return recMapper.getRecListCC();
 	}

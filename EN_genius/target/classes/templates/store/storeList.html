@@ -8,6 +8,7 @@
 		<title>거래처목록</title>
 	</th:block>
 	<th:block layout:fragment="contentFragment">
+			거래처목록
 		<div class="animated fadeIn">
 			<div class="row">
 				<div class="col-md-12">
@@ -17,7 +18,7 @@
 						</div>
 						<div class="card-body">
 							<form>
-								<table style="font-size: 11px;" class="table table-striped table-bordered"  border="1">
+								<table style="font-size: 11px;" class="table table-striped table-bordered" id="bootstrap-data-table" border="1">
 									<tr>
 										<td>거래처명</td>
 										<td>사업자번호</td>
@@ -31,18 +32,19 @@
 										<td>업데이트일자</td>
 									</tr>
 									<tr th:each=sl:${storeList}>
-										<td><span th:text="${sl.storeName}"></span></td>
-										<td><span th:text="${sl.storeLisen}"></span></td>
-										<td><span th:text="${sl.storeCeoName}"></span></td>
-										<td><span th:text="${sl.storeAddr}"></span></td>
-										<td><span th:text="${sl.storePhone}"></span></td>
-										<td><span th:text="${sl.storeFax}"></span></td>
-										<td><span th:text="${sl.storeBank}"></span></td>
-										<td><span th:text="${sl.storeAccount}"></span></td>
-										<td><span th:text="${sl.storeWtite}"></span></td>
-										<td><span th:text="${sl.storeDate}"></span></td>
+										<td><input type="checkbox" th:text="${sl.storeName}" th:value="${sl.storeName}" name="storeCheck"></td>
+										<td th:text="${sl.storeLisen}" th:value="${sl.storeLisen}"></td>
+										<td th:text="${sl.storeCeoName}" th:value="${sl.storeCeoName}"></td>
+										<td th:text="${sl.storeAddr}" th:value="${sl.storeAddr}"></td>
+										<td th:text="${sl.storePhone}" th:value="${sl.storePhone}"></td>
+										<td th:text="${sl.storeFax}" th:value="${sl.storeFax}"></td>
+										<td th:text="${sl.storeBank}" th:value="${sl.storeBank}"></td>
+										<td th:text="${sl.storeAccount}" th:value="${sl.storeAccount}"></td>
+										<td th:text="${sl.storeWtite}" th:value="${sl.storeWtite}"></td>
+										<td th:text="${sl.storeDate}" th:value="${sl.storeDate}"></td>
 									</tr>
 								</table>
+								<button type="button">1</button>
 							</form>
 						</div>
 					</div>
