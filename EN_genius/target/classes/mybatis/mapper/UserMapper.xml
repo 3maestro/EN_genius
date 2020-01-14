@@ -122,7 +122,11 @@
 			from 
 				business_tb 
 			WHERE 
-				bs_check = #{approval};
+				bs_check = #{approval}
+			AND
+				bs_writer
+			NOT IN
+				('관리자');
 		</select>				
 		<select id="selectImage" resultType="String">
 			SELECT 
