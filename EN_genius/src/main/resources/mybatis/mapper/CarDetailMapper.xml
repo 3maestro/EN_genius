@@ -52,7 +52,6 @@
 		<result property="colorMidName" column="color_mid_name"/>
 		<result property="customerName" column="customer_name"/>
 		<result property="customerPhone" column="customer_phone"/>
-		
 	</resultMap>
 	
 	
@@ -65,23 +64,31 @@
 			car_class_code, car_model_code, year_car_code, 
 			option_grade_code, fuel_code, fe_code, color_big_code, 
 			color_mid_code, car_registration_date, last_visit_date,
-			customer_car_reg_writer, customer_car_reg_date)
+			last_distance_driven,customer_car_reg_writer, customer_car_reg_date)
 			
-			VALUES ('#{customerCarRegCode}', 'bs002', 
+			VALUES (#{customerCarRegCode}, #{scode}, 
 		
 		(SELECT 
 			customer_tb.customer_code
 		FROM
 			customer_tb
 		WHERE  
-			customer_tb.customer_name = #{customerCode} AND customer_tb.customer_phone = customerCode), 
+			customer_tb.customer_name = #{customerName} AND customer_tb.customer_phone = #{customerPhone}), 
 			#{customerCarNumber}, #{originCode}, #{vendorCode}, 
 			#{carClassCode}, #{carModelCode}, #{yearCarCode},
-			 #{optionGradeCode}, #{fuelCode}, #{colorBigCode},#{feCode}, #{colorMidCode}, #{carRegistrationDate}, #{lastDistanceDriven}, 
-			 #{lastVisitDate}, 'aaa', NOW())
+			 #{optionGradeCode}, #{fuelCode},#{feCode},#{colorBigCode}, #{colorMidCode}, #{carRegistrationDate}, #{lastDistanceDriven}, 
+			 #{lastVisitDate}, #{sid}, NOW())
 
 
 	</insert>
+	
+	<select id="customerNameSelect" resultType="String">
+		SELECT 
+			customer_tb.customer_phone
+		FROM
+			customer_tb
+		WHERE customer_tb.customer_name = #{customerName}
+	</select>
 	
 	
 	<select id="getCarList" resultMap="CarDetailMap">

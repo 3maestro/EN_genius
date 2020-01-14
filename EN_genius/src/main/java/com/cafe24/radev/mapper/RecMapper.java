@@ -10,6 +10,9 @@ import com.cafe24.radev.vo.VoRecRegister;
 
 @Mapper
 public interface RecMapper {
+
+	public VoRecRegister getListAdd(String carinfo);
+	
 	/**
 	 * 접수 리스트 맵퍼
 	 * @return

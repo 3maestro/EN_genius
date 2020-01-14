@@ -7,7 +7,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafe24.radev.mapper.CarMapper;
 import com.cafe24.radev.mapper.RecMapper;
 import com.cafe24.radev.vo.VoRecRegister;
 
@@ -15,6 +17,12 @@ import com.cafe24.radev.vo.VoRecRegister;
 public class RecService {
 	
 	@Autowired private RecMapper recMapper;
+	
+	public VoRecRegister getListAdd(String carinfo) {
+		
+		return recMapper.getListAdd(carinfo);
+		
+	}
 	
 	public List<VoRecRegister> getRecList(HttpSession session) {
 		String bsCode=(String)session.getAttribute("SCODE"); 
