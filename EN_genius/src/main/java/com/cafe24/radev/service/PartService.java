@@ -29,9 +29,9 @@ public class PartService {
 	@Autowired private UserMapper userMapper;
 	
 	//현제 날짜정보
-	SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+	SimpleDateFormat formatDay = new SimpleDateFormat ("yyyy-MM-dd");
 	Calendar time = Calendar.getInstance();
-	String nowDate = format.format(time.getTime());
+	String nowDate = formatDay.format(time.getTime());
 	String bsCode /* = (String)session.getAttribute("SCODE") */;
 	List<Part> list = null;
 	String partWrite = null;
@@ -177,11 +177,11 @@ public class PartService {
 		
 		list = new ArrayList<Part>();
 		String checkValue = null;
-		String rowMany = null;
+		
 		bsCode = (String) session.getAttribute("SCODE");
 		String[] partChecks =  partCheck.split(",");
-		String[] manys=null;
-		if(many!=null) {
+		String[] manys = null;
+		if(many != null) {
 			manys =  many.split(",");
 		}
 		
@@ -189,15 +189,17 @@ public class PartService {
 			//System.out.println(i+":"+partChecks[i]);
 			checkValue = partChecks[i];
 			Part part = partMapper.partSelectForOrder(checkValue, bsCode);
-			if(manys!= null && part!= null) {
-				//현재수량
-				rowMany = manys[i];
-				//System.out.println(rowMany+": "+i);
-				part.setPartMany(rowMany);
+			if(manys != null) {
+				if(manys.length > 1) {
+					//현재수량
+					System.out.println("체킹포인트"+manys.length);
+					String rowMany = manys[i];
+					//System.out.println(rowMany+": "+i);
+					part.setPartMany(rowMany);
+				}
 			}
 			list.add(part);
 		}
-
 		return list;
 	}
 	
@@ -351,7 +353,7 @@ public class PartService {
 		docNo += nowDate.replace("-","");
 		docNo += index;
 		//System.out.println(docNo);
-		
+			
 		//System.out.println(docNo+" : <문서코드값");
 		return docNo;
 	}
@@ -364,9 +366,9 @@ public class PartService {
 	 * @param gCode
 	 */
 	
-	public void estimatePro(PartEsimate partEs,HttpSession session,String gCode) { 
+	public void estimatePro(PartEsimate partEs,HttpSession session,String gCode,String docNo) { 
 		System.out.println("판매등록"); 
-		//System.out.println(gCode);
+		System.out.println(gCode);
 		bsCode = (String)session.getAttribute("SCODE"); 
 		partWrite = (String)session.getAttribute("SID"); 
 		if(partWrite == null) {
@@ -403,7 +405,7 @@ public class PartService {
 		partEs.setPartTex(itex); 
 		partEs.setPartToPrice(tprice);
 		partEs.setEsCode(esCode);
-				
+		partEs.setDocNo(docNo);		
 		partMapper.addEstimate(partEs);
 	}
 	

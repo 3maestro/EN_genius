@@ -35,6 +35,7 @@
 		<result property="esCode" column="part_estimate_code"/>
 		<result property="bsCode" column="bs_code"/>
 		<result property="grCode" column="group_code"/>
+		<result property="docNo" column="document_num"/>
 		<result property="partNumber" column="part_number"/>
 		<result property="partMany" column="part_estimate_many"/>
 		<result property="partPrice" column="part_estimate_price"/>
@@ -153,10 +154,10 @@
 	<insert id="addEstimate" parameterType="com.cafe24.radev.vo.PartEsimate">
 		INSERT INTO 
 		part_estimate_tb 
-			(part_estimate_code,bs_code,group_code,part_number,part_estimate_many,part_estimate_price,part_esatimate_tex,part_estimate_totalprice,part_estimate_dec,pe_writer,pe_date) 
+			(part_estimate_code,bs_code,group_code,document_num,part_number,part_estimate_many,part_estimate_price,part_esatimate_tex,part_estimate_totalprice,part_estimate_dec,pe_writer,pe_date) 
 		VALUES 
-			(#{esCode},#{bsCode},#{grCode},#{partNumber},#{partMany},#{partPrice},#{partTex},#{partToPrice},
-			#{esDec},#{writer},#{innitDate});
+			(#{esCode},#{bsCode},#{grCode},#{docNo},#{partNumber},#{partMany},#{partPrice},#{partTex},#{partToPrice},
+			#{esDec},#{writer},now());
 	</insert>
 	
 	<!-- 판매코드값	-->
