@@ -6,7 +6,14 @@
 	<th:block layout:fragment="customTitle">
 		<title>EN_genius [[${title}]]</title>
 	</th:block>
-	
+	<th:block layout:fragment="customCss">
+		<style>
+			table
+			{
+				font-size: 15px;
+			}
+		</style>
+	</th:block>
 	<th:block layout:fragment="customScript">
 		<script th:inline="javascript">
 			var sid		= /*[[${session.SID}]]*/;
@@ -113,15 +120,21 @@
 					searchList();
 				})
 				
-				$(document).on('click','.arrange',function(){
+				$(document).on('click','th',function(){
 					var arrange = $(this).attr('name');
 					if(arrange == search.arrange){
 						if(search.asc == 'ASC'){
+							$('th').attr('class','sorting')
+							$(this).attr('class','sorting_desc')
 							search.asc = 'DESC';
 						}else{
+							$('th').attr('class','sorting')
+							$(this).attr('class','sorting_asc')
 							search.asc = 'ASC';
 						}
 					}else{
+						$('th').attr('class','sorting')
+						$(this).attr('class','sorting_asc')
 						search.asc = 'ASC';
 						search.arrange = $(this).attr('name');
 					}
@@ -323,31 +336,31 @@
 						</option>
 					</select>
 				</div>
-				<table class="table">
+				<table id="bootstrap-data-table" class="table table-striped table-bordered dataTable no-footer" aria-describedby="bootstrap-data-table_info">
 					<thead>
 						<tr>
-							<th class="arrange" name="customer_code">
+							<th class="sorting_asc" name="customer_code">
 								고객코드
 							</th>
-							<th class="arrange" name="customer_name">
+							<th class="sorting" name="customer_name">
 								고객명
 							</th>
-							<th class="arrange" name="customer_birth">
+							<th class="sorting" name="customer_birth">
 								고객생일
 							</th>
-							<th class="arrange" name="customer_gender">
+							<th class="sorting" name="customer_gender">
 								고객성별
 							</th>
-							<th class="arrange" name="customer_addr">
+							<th class="sorting" name="customer_addr">
 								고객주소
 							</th>
-							<th class="arrange" name="customer_phone">
+							<th class="sorting" name="customer_phone">
 								고객연락처
 							</th>
-							<th class="arrange" name="customer_sign">
+							<th class="sorting" name="customer_sign">
 								고객등록일
 							</th>
-							<th class="arrange" name="customer_memo">
+							<th class="sorting" name="customer_memo">
 								고객메모
 							</th>
 							<th>
