@@ -28,7 +28,7 @@
 			search.customerBirth2	= '';
 			search.customerSign1	= '';
 			search.customerSign2	= '';
-			search.arrange			= '';
+			search.arrange			= 'customer_code';
 			search.asc				= 'ASC';
 			search.page	 			= 0;
 			
@@ -100,6 +100,10 @@
 				})
 				
 				$('#limit').change(function(){
+					search.asc = 'ASC';
+					search.arrange = 'customer_code';
+					$('th').attr('class','sorting')
+					$('[name=customer_code]').attr('class','sorting_asc')
 					search.page	= 0;
 					search.limit = $('#limit').val();
 					searchList();
@@ -107,8 +111,10 @@
 				
 				$('#select').click(function(){
 					$('#limit').val('10').prop('selected', true);
+					$('th').attr('class','sorting')
+					$('[name=customer_code]').attr('class','sorting_asc')
 					search.asc = 'ASC';
-					search.arrange = '';
+					search.arrange = 'customer_code';
 					search.limit = $('#limit').val();
 					search.page	= 0;
 					searchList();
@@ -127,16 +133,22 @@
 							$('th').attr('class','sorting')
 							$(this).attr('class','sorting_desc')
 							search.asc = 'DESC';
+							search.page	= 0;
+							searchList();
 						}else{
 							$('th').attr('class','sorting')
 							$(this).attr('class','sorting_asc')
 							search.asc = 'ASC';
+							search.page	= 0;
+							searchList();
 						}
 					}else{
 						$('th').attr('class','sorting')
 						$(this).attr('class','sorting_asc')
 						search.asc = 'ASC';
 						search.arrange = $(this).attr('name');
+						search.page	= 0;
+						searchList();
 					}
 					console.log(search.asc)
 					console.log(search.arrange)
@@ -306,6 +318,10 @@
 					</div>
 				</div>
 				<div>
+					<span id="pageText">
+					</span>
+				</div>
+				<div>
 					<select id="limit">
 						<option value="3">
 							3개씩 보기
@@ -363,7 +379,7 @@
 							<th class="sorting" name="customer_memo">
 								고객메모
 							</th>
-							<th>
+							<th class="sorting">
 								고객수정
 							</th>
 						</tr>

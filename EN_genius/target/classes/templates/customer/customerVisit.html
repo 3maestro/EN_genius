@@ -20,6 +20,7 @@
 			var ecode	= /*[[${session.ECODE}]]*/;
 			var scode	= /*[[${session.SCODE}]]*/;
 			var search={};
+			search.visit			= 'visit';
 			search.customerName		= '';
 			search.customerGender	= '';
 			search.customerPhone	= '';
@@ -193,7 +194,13 @@
 					var view = $('#limit').val();
 					var paging = Math.ceil(data/view);
 					for(var i = 0; i < paging; i++){
-						$('#paging').append('<button name=page value="'+i+'">'+(i+1)+'</button>');
+						if(i==search.page){
+							console.log(a)
+							$('#paging').append('<button name=page value="'+i+'" style="background-color=#fff;">'+(i+1)+'</button>');
+						}else{
+							console.log(b)
+							$('#paging').append('<button name=page value="'+i+'">'+(i+1)+'</button>');
+						}
 					}
 				});
 	

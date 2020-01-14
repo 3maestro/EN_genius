@@ -29,14 +29,26 @@ public class CustomerController {
 	@GetMapping(value="/customerSelect", produces = "application/json")
 	@ResponseBody
 	public List<Customer> getCustomerSelect(@RequestParam Map<String,String> search) {
-		List<Customer> list = customerService.getCustomerSelect(search);
+		String visit = search.get("visit");
+		List<Customer> list = null;
+		if(visit==null) {
+			list = customerService.getCustomerSelect(search);
+		}else {
+			
+		}
 		return list;
 	}
 	
 	@GetMapping(value="/customerPage", produces = "text/plain")
 	@ResponseBody
 	public String getCustomerPage(@RequestParam Map<String,String> search) {
-		String page = customerService.getCustomerPage(search);
+		String visit = search.get("visit");
+		String page = null;
+		if(visit==null) {
+			page = customerService.getCustomerPage(search);
+		}else {
+			
+		}
 		return page;
 	}
 	
@@ -93,11 +105,10 @@ public class CustomerController {
 		return "redirect:/customer/customerList";
 	}
 	
-	@GetMapping("/customer/customerX")
+	@GetMapping("/customer/customerVisit")
 	public String getCustomerVisit(Model model) {
-		model.addAttribute("title", "미구현");
-		System.out.println("Visit");
-		return "/customer/customerX";
+		model.addAttribute("title", "방문내역");
+		return "/customer/customerVisit";
 	}
 	
 	@PostMapping(value="/customerInsertAjax", produces = "text/plain")

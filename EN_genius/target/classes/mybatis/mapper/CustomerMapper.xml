@@ -18,6 +18,8 @@
 		<result property="customerAddr"		column="customer_addr"/>
 		<result property="customerPhone"	column="customer_phone"/>
 		<result property="customerMemo"		column="customer_memo"/>
+		<collection property="voCarDetail" resultMap="DetailMap"/>
+		<collection property="voRecRegister" resultMap="RegistertMap"/>
 	</resultMap>
 	
 	<select id="getCustomerSelect" resultMap="CustomerResultMap">
@@ -201,5 +203,18 @@
 		WHERE 
 			customer_code=#{customerCode}
 	</update>
+
+	<resultMap type="com.cafe24.radev.vo.VoCarDetail" id="DetailMap">
+		<result property="customerCarNumber" column="customer_car_number"/>
+	</resultMap>
+
+	<resultMap type="com.cafe24.radev.vo.VoRecRegister" id="RegistertMap">
+		<result property="receptionCode" column="reception_code"/>
+		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="repairClassName" column="repair_class_name"/>
+		<result property="receptionMemo" column="reception_memo"/>
+		<result property="displaceMent" column="ei_code"/>
+		<result property="receptionDate" column="reception_date"/>
+	</resultMap>
 
 </mapper>

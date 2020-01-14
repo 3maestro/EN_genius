@@ -7,10 +7,10 @@ $(document).ready(function() {
 	});
 
 	var phoneRegex = /^([0-9]{11})$/;
-	$(document).on('change','#customerPhoneInput',function() {
+	
+	$(document).on('focusout','#customerPhoneInput',function() {
 		if(!phoneRegex.test($("#customerPhoneInput").val())) {
 			alert('숫자 11자리를 입력해주세요.');
-			$("#customerPhoneInput").focus();
 		}else{
 			$("#customerPhoneInput").val($("#customerPhoneInput").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
 			$("#customerPhoneInput").attr('id','customerPhone')
@@ -27,7 +27,6 @@ $(document).ready(function() {
 		e.preventDefault();
 		var addr1 = document.getElementById('address').value;
 		var addr2 = document.getElementById('detailAddress').value;
-		
 		if ($("#customerName").val() == '') {
 			alert('고객명을 입력해주세요.');
 			$("#customerName").focus();
@@ -40,7 +39,7 @@ $(document).ready(function() {
 			alert('고객성별을 입력해주세요.');
 			$("[name='customerGender']").focus();
 			return false;
-		}else if (!$("#customerPhoneInput").val() == '') {
+		}else if (!$("#customerPhone").val().length==13) {
 			alert('고객연락처을 제대로 입력해주세요.');
 			$("#customerPhoneInput").focus();
 			return false;
