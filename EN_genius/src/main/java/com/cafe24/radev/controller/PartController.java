@@ -282,7 +282,8 @@ public class PartController {
 	 */
 	@PostMapping("/part/estimateDoc")
 	public String estimateDoc(Model model,HttpSession session,Part part) {
-		
+		//견적자
+			
 		//담당자
 		String emp = (String)session.getAttribute("SNAME");
 		model.addAttribute("emp", emp );
@@ -371,7 +372,7 @@ public class PartController {
 			}
 			
 		}
-		return "redirect:/part/partList";
+		return "redirect:/part/pEstiList";
 	}
 	
 	/**
