@@ -75,7 +75,18 @@
  						console.log(recepNum + " <-recepNum")
  						var empName = $(this).val();
 						console.log(empName + " <-empName");
-						//$('form[name=form]').submit();
+						
+						var request = $.ajax({
+	 						url: "/work/empAssign",
+	 						method: "POST",
+	 						//등록된 접수코드 세션값
+	 						data: {"recepNum" : recepNum},//파라미터
+	 						dataType: "json"		//응답 타입
+	 					})
+						
+	 					request.done(function( data ){
+	 						console.log(data + " <-data");
+	 					})
  					});	 	
 					
 //					ajax사용 필요
@@ -284,12 +295,13 @@
 						                                            </div>
 						                                        </div>
 					                            			</form><br>
+					                            		<!-- 	<a th:href="@{/work/empAssign?(empName=${e.employeeCode})}">123</a> -->
 					                            			<div class="row">
 						                            			<div class="col-sm-1"></div>
 																<div class="col-sm-4">
 																	<h4 class="workState">작업자</h4>
 																	<select multiple="multiple" class="form-control types" name="empName">
-																		<option th:each="e : ${employeeList}" th:if="${e.employeeDepartment.dpName ne '사무실'}" class="optionEmpName"><a th:href="@{/work/empAssign(empName=${e.employeeCode})}">[[${e.employeeName}]]</a></option>
+																		<option th:each="e : ${employeeList}" th:if="${e.employeeDepartment.dpName ne '사무실'}" class="optionEmpName" th:value="${e.employeeCode}">[[${e.employeeName}]]</option>
 																	</select>
 																</div>
 																<div class="col-sm-6">

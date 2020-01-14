@@ -65,6 +65,11 @@ public class WageService implements WageMapper {
 		return list;
 	}
 	
+	public void recEmpAssign(String recepNum) {
+		System.out.println("recEmpAssign WageService 호출");
+		System.out.println(recepNum + " <-recepNum recEmpAssign WageService.java");
+	}
+	
 	/**
 	 * 접수번호기준 작업배정
 	 */

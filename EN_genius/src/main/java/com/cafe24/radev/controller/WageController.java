@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.EmployeeService;
 import com.cafe24.radev.service.WageService;
+import com.cafe24.radev.vo.Employee;
 import com.cafe24.radev.vo.NowWork;
 import com.cafe24.radev.vo.WageManHour;
 import com.cafe24.radev.vo.WorkDecide;
@@ -239,13 +240,14 @@ public class WageController {
 //		return workCurrentList;
 //	}
 	//@RequestParam(name = "empName", required = false)String empName
-	@GetMapping("/work/empAssign")
-	public void empAssign(@RequestParam(value = "empName", required = false)String empName, Model model) {
+	@PostMapping(value = "/work/empAssign", produces = "application/json")
+	public @ResponseBody void empAssign(@RequestParam(value = "recepNum", required = false)String recepNum, Model model) {
 		System.out.println("empAssign WageController 호출");
-		//String empName = (String)request.getAttribute("empName");
-		System.out.println(empName + " <-empName empAssign WageController.java");
+		System.out.println(recepNum + " <-recepNum empAssign WageController.java");
 		
-		//return "/main/recSearchMain";
+		wageService.recEmpAssign(recepNum);
+		
+		//return "/wage/employeeWorkCurrentState";
 	}
 	
 	@GetMapping("/work/wageEstimateList")

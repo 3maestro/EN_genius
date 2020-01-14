@@ -33,8 +33,6 @@
 				var manHour = [];
 				var ccStandardWage = [];
 				
-				//html += '<form name="wageDecide" th:action="@{/work/workingNow}" method="post">'
-				
 				for(var i=0; i < dataTabeList.length; i ++){
 					
 					var trObj = $(dataTabeList[i].nTr);	
@@ -46,12 +44,6 @@
 						var wageSmallName = checkObj.attr('data-wageSmallName')
 						var manHour = checkObj.attr('data-manHour')
 						var ccStandardWage = checkObj.attr('data-ccStandardWage')
-						//code = checkObj.attr('data-code')
-						//console.log(code + " <-체크된 코드")
-						//var num = checkObj.attr('data-num')
-						/* console.log(wageSmallName + " <-wageSmallName")
-						console.log(manHour + " <-manHour")
-						console.log(num + " <-num") */
 						
 						html += '<tr>'
 						html += '<td><input type="hidden" name="receptionCode" value="'+recNum+'">'+recNum+'</td>'
@@ -61,114 +53,21 @@
 						html += '<td><input type="text" name="count" value="1" ></td>'
  						html += '<td><input type="hidden" name="workMan" value="'+workMan+'">'+workMan+'</td>'
 						html += '<td><input type="hidden" name="ccStandardWage" value="'+ccStandardWage+'"></td>'
-// 						html += '<td><button type="button" class="deleteBtn">삭제</button></td>'
 						html += '</tr>';
 					}
 				}
-				//html += '</form>'
 				
 				wageBasket.html(html)
-				//console.log(ccCode + " <-ccCode")
-				
-				/* $(document).on('click','.deleteBtn',(function(){
-					var deletePar= $(this).parent().parent()
-					//console.log(deletePar + "<deletePar")
-					var deleteVal;
-					//var deleteVal = deletePar.find('th[class=codeNum]').val()
-					var deleteCheck = checkObj.prop('checked')
-					console.log(deleteCheck + ' <-deleteCheck')
-						deleteVal = deletePar.find('th[class=codeNum]').text()
-						console.log(deleteVal + "<asdfkjasdof")
-					
-					if(code == deleteVal){
-						//code.attr('checked',false)
-						$(this).attr('checked', false);
-					}
-					
-					deletePar.each(function(){
-						deletePar.empty();
-					})
-					
-					if(deleteCheck == false){
-						checkObj.attr('checked', false);
-						
-						//$('input[name=manHourCheck]').attr('checked', false);
-					}else{
-						alert('삭제 실패!!!!')
-					}
-				}))	 */
+
 			});
 			
 			$(document).ready(function(){
 				$('#periodBtn').click(function(){
 					console.log("확정")
-					
-					//var form = $('.form').serialize();
 					var form = $('form[name=wageDecide]').serialize();
-					//console.log(form + " <-form")
-// 					var request = $.ajax({
-// 						  url: "/work/workingNow",	//호출될 url
-// 						  method: "POST",
-// 						  //최근 수리 내역 중 수리항목코드와 당시 수리 날짜
-// 						  data: form,//파라미터
-// 						  dataType: "json"		//응답 타입
-// 					});
-					
-// 					request.done(function( data ) {
-						
-// 					})
-						
-// 					request.fail(function( jqXHR, textStatus ) {
-// 					  alert( "Request failed: " + textStatus );
-// 					});	 		
 				})				
 			})
 			
-// 				if(checkObj.prop('checked')){
-					
-// 				}
-				
-				//deletePar.removechild(deleteVal);
-				//deletePar.find()
-				//finalSmallCheck.splice(finalSmallCheck.indexOf($(this).val()),1);
-				//finalCheck.splice(data,1);
-			
-			
-
-		
-/*
-		$(document).on('click','#periodBtn',function(){
-			var a = new Array();
-			//var checkChildren;
-			var checkBox = $("input[name=manHourCheck]:checked");
-			//var alist;
-			checkBox.each(function(){
-				
-				var tr = $('input[name=manHourCheck]').parent().parent();
-				var td = tr.find('.sorting_1');
-				console.log(td.val() + " <-ttat")
-				//a.push(td.val());
-				//console.log(a +' <-aaa')
-			})
-		}) 
-			
-		$('.manHourCheck:checked').each(function(i){
-			var wageSmallName = $(this).attr('data-wageSmallName')
-			var manHour = $(this).attr('data-manHour')
-			var num = $(this).attr('data-num')
-			console.log(wageSmallName + " <-wageSmallName")
-			console.log(manHour + " <-manHour")
-			console.log(num + " <-num")
-			
-			html += '<tr>'
-			html += '<th scope="row">'+(++i)+'</th>'
-			html += '<td>'+wageSmallName+'</td>'
-			html += '<td>'+manHour+'</td>'
-			html += '<td>'+manHour+'</td>'
-			html += '<td><button type="button" id="deleteBtn">삭제</button></td>'
-			html += '</tr>';
-		}) 
-*/
 		/*]]>*/
 		</script>
 	</th:block>
