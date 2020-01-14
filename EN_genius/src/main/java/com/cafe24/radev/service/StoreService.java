@@ -14,7 +14,7 @@ import com.cafe24.radev.vo.Store;
 
 @Service
 public class StoreService {
-	@Autowired private StoreMapper storemapper;
+	@Autowired private StoreMapper storeMapper;
 	
 	//현제 날짜정보
 		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
@@ -25,10 +25,26 @@ public class StoreService {
 	 * 거래처 리스트 호출
 	 * @return
 	 */
-	public List<Store> getStoreList(){
+	public List<Store> getStoreList(HttpSession session){
 		System.out.println("거래처목록/service");
-		return storemapper.getStoreList();
+		String bsCode = (String)session.getAttribute("SCODE");
+		
+		return storeMapper.getStoreList(bsCode);
 	}
+	
+	/**
+	 * 거래처코드로 한줄조회
+	 * @param storeCode
+	 * @return
+	 */
+	public Store getStoreRow(String storeCode) {
+		System.out.println("거래처 한줄조회");
+		
+		Store store = storeMapper.getStoreRow(storeCode);
+		
+		return store;
+	}
+	
 	/**
 	 * 거래처등록
 	 * @param store
@@ -44,7 +60,7 @@ public class StoreService {
 		String selectCode = "%"+bsCode+"%";
 		System.out.println(bsCode+"검색값");
 		
-		String getCode = storemapper.getStoreCode(selectCode);
+		String getCode = storeMapper.getStoreCode(selectCode);
 		System.out.println(getCode);
 		String storeCode = null;
 		if(getCode == null) {
@@ -53,7 +69,8 @@ public class StoreService {
 			int num = Integer.parseInt(getCode.substring(12));
 			System.out.println(num);
 			num += 1;
-			storeCode = getCode.substring(0, 12) + num;
+			String index = String.format("%04d", num);
+			storeCode = getCode.substring(0, 12) + index;
 		}
 		
 		System.out.println(storeCode);
@@ -63,7 +80,7 @@ public class StoreService {
 		store.setStoreWtite((String)session.getAttribute("SID"));
 		store.setStoreDate(nowDate);
 		
-		storemapper.storeInsertPro(store);
+		storeMapper.storeInsertPro(store);
 		return null;
 	}
 }

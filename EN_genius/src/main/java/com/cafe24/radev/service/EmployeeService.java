@@ -19,6 +19,10 @@ public class EmployeeService {
 		return employeeMapper.employeeList(bsCode);
 	}
 	
+	public 	Employee employeeMypage(String employeeCode){
+		System.out.println(employeeMapper.employeeMypage(employeeCode));
+		return employeeMapper.employeeMypage(employeeCode);
+	}
 	public List<String> DepartmentDutySelect(String bsCode){
 		return employeeMapper.DepartmentDutySelect(bsCode);
 	}
@@ -26,6 +30,10 @@ public class EmployeeService {
 	public void modifyEmployee(Employee employee) {
 		employee.setEmployeeAddr(employee.getEmployeeAddr() + employee.getAddrDetail());
 		employeeMapper.modifyEmployee(employee);
+	}
+	
+	public void resignationEmployee(Employee employee) {
+		employeeMapper.resignationEmployee(employee);
 	}
 	
 	public void addEmployee(Employee employee) {

@@ -7,6 +7,7 @@ public class WageManHour {
 	private String wageMidName;
 	private String wageSmallName;
 	private String manHour;
+	private int ccStandardWage;
 	
 	public String getCcWageSmallCode() {
 		return ccWageSmallCode;
@@ -44,24 +45,18 @@ public class WageManHour {
 	public void setManHour(String manHour) {
 		this.manHour = manHour;
 	}
+	public int getCcStandardWage() {
+		return ccStandardWage;
+	}
+	public void setCcStandardWage(int ccStandardWage) {
+		this.ccStandardWage = ccStandardWage;
+	}
 	
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("WageManHour [ccWageSmallCode=");
-		builder.append(ccWageSmallCode);
-		builder.append(", ccWageCode=");
-		builder.append(ccWageCode);
-		builder.append(", wageBigName=");
-		builder.append(wageBigName);
-		builder.append(", wageMidName=");
-		builder.append(wageMidName);
-		builder.append(", wageSmallName=");
-		builder.append(wageSmallName);
-		builder.append(", manHour=");
-		builder.append(manHour);
-		builder.append("]");
-		return builder.toString();
+		return "WageManHour [ccWageSmallCode=" + ccWageSmallCode + ", ccWageCode=" + ccWageCode + ", wageBigName="
+				+ wageBigName + ", wageMidName=" + wageMidName + ", wageSmallName=" + wageSmallName + ", manHour="
+				+ manHour + ", ccStandardWage=" + ccStandardWage + "]";
 	}
 
 }
