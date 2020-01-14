@@ -193,6 +193,7 @@ public class PartService {
 				if(manys.length > 1) {
 					//현재수량
 					System.out.println("체킹포인트"+manys.length);
+					
 					String rowMany = manys[i];
 					//System.out.println(rowMany+": "+i);
 					part.setPartMany(rowMany);
