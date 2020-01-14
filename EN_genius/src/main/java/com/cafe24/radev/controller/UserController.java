@@ -169,7 +169,7 @@ public class UserController {
 			//session.setAttribute("lo", re);
 			return "/login/login";
 		}		
-		return "redirect:/main/main";
+		return "redirect:/main/recSearchMain";
 	}
 
 	/**
@@ -201,7 +201,7 @@ public class UserController {
 			model.addAttribute("lo", re);
 			return "/login/login";
 		}		
-		return "redirect:/main/main";
+		return "redirect:/main/recSearchMain";
 	} 
 
 	/**
@@ -227,7 +227,7 @@ public class UserController {
 			session.setAttribute("ECODE", e.getEmployeeCode());
 			session.setAttribute("SNAME", e.getEmployeeName());
 		}
-		return "redirect:/main/main";
+		return "redirect:/main/recSearchMain";
 	}
  
 	/**

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cafe24.radev.service.RecService;
 import com.cafe24.radev.vo.VoRecRegister;
@@ -47,7 +48,6 @@ public class RecController {
 		return "receptionregister/recRegister";
 	}
 	
-	
 	@GetMapping("recList")
 	public String recList(Model model, HttpSession session) {
 		System.out.println("컨53");
@@ -60,6 +60,5 @@ public class RecController {
 		System.out.println(recList +"접수 리스트 값 확인");
 		return "receptionregister/recList";
 	}
-	
 	
 }

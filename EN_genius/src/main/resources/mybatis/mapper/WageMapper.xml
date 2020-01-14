@@ -104,7 +104,7 @@
         </choose>
 	</select>
 	
-	<select id="WorkCurrentList" resultType="com.cafe24.radev.vo.NowWork" parameterType="String">
+	<select id="getWorking" resultType="com.cafe24.radev.vo.NowWork" parameterType="String">
 		SELECT
 			nowWork.now_work_code AS nowWorkCode,		
 			nowWork.reception_code AS recepNum,		
@@ -118,7 +118,7 @@
 		FROM
 			now_work_wage_tb AS nowWork
 		where 
-			nowWork.reception_code = #{recepNum}
+			nowWork.reception_code = #{recNum}
 	</select>
 	
 </mapper>

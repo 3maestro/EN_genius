@@ -23,6 +23,6 @@ public interface RecMapper {
 	 * @return
 	 */
 	public int getRecInsert(VoRecRegister vcreg);
-	
+	public VoRecRegister getRecSearch(String bsCode, String recNum);
 	
 }
