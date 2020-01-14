@@ -1,6 +1,5 @@
 package com.cafe24.radev.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.service.RecService;
 import com.cafe24.radev.vo.VoRecRegister;
@@ -21,7 +18,6 @@ import com.cafe24.radev.vo.VoRecRegister;
 public class RecController {
 	
 	@Autowired private RecService recService;
-	
 	
 	@GetMapping("repHistory")
 	public String repHistory() {
@@ -38,37 +34,41 @@ public class RecController {
 	@PostMapping("recList")
 	public String register(VoRecRegister vcreg) {
 		System.out.println("접수 등록");
+		
 		recService.getRecInsert(vcreg);
+		
 		return "redirect:recList";
 		
 	}
 	
 	
 	@GetMapping("recRegister")
-	public String register(VoRecRegister voRecRegister, Model model) {
-		System.out.println("이게뭐지");
-		model.addAttribute("voRecRegister", voRecRegister);
+	public String register(Model model) {
+		
 		
 		return "receptionregister/recRegister";
 	}
 	
-	@PostMapping("getListAdd")
-	public @ResponseBody VoRecRegister getListAdd(HttpSession session) {
-		System.out.println("@#@##@#@##############");
-		String carinfo = "KMHEM42BPAC202444";
-		VoRecRegister voRecRegister = recService.getListAdd(carinfo);
-		System.out.println("컨56" + voRecRegister);
-		return voRecRegister;
-	}
-
+	
 	@GetMapping("recList")
-	public String recList(Model model, HttpSession session) {
+	public String recList(Model model,HttpSession session) {
+			
 		List<VoRecRegister> recList = recService.getRecList(session);
-		List<VoRecRegister> CC = recService.getRecListCC();
+		
 		model.addAttribute("vorecreg", recList);
-		model.addAttribute("CC", CC);
-		System.out.println(recList +"접수 리스트 값 확인");
+			System.out.println(recList +"접수 리스트 값 확인");
+		
+		
 		return "receptionregister/recList";
 	}
 	
+	
+	/* 작업지시서 샘플 만드는 중
+	 * @GetMapping("dustmq") public String dustmq(Model model) {
+	 * 
+	 * 
+	 * 
+	 * 
+	 * return "receptionregister/dustmq"; }
+	 */
 }

@@ -69,8 +69,7 @@ public class StoreService {
 			int num = Integer.parseInt(getCode.substring(12));
 			System.out.println(num);
 			num += 1;
-			String index = String.format("%04d", num);
-			storeCode = getCode.substring(0, 12) + index;
+			storeCode = getCode.substring(0, 12) + num;
 		}
 		
 		System.out.println(storeCode);

@@ -2,8 +2,6 @@ package com.cafe24.radev.vo;
 
 public class VoCarDetail {
 
-	private String sid;
-	private String scode;
 	private String originCode; // 국산/수입구분코드(PK)
 	private String originMain; // 국산/수입여부
 	private String vendorCode; // vendor_code(PK)
@@ -24,16 +22,13 @@ public class VoCarDetail {
 	private String rcCode;	// 등록증상자동차정보코드(FK), 차량명
 	private String bsCode;	// 공업사사업장코드(FK)
 	private String customerCode;	// 고객정보등록코드(FK), 고객명
-	private String customerPhone; 
-	private String customerName; 
-	
 	private String carProductionYear;	// 생산연식
 	private String carRegistrationDate;	// 자동차등록일
 	private String lastDistanceDriven;	// 마지막방문시주행거리
 	private String lastVisitDate;	// 마지막방문날짜
-	private String customerCarRegWriter;	// 작성자
-	private String customerCarRegDate;	// 작성일자
-	private String customerCarRegCode; //고객차량등록정보코드(PK)
+	private String customerCarInfoWriter;	// 작성자
+	private String customerCarInfoDate;	// 작성일자
+	private String customerCarInfoCode; //고객차량등록정보코드(PK)
 	
 	private String optionGradeCode; // 차량옵션등급분류코드(PK)
 	private String optionGradeName; // 차량옵션등급명
@@ -46,50 +41,7 @@ public class VoCarDetail {
 	private String lastOptionCode; // 차량선택옵션최종코드(PK)
 	private String loWriter; // 최종 옵션 작성자
 	private String loDate; // 최종 옵션 작성일자
-	
-	private String fuelCode; // 연료구분코드(PK)
-	private String fuelType; // 연료종류
-	private String fuelWriter; // 연료 작성자
-	private String fuelDate; // 연료 작성일자
-	private String feCode; // 연료별엔진구분코드(PK)
-	private String engineType; // 엔진종류
-	private String feWriter; // 엔진 작성자
-	private String feDate; // 엔진 작성일자
-	private String tmCode; // 미션구분코드(PK)
-	private String tmType; // 미션종류
-	private String tmWriter; // 작성자
-	private String tmDate; // 작성일자
-	private String dwCode; // 구동방식구분코드(PK)
-	private String dwType; // 구동방식종류
-	private String dwWriter; // 작성자
-	private String dwDate; // 작성일자
-	private String ptCode; // 파워트레인코드(PK)
-	private String engineForm; // 엔진형식
-	private String ptWriter; // 작성자
-	private String ptDate; // 작성일자
-	
-	private String colorBigCode; // 외장색상대분류코드(PK)
-	private String colorBigName; // 외장색상대분류명
-	private String cbWriter; // 외장색 대분류 작성자
-	private String cbDate; // 외장색 대분류 작성일자
-	private String colorMidCode; // 외장색중분류코드(PK)
-	private String colorMidName; // 외장색중분류명
-	private String cmdWriter; // 외장색 중분류 작성자
-	private String cmdDate; // 외장색 중분류 작성일자
-	
-	
-	public String getSid() {
-		return sid;
-	}
-	public void setSid(String sid) {
-		this.sid = sid;
-	}
-	public String getScode() {
-		return scode;
-	}
-	public void setScode(String scode) {
-		this.scode = scode;
-	}
+	private String group_Code; //그룹화 코드
 	public String getOriginCode() {
 		return originCode;
 	}
@@ -210,12 +162,6 @@ public class VoCarDetail {
 	public void setCustomerCode(String customerCode) {
 		this.customerCode = customerCode;
 	}
-	public String getCustomerPhone() {
-		return customerPhone;
-	}
-	public void setCustomerPhone(String customerPhone) {
-		this.customerPhone = customerPhone;
-	}
 	public String getCarProductionYear() {
 		return carProductionYear;
 	}
@@ -240,23 +186,23 @@ public class VoCarDetail {
 	public void setLastVisitDate(String lastVisitDate) {
 		this.lastVisitDate = lastVisitDate;
 	}
-	public String getCustomerCarRegWriter() {
-		return customerCarRegWriter;
+	public String getCustomerCarInfoWriter() {
+		return customerCarInfoWriter;
 	}
-	public void setCustomerCarRegWriter(String customerCarRegWriter) {
-		this.customerCarRegWriter = customerCarRegWriter;
+	public void setCustomerCarInfoWriter(String customerCarInfoWriter) {
+		this.customerCarInfoWriter = customerCarInfoWriter;
 	}
-	public String getCustomerCarRegDate() {
-		return customerCarRegDate;
+	public String getCustomerCarInfoDate() {
+		return customerCarInfoDate;
 	}
-	public void setCustomerCarRegDate(String customerCarRegDate) {
-		this.customerCarRegDate = customerCarRegDate;
+	public void setCustomerCarInfoDate(String customerCarInfoDate) {
+		this.customerCarInfoDate = customerCarInfoDate;
 	}
-	public String getCustomerCarRegCode() {
-		return customerCarRegCode;
+	public String getCustomerCarInfoCode() {
+		return customerCarInfoCode;
 	}
-	public void setCustomerCarRegCode(String customerCarRegCode) {
-		this.customerCarRegCode = customerCarRegCode;
+	public void setCustomerCarInfoCode(String customerCarInfoCode) {
+		this.customerCarInfoCode = customerCarInfoCode;
 	}
 	public String getOptionGradeCode() {
 		return optionGradeCode;
@@ -324,206 +270,29 @@ public class VoCarDetail {
 	public void setLoDate(String loDate) {
 		this.loDate = loDate;
 	}
-	public String getFuelCode() {
-		return fuelCode;
+	public String getGroup_Code() {
+		return group_Code;
 	}
-	public void setFuelCode(String fuelCode) {
-		this.fuelCode = fuelCode;
-	}
-	public String getFuelType() {
-		return fuelType;
-	}
-	public void setFuelType(String fuelType) {
-		this.fuelType = fuelType;
-	}
-	public String getFuelWriter() {
-		return fuelWriter;
-	}
-	public void setFuelWriter(String fuelWriter) {
-		this.fuelWriter = fuelWriter;
-	}
-	public String getFuelDate() {
-		return fuelDate;
-	}
-	public void setFuelDate(String fuelDate) {
-		this.fuelDate = fuelDate;
-	}
-	public String getFeCode() {
-		return feCode;
-	}
-	public void setFeCode(String feCode) {
-		this.feCode = feCode;
-	}
-	public String getEngineType() {
-		return engineType;
-	}
-	public void setEngineType(String engineType) {
-		this.engineType = engineType;
-	}
-	public String getFeWriter() {
-		return feWriter;
-	}
-	public void setFeWriter(String feWriter) {
-		this.feWriter = feWriter;
-	}
-	public String getFeDate() {
-		return feDate;
-	}
-	public void setFeDate(String feDate) {
-		this.feDate = feDate;
-	}
-	public String getTmCode() {
-		return tmCode;
-	}
-	public void setTmCode(String tmCode) {
-		this.tmCode = tmCode;
-	}
-	public String getTmType() {
-		return tmType;
-	}
-	public void setTmType(String tmType) {
-		this.tmType = tmType;
-	}
-	public String getTmWriter() {
-		return tmWriter;
-	}
-	public void setTmWriter(String tmWriter) {
-		this.tmWriter = tmWriter;
-	}
-	public String getTmDate() {
-		return tmDate;
-	}
-	public void setTmDate(String tmDate) {
-		this.tmDate = tmDate;
-	}
-	public String getDwCode() {
-		return dwCode;
-	}
-	public void setDwCode(String dwCode) {
-		this.dwCode = dwCode;
-	}
-	public String getDwType() {
-		return dwType;
-	}
-	public void setDwType(String dwType) {
-		this.dwType = dwType;
-	}
-	public String getDwWriter() {
-		return dwWriter;
-	}
-	public void setDwWriter(String dwWriter) {
-		this.dwWriter = dwWriter;
-	}
-	public String getDwDate() {
-		return dwDate;
-	}
-	public void setDwDate(String dwDate) {
-		this.dwDate = dwDate;
-	}
-	public String getPtCode() {
-		return ptCode;
-	}
-	public void setPtCode(String ptCode) {
-		this.ptCode = ptCode;
-	}
-	public String getEngineForm() {
-		return engineForm;
-	}
-	public void setEngineForm(String engineForm) {
-		this.engineForm = engineForm;
-	}
-	public String getPtWriter() {
-		return ptWriter;
-	}
-	public void setPtWriter(String ptWriter) {
-		this.ptWriter = ptWriter;
-	}
-	public String getPtDate() {
-		return ptDate;
-	}
-	public void setPtDate(String ptDate) {
-		this.ptDate = ptDate;
-	}
-	public String getColorBigCode() {
-		return colorBigCode;
-	}
-	public void setColorBigCode(String colorBigCode) {
-		this.colorBigCode = colorBigCode;
-	}
-	public String getColorBigName() {
-		return colorBigName;
-	}
-	public void setColorBigName(String colorBigName) {
-		this.colorBigName = colorBigName;
-	}
-	public String getCbWriter() {
-		return cbWriter;
-	}
-	public void setCbWriter(String cbWriter) {
-		this.cbWriter = cbWriter;
-	}
-	public String getCbDate() {
-		return cbDate;
-	}
-	public void setCbDate(String cbDate) {
-		this.cbDate = cbDate;
-	}
-	public String getColorMidCode() {
-		return colorMidCode;
-	}
-	public void setColorMidCode(String colorMidCode) {
-		this.colorMidCode = colorMidCode;
-	}
-	public String getColorMidName() {
-		return colorMidName;
-	}
-	public void setColorMidName(String colorMidName) {
-		this.colorMidName = colorMidName;
-	}
-	public String getCmdWriter() {
-		return cmdWriter;
-	}
-	public void setCmdWriter(String cmdWriter) {
-		this.cmdWriter = cmdWriter;
-	}
-	public String getCmdDate() {
-		return cmdDate;
-	}
-	public void setCmdDate(String cmdDate) {
-		this.cmdDate = cmdDate;
-	}
-	
-	public String getCustomerName() {
-		return customerName;
-	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setGroup_Code(String group_Code) {
+		this.group_Code = group_Code;
 	}
 	@Override
 	public String toString() {
-		return "VoCarDetail [sid=" + sid + ", scode=" + scode + ", originCode=" + originCode + ", originMain="
-				+ originMain + ", vendorCode=" + vendorCode + ", vendorName=" + vendorName + ", carClassCode="
-				+ carClassCode + ", carClassMain=" + carClassMain + ", carModelCode=" + carModelCode + ", carModelName="
-				+ carModelName + ", cmWriter=" + cmWriter + ", cmDate=" + cmDate + ", yearCarCode=" + yearCarCode
-				+ ", carModelDetail=" + carModelDetail + ", sellStartYear=" + sellStartYear + ", sellEndYear="
-				+ sellEndYear + ", ycWriter=" + ycWriter + ", ycDate=" + ycDate + ", customerCarNumber="
-				+ customerCarNumber + ", rcCode=" + rcCode + ", bsCode=" + bsCode + ", customerCode=" + customerCode
-				+ ", customerPhone=" + customerPhone + ", customerName=" + customerName + ", carProductionYear="
-				+ carProductionYear + ", carRegistrationDate=" + carRegistrationDate + ", lastDistanceDriven="
-				+ lastDistanceDriven + ", lastVisitDate=" + lastVisitDate + ", customerCarRegWriter="
-				+ customerCarRegWriter + ", customerCarRegDate=" + customerCarRegDate + ", customerCarRegCode="
-				+ customerCarRegCode + ", optionGradeCode=" + optionGradeCode + ", optionGradeName=" + optionGradeName
-				+ ", ogWriter=" + ogWriter + ", ogDate=" + ogDate + ", choiceOptionCode=" + choiceOptionCode
-				+ ", choiceOptionName=" + choiceOptionName + ", coWriter=" + coWriter + ", coDate=" + coDate
-				+ ", lastOptionCode=" + lastOptionCode + ", loWriter=" + loWriter + ", loDate=" + loDate + ", fuelCode="
-				+ fuelCode + ", fuelType=" + fuelType + ", fuelWriter=" + fuelWriter + ", fuelDate=" + fuelDate
-				+ ", feCode=" + feCode + ", engineType=" + engineType + ", feWriter=" + feWriter + ", feDate=" + feDate
-				+ ", tmCode=" + tmCode + ", tmType=" + tmType + ", tmWriter=" + tmWriter + ", tmDate=" + tmDate
-				+ ", dwCode=" + dwCode + ", dwType=" + dwType + ", dwWriter=" + dwWriter + ", dwDate=" + dwDate
-				+ ", ptCode=" + ptCode + ", engineForm=" + engineForm + ", ptWriter=" + ptWriter + ", ptDate=" + ptDate
-				+ ", colorBigCode=" + colorBigCode + ", colorBigName=" + colorBigName + ", cbWriter=" + cbWriter
-				+ ", cbDate=" + cbDate + ", colorMidCode=" + colorMidCode + ", colorMidName=" + colorMidName
-				+ ", cmdWriter=" + cmdWriter + ", cmdDate=" + cmdDate + "]";
+		return "VoCarDetail [originCode=" + originCode + ", originMain=" + originMain + ", vendorCode=" + vendorCode
+				+ ", vendorName=" + vendorName + ", carClassCode=" + carClassCode + ", carClassMain=" + carClassMain
+				+ ", carModelCode=" + carModelCode + ", carModelName=" + carModelName + ", cmWriter=" + cmWriter
+				+ ", cmDate=" + cmDate + ", yearCarCode=" + yearCarCode + ", carModelDetail=" + carModelDetail
+				+ ", sellStartYear=" + sellStartYear + ", sellEndYear=" + sellEndYear + ", ycWriter=" + ycWriter
+				+ ", ycDate=" + ycDate + ", customerCarNumber=" + customerCarNumber + ", rcCode=" + rcCode + ", bsCode="
+				+ bsCode + ", customerCode=" + customerCode + ", carProductionYear=" + carProductionYear
+				+ ", carRegistrationDate=" + carRegistrationDate + ", lastDistanceDriven=" + lastDistanceDriven
+				+ ", lastVisitDate=" + lastVisitDate + ", customerCarInfoWriter=" + customerCarInfoWriter
+				+ ", customerCarInfoDate=" + customerCarInfoDate + ", customerCarInfoCode=" + customerCarInfoCode
+				+ ", optionGradeCode=" + optionGradeCode + ", optionGradeName=" + optionGradeName + ", ogWriter="
+				+ ogWriter + ", ogDate=" + ogDate + ", choiceOptionCode=" + choiceOptionCode + ", choiceOptionName="
+				+ choiceOptionName + ", coWriter=" + coWriter + ", coDate=" + coDate + ", lastOptionCode="
+				+ lastOptionCode + ", loWriter=" + loWriter + ", loDate=" + loDate + ", group_Code=" + group_Code + "]";
 	}
+
 	
 }

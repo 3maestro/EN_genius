@@ -4,7 +4,6 @@ public class PartEsimate {
 	private String esCode;
 	private String bsCode;
 	private String grCode;
-	private String docNo;
 	private String partNumber;
 	private String partMany;
 	private String partPrice;
@@ -16,19 +15,10 @@ public class PartEsimate {
 	
 	
 	
-	public String getDocNo() {
-		return docNo;
-	}
-	public void setDocNo(String docNo) {
-		this.docNo = docNo;
-	}
 	public String getEsDec() {
 		return esDec;
 	}
 	public void setEsDec(String esDec) {
-		if(esDec.equals("")) {
-			esDec = null;
-		}
 		this.esDec = esDec;
 	}
 	public String getEsCode() {

@@ -65,7 +65,7 @@ public class PartController {
 	@GetMapping("/part/partList")
 	public String getPartList(Model model,HttpSession session) {
 		System.out.println("파트리스트/controller");
-		
+
 		model.addAttribute("partList", partService.getUsePartList(session));
 		
 		return "/part/partList";
@@ -146,7 +146,6 @@ public class PartController {
 		System.out.println(partNumber+"<체크값들");
 		partNumber.indexOf(",");
 		if(partNumber != null) {
-			many=null;
 			model.addAttribute("checkPartList",partService.getPartGroupList(partNumber, session,many));
 			model.addAttribute("groupCode", partService.getGroup(0,session));
 		}
@@ -175,12 +174,9 @@ public class PartController {
 	@GetMapping("/part/partUpdate")
 	public String partUpdate(Part part,HttpSession session) {
 		System.out.println("업데이트");
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println(part.getPartMany());
+		partService.partUpdateforMany(part,session);
 		
-		partService.partUpdateforMany(part,session,"plus");
-		
-		return "redirect:/part/partList";
+		return "redirect:/part/partUpdate";
 	}
 
 	
@@ -232,16 +228,16 @@ public class PartController {
 		//부품정보
 		many = part.getPartMany();
 		many = many.replace("0","");
-		System.out.println(many+"<<입력갯수");
+		//System.out.println(many+"<<입력갯수");
 		if(part != null && "".equals(part.getPartNumber())) {
-			//System.out.println("단일값문서");
+			System.out.println("단일값문서");
 			//System.out.println(part.getPartName()+"1개");
 			String partNumber = part.getPartNumber();
 			part = partService.partSelectForOrder(partNumber, session);
 			part.setPartMany(many);
 			model.addAttribute("part", part );
 		}else if(check != null) {
-			//System.out.println("다중값문서");
+			System.out.println("다중값문서");
 			model.addAttribute("part", partService.getPartGroupList(check,session,many));
 		}
 		//사업장정보
@@ -324,69 +320,16 @@ public class PartController {
 		model.addAttribute("info", partService.factoryInfo(session));
 		//문서번호
 		model.addAttribute("docNo", partService.getDocNo(1, session));
-		return "/document/documentByEstimate";
+		return "/document/documentByEstimateCustom";
 	}
 	
-	/**
-	 * 판매등록
-	 * @param partDoc
-	 * @param session
-	 * @param gCode
-	 * @return
-	 */
 	@PostMapping("/part/estimatePro")
 	public String estimatePro(PartEsimate partDoc,HttpSession session,@RequestParam(name="groupCode")String gCode) {
-		Part part = new Part();
+		System.out.println(partDoc.toString());
 		
-		//partService.addGrCode(gCode, session);
-		int s = partDoc.getPartNumber().indexOf(",");
-		if(s == -1) {
-			partService.estimatePro(partDoc, session, gCode);
-			//-수량업데이트
-			part.setPartNumber(partDoc.getPartNumber());
-			part.setPartMany(partDoc.getPartMany());
-			partService.partUpdateforMany(part, session,"minus");
-		}else{
-			System.out.println("두개!!!!!!");
-			System.out.println(partDoc.toString());
-			String aNum[] = partDoc.getPartNumber().split(",");
-			String aMany[] = partDoc.getPartMany().split(",");
-			String aPrice[] = partDoc.getPartPrice().split(",");
-			String aDec[] = partDoc.getEsDec().split(",");
-			
-			for(int i=0; i<aNum.length; i++) {
-				String num = aNum[i];
-				String many = aMany[i];
-				String price = aPrice[i];
-				String dec = aDec[i];
-				
-				partDoc.setPartNumber(num);
-				partDoc.setPartMany(many);
-				partDoc.setPartPrice(price);
-				partDoc.setEsDec(dec);
-				//System.out.println(partDoc.toString()+":"+i+"번째객체");
-				partService.estimatePro(partDoc, session, gCode);
-				part.setPartNumber(num);
-				part.setPartMany(many);
-				partService.partUpdateforMany(part, session,"minus");
-			}
-			
-		}
-		return "redirect:/part/pEstiList";
-	}
-	
-	/**
-	 * 판매목록
-	 */
-	@GetMapping("/part/pEstiList")
-	public String esList(Model model,HttpSession session) {
-		//전체보기
+		partService.estimatePro(partDoc, session, gCode);
 		
-		
-		//상세보기
-		
-		
-		return "/part/pEstiList";
+		return "redirect:/part/partList";
 	}
 	
 	/**
@@ -421,13 +364,11 @@ public class PartController {
 		return"/document/doucmentByTotalRecitp";
 	}
 	
-	
 	@GetMapping("/part/test")
 	public String test(Model model,HttpSession session) {
 		model.addAttribute("list", partService.getUsePartList(session));
 		return"/part/partList2";
 	}
-	
 	@PostMapping(value = "/part/test", produces = "application/json;charset=utf-8")
 	public @ResponseBody List<Part> getList(
 			HttpSession session) {

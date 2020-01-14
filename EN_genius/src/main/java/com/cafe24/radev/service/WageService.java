@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.radev.mapper.WageMapper;
-import com.cafe24.radev.vo.CcWage;
 import com.cafe24.radev.vo.NowWork;
 import com.cafe24.radev.vo.WageManHour;
 import com.cafe24.radev.vo.WorkDecide;
@@ -20,11 +19,6 @@ import com.cafe24.radev.vo.WorkDecide;
 public class WageService implements WageMapper {
 	
 	@Autowired private WageMapper wageMapper;
-	
-	public List<CcWage> ccStandardWage() {
-		System.out.println("ccStandardWage WageService호출");
-		return wageMapper.ccStandardWage();
-	}
 	
 	/**
 	 * 작업 목록과 표준작업시간과 배기량별 단가 
@@ -55,32 +49,14 @@ public class WageService implements WageMapper {
 		return nowWork;
 	}
 	
-	public List<NowWork> getWorking(String recNum) {
-		System.out.println("getWorking WageService 호출");
-		System.out.println(recNum + " <-recNum getWorking WageService.java");
+	public List<NowWork> WorkCurrentList(String recepNum) {
+		System.out.println("WorkCurrentList WageService호출");
+		System.out.println(recepNum + " <-recepNum WorkCurrentList WageService.java");
 		
-		List<NowWork> list = wageMapper.getWorking(recNum);
-		System.out.println("list getWorking WageService : " + list);
+		List<NowWork> workCurrentList = wageMapper.WorkCurrentList(recepNum);
+		System.out.println("workCurrentList : " + workCurrentList);
 		
-		return list;
+		return workCurrentList;
 	}
-	
-	public void recEmpAssign(String recepNum) {
-		System.out.println("recEmpAssign WageService 호출");
-		System.out.println(recepNum + " <-recepNum recEmpAssign WageService.java");
-	}
-	
-	/**
-	 * 접수번호기준 작업배정
-	 */
-//	public List<NowWork> WorkCurrentList(String recepNum) {
-//	System.out.println("WorkCurrentList WageService호출");
-//	System.out.println(recepNum + " <-recepNum WorkCurrentList WageService.java");
-//	
-//	List<NowWork> workCurrentList = wageMapper.WorkCurrentList(recepNum);
-//	System.out.println("workCurrentList : " + workCurrentList);
-//	
-//	return workCurrentList;
-//}
 	
 }

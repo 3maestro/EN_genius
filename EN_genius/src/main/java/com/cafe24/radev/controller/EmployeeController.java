@@ -73,18 +73,6 @@ public class EmployeeController {
 	 * 직원 마이페이지
 	 * @return
 	 */
-	@GetMapping("/employee/employeeMypage")
-	public String employeeMypage(Model model, HttpSession session){
-		String employeeCode = (String)session.getAttribute("ECODE");
-		employeeService.employeeMypage(employeeCode);
-		model.addAttribute("Employee", employeeService.employeeMypage(employeeCode));
-		return "/employee/employeeMypage";
-	}
-	
-	/**
-	 * 직원 마이페이지
-	 * @return
-	 */
 	@GetMapping("/employee/employeeDetail")
 	public String employeeDetail(Model model, HttpSession session){
 		String employeeCode = (String)session.getAttribute("ECODE");

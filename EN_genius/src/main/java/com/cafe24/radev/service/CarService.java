@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cafe24.radev.mapper.CarMapper;
 import com.cafe24.radev.vo.VoCarColor;
@@ -22,13 +21,7 @@ public class CarService {
 	
 	@Autowired private CarMapper carMapper;
 	
-	public List<String> customerNameSelect (@RequestParam (value = "customerName")String customerName) {
-		return carMapper.customerNameSelect(customerName);
-		  
-	  }
-	
-	public int getCarRegister(VoCarDetail voDetail) {
-		System.out.println("섭3스" + voDetail);
+	public int getCarRegister(VoCarRegister voDetail) {
 		return carMapper.getCarRegister(voDetail);
 	}
 	
@@ -66,6 +59,7 @@ public class CarService {
 	 */
 	public List<VoCarColor> getBigColSelect(){
 		return carMapper.getBigColSelect();
+				
 	}
 		
 	/**
@@ -133,9 +127,8 @@ public class CarService {
 	
 	//차량 상세 조회 메서드
 	public VoCarDetail getCarUpdateList(String carUpList) {
-		System.out.println("서비스" + carUpList);
-	  VoCarDetail updateList = carMapper.getCarUpdateList(carUpList);
-	  return updateList; 
+	  VoCarDetail a = carMapper.getCarUpdateList(carUpList);
+	  return a; 
 	  }
 	 
 	
@@ -148,24 +141,34 @@ public class CarService {
 	}
 	
 	//받은 매개변수로 다른 메서드를 호출한다 이때 내가 받은 매개변수를 대입한다
+	/**
+	 * 차량 등록 메서드
+	 * @param vcreg
+	 * @return
+	 */
+	/*
+	 * public int getCarInsert(VoCarDetail voDetailInsert) {
+	 * System.out.println("CarService 클래스 getCarInsert 메서드 실행"); return
+	 * carMapper.getDetailInsert(voDetailInsert);
+	 * 
+	 * 
+	 * }
+	 */
 	
-	public List<VoCarDetail> getDBCarMidCate (String bigColSm) {
-		return carMapper.getDBCarMidCate(bigColSm);
-	}
-	
-	public List<VoCarDetail> getDBCarBigCate(String carModelSm) {
-		return carMapper.getDBCarBigCate(carModelSm);
-	}
-	
-	public List<VoCarDetail> getDBCarEngin(String fuelSm) {
-		return carMapper.getDBCarEngin(fuelSm);
-	}
-	
-	public List<VoCarDetail> getDBCarfuel(String opGradeSm) {
-		return carMapper.getDBCarfuel(opGradeSm);
-	}
+//  셀렉트한 값을 가져와서 벤더사(모델명) 가져오기
+	/*
+	 * public List<String> getDBVendor(int selectVal){ 
+	 * List<VoCarDetail> list = carMapper.getDBVendor(selectVal); 
+	 * List<String> nameList = newArrayList<String>();
+	 * 
+	 * for(int i =0; i < list.size(); i++) {
+	 * nameList.add(list.get(i).getCarModelName());
+	 * System.out.println((i+1)+"번째 모델명 : "+list.get(i).getCarModelName()); 
+	 * } return nameList; }
+	 */
 	
 	public List<VoCarDetail> getDBCarGrade(String yearCarSm) {
+		System.out.println("서비스171" + yearCarSm);
 		return carMapper.getDBCarGrade(yearCarSm);
 	}
 

@@ -22,15 +22,6 @@ public class CustomerService {
 	 * 고객 목록을 조회 하는 메소드
 	 * @return 리스트 타입
 	 */
-	public String getCustomerPage(Map<String,String> search){
-		String page = customerMapper.getCustomerPage(search);
-		return page;
-	}
-	
-	/********
-	 * 고객 목록을 조회 하는 메소드
-	 * @return 리스트 타입
-	 */
 	public List<Customer> getCustomerSelect(Map<String,String> search){
 		List<Customer> list = customerMapper.getCustomerSelect(search);
 		for(int i=0;i<list.size();i++) {
