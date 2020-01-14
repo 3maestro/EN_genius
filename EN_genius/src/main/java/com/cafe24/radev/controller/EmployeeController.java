@@ -1,5 +1,7 @@
 package com.cafe24.radev.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,55 +25,78 @@ public class EmployeeController {
 	 * 직원등록
 	 * @return
 	 */
-	@PostMapping("/addEmployee")
+	@PostMapping("/employee/addEmployee")
 	public String addEmployee(Employee employee, HttpSession session) {
 		employee.setBsCode((String)session.getAttribute("SCODE"));
 		employee.setEiWriter((String)session.getAttribute("SCODE"));
 		System.out.println("직원등록 폼에서 받아온 값===>"+ employee.toString());
-		System.out.println(employee + " <-employee");
+		System.out.println(employee.getEmployeeGender());
 		employeeService.addEmployee(employee);
-		return "redirect:/employeeSelect";
+		return "redirect:/employee/employeeSelect";
 	}
 	/**
 	 * 직원수정
 	 * @param employeeCode
 	 * @return
 	 */
-	@PostMapping("/modifyE")			
+	@PostMapping("/employee/modifyE")			
 	public String modifyEmployee(Employee employee, HttpSession session) {
-		employee.setBsCode((String)session.getAttribute("SCODE"));
 		System.out.println("수정화면에서 받아온 값 ==>" + employee);
 		employeeService.modifyEmployee(employee);
-		return "redirect:/employeeSelect";
+		return "redirect:/employee/employeeSelect";
+	}
+	/**
+	 * 직원퇴사
+	 * @param employee
+	 * @return
+	 */
+	@PostMapping("/employee/resignationE")
+	public String resignationEmployee(Employee employee) {
+		System.out.println("퇴사버튼클릭시==>" + employee);
+		employeeService.resignationEmployee(employee);
+		return "redirect:/employee/employeeSelect";
 	}
 	/**
 	 * 직원조회
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/employeeSelect")
+	@GetMapping("/employee/employeeSelect")
 	public String employeeList(Model model, HttpSession session) {
 		String bsCode = (String)session.getAttribute("SCODE");
 		System.out.println("사업장코드==>"+ bsCode);
 		model.addAttribute("employeeList", employeeService.employeeList(bsCode));
 		model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode));
-		System.out.println("========>"+model.addAttribute("employeeList", employeeService.employeeList(bsCode)));
-		System.out.println("========"+model.addAttribute("dutyList", employeeService.DepartmentDutySelect(bsCode)));
 		return "/employee/employeeList";
 	}
 	/**
-	 * 직원작업현황
+	 * 직원 마이페이지
 	 * @return
 	 */
-	@GetMapping("/workCurrentState")
-	public String WorkCurrentState() {
-		return "/employee/employeeWorkCurrentState";
+	@GetMapping("/employee/employeeMypage")
+	public String employeeMypage(Model model, HttpSession session){
+		String employeeCode = (String)session.getAttribute("ECODE");
+		employeeService.employeeMypage(employeeCode);
+		model.addAttribute("Employee", employeeService.employeeMypage(employeeCode));
+		return "/employee/employeeMypage";
+	}
+	
+	/**
+	 * 직원 마이페이지
+	 * @return
+	 */
+	@GetMapping("/employee/employeeDetail")
+	public String employeeDetail(Model model, HttpSession session){
+		String employeeCode = (String)session.getAttribute("ECODE");
+		employeeService.employeeMypage(employeeCode);
+		model.addAttribute("Employee", employeeService.employeeMypage(employeeCode));
+		return "/employee/employeeDetail";
 	}
 	/**
 	 * 직원별 통계
 	 * @return
 	 */
-	@GetMapping("/statistics")
+	@GetMapping("/employee/statistics")
 	public String Statistics() {
 		return "/employee/employeeStatistics";
 	}

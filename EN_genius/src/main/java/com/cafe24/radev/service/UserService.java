@@ -25,6 +25,7 @@ import com.cafe24.radev.vo.CarFactory;
 import com.cafe24.radev.vo.Employee;
 import com.cafe24.radev.vo.ImageFile;
 
+
 @Service
 public class UserService {
 
@@ -86,6 +87,16 @@ public class UserService {
 	
 	public List<CarFactory> carFactoryList(){
 		return userMapper.carFactoryList();
+	}
+	
+	public List<CarFactory> carFactorySearch(String sk, String sv){
+		System.out.println("==>"+sk);
+		List<CarFactory> list = userMapper.carFactorySearch(sk,sv);
+		return list;
+	}
+	
+	public List<CarFactory> approvalList(String approval){
+		return userMapper.approvalList(approval);
 	}
 	
 	public String selectImage(String bsCode) {

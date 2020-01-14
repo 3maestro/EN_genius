@@ -19,7 +19,11 @@ public interface EmployeeMapper {
 	
 	void modifyEmployee(Employee employee);
 	
+	void resignationEmployee(Employee employee);
+	
 	List<Employee> employeeList(String bsCode);
+	
+	Employee employeeMypage(String employeeCode);
 	
 	List<String> DepartmentDutySelect(String bsCode);
 	

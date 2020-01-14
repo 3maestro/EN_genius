@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+	
+	<th:block layout:fragment="customTitle">
+		<title>부품목록</title>
+		<link rel="stylesheet" href="/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+	</th:block>
+	<th:block layout:fragment="contentFragment">
+		
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card" id="card">
+					<div class="card-header">
+						<strong class="card-title">요일별 판매현황</strong>
+					</div>
+					<div class="card-body">
+						<!-- 컨텐츠  -->
+						<div class="card">
+							<div class="card-body">
+								<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+									<div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+										<div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+									</div>
+									<div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+										<div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+									</div>
+								</div>
+							<h4 class="mb-3">요일별 판매건수</h4>
+							<canvas id="singelBarChart" height="168" width="336" class="chartjs-render-monitor" style="display: block; width: 336px; height: 200px;"></canvas>
+							<input type="hidden" value="15" id="monday">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card" id="card">
+					<div class="card-header">
+						<strong class="card-title">견적목록</strong>
+					</div>
+					<div class="card-body">
+						견적목록
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	 <!-- Chart js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
+	<script src="/assets/js/init/singleBarChartjs-partInit.js"></script>
+    <!-- Flot Chart -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
+	</th:block>
+	
+</html>

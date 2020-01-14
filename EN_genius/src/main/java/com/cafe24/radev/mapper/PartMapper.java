@@ -1,11 +1,12 @@
 package com.cafe24.radev.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.cafe24.radev.vo.Group;
 import com.cafe24.radev.vo.Part;
+import com.cafe24.radev.vo.PartEsimate;
 import com.cafe24.radev.vo.PartGuide;
 @Mapper
 public interface PartMapper {
@@ -34,7 +35,7 @@ public interface PartMapper {
 	 * @param partValue
 	 * @return
 	 */
-	public void partUpdateforMany(Part part);
+	public void partUpdateforMany(Map<String, Object> partMap);
 	
 	
 	/**
@@ -43,12 +44,6 @@ public interface PartMapper {
 	 * @return
 	 */
 	public String getGroup(String select);
-	
-	/**
-	 * 그룹코드생성
-	 * @return
-	 */
-	public Group makeGroupCode(Group group);
 	
 	/**
 	 * 전체부품목록
@@ -61,6 +56,26 @@ public interface PartMapper {
 	 * @param bsCode
 	 * @return
 	 */
-	String leadCode(String bsCode,String select);
+	String getPartCode(String bsCode,String select);
+	
+	/**
+	 * 판매코드 최댓값
+	 * @param bsCode
+	 * @param select
+	 * @return
+	 */
+	String getEsCode(String bsCode,String select);
+	
+	/**
+	 * 판매등록
+	 * @param partEs
+	 */
+	void addEstimate(PartEsimate partEs);
+	
+	/**
+	 * 그룹코드생성
+	 * @param gCode
+	 */
+	void addgroupCode(String gCode,String gName,String writer,String bsCode);
 	
 }

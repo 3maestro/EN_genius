@@ -19,13 +19,17 @@ public interface UserMapper {
 	
 	int bsCodeMax();
 	
-	CarFactory adminLogin(CarFactory carFactory);
-	
 	List<CarFactory> carFactoryList();
+	
+	List<CarFactory> carFactorySearch(String sk, String sv);
+	
+	List<CarFactory> approvalList(String approval);
 	
 	String selectImage(String bsCode);
 	
 	int approvalCheck(Map<String, Object> map);
 	
 	int approvalRefusal(List<String> checkArray);
+	
+	CarFactory adminLogin(CarFactory carFactory);
 }
