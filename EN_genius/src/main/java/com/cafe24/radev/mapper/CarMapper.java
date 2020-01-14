@@ -18,6 +18,8 @@ public interface CarMapper {
 	//가져갈 값이 1개일땐 리턴데이터 타입을 vo객체로 한다
 	//등록할때마다 값을 가져와야 하기 떄문에 vo의 매개변수를 입력해야 한다
 	
+	public List<String> customerNameSelect(@RequestParam (value = "customerName")String customerName); 
+	
 	public List<VoCarFuel> getPowTrainSelect();
 	
 	public List<VoCarFuel> getDriveWaySelect();
@@ -68,7 +70,7 @@ public interface CarMapper {
 	 * @param voDetail
 	 * @return
 	 */
-	public int getCarRegister(VoCarRegister voDetail);
+	public int getCarRegister(VoCarDetail voDetail);
 	
 	/**
 	 * 연도별 차량 메서드

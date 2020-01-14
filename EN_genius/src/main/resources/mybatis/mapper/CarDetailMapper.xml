@@ -52,34 +52,43 @@
 		<result property="colorMidName" column="color_mid_name"/>
 		<result property="customerName" column="customer_name"/>
 		<result property="customerPhone" column="customer_phone"/>
-		
 	</resultMap>
 	
 	
 	
 		<!-- Datail insert -->
-	<insert id="getCarRegister" parameterType="com.cafe24.radev.vo.VoCarRegister">
+	<insert id="getCarRegister" parameterType="com.cafe24.radev.vo.VoCarDetail">
 		INSERT INTO customer_car_reg_table
 			(customer_car_reg_code, bs_code, customer_code, 
 			customer_car_number, origin_code, vendor_code, 
 			car_class_code, car_model_code, year_car_code, 
 			option_grade_code, fuel_code, fe_code, color_big_code, 
-			color_mid_code,
-			car_registration_date, last_distance_driven, last_visit_date,
-			customer_car_reg_writer, customer_car_reg_date)
+			color_mid_code, car_registration_date, last_visit_date,
+			last_distance_driven,customer_car_reg_writer, customer_car_reg_date)
 			
-			VALUES ('', 'bs002', 
+			VALUES (#{customerCarRegCode}, #{scode}, 
 		
 		(SELECT 
 			customer_tb.customer_code
 		FROM
 			customer_tb
 		WHERE  
-			customer_tb.customer_name = '이고객' AND customer_tb.customer_phone = '010-1111-2227'), '', '', '', '', '', '', '', 
-			'', '', '', '', '', '15400','', '', NOW())
+			customer_tb.customer_name = #{customerName} AND customer_tb.customer_phone = #{customerPhone}), 
+			#{customerCarNumber}, #{originCode}, #{vendorCode}, 
+			#{carClassCode}, #{carModelCode}, #{yearCarCode},
+			 #{optionGradeCode}, #{fuelCode},#{feCode},#{colorBigCode}, #{colorMidCode}, #{carRegistrationDate}, #{lastDistanceDriven}, 
+			 #{lastVisitDate}, #{sid}, NOW())
 
 
 	</insert>
+	
+	<select id="customerNameSelect" resultType="String">
+		SELECT 
+			customer_tb.customer_phone
+		FROM
+			customer_tb
+		WHERE customer_tb.customer_name = #{customerName}
+	</select>
 	
 	
 	<select id="getCarList" resultMap="CarDetailMap">

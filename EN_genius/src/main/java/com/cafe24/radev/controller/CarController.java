@@ -2,12 +2,15 @@ package com.cafe24.radev.controller;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,6 +29,7 @@ public class CarController {
 
 	@Autowired
 	private CarService carService;
+	
 
 	/**
 	 * 차량 상세보기
@@ -42,7 +46,12 @@ public class CarController {
 	  
 	 
 	@PostMapping("carRegister")
-	public String carRegister(VoCarRegister voDetailInsert) {
+	public String carRegister(VoCarDetail voDetailInsert, HttpSession session) {
+		String sid		= (String)session.getAttribute("SID");
+		String scode	= (String)session.getAttribute("SCODE");
+		voDetailInsert.setSid(sid);
+		voDetailInsert.setScode(scode);
+		System.out.println("scode" + scode);
 		System.out.println("컨46" + voDetailInsert);
 		carService.getCarRegister(voDetailInsert);
 		return "redirect:carList";
@@ -74,6 +83,13 @@ public class CarController {
 		return "carregister/carRegister";
 	}
 
+	  @PostMapping("customerNameSelect")
+	  public @ResponseBody List<String> customerNameSelect (@RequestParam (value = "customerName")String customerName) {
+		  List<String> customerNameList = carService.customerNameSelect(customerName);
+		  System.out.println("컨88" + customerNameList);
+		  return customerNameList;
+		  
+	  }
 	
 	  @GetMapping("/carList")
 	  public String carList(VoCarDetail voDetail, Model model) {
