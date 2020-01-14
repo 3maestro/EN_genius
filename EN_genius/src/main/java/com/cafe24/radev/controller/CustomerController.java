@@ -29,26 +29,14 @@ public class CustomerController {
 	@GetMapping(value="/customerSelect", produces = "application/json")
 	@ResponseBody
 	public List<Customer> getCustomerSelect(@RequestParam Map<String,String> search) {
-		String visit = search.get("visit");
-		List<Customer> list = null;
-		if(visit==null) {
-			list = customerService.getCustomerSelect(search);
-		}else {
-			
-		}
+		List<Customer> list = customerService.getCustomerSelect(search);
 		return list;
 	}
 	
 	@GetMapping(value="/customerPage", produces = "text/plain")
 	@ResponseBody
 	public String getCustomerPage(@RequestParam Map<String,String> search) {
-		String visit = search.get("visit");
-		String page = null;
-		if(visit==null) {
-			page = customerService.getCustomerPage(search);
-		}else {
-			
-		}
+		String page = customerService.getCustomerPage(search);
 		return page;
 	}
 	
@@ -61,46 +49,25 @@ public class CustomerController {
 	@PostMapping("/customer/customerInsert")
 	public String getCustomerInsert(Model model, Customer customer, HttpSession session) {
 		String sid		= (String)session.getAttribute("SID");
-		String ecode	= (String)session.getAttribute("ECODE");
 		String scode	= (String)session.getAttribute("SCODE");
-		if(sid==null) {
-			sid=ecode;
-		}
 		customer.setBsCode(scode);
 		customer.setEiCode(sid);
-		System.out.println(customer);
 		customerService.getCustomerInsert(customer);
-		System.out.println("끝이다");
 		return "redirect:/customer/customerList";
 	}
 
 	@GetMapping("/customer/customerUpdate")
 	public String getCustomerUpdate(Model model, @RequestParam(value="customerCode") String customerCode, HttpSession session) {
-		String sid		= (String)session.getAttribute("SID");
-		String ecode	= (String)session.getAttribute("ECODE");
 		String scode	= (String)session.getAttribute("SCODE");
-		if(sid==null) {
-			sid=ecode;
-		}
-		System.out.println(scode+"_"+customerCode);
 		customerCode=scode+"_"+customerCode;
-		System.out.println(customerCode);
 		model.addAttribute("title", "고객수정");
 		Customer customer = customerService.getCustomerSelectOne(customerCode);
-		System.out.println(customer);
 		model.addAttribute("customer", customer);
 		return "/customer/customerInfo";
 	}
 	
 	@PostMapping("/customerUpdate")
 	public String getCustomerUpdate(Customer customer, HttpSession session) {
-		String sid		= (String)session.getAttribute("SID");
-		String ecode	= (String)session.getAttribute("ECODE");
-		String scode	= (String)session.getAttribute("SCODE");
-		if(sid==null) {
-			sid=ecode;
-		}
-		System.out.println(customer);
 		customerService.getCustomerUpdate(customer);
 		return "redirect:/customer/customerList";
 	}
@@ -117,17 +84,5 @@ public class CustomerController {
 		String scode	= (String)session.getAttribute("SCODE");
 		String code = customerService.getCustomerInsertAjax(name,birth,phone,scode);
 		return code;
-	}
-	
-	@GetMapping("/customer/customerSMS")
-	public String getCustomerSMS(Model model) {
-		System.out.println("SMS");
-		return "/customer/customerSMS";
-	}
-
-	@GetMapping("/calendar")
-	public String getCalendar(Model model) {
-		System.out.println("calendar");
-		return "/calendar";
 	}
 }
