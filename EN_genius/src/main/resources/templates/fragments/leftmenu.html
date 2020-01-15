@@ -35,47 +35,17 @@
 							</a>
 						</li>
 						<li>
+							<i class="fa fa-puzzle-piece">
+							</i>
+							<a th:href="@{/event/eventX}">
+								이벤트관리
+							</a>
+						</li>
+						<li>
 							<i class="fa fa-bars">
 							</i>
-							<a th:href="@{/customer/customerX}">
+							<a th:href="@{/customer/customerVisit}">
 								!방문내역
-							</a>
-						</li>
-						<li>
-							<i class="fa fa-puzzle-piece">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!이벤트 달력
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="menu-item-has-children dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="menu-icon fa fa-cogs">
-						</i>
-						!SMS
-					</a>
-					<ul class="sub-menu children dropdown-menu">
-						<li>
-							<i class="fa fa-puzzle-piece">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!SMS 예약어 관리
-							</a>
-						</li>
-						<li>
-							<i class="fa fa-id-badge">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!SMS 발송
-							</a>
-						</li>
-						<li>
-							<i class="fa fa-bars">
-							</i>
-							<a th:href="@{/customer/customerX}">
-								!SMS 발송내역
 							</a>
 						</li>
 					</ul>
@@ -99,7 +69,7 @@
                             <li><i class="menu-icon fa fa-th"></i><a th:href="@{/repHistory}">!과거 정비 이력</a></li>
                         </ul>
                     </li>
-                                        <li class="menu-item-has-children dropdown">
+                    <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>!차량관리</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a th:href="@{/carRegister}">!차량 등록</a></li>
@@ -116,7 +86,6 @@
                             <li><i class="menu-icon fa fa-fort-awesome"></i><a th:href="@{/check/routineCheckList}">!표준정기점검표</a></li>
                             <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/check/basicCheck}">!기본점검항목</a></li>
                             <li><i class="menu-icon ti-themify-logo"></i><a th:href="@{/check/diagnosisGuide}">!진단 가이드</a></li>
-                          
                         </ul>
                     </li>
                     <li>
@@ -136,7 +105,8 @@
                             <li><a href="/part/partList">!부품목록</a></li>
                             <li><a href="/part/partInsert">!부품등록</a></li>
                             <li><a href="/part/partOrder">!부품구매</a></li>
-                            <li><a href="/part/estimate">!부품견적</a></li>
+                            <li><a href="/part/eEtimate">!부품견적</a></li>
+                            <li><a href="/part/pEstiList">!부품견적목록</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">

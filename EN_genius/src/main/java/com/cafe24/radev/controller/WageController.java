@@ -200,7 +200,7 @@ public class WageController {
 	 * 접수번호로작업리스트 가져오기
 	 * @return
 	 */	
-	@GetMapping("/work/WorkingNow")
+	@GetMapping("/work/workingNow")
 	public String Working(Model model, HttpSession session) {
 		System.out.println("Working  WageController 호출");
 		String recNum = (String)session.getAttribute("RECNUM");
@@ -256,7 +256,7 @@ public class WageController {
 		//return "/wage/employeeWorkCurrentState";
 	}
 	
-	@GetMapping("/work/wageEstimateList")
+	@GetMapping("/work/wageEstimate")
 	public String wageEstimate() {
 		return "/wage/wageEstimateList";
 	}
