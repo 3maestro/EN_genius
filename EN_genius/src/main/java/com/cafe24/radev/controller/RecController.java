@@ -44,13 +44,7 @@ public class RecController {
 	}
 	
 	
-	@GetMapping("recRegister")
-	public String register(VoRecRegister voRecRegister, Model model) {
-		System.out.println("이게뭐지");
-		model.addAttribute("voRecRegister", voRecRegister);
-		
-		return "receptionregister/recRegister";
-	}
+	
 	
 	@PostMapping("getListAdd")
 	public @ResponseBody VoRecRegister getListAdd(HttpSession session) {

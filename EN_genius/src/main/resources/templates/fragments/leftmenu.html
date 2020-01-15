@@ -50,7 +50,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="menu-title">Icons</li>
+				<li class="menu-title"></li>
 				<!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown" th:if="${session.ECODE eq null}">
                     
@@ -64,7 +64,6 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>#접수관리</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="#">#예약 등록</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a th:href="@{/recRegister}">!접수 등록</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a th:href="@{/recList}">!접수 리스트</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a th:href="@{/repHistory}">!과거 정비 이력</a></li>
                         </ul>
@@ -78,7 +77,7 @@
                         </ul>
                     </li>
 
-                    <li class="menu-title">Icons</li><!-- /.menu-title -->
+                    <li class="menu-title"></li><!-- /.menu-title -->
 
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>!점검,진단</a>
@@ -105,7 +104,7 @@
                             <li><a href="/part/partList">!부품목록</a></li>
                             <li><a href="/part/partInsert">!부품등록</a></li>
                             <li><a href="/part/partOrder">!부품구매</a></li>
-                            <li><a href="/part/eEtimate">!부품견적</a></li>
+                            <li><a href="/part/estimate">!부품견적</a></li>
                             <li><a href="/part/pEstiList">!부품견적목록</a></li>
                         </ul>
                     </li>
@@ -116,9 +115,8 @@
                             <li><a href="/storeInsert">!거래처등록</a></li>
                         </ul>
                     </li>
-                    <li class="menu-title">Extras</li><!-- /.menu-title -->
+                    <!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-sign-in"></i><a th:href="@{/login/loginForm}" th:if="${session.SID eq null}">!Login</a></li>
                         </ul>
