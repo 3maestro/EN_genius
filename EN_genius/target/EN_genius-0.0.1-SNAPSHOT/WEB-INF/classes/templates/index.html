@@ -1,137 +1,350 @@
 <!DOCTYPE html>
-<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
-
-	<th:block layout:fragment="customTitle">
-		<title>EN_genius</title>
-	</th:block>
+<html>
+	<head>
+		<title>PORTFOLIO</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	    
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+	    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+	<!--     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png"> -->
 	
-	<th:block layout:fragment="customCss">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+	    <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
+	    <link rel="stylesheet" href="/assets/css/style.css">
+	    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
+	    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
+	
 		<style>
-		.btn-info-type1 {color: #fff; background-color: #76b3bdfa; border-color: #8e7b41;}	
- 		.btn-outline-info {}	 
-		</style>
-	</th:block>	
-	
-	<th:block layout:fragment="customScript">	
-		<script type="text/javascript" th:inline="javascript">
-    /*<![CDATA[*/
-
-			var result = /*[[ ${lo} ]]*/;
-    		if(result!=null){
-				alert(result);
-    		}
-    		
-	  		$(document).ready(function(){
+		body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+		body, html {
+		  height: 100%;
+		  color: #777;
+		  line-height: 1.8;
+		}
 		
- 			$('#formCheck').click(function(){
-				var bossIdCheck = $('input[name="bossId"]');
-				var bossPwCheck = $('input[name="bossPw"]');
-				var bossPwCheck = $('input[name="employeeCode"]');
-				var bossPwCheck = $('input[name="employeePass"]');
-				
-				if(bossIdCheck.val() == ''){
-					bossIdCheck.text('아이디를입력하세요')
-					return false;
-				}
-			}); 
- 			
- 			$(document).on('click','#formCheck',function(){
-				console.log('click');
-				var bossId = $('[name=bossId]').val();
-				console.log(bossId);
-				
-				var request = $.ajax({
-					url: "/Adminlogin",
-					method: "POST",
-					data: { bossId : bossId },
-					dataType: "json"
-				});
-				
-				request.done(function( data ) {
-					console.log(data);
-						
-				});
-				request.fail(function( jqXHR, textStatus ) {
-					//alert( "Request failed: " + textStatus );
-					$('[name=bossId]').val('다시시도하세요');
-				});
-	 
-			});
-		});
-/*]]*/	 
-		</script>
-	</th:block>
+		/* Create a Parallax Effect */
+		.bgimg-1, .bgimg-2, .bgimg-3 {
+		  background-attachment: fixed;
+		  background-position: center;
+		  background-repeat: no-repeat;
+		  background-size: cover;
+		}
+		
+		/* First image (Logo. Full height) */
+		.bgimg-1 {
+		  background-image: url('./images/parallax1.jpg');
+		  min-height: 100%;
+		}
+		
+		/* Second image (Portfolio) */
+		.bgimg-2 {
+		  background-image: url("./images/parallax2.jpg");
+		  min-height: 400px;
+		}
+		
+		/* Third image (Contact) */
+		.bgimg-3 {
+		  background-image: url("./images/parallax3.jpg");
+		  min-height: 400px;
+		}
+		
+		.w3-wide {letter-spacing: 10px;}
+		.w3-hover-opacity {cursor: pointer;}
+		
+		/* Turn off parallax scrolling for tablets and phones */
+		@media only screen and (max-device-width: 1600px) {
+		  .bgimg-1, .bgimg-2, .bgimg-3 {
+		    background-attachment: scroll;
+		    min-height: 400px;
+		  }
+		}
+		.text{text-indent:30px;}
+		</style>
+		
+	</head>
+
+	<body>
+		<!-- Navbar (sit on top) -->
+		<div class="w3-top">
+		  <div class="w3-bar" id="myNavbar">
+		    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+		      <i class="fa fa-bars"></i>
+		    </a>
+		    <a href="#home" class="w3-bar-item w3-button">HOME</a>
+		    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
+		    <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> PORTFOLIO</a>
+		    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+		    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+		      <i class="fa fa-search"></i>
+		    </a>
+		  </div>
+		    <!-- Navbar on small screens -->
+		  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+		    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
+		    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
+		    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+		    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+		  </div>
+		</div>
+		
+		<!-- First Parallax Image with Logo Text -->
+		<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+		  <div class="w3-display-middle" style="white-space:nowrap;">
+		    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">3maestro</span>
+		  </div>
+		</div>
+		
+		<!-- Container (About Section) -->
+		<div class="w3-content w3-container w3-padding-64" id="about">
+		  <h3 class="w3-center">INTRODUCTION</h3>
+		  <!-- <p class="w3-center"><em>I am AAA</em></p> -->
+		  <br>
+		  <p style="font-size: large;">
+		  		"안녕하세요~ 좋은 소스 한 줄 공유하겠습니다."<br>
+			  	<p>
+				  	if(enjoy && communication && passion){
+				  		<p class="text">String developer = "정상혁";</p>
+				  		<p class="text">System.out.println(developer + "은 성장하고 있습니다.");</p>
+				  	} <br>
+			  	</p>
+			  	"결괏값과 같이 저는 전문적인 개발자를 목표로 지속해서 성장합니다. 많은 관심 부탁합니다!!!"
+		  </p>
+		  <div class="w3-row">
+		    <div class="w3-col m6 w3-center w3-padding-large">
+		      <h3><Strong><i class="fa fa-user w3-margin-right"></i>정 상 혁</Strong></h3><br>
+		      <img src="./images/portfolio.jpg" class="w3-round w3-image " alt="Photo of Me" width="300" height="200">
+		    </div>
+		    
+		    <!-- Hide this text on small devices -->
+		    <div class="w3-col m6 w3-center w3-padding-large">
+		    	<h3><b><i class="fa fa-bar-chart-o w3-margin-right"></i>Developer capacity</b></h3><br>
+		        <canvas id="radarChart" height="100" width="100" class="chartjs-render-monitor" style="display: block; width: 400px; height: 323px;"></canvas>
+		    </div>
+		    
+		  </div>
+		  <h3 class="w3-center w3-padding-16"><i class="fa fa-star w3-margin-right"></i>character</h3>
+		  <!-- <strong><p class="w3-large w3-center w3-padding-16">character</p></strong> -->
+		  <p class="w3-wide">커뮤니케이션</p>
+		  <div class="w3-light-grey">
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:90%">90%</div>
+		  </div>
+		  <p class="w3-wide">전문성</p>
+		  <div class="w3-light-grey">
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:85%">85%</div>
+		  </div>
+		  <p class="w3-wide">열정</p>
+		  <div class="w3-light-grey">
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:95%">95%</div>
+		  </div>
+		  <p class="w3-wide">성실성</p>
+		  <div class="w3-light-grey">
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:100%">100%</div>
+		  </div>
+		  <p class="w3-wide">인내심</p>
+		  <div class="w3-light-grey">
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:90%">90%</div>
+		  </div>
+		</div>
+		
+		<div class="w3-row w3-center w3-dark-grey w3-padding-16">
+		  <div class="w3-quarter w3-section">
+		    <span class="w3-xlarge">-</span><br>
+		    등급
+		  </div>
+		  <div class="w3-quarter w3-section">
+		    <span class="w3-xlarge">1년 이내</span><br>
+		    경력
+		  </div>
+		  <div class="w3-quarter w3-section">
+		    <span class="w3-xlarge">1+</span><br>
+		    프로젝트
+		  </div>
+		  <div class="w3-quarter w3-section">
+		    <span class="w3-xlarge">서울, 경기</span><br>
+		    지역
+		  </div>
+		</div>
+		
+		<!-- Second Parallax Image with Portfolio Text -->
+		<div class="bgimg-2 w3-display-container w3-opacity-min">
+		  <div class="w3-display-middle">
+		    <span class="w3-xxlarge w3-text-white w3-wide">DEVELOPER</span>
+		  </div>
+		</div>
+		
+		<!-- Container (Portfolio Section) -->
+		<div class="w3-content w3-container w3-padding-64" id="portfolio">
+		  <h3 class="w3-center">MY WORK</h3> 
+<!-- 		<a th:href="@{/login/loginForm}"> -->
+<!-- 			      	<span><img src="./images/logo.png" style="width:250px; height: 200px;" alt="자동차공업사통합관리CRM"><br>자동차공업사통합관리CRM</span> -->
+<!-- 			      </a> -->
+		  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+		  <div class="w3-row-padding w3-center">
+		    <div class="w3-col m3-center">
+	     		<img src="./images/logo.png" style="width:250px; height: 200px;" alt="자동차공업사통합관리CRM"><br>
+				<button type="button" class="btn btn-secondarya mb-1" data-toggle="modal" data-target="#mediumModal">소 개</button>
+		    </div>
+		  </div>
+		
+		  <div class="w3-row-padding w3-center w3-section">
+		    <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button>
+		  </div>
+		</div>
+		
+		<div class="modal fade show" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" style="display: none;">
+		    <div class="modal-dialog modal-lg" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="mediumModalLabel">자동차공업사통합관리CRM
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                          </button>
+                         </h5>
+		            </div>
+		            <div class="modal-body">
+		                <p>
+		                	<span>구현 목적</span>
+		                	<ul style="margin-left: 15px;">
+		                		<li>불투명한 자동차 정비의 내역, 공임에 대하여 표준으로 명시 된 가격 단위로 업체별 투명하게 서비스를 제공</li>
+		                		<li>사업장별 작업 현황을 관리</li>
+		                		<li>자동차 정비 사업소에서 사용하는 작업 현황 관리 및 표준 정비공임을 활용한 공임 계산</li>
+		                	</ul>
+		                	<span>구현 기능</span>
+		                	<ul style="margin-left: 15px;">
+		                		<li>할당된 접수 번호 또는 등록된 차량 정보로 조회할 수 있다.</li>
+		                		<li>과거 정기점검 이력과 최근 방문 일자 기준 점검 내용을 비교하여 필요한 작업을 자동으로 띄운다.</li>
+		                		<li>기본 점검 사항을 체크하여 점검표를 만들고 인쇄하여 현장 직원이 서류로 사용할 수 있다.(미완성)</li>
+		                		<li>차량 조회 시 배기량별 표준 작업 시간과 공임을 리스트로 만들어 작업자가 체크 시 자동으로 작업등록 및 견적을 계산할 수 있다.</li>
+		                		<li>진행 확정된 작업은 담당 직원을 클릭하여 접수번호 기준 표준작업시간 단위로 작업 배정을 할 수 있다.(미완성)</li>
+<!-- 		                		<li>공임 견적으로 직원별, 사업장별 공임 관련 매출을 도표화 시켜 기간단위로 계획을 수립할 수 있다.(미완성)</li> -->
+		                	</ul>
+		                </p>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+		                <a th:href="@{/login/loginForm}"><button type="button" class="btn btn-primary">Go Project</button></a>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+		
+		
+		<!-- Modal for full size images on click-->
+		<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+		  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+		  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+		    <img id="img01" class="w3-image">
+		    <p id="caption" class="w3-opacity w3-large"></p>
+		  </div>
+		</div>
+		
+		<!-- Third Parallax Image with Portfolio Text -->
+		<div class="bgimg-3 w3-display-container w3-opacity-min">
+		  <div class="w3-display-middle">
+		     <span class="w3-xxlarge w3-text-white w3-wide">COMMUNICATION</span>
+		  </div>
+		</div>
+		
+		<!-- Container (Contact Section) -->
+		<div class="w3-content w3-container w3-padding-64" id="contact">
+		  <h3 class="w3-center">Please give us a call.</h3>
+		  <!-- <p class="w3-center"><em>좋은 의견 감사합니다!</em></p> -->
+		
+		  <div class="w3-row w3-padding-32 w3-section">
+		    <div class="w3-col m4 w3-container">
+		      <img src="./images/map.PNG" class="w3-image w3-round" style="width:100%">
+		    </div>
+		    <div class="w3-col m8 w3-panel">
+		      <div class="w3-large w3-margin-bottom">
+		        <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> 서울,경기<br>
+		        <i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: 010.3317.5273<br>
+		        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: avboop000@hanmail.net<br>
+		      </div>
+		      <p>Swing by for a cup of <i class="fa fa-coffee"></i>, or leave me a note:</p>
+		      <form action="MAILTO:avboop000@naver.com" target="_blank" method="post" enctype="text/plain">
+		        <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+		          <div class="w3-half">
+		            <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+		          </div>
+		          <div class="w3-half">
+		            <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+		          </div>
+		        </div>
+		        <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+		        <button class="w3-button w3-black w3-right w3-section" type="submit">
+		          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+		        </button>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+		
+		<!-- Footer -->
+		<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+		  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+		  <div class="w3-xlarge w3-section">
+		    <a href="https://www.facebook.com/3maestro"><i class="fa fa-facebook-official w3-hover-opacity w3-margin-right"></i></a>
+		    <a href="https://www.instagram.com/3maestro/"><i class="fa fa-instagram w3-hover-opacity w3-margin-right"></i></a>
+		    <a href="https://github.com/3maestro"><i class="fa ti-github w3-hover-opacity w3-margin-right"></i></a>
+		  </div>
+		  <p>Powered by <a href="http://avboop123.cafe24.com/" title="W3.CSS" target="_blank" class="w3-hover-text-green">3maestro</a></p>
+		</footer>
+	 	<script>
+		 // Modal Image Gallery
+			function onClick(element) {
+			  document.getElementById("img01").src = element.src;
+			  document.getElementById("modal01").style.display = "block";
+			  var captionText = document.getElementById("caption");
+			  captionText.innerHTML = element.alt;
+			}
+		
+			// Change style of navbar on scroll
+			window.onscroll = function() {myFunction()};
+			function myFunction() {
+			    var navbar = document.getElementById("myNavbar");
+			    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+			        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+			    } else {
+			        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+			    }
+			}
+		
+			// Used to toggle the menu on small screens when clicking on the menu button
+			function toggleFunction() {
+			    var x = document.getElementById("navDemo");
+			    if (x.className.indexOf("w3-show") == -1) {
+			        x.className += " w3-show";
+			    } else {
+			        x.className = x.className.replace(" w3-show", "");
+			    }
+			}
 	
-	<th:block layout:fragment="contentFragment">
-		<div class="login-content">
-			<div class="login-logo">
-			    <a href="index.html">
-			        <img class="align-content" src="images/logo.png" alt="">
-			    </a>
-			</div>
-			<div class="card-header row" style="display: flex;">
-				<div class="login-form" style="flex: 1;" >
-					<form method="post" action="/login/Adminlogin">
-						<div>
-							<p style=text-align:center>개발자</p><br><br>
-							<div class="form-group">
-		    					<label>아이디</label>
-		    					<input type="text" class="form-control" name="bossId" placeholder="아이디를 입력해주세요" value="admin">
-		   						 <!-- <span id=idCheck>ID체크</span> -->
-		        			</div>
-		        			<div class="form-group">
-		            			<label>비밀번호</label>
-		            			<input type="password" class="form-control" name="bossPw" placeholder="비밀번호를 입력해주세요" value="admin">
-		        			</div>
-		        			<button type="submit" id="formCheck" class="btn btn-info-type1">로그인</button>
-		        			<br><br><br><br>
-		        		</div>
-		    		</form>
-				</div>
-				<div class="login-form" style="flex: 1;">
-					<form method="post" action="/login/Bosslogin">
-						<p style=text-align:center>사장님</p><br><br>
-						<div class="form-group">
-		   					<label>아이디</label>
-		    				<input type="text" class="form-control" name="bossId" placeholder="아이디를 입력해주세요" value="id001">
-						</div>
-						<div class="form-group">
-						    <label>비밀번호</label>
-						    <input type="password" class="form-control" name="bossPw" placeholder="비밀번호를 입력해주세요" value="pw001">
-						</div>
-						<div class="checkbox">
-						<!-- 		            <label>
-								                <input type="checkbox"> 아이디 저장
-								            </label> -->
-						</div>
-		        		<button type="submit" class="btn btn-info-type1">로그인</button>
-		    		</form>
-				</div>		
-				<div class="login-form" style="flex: 1;">
-					<form method="post" action="/login/Employeelogin">
-						<p style=text-align:center>직원</p><br><br>
-		       				<div class="form-group">
-		            			<label>직원코드</label>
-		            			<input type="text" class="form-control" name="employeeCode" placeholder="직원 코드를 입력해주세요" >
-		        			</div>
-		        			<div class="form-group">
-					            <label>비밀번호</label>
-					            <input type="password" class="form-control" name="employeePass" placeholder="비밀번호를 입력해주세요" value="0000">
-					        </div>
-					        <button type="submit" class="btn btn-info-type1">로그인</button>
-					        <br><br><br><br><br>
-						</form>
-		  				<div class="register-link m-t-15 text-center"><br>		                      
-		     				<a th:href="@{/carFactory/CarFactoryInsert}" style="color: #554888;">사업장등록</a>
-							<br><br>
-							<a th:href="@{/#}" style="color: #554888;">비밀번호 찾기</a>
-						</div>
-		         	</div>
-				</div>
-				<div class="row"></div>
-			</div>	
-	</th:block>
+	 	</script>
+		<!-- Scripts -->
+		<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+		<script src="/assets/js/main.js"></script>
+		
+		<!--  Chart js -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
+	    <script src="/assets/js/init/character_chart.js"></script>
+	    
+	    <!--Flot Chart-->
+	    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
+		
+	</body>
 </html>
