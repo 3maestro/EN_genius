@@ -22,6 +22,7 @@
        		  <th:block th:if="${session.SCODE != null}">
                  <div class="header-left">
                      <button class="search-trigger"><i class="fa fa-search"></i></button>
+                     <a th:href="@{/go/portfolio}">포트폴리오</a>
                      <div class="form-inline">
                          <form class="search-form">
                              <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
@@ -36,6 +37,7 @@
                          <img class="user-avatar rounded-circle" src="/images/avatar/jic.jpg" alt="User Avatar">
                      </a>
                       <div class="user-menu dropdown-menu">
+
                           <a class="nav-link" href="/employee/employeeMypage"><i class="fa fa- user"></i>My Profile</a>
 
                           <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
@@ -44,6 +46,14 @@
 
                           <a class="nav-link" href="/login/logout"><i class="fa fa-power -off"></i>Logout</a>
                       </div>
+				</div>
+			</th:block>
+			<th:block th:if="${session.SCODE == null}">
+			    
+			
+			
+			    <div class="user-area dropdown float-right">
+					<a th:href="@{/go/portfolio}">포트폴리오</a>
 				</div>
 			</th:block>
                  </div>

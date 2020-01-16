@@ -238,7 +238,7 @@ public class UserController {
 	@GetMapping("/login/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/login/loginForm";
 	}
 	/**
 	 * ajax로 id중복체크
