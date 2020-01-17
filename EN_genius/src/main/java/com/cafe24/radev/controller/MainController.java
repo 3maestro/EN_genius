@@ -21,10 +21,10 @@ public class MainController {
 	@Autowired private CarReferService carReferService;
 	@Autowired private RecService recService;
 	
-//	@GetMapping("/")
-//	public String index() {
-//		return "index";
-//	}
+	@GetMapping("/")
+		public String index() {
+		return "/index";
+	}
 	
 //	@GetMapping("/main/")
 //	public String main() {
@@ -155,6 +155,12 @@ public class MainController {
 		session.setAttribute("CUSPHONE",null);	//고객 번호
 		session.setAttribute("CCCODE",null);	//배기량 코드
 		return "redirect:/main/carSearchMain";
+	}
+	
+	@GetMapping("/go/portfolio")
+	public String portfolio(HttpSession session) {
+		session.invalidate();
+		return "/index";
 	}
 	
 }

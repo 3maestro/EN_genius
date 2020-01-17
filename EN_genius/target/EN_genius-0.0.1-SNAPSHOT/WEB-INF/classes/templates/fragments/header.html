@@ -4,14 +4,14 @@
 	<header id="header" class="header" th:fragment="headerFragment">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#" th:if="${session.SCODE eq null}">배포 날짜 2019-12-30 11:36</a>
+                    <a class="navbar-brand" href="#" th:if="${session.SCODE eq null}">배포 날짜 2020-01-14 16:36</a>
                     <a class="navbar-brand" href="/main/recSearchMain" th:if="${session.SCODE NE null && session.CARCODE eq null }">
                     <!-- <img src="#" alt="Logo" width="100%" height="40px"> -->
-                    	배포 날짜 2019-12-30 11:36
+                    	배포 날짜 2020-01-14 16:36
                     </a>
                     <a class="navbar-brand" href="/main/carSearchMain" th:if="${session.SCODE NE null && session.CARCODE ne null }">
                     <!-- <img src="#" alt="Logo" width="100%" height="40px"> -->
-                    	배포 날짜 2019-12-30 11:36
+                    	배포 날짜 2020-01-14 16:36
                     </a>
                     <a class="navbar-brand hidden" href="./"><img src="/images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
@@ -22,6 +22,7 @@
        		  <th:block th:if="${session.SCODE != null}">
                  <div class="header-left">
                      <button class="search-trigger"><i class="fa fa-search"></i></button>
+                     <a th:href="@{/go/portfolio}">포트폴리오</a>
                      <div class="form-inline">
                          <form class="search-form">
                              <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
@@ -36,6 +37,7 @@
                          <img class="user-avatar rounded-circle" src="/images/avatar/jic.jpg" alt="User Avatar">
                      </a>
                       <div class="user-menu dropdown-menu">
+
                           <a class="nav-link" href="/employee/employeeMypage"><i class="fa fa- user"></i>My Profile</a>
 
                           <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
@@ -44,6 +46,14 @@
 
                           <a class="nav-link" href="/login/logout"><i class="fa fa-power -off"></i>Logout</a>
                       </div>
+				</div>
+			</th:block>
+			<th:block th:if="${session.SCODE == null}">
+			    
+			
+			
+			    <div class="user-area dropdown float-right">
+					<a th:href="@{/go/portfolio}">포트폴리오</a>
 				</div>
 			</th:block>
                  </div>
