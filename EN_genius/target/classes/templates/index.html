@@ -43,7 +43,7 @@
 		/* First image (Logo. Full height) */
 		.bgimg-1 {
 		  background-image: url('./images/parallax1.jpg');
-		  min-height: 100%;
+		  min-height: 500px;
 		}
 		
 		/* Second image (Portfolio) */
@@ -117,7 +117,7 @@
 				  		<p class="text">System.out.println(developer + "은 성장하고 있습니다.");</p>
 				  	} <br>
 			  	</p>
-			  	"결괏값과 같이 저는 전문적인 개발자를 목표로 지속해서 성장합니다. 많은 관심 부탁합니다!!!"
+			  	"위의 결괏값과 같이 저는 전문적인 개발자를 목표로 지속해서 성장합니다. 많은 관심 부탁합니다!!!"
 		  </p>
 		  <div class="w3-row">
 		    <div class="w3-col m6 w3-center w3-padding-large">
@@ -136,7 +136,7 @@
 		  <!-- <strong><p class="w3-large w3-center w3-padding-16">character</p></strong> -->
 		  <p class="w3-wide">커뮤니케이션</p>
 		  <div class="w3-light-grey">
-		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:90%">90%</div>
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:92.8%">92.8%</div>
 		  </div>
 		  <p class="w3-wide">전문성</p>
 		  <div class="w3-light-grey">
@@ -144,15 +144,15 @@
 		  </div>
 		  <p class="w3-wide">열정</p>
 		  <div class="w3-light-grey">
-		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:95%">95%</div>
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:95.99%">95.99%</div>
 		  </div>
 		  <p class="w3-wide">성실성</p>
 		  <div class="w3-light-grey">
-		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:100%">100%</div>
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:94%">94%</div>
 		  </div>
 		  <p class="w3-wide">인내심</p>
 		  <div class="w3-light-grey">
-		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:90%">90%</div>
+		    <div class="w3-container w3-padding-small w3-dark-grey w3-center" style="width:91%">91%</div>
 		  </div>
 		</div>
 		
@@ -232,6 +232,12 @@
 		            </div>
 		            <div class="modal-footer">
 		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+		                <!-- <form th:action="@{/download/fileDownload}" name="form" method="get">
+		                	<input type="hidden" name="filename" value="final_project">
+		                	<input type="hidden" name="filename_h" value="완료_보고서_최종">
+		                	<input type="submit" class="btn btn-warning" value="download file">download file</button>
+		                </form> -->
+		                <a th:href="@{/download/fileDownload?filename=final_project&filename_h=완료_보고서_최종}"><button type="button" class="btn btn-warning">download file</button></a>
 		                <a th:href="@{/login/loginForm}"><button type="button" class="btn btn-primary">Go Project</button></a>
 		            </div>
 		        </div>
