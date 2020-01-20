@@ -80,10 +80,10 @@
 		    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
 		      <i class="fa fa-bars"></i>
 		    </a>
-		    <a href="#home" class="w3-bar-item w3-button">HOME</a>
-		    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
-		    <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> PORTFOLIO</a>
-		    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+		    <a href="#" class="w3-bar-item w3-button">HOME</a>
+		    <a href="#" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
+		    <a href="#" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> PORTFOLIO</a>
+		    <a href="#" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
 		    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
 		      <i class="fa fa-search"></i>
 		    </a>
@@ -127,7 +127,7 @@
 		    
 		    <!-- Hide this text on small devices -->
 		    <div class="w3-col m6 w3-center w3-padding-large">
-		    	<h3><b><i class="fa fa-bar-chart-o w3-margin-right"></i>Developer capacity</b></h3><br>
+		    	<h3><b><i class="fa fa-bar-chart-o w3-margin-right"></i>Skill</b></h3><br>
 		        <canvas id="radarChart" height="100" width="100" class="chartjs-render-monitor" style="display: block; width: 400px; height: 323px;"></canvas>
 		    </div>
 		    
@@ -170,8 +170,8 @@
 		    프로젝트
 		  </div>
 		  <div class="w3-quarter w3-section">
-		    <span class="w3-xlarge">서울, 경기</span><br>
-		    지역
+		    <span class="w3-xlarge">한국스마트정보교육원 수료</span><br>
+		    교육
 		  </div>
 		</div>
 		
@@ -182,26 +182,29 @@
 		  </div>
 		</div>
 		
-		<!-- Container (Portfolio Section) -->
-		<div class="w3-content w3-container w3-padding-64" id="portfolio">
-		  <h3 class="w3-center">MY WORK</h3> 
-<!-- 		<a th:href="@{/login/loginForm}"> -->
-<!-- 			      	<span><img src="./images/logo.png" style="width:250px; height: 200px;" alt="자동차공업사통합관리CRM"><br>자동차공업사통합관리CRM</span> -->
-<!-- 			      </a> -->
-		  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-		  <div class="w3-row-padding w3-center">
-		    <div class="w3-col m3-center">
-	     		<img src="./images/logo.png" style="width:250px; height: 200px;" alt="자동차공업사통합관리CRM"><br>
-				<button type="button" class="btn btn-secondarya mb-1" data-toggle="modal" data-target="#mediumModal">소 개</button>
-		    </div>
-		  </div>
+	<div class="w3-content w3-container w3-padding-64" id="portfolio">
+		<h3 class="w3-center">MY WORK</h3>
+		<br>
 		
-		  <div class="w3-row-padding w3-center w3-section">
-		    <button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button>
-		  </div>
+		<!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+		<div class="w3-row-padding w3-center">
+			<div class="w3-col m6">
+				<img src="./images/logo.png" style="width:100%; height: 200px;" alt="자동차공업사통합관리CRM" class="w3-hover-opacity"><br> 
+				<button type="button" class="btn btn-secondarya mb-1" data-toggle="modal" data-target="#mediumModal1">소 개</button>
+			</div>
+			
+			<div class="w3-col m6">
+				<img src="./images/washmate.jpg" style="width:100%; height: 200px;" alt="washmate고객관리CRM" class="w3-hover-opacity"><br>
+				<button type="button" class="btn btn-secondarya mb-1" data-toggle="modal" data-target="#mediumModal2">소 개</button>			
+			</div>
 		</div>
+
+		<div class="w3-row-padding w3-center w3-section">
+			<button class="w3-button w3-padding-large w3-light-grey" style="margin-top:64px">LOAD MORE</button>
+		</div>
+	</div>
 		
-		<div class="modal fade show" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" style="display: none;">
+		<div class="modal fade show" id="mediumModal1" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" style="display: none;">
 		    <div class="modal-dialog modal-lg" role="document">
 		        <div class="modal-content">
 		            <div class="modal-header">
@@ -243,8 +246,40 @@
 		        </div>
 		    </div>
 		</div>
-
-		
+			
+		<div class="modal fade show" id="mediumModal2" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" style="display: none;">
+		    <div class="modal-dialog modal-lg" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="mediumModalLabel">washmateCRM
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                          </button>
+                         </h5>
+		            </div>
+		            <div class="modal-body">
+		                <p>
+		                	<span>구현 목적</span>
+		                	<ul style="margin-left: 15px;">
+		                	</ul>
+		                	<span>구현 기능</span>
+		                	<ul style="margin-left: 15px;">
+		                	</ul>
+		                </p>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+		                <!-- <form th:action="@{/download/fileDownload}" name="form" method="get">
+		                	<input type="hidden" name="filename" value="final_project">
+		                	<input type="hidden" name="filename_h" value="완료_보고서_최종">
+		                	<input type="submit" class="btn btn-warning" value="download file">download file</button>
+		                </form> -->
+		                <a th:href="@{/}"><button type="button" class="btn btn-warning">download file</button></a>
+		                <a th:href="@{/}"><button type="button" class="btn btn-primary">Go Project</button></a>
+		            </div>
+		        </div>
+		    </div>
+		</div>
 		
 		<!-- Modal for full size images on click-->
 		<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
