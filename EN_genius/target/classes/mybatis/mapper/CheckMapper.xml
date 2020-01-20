@@ -27,7 +27,7 @@
 
 	<select id="getAskCheck" parameterType="String" 
 	 	resultType="com.cafe24.radev.vo.AskCheck">
- 		SELECT
+ 		 SELECT
 			arrayAsk.customer_car_info_code AS customerCarInfoCode,
 			R.ri_code AS riCode,
 			R.ri_item AS riItem,
