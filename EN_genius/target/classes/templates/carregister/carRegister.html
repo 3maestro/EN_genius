@@ -327,7 +327,7 @@
 										<label for="originselectSm" class=" form-control-label">국가선택</label>
 									</div>
 									<div>
-										<select name=originCode id="originSm" class="form-control-sm form-control">
+										<select name="originCode" id="originSm" class="form-control-sm form-control">
 											<option value="0">제작국가 선택</option>
 											<option th:value="${originSel.originCode}" th:each="originSel : ${originSelect}" th:text="${originSel.originMain}"></option>
 										</select>

@@ -1,0 +1,507 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <title>Scenic &mdash; Website Template by Colorlib</title>
+    <link rel="stylesheet" th:href="@{/portfolio/scenic/js/bootstrap.bundle.min.js}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet" th:href="@{/portfolio/scenic/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/portfolio/scenic/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/portfolio/scenic/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/portfolio/scenic/fonts/line-icons/style.css}">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/portfolio/scenic/css/style.css}">    
+  </head>
+  <body>
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+    
+
+<div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+    
+
+    <!-- NAVBAR -->
+    <header class="site-navbar mt-3" id="top">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="site-logo col-6"><a th:href="@{/portfolio/scenic/index.html}">Scenic</a></div>
+
+
+          
+
+          <nav class="mx-auto site-navigation">
+            <ul class="site-menu js-clone-nav d-none d-lg-block">
+              <li><a th:href="@{/portfolio/scenic/index.html}" class="nav-link active">Home</a></li>
+              <li><a th:href="@{#Skills}">Skills</a></li>
+              <li><a th:href="@{/portfolio/scenic/portfolio.html}">Portfolio</a></li>
+              <li class="has-children">
+                <a th:href="@{/portfolio/scenic/services.html}">Pages</a>
+                <ul class="dropdown">
+                  <li><a th:href="@{/portfolio/scenic/services.html}">Services</a></li>
+                  <li><a th:href="@{/portfolio/scenic/service-single.html}">Service Single</a></li>
+                  <li><a th:href="@{/portfolio/scenic/blog-single.html}">Blog Single</a></li>
+                  <li><a th:href="@{/portfolio/scenic/portfolio-single.html}">Portfolio Single</a></li>
+                  <li><a th:href="@{/portfolio/scenic/testimonials.html}">Testimonials</a></li>
+                  <li><a th:href="@{/portfolio/scenic/faq.html}">Frequently Ask Questions</a></li>
+                  <li><a th:href="@{/portfolio/scenic/gallery.html}">Gallery</a></li>
+                </ul>
+              </li>
+              <li><a th:href="@{/portfolio/scenic/blog.html}">Blog</a></li>
+              <li><a th:href="@{/portfolio/scenic/contact.html}">Contact</a></li>
+            </ul>
+          </nav>
+          
+          <div class="col-6 site-burger-menu d-block d-lg-none text-right">
+            <a th:href="@{#}" class="site-menu-toggle js-menu-toggle"><span class="icon-menu h3"></span></a>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- HOME -->
+    <section class="home-section section-hero overlay slanted" id="home-section">
+
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-8 text-center">
+            <h1>끊임없이 도전하는</h1>
+            <div class="mx-auto w-75">
+             <p>Name : 진창술</p>
+            <p>birth : 1993.06.10</p>
+            <p>Email : team_play@naver.com</p>
+            <p>Phone : 010-8377-8237</p>
+            <p>Blog : <a th:href="@{https://blog.naver.com/team_play}" target="_blank">https://blog.naver.com/team_play</a></p>
+            </div>
+            <p class="mt-5"><a th:href="@{http://lok120.cafe24.com/login/loginForm}" target="_blank" class="btn btn-outline-white btn-md ">프로젝트 바로가기</a></p>
+          </div>
+        </div>
+      </div>
+        
+      <!-- VIDEO -->
+      <div class="video-container">
+        <video autoplay loop="true">
+          <source type="video/mp4" th:src="@{/portfolio/scenic/videos/video.mp4}">
+        </video>
+      </div>
+
+      <a th:href="@{#}" class="scroll-button smoothscroll">
+        <span class=" icon-keyboard_arrow_down"></span>
+      </a>
+
+    </section>
+    
+    <!-- ABOUT US -->
+    <section class="site-section about-us-section" id="about-us-section">
+      <div class="container">
+        
+        <div class="row mb-5 pt-0 site-section">
+          <div class="col-md-6 align-self-center">
+
+            <div class="col-md-12 heading-section ftco-animate fadeInUp ftco-animated">
+			            <h2 class="mb-4" style="font-size: 34px; text-transform: capitalize;">교육 수강</h2>
+			            <p>
+			            	<span>2019.7-2020.1</span>
+							<h2>한국스마트정보교육원</h2>
+							</p><h3>응용 소프트웨어 개발자 양성 과정</h3>
+							교육이수내역<br><br>
+							⊙ 응용 소프트웨어 개발자 양성 과정<br>
+							(응용SW 및 DB엔지니어링 융합 / NCS직종 : 20010202 6개월과정)<br>
+							<br>
+							▷ 교재<br>
+							그림으로 배우는 Java Programming, SQL활용/데이터베이스구현/데이터입출력구현/애플리케이션테스트관리/애플리케이션테스트수행 /요구사항확인/정보시스템이행/제품소프트웨어패키징/제품소프트웨어패키징/화면구현/통합구현/화면설계(NCS학습모듈 개발진)<br>
+							<br>
+							▷교육활동<br>
+							sql활용(mysql, mybatis)<br>
+							데이터베이스 구현(mysql, oracle)<br>
+							요구사항 확인<br>
+							데이터 입출력 구현(java, model1, model2)<br>
+							통합구현(spring mvc)<br>
+							정보시스템 이행<br>
+							제품소프트웨어 패키징<br>
+							서버프로그램 구현(Apache tomcat)<br>
+							애플리케이션 테스트 수행(단위테스트, 통합테스트)<br>
+							애플리케이션 배포(cafe24)<br>
+							프로그래밍 언어활용(기초문법)<br>
+							응용 SW기초 기술 활용<br>
+							화면설계<br>
+							애플리케이션 테스트 관리<br>
+							인터페이스 구현<br>
+							화면구현(javascript, HTML, CSS)<br>
+						<p></p>
+			          </div>
+          </div>
+          <div class="col-md-5 ml-auto img-overlap">
+            <div class="img-1"><img th:src="@{/portfolio/scenic/images/sq_img_6.jpg}" alt="Image" class="img-fluid img-shadow"></div>
+            <div class="img-2"><img th:src="@{/portfolio/scenic/images/sq_img_10.jpg}" alt="Image" class="img-fluid img-shadow"></div>
+          </div>
+        </div>
+
+		 <div class="row mb-5" id="Skills">
+          <div class="col-12 text-center" data-aos="fade">
+            <h3 class="section-title-sub text-primary">Skills</h3>
+            <h2 class="mb-3">My Skills</h2>
+          </div>
+        </div>
+
+        <div class="row pb-0 border-top pt-5 block__19738 section-counter">
+        
+          <div class="col-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="85">0</strong>
+              <div class="number">/100</div>
+            </div>
+            <span class="caption">JAVA</span>
+          </div>
+          
+          <div class="col-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="85">0</strong>
+              <div class="number">/100</div>
+            </div>
+            <span class="caption">Jquery</span>
+          </div>
+          
+          <div class="col-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="80">0</strong>
+              <div class="number">/100</div>
+            </div>
+            <span class="caption">HTML5</span>
+          </div>
+          <div class="col-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="70">0</strong>
+              <div class="number">/100</div>
+            </div>
+            <span class="caption">CSS</span>
+          </div>
+          
+          <div class="col-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="80">0</strong>
+              <div class="number">/100</div>
+            </div>
+            <span class="caption">SQL</span>
+          </div>
+          
+          <div class="col-6 col-md-6 col-lg-4 mb-5 mb-lg-0">
+            <div class="d-flex align-items-center justify-content-center mb-2">
+              <strong class="number" data-number="80">0</strong>
+              <div class="number">/100</div>
+            </div>
+            <span class="caption">Ajax</span>
+          </div>
+
+
+            
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="site-section services-section bg-light block__62849" id="services-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center" data-aos="fade">
+            <h3 class="section-title-sub text-primary">Our Services</h3>
+            <h2 class="section-title mb-3">Services</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+
+            <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
+              <span class="custom-icon mx-auto"><span class="icon-line-tools d-block"></span></span>
+              <h3>Graphic Design</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+            </a>
+
+          </div>
+          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+            
+            <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
+              <span class="custom-icon mx-auto"><span class="icon-line-lightbulb d-block"></span></span>
+              <h3>Marketing Strategy</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+            </a>            
+
+          </div>
+          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+            
+            <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
+              <span class="custom-icon mx-auto"><span class="icon-line-laptop d-block"></span></span>
+              <h3>Web Design</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+            </a>            
+
+          </div>
+          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+            
+            <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
+              <span class="custom-icon mx-auto"><span class="icon-line-search d-block"></span></span>
+              <h3>SEO</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+            </a>
+
+          </div>
+          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+            
+            <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
+              <span class="custom-icon mx-auto"><span class="icon-line-presentation d-block"></span></span>
+              <h3>Market Leading </h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+            </a>
+
+          </div>
+          <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+            
+            <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
+              <span class="custom-icon mx-auto"><span class="icon-line-ribbon d-block"></span></span>
+              <h3>Pixel Perfect Design</h3>
+              <p class="d-sm-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+            </a>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <a th:href="@{#}" class="btn btn-primary btn-md">View All Services</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+
+    <section class="site-section block__62272" id="portfolio-section">
+      
+
+      <div class="container">
+
+        <div class="row mb-3">
+          <div class="col-12 text-center" data-aos="fade">
+            <h3 class="section-title-sub text-primary">Awesome Works</h3>
+            <h2 class="section-title mb-3">Portfolio</h2>
+          </div>
+        </div>
+
+        <div class="row justify-content-center mb-5" data-aos="fade-up">
+          <div id="filters" class="filters text-center button-group col-md-7">
+            <button class="btn btn-primary active" data-filter="*">All</button>
+            <button class="btn btn-primary" data-filter=".web">Web</button>
+            <button class="btn btn-primary" data-filter=".design">Design</button>
+            <button class="btn btn-primary" data-filter=".brand">Brand</button>
+          </div>
+        </div>  
+        
+        <div id="posts" class="row no-gutter">
+          <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_1.jpg}">
+            </a>
+          </div>
+          <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_2.jpg}">
+            </a>
+          </div>
+
+          <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_3.jpg}">
+            </a>
+          </div>
+
+          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_4.jpg}">
+            </a>
+
+          </div>
+
+          <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_5.jpg}">
+            </a>
+          </div>
+
+          <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_6.jpg}">
+            </a>
+          </div>
+
+          <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_7.jpg}">
+            </a>
+          </div>
+
+          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_8.jpg}">
+            </a>
+          </div>
+
+          <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_9.jpg}">
+            </a>
+          </div>
+
+          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_10.jpg}">
+            </a>
+          </div>
+
+          <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_11.jpg}">
+            </a>
+          </div>
+
+          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+              <span class="icon-add"></span>
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_12.jpg}">
+            </a>
+          </div>
+
+
+        </div>
+      </div>
+
+    </section>
+    
+    <section class="site-section" id="next-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <a data-fancybox data-ratio="2" th:href="@{/portfolio/scenic/https://vimeo.com/317571768}" class="block__96788">
+              <span class="play-icon"><span class="icon-play"></span></span>
+              <img th:src="@{/portfolio/scenic/images/sq_img_6.jpg}" alt="Image" class="img-fluid img-shadow">
+            </a>
+          </div>
+          <div class="col-lg-5 ml-auto">
+            <h3 class="section-title-sub text-primary">Watch the video</h3>
+            <h2 class="section-title mb-3">We Are Web Agency</h2>
+            <p class="lead">Eveniet voluptatibus voluptates suscipit minima, cum voluptatum ut dolor, sed facere corporis qui, ea quisquam quis odit minus nulla vitae. Sit, voluptatem.</p>
+            <p>Ipsum harum assumenda in eum vel eveniet numquam, cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <section class="site-section block__45439">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center" data-aos="fade">
+            <h2 class="section-title mb-3">Contact Me</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 mb-4">
+            <div class="block__86547 d-block d-xl-flex align-items-stretch">
+              <div class="h-100">
+              <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
+              <span class="custom-icon mx-auto"><span class="icon-line-search d-block"></span></span>
+              <h3>SEO</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
+            </a>
+            <span class="custom-icon mx-auto"><span class="icon-line-search d-block"></span></span>
+                <h3 class="mb-4"><a th:href="@{#}">Undefined: The Third Boolean Values</a></h3>
+                <div class="block__27192 d-flex pt-1 border-top">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 mb-4">
+            <div class="block__86547 d-block d-xl-flex align-items-stretch">
+              <figure class="img" style="background-image: url('images/sq_img_2.jpg')">
+              </figure>
+              <div class="h-100">
+                <h3 class="mb-4"><a th:href="@{#}">Where Do You Learn HTML & CSS in 2020?</a></h3>
+                <div class="block__27192 d-flex pt-1 border-top">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 mb-4">
+            <div class="block__86547 d-block d-xl-flex align-items-stretch">
+              <figure class="img" style="background-image: url('images/sq_img_4.jpg')">
+              </figure>
+              <div class="h-100">
+                <h3 class="mb-4"><a th:href="@{#}">Where Do You Learn HTML & CSS in 2020?</a></h3>
+                <div class="block__27192 d-flex pt-1 border-top">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 mb-4">
+            <div class="block__86547 d-block d-xl-flex align-items-stretch">
+              <figure class="img" style="background-image: url('images/sq_img_5.jpg')">
+              </figure>
+              <div class="h-100">
+                <h3 class="mb-4"><a th:href="@{#}">Undefined: The Third Boolean Value</a></h3>
+                <div class="block__27192 d-flex pt-1 border-top">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+
+  
+  </div>
+
+    <!-- SCRIPTS -->
+    <script th:src="@{/portfolio/scenic/js/jquery.min.js}"></script>
+    <script th:src="@{/portfolio/scenic/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/portfolio/scenic/js/isotope.pkgd.min.js}"></script>
+    <script th:src="@{/portfolio/scenic/js/stickyfill.min.js}"></script>
+    <script th:src="@{/portfolio/scenic/js/jquery.fancybox.min.js}"></script>
+    <script th:src="@{/portfolio/scenic/js/jquery.easing.1.3.js}"></script>
+    
+    <script th:src="@{/portfolio/scenic/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/portfolio/scenic/js/jquery.animateNumber.min.js}"></script>
+    
+    <script th:src="@{/portfolio/scenic/js/custom.js}"></script>
+  </body>
+</html>

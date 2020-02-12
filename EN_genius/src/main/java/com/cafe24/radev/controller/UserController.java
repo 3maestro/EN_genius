@@ -24,6 +24,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@GetMapping("/portfolio")
+	public String portfolio() {
+		return "/portfolio/index";
+	}
+	
+	
 	/**
 	 * 회원가입 클릭시 사업장등록 폼으로 이동
 	 * @return
