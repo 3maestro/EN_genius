@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      
+<th:block layout:fragment="customTitle">
+	<title>진단 가이드</title>
+</th:block>
+
+<th:block layout:fragment="customScript">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	</script>
+</th:block>
+
+<th:block layout:fragment="contentFragment">
+	
+	<div>
+		<div style="float: left">
+			<ul>
+				<li><button class="checkBtn" value="engine">엔진</button></li>
+				<li><button class="checkBtn" value="chassis">섀시</button></li>
+				<li><button class="checkBtn" value="transmission">변속기</button></li>
+				<li><button class="checkBtn" value="electric">전장</button></li>
+				<li><button class="checkBtn" value="body">바디</button></li>
+			</ul>
+		</div>
+		<div class="test">
+			<ul>
+							
+			</ul>
+		</div>
+	</div>
+	
+
+</th:block>
+
+</html>

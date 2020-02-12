@@ -218,7 +218,55 @@
 
     <!-- SERVICES -->
     
+	<section class="site-section" id="next-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0" style="padding-bottom: 700px;">
+            <a th:href="@{http://lok120.cafe24.com/login/loginForm}" target="_blank" class="block__96788">
+              <img th:src="@{/portfolio/scenic/images/my0.PNG}" alt="Image" class="img-fluid img-shadow">
+            </a>
+          </div>
+          <div class="col-lg-5 ml-auto">
+            <h2 class="section-title mb-3">Project</h2>
+            <h3 class="section-title-sub text-primary"><a th:href="@{http://lok120.cafe24.com/login/loginForm}" target="_blank">프로젝트 바로가기</a></h3>
+            <p class="lead">
+            
+        
+            
+            
+            
+            </p>
+            <p>
+                수행기간 : 2019.11 ~ 2020.01 (2개월)<br><br>
+        >활동내용<br><br>
+        >프로젝트 명 : EN_genius<br><br>
+        >주제 : 전국 자동차 공업사 관리 통합 CRM<br><br>
+        >프로젝트 목적<br>
+        1. 불투명한 자동차 정비의 내역, 공임에 대하여 표준으로 명시 된 가격 단위로 업체별 투명하게 서비스를 제공 할 수있다.<br>
+        2. 사업장별 작업 현황을 관리, 확인이 유용하다<br>
+        3. 고객의 차량을 관리 한다.<br>
+        4. 자동차 정비 사업소에서 사용하는 작업 현황 관리 및 표준 정비공임을 활용한 공임 계산<br><br>
+        >프로젝트 기대효과<br>
+        1. 차량의 주기적인 관리 및 정비가 필요할 때 방문을 유도하여 효율적인 고객 관리가 가능하며 매출 증대 효과를 가져올 수 있다.<br>
+        2. 표준 작업시간 단위로 직원 별 작업 현황을 모니터링 하여 현장 운용에 도움을 준다.<br>
+        3. 정형화 된 데이터를 기반으로 작업과 부품을 선택하여 자동적으로 견적을 도출함으로써 고객에게 신뢰를 얻을 수 있다.<br>
+        4. 매출과 직원의 성과를 그래프 및 도표화를 시켜 데이터를 만들고 이로인해 연단위 계획을 세울 수 있다.<br><br>
+        >개발과정<br>
+     	 시스템구조도작성, 기능정의, 프로세스정의 및 Data사전, 상세자료입력, 
+		테이블스키마, ERD작성, Query문장테스트, UI설계, 네이밍규칙, 구현, 배포<br><br>
+		>개발환경<br>
+		▶Language : java, javascript(jquery), HTML, CSS<br>
+		▶DB : mysql, oracle<br>
+		▶DB관리툴 : HeidiSQL 9.4.0, SQLDeveloper<br>
+		▶WAS : apache-tomcat-8.0.38<br>
+		▶협업툴 : GitHub<br>
+		▶프레임워크 : eclipse 4.6.0, STS 3.8.4, springframework 4.2.1, spring-webmvc 4.3.9, Maven, mybatis 3.3.1, mybatis-spring 1.2.2, bootstrapAPI : jackson.core 2.8.8, commons-dbcp 1.4, spring-jdbc 4.3.8, mysql-connector-java 5.1.39 , jstl 1.2, maven-compiler-plugin 3.1, maven-eclipse-plugin 2.9, javax.inject 1, log4j 1.2.15, commons-io 2.0.1, commons-fileupload 1.2.2<br>
 
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- PORTFOLIO -->
 
     <section class="site-section block__62272" id="portfolio-section">
@@ -233,190 +281,137 @@
           </div>
         </div>
 
-        <div class="row justify-content-center mb-5" data-aos="fade-up">
-          <div id="filters" class="filters text-center button-group col-md-7">
-            <button class="btn btn-primary active" data-filter="*">All</button>
-            <button class="btn btn-primary" data-filter=".web">Web</button>
-            <button class="btn btn-primary" data-filter=".design">Design</button>
-            <button class="btn btn-primary" data-filter=".brand">Brand</button>
-          </div>
-        </div>  
         
         <div id="posts" class="row no-gutter">
           <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+            <a  data-toggle="modal" data-target="#mediumModal1" class="item-wrap">
               <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_1.jpg}">
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/my1.PNG}"style="max-width: 100%;
+    height: auto;">
             </a>
           </div>
           <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+            <a  data-toggle="modal" data-target="#mediumModal2" class="item-wrap">
               <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_2.jpg}">
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/my2.PNG}"style="max-width: 100%;
+    height: auto;">
             </a>
           </div>
-
-          <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
-              <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_3.jpg}">
-            </a>
-          </div>
-
-          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
-              <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_4.jpg}">
-            </a>
-
-          </div>
-
           <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+            <a  data-toggle="modal" data-target="#mediumModal3" class="item-wrap">
               <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_5.jpg}">
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/my3.PNG}"style="max-width: 100%;
+    height: auto;">
             </a>
           </div>
-
-          <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
-              <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_6.jpg}">
-            </a>
-          </div>
-
           <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+            <a  data-toggle="modal" data-target="#mediumModal4" class="item-wrap">
               <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_7.jpg}">
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/my4.PNG}"style="max-width: 100%;
+    height: auto;">
             </a>
           </div>
-
-          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
-              <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_8.jpg}">
-            </a>
-          </div>
-
           <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+            <a  data-toggle="modal" data-target="#mediumModal5" class="item-wrap">
               <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_9.jpg}">
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/my5.PNG}"style="max-width: 100%;
+    height: auto;">
             </a>
           </div>
-
-          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
+          <div class="item web col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <a  data-toggle="modal" data-target="#mediumModal6" class="item-wrap">
               <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_10.jpg}">
+              <img class="img-fluid" th:src="@{/portfolio/scenic/images/my6.PNG}"style="max-width: 100%;
+    height: auto;">
             </a>
           </div>
-
-          <div class="item brand col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
-              <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_11.jpg}">
-            </a>
-          </div>
-
-          <div class="item design col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mb-4">
-            <a th:href="@{/portfolio/scenic/portfolio-single.html}" class="item-wrap">
-              <span class="icon-add"></span>
-              <img class="img-fluid" th:src="@{/portfolio/scenic/images/sq_img_12.jpg}">
-            </a>
-          </div>
-
-
         </div>
       </div>
 
     </section>
-    
-    <section class="site-section" id="next-section">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a data-fancybox data-ratio="2" th:href="@{/portfolio/scenic/https://vimeo.com/317571768}" class="block__96788">
-              <span class="play-icon"><span class="icon-play"></span></span>
-              <img th:src="@{/portfolio/scenic/images/sq_img_6.jpg}" alt="Image" class="img-fluid img-shadow">
-            </a>
-          </div>
-          <div class="col-lg-5 ml-auto">
-            <h3 class="section-title-sub text-primary">Watch the video</h3>
-            <h2 class="section-title mb-3">We Are Web Agency</h2>
-            <p class="lead">Eveniet voluptatibus voluptates suscipit minima, cum voluptatum ut dolor, sed facere corporis qui, ea quisquam quis odit minus nulla vitae. Sit, voluptatem.</p>
-            <p>Ipsum harum assumenda in eum vel eveniet numquam, cumque vero vitae enim cupiditate deserunt eligendi officia modi consectetur. Expedita tempora quos nobis earum hic ex asperiores quisquam optio nostrum sit!</p>
-          </div>
-        </div>
-      </div>
-    </section>
+            	
+			<div class="modal fade" id="mediumModal1" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="width: 900px;">
+                          <img class="img-fluid" th:src="@{/portfolio/scenic/images/my1.PNG}" style="width: 900px; height: 600px;">  
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="modal fade" id="mediumModal2" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="width: 900px;">
+                          <img class="img-fluid" th:src="@{/portfolio/scenic/images/my2.PNG}" style="width: 900px; height: 600px;">  
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="modal fade" id="mediumModal3" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="width: 900px;">
+                          <img class="img-fluid" th:src="@{/portfolio/scenic/images/my3.PNG}" style="width: 900px; height: 600px;">  
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="modal fade" id="mediumModal4" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="width: 900px;">
+                          <img class="img-fluid" th:src="@{/portfolio/scenic/images/my5.PNG}" style="width: 900px; height: 600px;">  
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="modal fade" id="mediumModal5" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="width: 900px;">
+                          <img class="img-fluid" th:src="@{/portfolio/scenic/images/my5.PNG}" style="width: 900px; height: 600px;">  
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="modal fade" id="mediumModal6" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content" style="width: 900px;">
+                          <img class="img-fluid" th:src="@{/portfolio/scenic/images/my6.PNG}" style="width: 900px; height: 600px;">  
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+				                    	
+				                    	
 
-    
-
-    <section class="site-section block__45439">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-12 text-center" data-aos="fade">
-            <h2 class="section-title mb-3">Contact Me</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-6 mb-4">
-            <div class="block__86547 d-block d-xl-flex align-items-stretch">
-              <div class="h-100">
-              <a th:href="@{/portfolio/scenic/service-single.html}" class="block__16443 text-center d-block">
-              <span class="custom-icon mx-auto"><span class="icon-line-search d-block"></span></span>
-              <h3>SEO</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum labore aperiam assumenda.</p>
-            </a>
-            <span class="custom-icon mx-auto"><span class="icon-line-search d-block"></span></span>
-                <h3 class="mb-4"><a th:href="@{#}">Undefined: The Third Boolean Values</a></h3>
-                <div class="block__27192 d-flex pt-1 border-top">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-6 mb-4">
-            <div class="block__86547 d-block d-xl-flex align-items-stretch">
-              <figure class="img" style="background-image: url('images/sq_img_2.jpg')">
-              </figure>
-              <div class="h-100">
-                <h3 class="mb-4"><a th:href="@{#}">Where Do You Learn HTML & CSS in 2020?</a></h3>
-                <div class="block__27192 d-flex pt-1 border-top">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-6 mb-4">
-            <div class="block__86547 d-block d-xl-flex align-items-stretch">
-              <figure class="img" style="background-image: url('images/sq_img_4.jpg')">
-              </figure>
-              <div class="h-100">
-                <h3 class="mb-4"><a th:href="@{#}">Where Do You Learn HTML & CSS in 2020?</a></h3>
-                <div class="block__27192 d-flex pt-1 border-top">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-6 mb-4">
-            <div class="block__86547 d-block d-xl-flex align-items-stretch">
-              <figure class="img" style="background-image: url('images/sq_img_5.jpg')">
-              </figure>
-              <div class="h-100">
-                <h3 class="mb-4"><a th:href="@{#}">Undefined: The Third Boolean Value</a></h3>
-                <div class="block__27192 d-flex pt-1 border-top">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> 
-    
-    
 	<section class="site-section services-section bg-light block__62849" id="services-section">
       <div class="container">
         <div class="row mb-5">
@@ -440,7 +435,7 @@
             <a style="color: #007eff;" class="block__16443 text-center d-block">
               <span class="custom-icon mx-auto"><span class="icon-line-tools d-block"></span></span>
               <h3>Contact Number</h3>
-              <span>+82-10-9922-0172</span>
+              <span>+82-10-8377-8237</span>
             </a>
 
           </div>

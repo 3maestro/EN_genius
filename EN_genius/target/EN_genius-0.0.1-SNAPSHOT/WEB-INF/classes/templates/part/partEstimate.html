@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      <!-- layout:decorate 레이아웃 참고 -->
+
+	<th:block layout:fragment="customTitle">
+		<title>부품견적</title>
+	</th:block>
+	
+	<th:block layout:fragment="contentFragment">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+
+		var groupCode = /*[[ ${groupCode} ]]*/;
+		function numberFormat(inputNumber) {
+		   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		};
+		$(document).ready(function(){
+			console.log(groupCode+"그룹코드");
+			$('#groupCode').val(groupCode);
+			
+			var a=0;
+			$('[name=list]').each(function(){
+				var value = $(this).find('.price').text()*1;
+				console.log(value);
+				a=a+value
+			})	
+			$('#sumPrice').text('총가격 : '+numberFormat(a));
+			
+		/*]]*/
+			var list = $('[name=list]');
+			//자동합산
+			$(document).on('blur','[name=partMany]',function(){
+				var partNumber = $(this).attr('partNumber');
+				var many = $(this).val();
+				var price = $('[name='+partNumber+']').attr('price')
+				var rowPrice = (many*price);
+				$('[name='+partNumber+']').text(rowPrice);
+				console.log(many);
+				
+				a=0;
+				$('[name=list]').each(function(){
+					var value = $(this).find('.price').text()*1;
+					//console.log(value);
+					a=a+value
+				})	
+ 				$('#sumPrice').text('총가격 : '+numberFormat(a));
+			});
+			
+			var dbManyObj = $('#dbMany');
+			var manyObj = $('input[name=partMany]');
+			//$('#estiBtn').click(function(){
+			$(document).on('click','#estiBtn',function(){	
+				var alertObj = $('#manyAlert');
+				
+				if(dbManyObj.text()==0){
+					alertObj.attr('style','display:block');
+					return false;				
+				}else if(dbManyObj.text() < manyObj.val()){
+					alertObj.attr('style','display:block');
+					return false;				
+				}else if(manyObj.val()==0){
+					alertObj.attr('style','display:block');
+					return false;				
+				}
+				
+			});
+		});
+	</script>
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">판매 목록</strong>
+					</div>
+					<div class="card-body">
+						<form th:action="@{/part/estimateDoc}"method="post">	
+							<th:block th:if="${checkPartList == null}">
+							<!--메뉴에서 판매로갈경우-->
+								<table border="1" table>
+										<tr>
+											<td>부품번호</td>
+											<td><input type="text" name="partNumber"></td>
+										</tr>
+										<tr>
+											<td>부품명</td>
+											<td><input type="text" name="partName"></td>
+										</tr>
+										<tr>
+											<td>개수</td>
+											<td><input type="number" name="partMany"></td>
+										</tr>
+										<tr>
+											<td>가격</td>
+											<td><input type="number" name="partPrice"></td>
+										</tr>
+								</table>
+							</th:block>
+							<!-- 목록에서 판매으로 -->
+							<th:block th:if="${checkPartList} != null">
+								<table style="font-size: 12px;" class="table table-striped table-bordered"  border="1">
+									<thead class="thead-dark">
+										<tr>
+											<td>파트번호</td>
+											<td>제품명</td>
+											<td>남은수량</td>
+											<td>개수</td>
+											<td>개당가격</td>
+											<td>총가격</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each=p:${checkPartList} name="list">
+											<td><span th:text="${p.partNumber}"></span><input type="hidden" th:value="${p.partNumber}" name="partNumber"></td>
+											<td><span th:text="${p.partName}"></span></td>
+											<td><span th:text="${p.partMany}" id="dbMany"></span></td>
+											<td><input type="number" th:placeholder="'현재수량 : '+${p.partMany}" th:partNumber="${p.partNumber}" th:value="${p.partMany}" name=partMany></td>
+											<td th:text="${p.partPrice}" name="partPrice"></td>
+											<td th:text="${p.partPrice}*${p.partMany}" th:price="${p.partPrice}" class="price" th:name="${p.partNumber}" ></td>
+										</tr>
+									</tbody>	
+								</table>
+							</th:block>
+							<span id="sumPrice">총가격 : </span><br>
+							<button type="submit" class="btn-info" id="estiBtn">견적완료</button>
+						</form>
+						<div class="sufee-alert alert with-close alert-secondary alert-dismissible fade show" style="display: none;" id="manyAlert">
+                            <span class="badge badge-pill badge-secondary"></span>
+								재고수량을 확인하세요<br>
+							<button type="button"><a href="/part/partOrder" class="alert-link">부품구입으로</a></button>
+							<button type="button"><a href="/part/partList"  class="alert-link">부품목록으로</a></button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">접수현황
+							<span class="badge badge-secondary float-right mt-1" th:text="'총접수 수 : 현제 '+${recMany}+'건'"> </span>
+						</strong>
+					</div>
+					<div class="card-body">
+						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">접수대기</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">정비중</a>
+                            </li>
+                        </ul>
+						
+						<div class="tab-content" id="pills-tabContent">
+							<div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+								<menu id="view">
+									<th:block th:each="rn:${recNum}">
+										<li th:if="${rn.receptionProgress}==0">
+											<label>
+												<input type="radio" th:value="${rn.receptionCode}" name="recitp">
+												<span th:text="${rn.receptionCode}"> </span>
+												<span th:text="${rn.customerCarInfoCode}"> </span>
+											</label>
+										</li>
+									</th:block>
+								</menu>
+							</div>
+							<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+								<menu id="view">
+									<th:block th:each="rn:${recNum}">
+										<li th:if="${rn.receptionProgress}==1">
+											<label>
+												<input type="radio" th:value="${rn.receptionCode}" name="recitp">
+												<span th:text="${rn.receptionCode}"></span>
+												<span th:text="${rn.customerCarInfoCode}"></span>
+											</label>
+										</li>
+									</th:block>
+								</menu>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<div id="hiddenData" style="display: none;">
+				
+			</div>
+			
+		</div>
+	</div>
+	</th:block>
+</html>

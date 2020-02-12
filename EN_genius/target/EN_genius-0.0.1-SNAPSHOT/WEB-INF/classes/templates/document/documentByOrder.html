@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/default}" 
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+	<th:block layout:fragment="customTitle">
+		<title>발주서</title>
+	</th:block>
+	<th:block layout:fragment="contentFragment">
+	<head>
+		<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+		<meta name=ProgId content=Excel.Sheet>
+		<meta name=Generator content="Microsoft Excel 14">
+		<link rel=File-List href="orderDoc.files/filelist.xml">
+		<link rel="stylesheet" type="text/css" href="/assets/css/docCss/orderPrintStyle.css" media="print">
+		<link rel="stylesheet" href="/assets/css/docCss/orderStyle.css">
+	</head>
+	<!--[if !excel]>　　<![endif]-->
+	<!--다음 내용은 Microsoft Excel의 웹 페이지로 게시 마법사를 사용하여 작성되었습니다.-->
+	<!--같은 내용의 항목이 다시 게시되면 DIV 태그 사이에 있는 내용이 변경됩니다.-->
+	<!----------------------------->
+	<!--Excel의 웹 페이지 마법사로 게시해서 나온 결과의 시작 -->
+	<!----------------------------->
+	<div class="animated fadeIn">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">발주서</strong>
+					</div>
+					<div class="card-body">
+						<div>
+							<div id="orderDoc" x:publishsource="Excel">
+								<form action="/part/orderPro" method="post">
+									<table class=xl6329231
+									 style='border-collapse:collapse;table-layout:fixed;width:100%;'  th:each="i:${info}">
+									<col class=xl6329231 width=27 span=24 style='mso-width-source:userset;
+									mso-width-alt:864;width:20pt'>
+										<tr height=30 style='mso-height-source:userset;height:22.5pt'>
+											<td colspan=5 height=30 class=xl9629231 width=135 style='border-right:.5pt solid black;
+											height:22.5pt;width:100pt'>작성일 </td>
+											<td colspan=14 rowspan=2 class=xl10929231 width=378 style='border-right:.5pt solid black;
+											border-bottom:1.0pt solid black;width:280pt'>발주서</td>
+											<td colspan=5 class=xl10229231 width=135 style='border-right:1.0pt solid black;
+											border-left:none;width:100pt'>일련번호</td>
+										</tr>
+											<tr height=30 style='mso-height-source:userset;height:22.5pt'>
+											<td colspan=5 height=30 class=xl9929231 style='border-right:.5pt solid black; height:22.5pt;' th:text="${i.bsRegistration}">오늘날짜</td>
+											<td colspan=5 class=xl10429231 style='border-right:1.0pt solid black; border-left:none' th:text="${docNo}">문서번호</td>
+										</tr>
+											<tr height=30 style='mso-height-source:userset;height:22.5pt'>
+											<td colspan=12 height=30 class=xl10829231 style='height:22.5pt'><font
+											class="font729231">◎ </font><font class="font629231">수주처</font></td>
+											<td colspan=12 class=xl10629231 style='border-right:1.0pt solid black'><font
+											 class="font729231">◎ </font><font class="font629231">발주처</font></td>
+										</tr>
+										<tr height=40 style='mso-height-source:userset;height:30.0pt'>
+											<td colspan=2 height=40 class=xl6529231 style='border-right:.5pt solid black;
+											height:30.0pt'>상호</td>
+											<td colspan=10 class=xl7029231 style='border-right:1.0pt solid black' th:text="${store.storeName}">구입처 명</td>
+											<td colspan=2 class=xl9429231 style='border-right:.5pt solid black' >상호</td>
+											<td colspan=4 class=xl7129231 style="text-align: center;"th:text="${i.bsName}">공업사명</td>
+											<td colspan=2 class=xl9529231 style='border-right:.5pt solid black'>대표자</td>
+											<td colspan=4 class=xl7129231 style='border-right:1.0pt solid black; text-align: center;' th:text="${i.bossName}">공업사대표</td>
+										</tr>
+										<tr height=40 style='mso-height-source:userset;height:30.0pt'>
+											<td colspan=2 height=40 class=xl6729231 style='border-right:.5pt solid black;
+											height:30.0pt'>주소</td>
+											<td colspan=10 class=xl9129231 width=270 style='border-right:1.0pt solid black;
+											width:200pt;' th:text="${store.storeAddr}">구입처주소</td>
+											<td colspan=2 class=xl7529231 width=54 style='border-right:.5pt solid black;
+											width:40pt' >등록<br>
+											  번호</td>
+											<td colspan=10 class=xl6429231 style='border-right:1.0pt solid black;text-align: center;' th:text="${i.bsNumber}">사업자등록번호</td>
+										</tr>
+										<tr height=40 style='mso-height-source:userset;height:30.0pt'>
+											<td colspan=2 height=40 class=xl6729231 style='border-right:.5pt solid black;
+											height:30.0pt'>Tel</td>
+											<td colspan=4 class=xl6429231 style="text-align: center;" th:text="${store.storePhone}">구입처번호</td>
+											<td colspan=2 class=xl6929231 style='border-right:.5pt solid black'>Fax</td>
+											<td colspan=4 class=xl6429231 style='border-right:1.0pt solid black;text-align: center;'th:text="${store.storeFax}">구입처fax</td>
+											<td colspan=2 class=xl7629231 style='border-right:.5pt solid black'>주소</td>
+											<td colspan=10 class=xl8529231 width=270 style='border-right:1.0pt solid black;
+											width:200pt; text-align: center;' th:text="${i.bsAddr}">공업사주소</td>
+										</tr>
+										<tr height=40 style='mso-height-source:userset;height:30.0pt'>
+											<td colspan=2 height=40 class=xl8229231 style='border-right:.5pt solid black;
+											height:30.0pt'>비고</td>
+											<td colspan=10 class=xl9329231 style='border-right:1.0pt solid black'>　</td>
+											<td colspan=2 class=xl7629231 style='border-right:.5pt solid black'>업태</td>
+											<td colspan=4 class=xl6429231 style='text-align: center;'>서비스</td>
+											<td colspan=2 class=xl6929231 style='border-right:.5pt solid black'>종목</td>
+											<td colspan=4 class=xl6429231 style='text-align: center; border-right:1.0pt solid black'>자동차정비</td>
+										</tr>
+										<tr height=40 style='mso-height-source:userset;height:30.0pt'>
+											<td colspan=12 height=40 class=xl7929231 style='border-right:1.0pt solid black;
+											height:30.0pt'>아래와 같이 발주 요청합니다.</td>
+											<td colspan=2 class=xl8929231 style='border-right:.5pt solid black'>Tel</td>
+											<td colspan=4 class=xl8729231 style='text-align: center;' th:text="${i.bsTelephone}">공업사전화번호</td>
+											<td colspan=2 class=xl9029231 style='border-right:.5pt solid black'>Fax</td>
+											<td colspan=4 class=xl8729231 style='border-right:1.0pt solid black; text-align: center;' th:text="${i.bsFaxNumber}">공업사fax</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl11729231 style='border-right:.5pt solid black;
+											height:26.25pt'>품목</td>
+											<td colspan=7 class=xl11529231 style='border-right:.5pt solid black;
+											border-left:none'>품번</td>
+											<td colspan=4 class=xl7329231 style='border-left:none'>수량</td>
+											<td colspan=2 class=xl11529231 style='border-right:1.0pt solid black;
+											border-left:none'>비고</td>
+										</tr>
+									<th:block th:if="${part} != null">
+										<tr height=35 style='mso-height-source:userset;height:26.25pt' th:each="p:${part}">
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt' th:text=${p.partName}>품목　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none' th:text="${p.partNumber}">품번　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none' th:text="${p.partMany}">수량　</td>
+											<td colspan=2 class=xl12029231 style='border-right:1.0pt solid black;
+											border-left:none'><!-- 비고 -->　</td>
+										</tr>
+									</th:block>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl14829231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl13929231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl12229231 style='border-right:1.0pt solid black;
+											border-left:none'><!-- 비고 -->　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl7729231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl7729231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl12029231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl7729231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14529231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl7729231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+											<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl12029231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl7729231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14529231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl7729231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+											<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=11 height=35 class=xl12429231 style='border-right:.5pt solid black;
+											height:26.25pt'>　</td>
+											<td colspan=7 class=xl14229231 style='border-right:.5pt solid black;
+											border-left:none'>　</td>
+											<td colspan=4 class=xl7429231 style='border-left:none'>　</td>
+											<td colspan=2 class=xl12029231 style='border-right:1.0pt solid black;
+											border-left:none'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+											<td colspan=5 rowspan=4 height=140 class=xl12729231 style='border-right:.5pt solid black;
+											border-bottom:1.0pt solid black;height:105.0pt'>비고</td>
+											<td colspan=19 rowspan=4 class=xl13329231 width=513 style='border-right:1.0pt solid black;
+											border-bottom:1.0pt solid black;width:380pt'>　</td>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+										</tr>
+										<tr height=35 style='mso-height-source:userset;height:26.25pt'>
+										</tr>
+									</table>
+									<button class="btn btn-warning" type="button">확인</button>
+								</form>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<div class="col-md-4">
+				<input type="button" value="print" onclick="info_print()">
+				<input type="button" value="fullScreen" onclick="openFullscreen()">
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var elem = document.getElementById("orderDoc");
+	
+	function openFullscreen() {
+		elem.webkitRequestFullscreen();
+	}
+	
+	function info_print() {
+		var initBody = document.body.innerHTML;
+	
+		window.onbeforeprint = function () {
+	
+			document.body.innerHTML = document.getElementById('orderDoc').innerHTML;
+		}
+		window.onafterprint = function () {
+			document.body.innerHTML = initBody;
+		}
+		window.print();
+	}
+	
+	</script>
+	<!----------------------------->
+	<!--Excel의 웹 페이지 마법사로 게시해서 나온 결과의 끝-->
+	<!----------------------------->
+	</th:block>
+</html>

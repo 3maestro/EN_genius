@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      
+	<th:block layout:fragment="customTitle">
+		<title>현재 진행 작업</title>
+	</th:block>
+	
+	<!-- <th:block layout:fragment="contentFragment">
+		현재 진행 작업
+	</th:block> -->
+	
+	<th:block layout:fragment="contentFragment">
+		<div class="row">
+			<div class="col-md-12">
+			        <div class="card">
+			            <div class="card-header">
+			                <strong class="card-title">진행 중인 작업</strong>
+			                <button type="button" style="float:right;" ><a th:href="@{/work/ViewCurrentState}">작업 분배</a></button>
+			            </div>
+			            <div class="card-body">
+			                <table class="table">
+			                    <thead>
+			                        <tr>
+			                          <th scope="col">No.</th>
+			                          <th scope="col">작업내용</th>
+			                          <th scope="col">표준작업시간</th>
+			                          <th scope="col">단가</th>
+			                          <th scope="col">수량</th>
+			                          <th scope="col">합계</th>
+			                          <th scope="col">작업자</th>
+			                      </tr>
+			                 </thead>
+			                 <tbody>
+			                    <tr th:each="l,index : ${workList}">
+									<td th:text="${index.index}+1">0.7</td>
+									<td th:text="${l.wageSmallName}">0.7</td>
+									<td th:text="${l.manHour}" style="font-variant:normal;">0.7</td>
+									<td th:text="${l.onePrice}" style="font-variant:normal;">0.7</td>
+									<td th:text="${l.count}" style="font-variant:normal;">0.8</td>
+									<td th:text="${l.totalPrice}" style="font-variant:normal;">1</td>
+									<td th:text="${l.workMan}" style="font-variant:normal;">1</td>
+			                    </tr>
+			                </tbody>
+			            </table>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</th:block>
+</html>
+

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+      
+	<th:block layout:fragment="customCss">
+		<style>
+			#weatherWidget .currentDesc {
+			        color: #ffffff!important;
+			    }
+			        .traffic-chart {
+			            min-height: 335px;
+			        }
+			        #flotPie1  {
+			            height: 150px;
+			        }
+			        #flotPie1 td {
+			            padding:3px;
+			        }
+			        #flotPie1 table {
+			            top: 20px!important;
+			            right: -10px!important;
+			        }
+			        .chart-container {
+			            display: table;
+			            min-width: 270px ;
+			            text-align: left;
+			            padding-top: 10px;
+			            padding-bottom: 10px;
+			        }
+			        #flotLine5  {
+			             height: 105px;
+			        }
+			
+			        #flotBarChart {
+			            height: 150px;
+			        }
+			        #cellPaiChart{
+			            height: 160px;
+			        }
+		</style>
+	</th:block>
+
+	<th:block layout:fragment="customTitle">
+		<title>메인 화면</title>
+	</th:block>
+
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript">	 
+		/*<[CDATA[*/
+			
+//  			var CARCODE;
+// // 			var RECNUM;
+			
+// 			if(CARCODE != null || CARCODE != '' || CARCODE != 'undefined'){
+// 				CARCODE = [[${session.CARCODE}]];
+// 				console.log(CARCODE + " <-CARCODE");
+// 			}else{
+// 				CARCODE = '';
+// 			}
+// 			if(RECNUM == null || RECNUM == '' || RECNUM == 'undefined'){
+// 				RECNUM = '';
+// 			}else{
+// 				RECNUM = [[${session.RECNUM}]];
+// 				console.log(RECNUM + " <-RECNUM");
+// 			}
+			
+			$(document).ready(function(){
+				
+				$('#recSearchBtn').click(function(){
+					var recNum = $('input[name=recNum]').val();
+	 				console.log(recNum.length + " <-recNum.length")
+
+	 				//접수 번호에 값이 있다면
+					if(recNum != '' && recNum != 'undefined' && recNum != null){
+						console.log(recNum + " <-carNum")
+	 					
+	 					if(recNum.length == 6){
+	 						$('#recSearch').submit();
+	 					}else{
+	 						alert('접수 번호를 확인 하세요.')
+		 					$('input[name=recNum]').val('')
+					}
+
+	 				//접수 번호에 값이 없다면
+	 				}else {
+	 					alert('접수 번호를 입력 하세요.')
+	 					$('input[name=recepNum]').val('')
+	 				}
+				})
+	 			$('#recCleanBtn').click(function(){
+	 				$('input[name=recNum]').val('')
+	 			})
+	 			
+				$('#carSearchBtn').click(function(){							
+	 		        
+//	 				&& 6 < carNum.length 
+//	 				var recepNum = $('input[name=recepNum]').val();
+	 				var carNum = $('input[name=carNum]').val();
+	 				var carCode = $('input[name=carCode]').val();
+	 				console.log(carNum.length + " <-carNum.length")
+	 				console.log(carCode + " <-carCode")
+	 				var car;
+// 	 				if(recepNum !='' && recepNum !='undefined' && recepNum != null){
+// 	 					if(recepNum.length > 5 && carNum =='' && carCode =='' ){
+// 	 					}else{
+// 	 						alert('접수 번호를 확인 하세요.')
+// 		 					$('input[name=recepNum]').val('')
+// 		 					$('input[name=carCode]').val('')
+// 		 					$('input[name=carCode]').val('')
+	 						
+// 	 					}
+// 	 				}else 
+	 				//차량번호에 값이 있다면
+ 					if(carNum != '' && carNum != 'undefined' && carNum != null){
+	 					console.log(carNum + " <-carNum")
+	 					
+	 						$('#carX').attr("style","display:block");
+	 		 				$('#carO').attr("style","display:block");
+	 					if(carNum.length > 6 && carCode == ''){
+	 						//car = carNum;
+	 					}else{
+	 						alert('차량 번호를 확인 하세요.')
+		 					//$('input[name=recepNum]').val('')
+		 					$('input[name=carCode]').val('')
+		 					$('input[name=carCode]').val('')
+	 					}
+	 					
+// 	 					//차량번호에 값이 있는데 차대 번호에 값이 있으면
+// 	 					else if(carCode != '' || carNum.length < 7){
+// 		 					alert('차량 정보는 동시에 입력 안됩니다.')
+// 		 					$('input[name=carNum]').val('')
+// 	 						$('input[name=carCode]').val('')
+// 		 				}
+
+	 				//차대번호에 값이 있으면
+	 				}else if(carCode != '' && carCode != 'undefined' && carCode != null){
+	 					console.log(carCode + " <-carCode")
+						
+	 						$('#carX').attr("style","display:block");
+	 		 				$('#carO').attr("style","display:block");
+	 					if(carCode.length == 17 && carNum == ''){
+		 					//car = carCode;					
+	 					}else{
+	 						alert('차대 번호를 확인 하세요.')
+		 					$('input[name=carCode]').val('')
+	 					}
+	 					
+	 				//둘다 값이 없으면
+	 				}else {
+	 					alert('차량 정보를 입력 하세요.')
+	 					$('input[name=recepNum]').val('')
+		 					$('input[name=carCode]').val('')
+		 					$('input[name=carCode]').val('')
+	 				}
+	 				
+	 				$('#search').submit();
+					
+// 	 				var request = $.ajax({
+// 						url:"/main/carRefer",
+// 						method: "POST",
+// 						data : {"car" : car},
+// 						dataType : "json"		
+// 					});
+	 				
+// 	 				request.done(function(data){
+// 						if(data != null || data != 'undefined' || data != ''){
+// 		 					console.log(data)
+// 						}
+							
+// 					});
+// 					request.fail(function(jqXHR, textStatus){
+// 						//alert("첨부파일 출력 중 오류가 발생하였습니다.");			
+// 					});				
+				});
+	 			
+	 			$('#carResetBtn').click(function(){
+	 				$('input[name=carNum]').val('')
+					$('input[name=carCode]').val('')
+	 			})
+// 				CARCODE = [[${session.CARCODE}]];
+// 				RECNUM = [[${session.RECNUM}]];
+	 			
+// 	 			else if([[${session.RECNUM}]] != null || [[${session.RECNUM}]] != '' || [[${session.RECNUM}]] != 'undefined'){
+// 	 				$('#recX').attr("style","display:block");
+// 	 				$('#recO').attr("style","display:block");
+// 	 			}
+			});
+			
+// 			$(document).on.('click','carReferCancelBtn',function(){
+				
+// 			})
+			
+	 			$(document).on('click','#carChangeBtn',function(){
+	 				//$('#rec').attr("display","none");
+	 				$('#recX').attr("style","display:none");
+	 				$('#recO').attr("style","display:none");
+	 				$('#carX').attr("style","display:block");
+	 				$('#carO').attr("style","display:block");
+	 			})
+	 			$(document).on('click','#recChangeBtn',function(){
+	 				//$('#rec').attr("display","none");
+	 				$('#recX').attr("style","display:block");
+	 				$('#recO').attr("style","display:block");
+	 				$('#carX').attr("style","display:none");
+	 				$('#carO').attr("style","display:none");
+	 			})
+	 			
+	 	/*]]>*/
+		</script>
+	</th:block>
+	<th:block layout:fragment="dashboardFragment">
+<!-- 		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1>아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block> -->
+	</th:block>
+	<!-- <th:block layout:fragment="dashboardFragment" th:if="${session.CARCODE eq null}">
+		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1>아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block>
+	</th:block>
+	
+	<th:block layout:fragment="dashboardFragment" th:if="${session.CARCODE ne null}">
+		<th:block layout:fragment="dashboardFragmentH1" >
+			<h1 th:text="${session.CARCODE}">아아아</h1>
+		</th:block>
+		<th:block layout:fragment="dashboardFragmentOl">
+			<ol class="breadcrumb text-right">
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li class="active">3</li>
+			</ol>
+		</th:block>
+	</th:block> -->
+	
+	<!-- <th:block layout:fragment="dashboardFragmentH1" th:if="${session.CARCODE ne null}">
+		<h1 th:text="${session.CARCODE}">1111</h1>
+	</th:block>
+	<th:block layout:fragment="dashboardFragmentOl" th:if="${session.CARCODE ne null}">
+		<ol class="breadcrumb text-right">
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li class="active">3</li>
+		</ol>
+	</th:block> -->
+	
+      
+	<th:block layout:fragment="contentFragment">
+		<div class="row">
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-1">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="currency float-left mr-1">$</span>
+			                    <span class="count">23569</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">Revenue</p>
+			            </div><!-- /.card-left -->
+						<div class="card-right float-right text-right">
+						    <i class="icon fade-5 icon-lg pe-7s-cart"></i>
+						</div><!-- /.card-right -->	
+			        </div>
+			    </div>
+			</div>
+			<!--/.col-->
+			
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-6">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="count float-left">85</span>
+			                    <span>%</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">Dummy text here</p>
+			          	</div><!-- /.card-left -->
+			          	<div class="card-right float-right text-right">
+			              	<div id="flotBar1" class="flotBar1"></div>
+			          	</div><!-- /.card-right -->
+			        </div>
+			    </div>
+			</div>
+			<!--/.col-->
+			
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-3">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="count">6569</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">Total clients</p>
+			            </div><!-- /.card-left -->
+						<div class="card-right float-right text-right">
+			              <i class="icon fade-5 icon-lg pe-7s-users"></i>
+						</div><!-- /.card-right -->
+			        </div>
+			    </div>
+			</div>
+			<!--/.col-->
+	
+			<div class="col-sm-6 col-lg-3">
+			    <div class="card text-white bg-flat-color-2">
+			        <div class="card-body">
+			            <div class="card-left pt-1 float-left">
+			                <h3 class="mb-0 fw-r">
+			                    <span class="count">1490</span>
+			                </h3>
+			                <p class="text-light mt-1 m-0">New users</p>
+			            </div><!-- /.card-left -->
+						<div class="card-right float-right text-right">
+						    <div id="flotLine1" class="flotLine1"></div>
+						</div><!-- /.card-right -->
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<!--/.col-->
+<!-- 		th:if="${session.CARCODE eq null}" -->
+		<!-- 접수 번호 조회 -->
+		<div class="row" th:if="${session.RECNUM eq null}">
+			<div class="col-lg-2" ></div>
+			<div class="col-lg-8" align="center" id="recX" style="display: block;">
+		        <div class="card" >
+		            <div class="card-header" style="background-color:orange;">
+		                <strong>접수 번호 조회</strong> 
+		            </div>
+		            <div class="card-body card-block">
+		                <form th:action="@{/rec/recSearch}" method="post" class="form-horizontal" id="recSearch">
+		                    <div class="row form-group">
+		                        <div class="col-md-2"></div>
+		                        <div class="col-md-8">
+		                        	<input type="text" id="recNum" name="recNum" maxlength="6" placeholder="접수 번호를 입력 하세요." class="form-control" >
+		                        </div>
+		                        <div class="col-md-2"></div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div style="background-color: silver; ">
+			                <button type="submit" class="btn btn-outline-secondary" id="recSearchBtn" style="margin-bottom: 10px; margin-top: 10px;" >
+			                    <i class="fa fa-dot-circle-o">조회 하기</i> 
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" id="recCleanBtn" style="margin-left: 10px;">
+			                    <i class="fa fa-ban">지우기</i>
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" id="carChangeBtn" style="margin-left: 10px;">
+			                    <i class="fa fa-car">차량조회</i>
+			                </button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-2" ></div>
+		</div>
+		<!-- /접수 번호 조회 -->
+		<!-- 차량 번호 조회 -->
+		<div class="row" th:if="${session.CARCODE eq null}" th:unless="${session.RECNUM ne null}">
+			<div class="col-lg-2" ></div>
+			<div class="col-lg-8" align="center" id="carX" style="display: none;">
+		        <div class="card" >
+		            <div class="card-header" style="background-color:orange;">
+		                <strong>고객 차량 정보 조회</strong> 
+		            </div>
+		            <div class="card-body card-block">
+		                <form th:action="@{/main/carRefer}" method="post" class="form-horizontal" id="search">
+		                    <div class="row form-group">
+		                        <div class="col col-md-4">
+		                        	<label for="hf-email" class=" form-control-label">차량번호(7 or 8자리)</label>
+		                        </div>
+		                        <div class="col-12 col-md-8">
+		                        	<input type="text" id="carNum" name="carNum" maxlength="8" placeholder="차량 번호를 입력 하세요." class="form-control">
+		                        </div>
+		                    </div>
+		                    <div class="row form-group">
+		                        <div class="col col-md-4">
+		                        	<label for="hf-password" class=" form-control-label">차대번호(17자리)</label>
+		                        </div>
+		                        <div class="col-12 col-md-8">
+		                        	<input type="text" id="carCode" name="carCode" maxlength="17" placeholder="차대 번호를 입력 하세요." class="form-control">
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div style="background-color: silver; ">
+			                <button type="submit" class="btn btn-outline-secondary" id="carSearchBtn" style="margin-bottom: 10px; margin-top: 10px; " >
+			                    <i class="fa fa-dot-circle-o">조회 하기</i> 
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" id="carResetBtn" style="margin-left: 10px;">
+			                    <i class="fa fa-ban">지우기</i>
+			                </button>
+			                <button type="reset" class="btn btn-outline-secondary" id="recChangeBtn" style="margin-left: 10px;">
+			                    <i class="fa fa-smile-o">접수조회</i>
+			                </button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-2" ></div>
+		</div>
+	    <!-- /차량 번호 조회 -->
+	    
+	    <!-- 접수 번호 조회 성공 -->
+	    <div class="row" th:if="${session.RECNUM ne null}" th:unless="${session.CARCODE ne null}">
+			<div class="col-lg-2" ></div>
+			<div class="col-lg-8" align="center" id="recO" style="display: block;">
+		        <div class="card">
+		            <div class="card-header" style="background-color:orange;">
+		                <strong>접수 번호 조회 성공</strong> 
+		            </div>
+		            <div class="card-body card-block">
+		                <form action="#" method="post" class="form-horizontal">
+		                    <div class="row form-group">
+		                        <div class="col col-md-4">
+		                        	<label for="hf-email" class=" form-control-label">검색 :</label>
+		                        </div>
+		                        <div class="col-12 col-md-8">
+		                        	<input type="text" id="totalSearch" name="totalSearch" maxlength="15" placeholder="검색어를 입력 하세요." class="form-control">
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div style="background-color: silver; ">
+			                <button type="submit" class="btn btn-outline-secondary" id="totalSearchBtn" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
+			                    <i class="fa fa-dot-circle-o">검색 하기</i> 
+			                </button>
+			                <button type="button" class="btn btn-outline-danger" id="recCancelBtn" style="margin-left: 10px;">
+				                <a th:href="@{/rec/reset}">리셋</a>
+			                    <i class="fa fa-ban"></i>
+			                </button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-2" ></div>
+		</div>
+	    <!-- /접수 번호 조회 성공 -->
+	    
+		<!--차량 번호 성공 -->
+	    <div class="row" th:if="${session.CARCODE ne null}">
+			<div class="col-lg-2" ></div>
+			<div class="col-lg-8" align="center" id="carO" style="display: none;">
+		        <div class="card">
+		            <div class="card-header" style="background-color:orange;">
+		                <strong>차량 조회 성공</strong> 
+		            </div>
+		            <div class="card-body card-block">
+		                <form action="#" method="post" class="form-horizontal">
+		                    <div class="row form-group">
+		                        <div class="col col-md-4">
+		                        	<label for="hf-email" class=" form-control-label">검색 :</label>
+		                        </div>
+		                        <div class="col-12 col-md-8">
+		                        	<input type="text" id="totalSearch" name="totalSearch" maxlength="15" placeholder="검색어를 입력 하세요." class="form-control">
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		            <div style="background-color: silver; ">
+			                <button type="submit" class="btn btn-outline-secondary" id="totalSearchBtn" style="margin-bottom: 10px; margin-top: 10px; margin-right: 10px; " >
+			                    <i class="fa fa-dot-circle-o">검색 하기</i> 
+			                </button>
+			                <button type="button" class="btn btn-outline-danger" id="carReferCancelBtn" style="margin-left: 10px;">
+				                <a th:href="@{/refer/reset}">리셋</a>
+			                    <i class="fa fa-ban"></i>
+			                </button>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-lg-2" ></div>
+		</div>
+		<!-- /차량 번호 성공 -->
+		
+		<!-- chart -->
+		<div class="row">
+	        <div class="col-lg-1"></div>
+	        <div class="col-lg-10">
+	            <div class="card">
+	                <div class="card-body">
+	                    <h4 class="box-title">Traffic </h4>
+	                </div>
+	                <div class="row">
+	                    <div class="col-lg-8">
+	                        <div class="card-body">
+	                            <!-- <canvas id="TrafficChart"></canvas>   -->
+	                            <div id="traffic-chart" class="traffic-chart">
+	                            	<svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;">
+	                            		<g class="ct-grids">
+	                            			<line x1="50" x2="50" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="148.865625" x2="148.865625" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="247.73125" x2="247.73125" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="346.59687499999995" x2="346.59687499999995" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="445.4625" x2="445.4625" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line x1="544.328125" x2="544.328125" y1="15" y2="300" class="ct-grid ct-horizontal"></line>
+	                            			<line y1="300" y2="300" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="259.2857142857143" y2="259.2857142857143" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="218.57142857142856" y2="218.57142857142856" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="177.85714285714286" y2="177.85714285714286" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="137.14285714285714" y2="137.14285714285714" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="96.42857142857142" y2="96.42857142857142" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="55.71428571428572" y2="55.71428571428572" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            			<line y1="15" y2="15" x1="50" x2="544.328125" class="ct-grid ct-vertical"></line>
+	                            		</g>
+	                            		<g>
+	                            			<g class="ct-series ct-series-a">
+	                            				<path d="M 50 300 L 50 300 C 82.955 251.143 115.91 200.89 148.866 153.429 C 181.821 105.967 214.776 15 247.731 15 C 280.686 15 313.642 83.901 346.597 96.429 C 379.552 108.956 412.507 106.526 445.463 120.857 C 478.418 135.189 511.373 240.286 544.328 300 L 544.328 300 Z" class="ct-area"></path>
+	                            			</g>
+	                            			<g class="ct-series ct-series-b">
+	                            				<path d="M 50 300 L 50 300 C 82.955 210.429 115.91 31.286 148.866 31.286 C 181.821 31.286 214.776 177.857 247.731 177.857 C 280.686 177.857 313.642 137.143 346.597 137.143 C 379.552 137.143 412.507 157.603 445.463 177.857 C 478.418 198.111 511.373 257.657 544.328 297.557 L 544.328 300 Z" class="ct-area"></path>
+	                            			</g>
+	                            			<g class="ct-series ct-series-c">
+	                            				<path d="M 50 300 L 50 300 C 82.955 259.286 115.91 215.663 148.866 177.857 C 181.821 140.051 214.776 72 247.731 72 C 280.686 72 313.642 177.857 346.597 177.857 C 379.552 177.857 412.507 55.714 445.463 55.714 C 478.418 55.714 511.373 191.429 544.328 259.286 L 544.328 300 Z" class="ct-area"></path>
+	                            			</g>
+	                            		</g>
+	                            		<g class="ct-labels">
+	                            			<foreignObject style="overflow: visible;" x="50" y="305" width="98.865625" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Jan</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="148.865625" y="305" width="98.865625" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Feb</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="247.73125" y="305" width="98.86562499999997" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Mar</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="346.59687499999995" y="305" width="98.86562500000002" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">Apr</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="445.4625" y="305" width="98.86562500000002" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 99px; height: 20px;">May</span>
+	                            			</foreignObject>
+	                            			<foreignObject style="overflow: visible;" x="544.328125" y="305" width="30" height="20">
+	                            				<span class="ct-label ct-horizontal ct-end" xmlns="http://www.w3.org/2000/xmlns/" style="width: 30px; height: 20px;">Jun</span>
+	                            			</foreignObject>
+	                            		</g>
+	                            	</svg>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-4">
+	                        <div class="card-body">
+	                            <div class="progress-box progress-1">
+	                                <h4 class="por-title">Visits</h4>
+	                                <div class="por-txt">96,930 Users (40%)</div>
+	                                <div class="progress mb-2" style="height: 5px;">
+	                                    <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+	                                </div>
+	                            </div>
+	                            <div class="progress-box progress-2">
+	                                <h4 class="por-title">Bounce Rate</h4>
+	                                <div class="por-txt">3,220 Users (24%)</div>
+	                                <div class="progress mb-2" style="height: 5px;">
+	                                    <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+	                                </div>
+	                            </div>
+	                            <div class="progress-box progress-2">
+	                                <h4 class="por-title">Unique Visitors</h4>
+	                                <div class="por-txt">29,658 Users (60%)</div>
+	                                <div class="progress mb-2" style="height: 5px;">
+	                                    <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+	                                </div>
+	                            </div>
+	                            <div class="progress-box progress-2">
+	                                <h4 class="por-title">Targeted  Visitors</h4>
+	                                <div class="por-txt">99,658 Users (90%)</div>
+	                                <div class="progress mb-2" style="height: 5px;">
+	                                    <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+	                                </div>
+	                            </div>
+	                        </div> <!-- /.card-body -->
+	                    </div>
+	                </div> <!-- /.row -->
+	                <div class="card-body"></div>
+	            </div>
+	        </div><!-- /# column -->
+	        <div class="col-lg-1"></div>
+	    </div>		
+	</th:block>
+</html>

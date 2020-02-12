@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- layout:decorate 레이아웃 활용을 위한 속성 -->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+	
+	<th:block layout:fragment="customTitle">
+		<title>표준 작업 시간</title>      
+	</th:block>
+	
+	<th:block layout:fragment="customCss">
+		<style> form { display : inline ; } </style>
+	</th:block>
+
+	<th:block layout:fragment="customScript">
+		<script type="text/javascript" th:inline="javascript">
+		/*<[CDATA[*/
+			//var ccCode = [[${session.CCCODE}]]
+			var arrVal = [];
+			var checkObj;
+			var code;
+			var bsCode = [[${session.SCODE}]]
+			//세션직원이 아니라 접수시 담당 직원 이름이 와야 된다.
+			var workMan = [[${session.SNAME}]]
+			var recNum = [[${session.RECNUM}]]
+			$(document).on('click','.manHourCheck',function(){
+				var click = $(this).is(':checked')
+				console.log(click + " <-click")
+				var wageBasket = $('#wageBasket')
+				var html = "";
+				var dataTabeList = window._autoDataTableObject.context[0].aoData;
+				
+				var ccWageSmallCode = [];
+				var wageSmallName = [];
+				var manHour = [];
+				var ccStandardWage = [];
+				
+				for(var i=0; i < dataTabeList.length; i ++){
+					
+					var trObj = $(dataTabeList[i].nTr);	
+					
+					checkObj = trObj.find('.manHourCheck');
+					
+					if(checkObj.prop('checked')){
+						var ccWageSmallCode = checkObj.attr('data-ccWageSmallCode')
+						var wageSmallName = checkObj.attr('data-wageSmallName')
+						var manHour = checkObj.attr('data-manHour')
+						var ccStandardWage = checkObj.attr('data-ccStandardWage')
+						
+						html += '<tr>'
+						html += '<td><input type="hidden" name="receptionCode" value="'+recNum+'">'+recNum+'</td>'
+						html += '<th scope="row" class="codeNum"><input type="hidden" name="bsCode" value="'+bsCode+'">'+ccWageSmallCode+'</th>'
+						html += '<td><input type="hidden" name="wageSmallName" value="'+wageSmallName+'">'+wageSmallName+'</td>'
+						html += '<td><input type="hidden" name="manHour" value="'+manHour+'">'+manHour+'</td>'
+						html += '<td><input type="text" name="count" value="1" ></td>'
+ 						html += '<td><input type="hidden" name="workMan" value="'+workMan+'">'+workMan+'</td>'
+						html += '<td><input type="hidden" name="ccStandardWage" value="'+ccStandardWage+'"></td>'
+						html += '</tr>';
+					}
+				}
+				
+				wageBasket.html(html)
+
+				if(click != true){
+				}else{
+					$('#workCard').attr("style", "display:block")
+				}
+				
+			});
+			
+			$(document).ready(function(){
+				$('#periodBtn').click(function(){
+					console.log("확정")
+					var tbodyObj = $("#wageBasket").html()
+					if(tbodyObj != null || tbodyObj != '' || tbodyObj != 'undefined'){
+						
+						var form = $('form[name=wageDecide]').serialize();
+					}
+				})				
+			})
+			
+		/*]]>*/
+		</script>
+	</th:block>
+	
+	<th:block layout:fragment="contentFragment">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<strong class="card-title">작업 등록</strong>
+					</div>
+					<div class="card-body">
+						<div th:if="${session.RECNUM eq null}">
+							<h1>접수 번호로 조회 하세요</h1>
+						</div>
+						<div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer" th:if="${session.CCCODE ne null}" th:unless="${session.CARCODE ne null}">
+							<div class="row">
+								<div class="col-sm-12">
+									<table id="bootstrap-data-table" class="table table-striped table-bordered" style="text-align: center; width:100%; text-overflow: ellipsis; ">
+										<thead style="background: gray;">
+											<tr role="row"> 
+												<th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 100px;">No</th>
+<!-- 												<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 200px; valign:middle">공임 코드</th>
+												<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 150px;">배기량</th> -->
+												<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 450px;">대분류</th>
+												<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 250px;">중분류</th>
+												<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 400px;">작업 내용</th>
+												<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100px;">ManHour</th>
+												<th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 100px;">선택</th>
+											</tr>
+										</thead>
+										<tbody >  
+											<tr th:each = "l,index : ${wageManHour}" role="row" class="odd">
+												<td class="sorting_1" th:text="${index.index}+1" th:value="${l.ccWageSmallCode}"></td>
+												<!-- <td th:text="${l.ccWageSmallCode}">ABS속도 센서 교환</td>
+												<td th:text="${l.ccWageCode}">0.7</td> -->
+												<td th:text="${l.wageBigName}" style="font-variant:normal;">0.7</td>
+												<td th:text="${l.wageMidName}" style="font-variant:normal;">0.7</td>
+												<td th:text="${l.wageSmallName}" style="font-variant:normal;">0.8</td>
+												<td th:text="${l.manHour}" style="font-variant:normal;">1</td>
+												<td>
+													<input type="checkbox" name="manHourCheck" class="manHourCheck" th:data-ccWageSmallCode="${l.ccWageSmallCode}" th:data-wageSmallName="${l.wageSmallName}" th:data-manHour="${l.manHour}" th:data-ccStandardWage="${l.ccStandardWage}" th:value="${l.ccWageSmallCode}">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12" style="display: none" id="workCard">
+                    <div class="card" >
+					    <form name="wageDecide" th:action="@{/work/insertWorking}" method="post" class="form">
+	                        <div class="card-header">
+	                            <strong class="card-title">작업 예정 리스트</strong>
+	                            <button type="submit" style="float:right;" id="periodBtn" value="period">작업 등록</button>
+	                        </div>
+	                        <div class="card-body">
+							    <table class="table table-bordered">
+							        <thead class="thead-dark">
+										<tr>
+											<th scope="col">Wip_No</th>
+											<th scope="col">Code_No</th>
+											<th scope="col">진행 예정 작업 내용</th>
+											<th scope="col">표준 작업 시간</th>
+											<th scope="col">수량</th>
+ 											<th scope="col">작업자</th>
+											<th scope="col">비고</th>
+										</tr>
+									</thead>
+									<tbody id="wageBasket">
+
+									</tbody>
+								</table>
+							</div>
+						</form> 
+	                </div>
+	            </div>
+			</div>
+		</div>
+		
+		<script src="/assets/js/lib/data-table/datatables.min.js"></script>
+		<script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+		<script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+		<script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+		<script src="/assets/js/lib/data-table/jszip.min.js"></script>
+		<script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
+		<script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
+		<script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
+		<script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+		<script src="/assets/js/init/datatables-init.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#bootstrap-data-table-export').DataTable();
+			} );
+		</script>
+	
+	</th:block>
+</html>

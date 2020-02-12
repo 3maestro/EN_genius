@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+	<th:block layout:fragment="customTitle">
+		<title>배기량별 공임단가</title>
+	</th:block>
+	
+	<th:block layout:fragment="contentFragment">
+		<div class="col-lg-12">
+		    <div class="card">
+		        <div class="card-header">
+		            <strong class="card-title">배기량별 표준 단가</strong>
+		        </div>
+		        <div class="card-body">
+		            <table class="table table-dark">
+		                <thead>
+		                    <tr>
+		                        <th scope="col">Code_No.</th>
+		                        <th scope="col">승차정원</th>
+		                        <th scope="col">적재량</th>
+		                        <th scope="col">최소배기량</th>
+		                        <th scope="col">최대배기량</th>
+		                        <th scope="col">조건</th>
+		                        <th scope="col">공임단가</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                    <tr th:each="c : ${ccWage}">
+		                        <th scope="row" th:text="${c.ccWageCode}">1</th>
+		                        <td th:text="${c.capacityNum}">Mark</td>
+		                        <td th:text="${c.loadage}">Otto</td>
+		                        <td th:text="${c.minCc}">@mdo</td>
+		                        <td th:text="${c.maxCc}">@mdo</td>
+		                        <td th:text="${c.ccTerms}">@mdo</td>
+		                        <td th:text="${c.standardWage}">@mdo</td>
+		                    </tr>
+		                </tbody>
+		            </table>
+		        </div>
+		    </div>
+		</div>
+	</th:block>
+</html>
+

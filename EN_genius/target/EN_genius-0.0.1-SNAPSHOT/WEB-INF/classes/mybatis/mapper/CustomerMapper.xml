@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis맵퍼  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace속성은 인터페이스의 위치를 적는다. -->
+<mapper namespace="com.cafe24.radev.mapper.CustomerMapper">
+	
+	<resultMap type="com.cafe24.radev.vo.Customer" id="CustomerResultMap">
+		<result property="customerCode"		column="customer_code"/>
+		<result property="bsCode"			column="bs_code"/>
+		<result property="eiCode"			column="ei_code"/>
+		<result property="customerSign"		column="customer_sign"/>
+		<result property="customerName"		column="customer_name"/>
+		<result property="customerBirth"	column="customer_birth"/>
+		<result property="customerGender"	column="customer_gender"/>
+		<result property="customerPost"		column="customer_post"/>
+		<result property="customerAddr"		column="customer_addr"/>
+		<result property="customerPhone"	column="customer_phone"/>
+		<result property="customerMemo"		column="customer_memo"/>
+		<collection property="voCarDetail" resultMap="DetailMap"/>
+		<collection property="voRecRegister" resultMap="RegistertMap"/>
+	</resultMap>
+	
+	<select id="getCustomerSelect" resultMap="CustomerResultMap">
+	  	SELECT 
+			customer_code
+			,bs_code
+			,ei_code
+			,customer_sign
+			,customer_name
+			,customer_birth
+			,customer_gender
+			,customer_post
+			,customer_addr	
+			,customer_phone
+			,customer_memo
+		FROM
+			customer_tb
+		WHERE
+				bs_code=#{scode}
+				
+		<if test="customerName neq null and customerName neq ''.toString()">
+			AND
+				customer_name like CONCAT('%',#{customerName},'%')
+		</if>
+		
+		<if test="customerGender neq null and customerGender neq ''.toString()">
+			AND
+				customer_gender = #{customerGender}
+		</if>
+		
+		<if test="customerPhone neq null and customerPhone neq ''.toString()">
+			AND
+				customer_phone like CONCAT('%',#{customerPhone},'%')
+		</if>
+		
+		<if test="customerMemo neq null and customerMemo neq ''.toString()">
+			AND
+				customer_memo like CONCAT('%',#{customerMemo},'%')
+		</if>
+		
+		<if test="customerBirth1 neq null and customerBirth1 neq ''.toString()">
+			AND
+				customer_birth >= #{customerBirth1}
+		</if>
+		
+		<if test="customerBirth2 neq null and customerBirth2 neq ''.toString()">
+			AND
+				customer_birth <![CDATA[<=]]> #{customerBirth2}
+		</if>
+		
+		<if test="customerSign1 neq null and customerSign1 neq ''.toString()">
+			AND
+				customer_sign >= #{customerSign1}
+		</if>
+		
+		<if test="customerSign2 neq null and customerSign2 neq ''.toString()">
+			AND
+				customer_sign <![CDATA[<=]]> #{customerSign2}
+		</if>
+
+		<if test="arrange neq null and arrange neq ''.toString()">
+			ORDER BY
+				${arrange} ${asc}
+		</if>
+		
+		<if test="limit neq null and limit neq ''.toString()">
+			LIMIT
+				${limit*page},${limit}
+		</if>
+	</select>
+	
+	<select id="getCustomerPage" resultType="String">
+	  	SELECT 
+			count(1)
+		FROM
+			customer_tb
+		WHERE
+				bs_code=#{scode}
+		<if test="customerName neq null and customerName neq ''.toString()">
+			AND
+				customer_name like CONCAT('%',#{customerName},'%')
+		</if>
+		
+		<if test="customerGender neq null and customerGender neq ''.toString()">
+			AND
+				customer_gender = #{customerGender}
+		</if>
+		
+		<if test="customerPhone neq null and customerPhone neq ''.toString()">
+			AND
+				customer_phone like CONCAT('%',#{customerPhone},'%')
+		</if>
+		
+		<if test="customerMemo neq null and customerMemo neq ''.toString()">
+			AND
+				customer_memo like CONCAT('%',#{customerMemo},'%')
+		</if>
+		
+		<if test="customerBirth1 neq null and customerBirth1 neq ''.toString()">
+			AND
+				customer_birth >= #{customerBirth1}
+		</if>
+		
+		<if test="customerBirth2 neq null and customerBirth2 neq ''.toString()">
+			AND
+				customer_birth <![CDATA[<=]]> #{customerBirth2}
+		</if>
+		
+		<if test="customerSign1 neq null and customerSign1 neq ''.toString()">
+			AND
+				customer_sign >= #{customerSign1}
+		</if>
+		
+		<if test="customerSign2 neq null and customerSign2 neq ''.toString()">
+			AND
+				customer_sign <![CDATA[<=]]> #{customerSign2}
+		</if>
+	</select>
+	
+	<select id="getCustomerSelectOne" parameterType="com.cafe24.radev.vo.Customer" resultMap="CustomerResultMap">
+	  	SELECT 
+			customer_code
+			,bs_code
+			,ei_code
+			,customer_sign
+			,customer_name
+			,customer_birth
+			,customer_gender
+			,customer_post
+			,customer_addr
+			,customer_phone
+			,customer_memo
+		FROM
+			customer_tb
+		WHERE
+			customer_code=#{customerCode}
+	</select>
+	
+	<select id="getCustomerInsertAjax" resultType="String">
+	  	SELECT 
+			customer_code
+		FROM
+			customer_tb
+		
+		WHERE
+				bs_code=#{scode}
+			AND 
+				customer_name=#{name}
+			AND 
+				customer_birth=#{birth}
+			AND
+				customer_phone=#{phone}
+	</select>
+	
+	<insert id="getCustomerInsert" parameterType="com.cafe24.radev.vo.Customer">
+		INSERT INTO
+			customer_tb
+		VALUES(
+			 #{customerCode}
+			,#{bsCode}
+			,#{eiCode}
+			,now()
+			,#{customerName}
+			,#{customerBirth}
+			,#{customerGender}
+			,#{customerPost}
+			,#{customerAddr}
+			,#{customerPhone}
+			,#{customerMemo}
+		)
+	</insert>
+	
+	<update id="getCustomerUpdate" parameterType="com.cafe24.radev.vo.Customer">
+		UPDATE
+			customer_tb
+		SET
+			customer_post=#{customerPost}
+			,customer_addr=#{customerAddr}
+			,customer_phone=#{customerPhone}
+			,customer_memo=#{customerMemo}
+		WHERE 
+			customer_code=#{customerCode}
+	</update>
+
+	<resultMap type="com.cafe24.radev.vo.VoCarDetail" id="DetailMap">
+		<result property="customerCarNumber" column="customer_car_number"/>
+	</resultMap>
+
+	<resultMap type="com.cafe24.radev.vo.VoRecRegister" id="RegistertMap">
+		<result property="receptionCode" column="reception_code"/>
+		<result property="customerCarInfoCode" column="customer_car_info_code"/>
+		<result property="repairClassName" column="repair_class_name"/>
+		<result property="receptionMemo" column="reception_memo"/>
+		<result property="displaceMent" column="ei_code"/>
+		<result property="receptionDate" column="reception_date"/>
+	</resultMap>
+
+</mapper>
